@@ -2186,5 +2186,95 @@
     "case-staznost-dozornemu-organu"
    ]
   }
- ]
+ ],
+ "kauzy_nazvy": {
+  "k-jv": {
+   "de": "Klage gegen die Deutsche Telekom AG — Verletzung der Menschenrechte und der DSGVO, Landgericht Landshut",
+   "en": "Action against Deutsche Telekom AG — violation of human rights and the GDPR, Landgericht Landshut",
+   "sk": "Žaloba proti Deutsche Telekom AG, porušovanie ľudských práv a GDPR, Landgericht Landshut",
+   "hr": "Tužba protiv Deutsche Telekom AG — povreda ljudskih prava i GDPR-a, Landgericht Landshut",
+   "pl": "Powództwo przeciwko Deutsche Telekom AG — naruszenie praw człowieka i RODO, Landgericht Landshut",
+   "es": "Demanda contra Deutsche Telekom AG — vulneración de derechos humanos y del RGPD, Landgericht Landshut",
+   "it": "Azione contro Deutsche Telekom AG — violazione dei diritti umani e del GDPR, Landgericht Landshut",
+   "fr": "Action contre Deutsche Telekom AG — atteinte aux droits de l'homme et au RGPD, Landgericht Landshut",
+   "sv": "Talan mot Deutsche Telekom AG — kränkning av mänskliga rättigheter och dataskyddsförordningen, Landgericht Landshut"
+  },
+  "k-exs": {
+   "de": "Adriana Soldan Steinerova — rechtswidrige Vollstreckung ohne Schuld (ÚDZS) und Eingriff in Vermögensrechte",
+   "en": "Adriana Soldan Steinerova — unlawful enforcement without debt (ÚDZS) and interference with property rights",
+   "sk": "Adriana Soldan Steinerova — nezákonná exekúcia za nulový dlh (ÚDZS) a zásah do majetkových práv",
+   "hr": "Adriana Soldan Steinerova — nezakonita ovrha bez duga (ÚDZS) i zadiranje u imovinska prava",
+   "pl": "Adriana Soldan Steinerova — bezprawna egzekucja bez długu (ÚDZS) i ingerencja w prawa majątkowe",
+   "es": "Adriana Soldan Steinerova — ejecución ilegal sin deuda (ÚDZS) e injerencia en derechos patrimoniales",
+   "it": "Adriana Soldan Steinerova — esecuzione illegittima senza debito (ÚDZS) e lesione dei diritti patrimoniali",
+   "fr": "Adriana Soldan Steinerova — exécution illégale sans dette (ÚDZS) et atteinte aux droits patrimoniaux",
+   "sv": "Adriana Soldan Steinerova — olaglig verkställighet utan skuld (ÚDZS) och ingrepp i egendomsrätt"
+  },
+  "k-ms": {
+   "de": "Microsoft — institutioneller DSGVO-Verstoß und grenzüberschreitender Mehrwertsteuerbetrug",
+   "en": "Microsoft — institutional GDPR infringement and cross-border VAT fraud",
+   "sk": "Microsoft — inštitucionálne porušenie GDPR a cezhraničný podvod na DPH",
+   "hr": "Microsoft — institucionalna povreda GDPR-a i prekogranična prijevara s PDV-om",
+   "pl": "Microsoft — instytucjonalne naruszenie RODO i transgraniczne oszustwo VAT",
+   "es": "Microsoft — infracción institucional del RGPD y fraude transfronterizo del IVA",
+   "it": "Microsoft — violazione istituzionale del GDPR e frode IVA transfrontaliera",
+   "fr": "Microsoft — violation institutionnelle du RGPD et fraude transfrontalière à la TVA",
+   "sv": "Microsoft — institutionell överträdelse av dataskyddsförordningen och gränsöverskridande momsbedrägeri"
+  },
+  "k-lra": {
+   "de": "Rechtswidrig verhängtes Bußgeld durch das Landratsamt",
+   "en": "Administrative fine unlawfully imposed by the district authority",
+   "sk": "Nezákonne uložená pokuta okresným úradom",
+   "hr": "Nezakonito izrečena novčana kazna od strane okružnog ureda",
+   "pl": "Bezprawnie nałożona grzywna przez urząd powiatowy",
+   "es": "Multa impuesta ilegalmente por la administración del distrito",
+   "it": "Sanzione pecuniaria illegittimamente irrogata dall'ufficio distrettuale",
+   "fr": "Amende infligée illégalement par l'administration de district",
+   "sv": "Böter som olagligen ålagts av distriktsmyndigheten"
+  },
+  "k-dak": {
+   "de": "Verfahren gegen Eingriffe in meine Vermögensrechte durch die deutsche Krankenkasse DAK",
+   "en": "Proceedings against interference with my property rights by the German health insurer DAK",
+   "sk": "Konanie proti zasahovaniu do mojich majetkových práv Nemeckou zdravotnou poisťovňou DAK",
+   "hr": "Postupak protiv zadiranja u moja imovinska prava od njemačkog zdravstvenog osiguravatelja DAK",
+   "pl": "Postępowanie przeciwko ingerencji w moje prawa majątkowe przez niemiecką kasę chorych DAK",
+   "es": "Procedimiento contra la injerencia en mis derechos patrimoniales por la caja de enfermedad alemana DAK",
+   "it": "Procedimento contro la lesione dei miei diritti patrimoniali da parte della cassa malattia tedesca DAK",
+   "fr": "Procédure contre l'atteinte à mes droits patrimoniaux par la caisse maladie allemande DAK",
+   "sv": "Förfarande mot ingrepp i min egendomsrätt av den tyska sjukkassan DAK"
+  },
+  "k-fon": {
+   "de": "Betrügerisches Verhalten von O2 Telefónica Deutschland",
+   "en": "Fraudulent conduct of O2 Telefónica Deutschland",
+   "sk": "Podvodné správanie O2 Telefónica Deutschland",
+   "hr": "Prijevarno postupanje O2 Telefónica Deutschland",
+   "pl": "Oszukańcze postępowanie O2 Telefónica Deutschland",
+   "es": "Conducta fraudulenta de O2 Telefónica Deutschland",
+   "it": "Condotta fraudolenta di O2 Telefónica Deutschland",
+   "fr": "Comportement frauduleux d'O2 Telefónica Deutschland",
+   "sv": "Bedrägligt agerande av O2 Telefónica Deutschland"
+  },
+  "k-vszp": {
+   "de": "Klage auf Schadenersatz",
+   "en": "Action for damages",
+   "sk": "Žaloba o náhradu škody",
+   "hr": "Tužba za naknadu štete",
+   "pl": "Powództwo o odszkodowanie",
+   "es": "Demanda de indemnización por daños",
+   "it": "Azione di risarcimento del danno",
+   "fr": "Action en réparation du préjudice",
+   "sv": "Talan om skadestånd"
+  },
+  "(bez kauzy)": {
+   "de": "Ohne Fallzuordnung",
+   "en": "Not assigned to a case",
+   "sk": "Bez priradenia ku kauze",
+   "hr": "Bez pridruženog predmeta",
+   "pl": "Bez przypisania do sprawy",
+   "es": "Sin caso asignado",
+   "it": "Senza caso assegnato",
+   "fr": "Sans affaire attribuée",
+   "sv": "Utan ärendetillhörighet"
+  }
+ }
 }
