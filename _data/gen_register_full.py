@@ -53,7 +53,7 @@ UI = {
  "obl_s":S("Strafanzeige","Criminal complaint","Trestné oznámenie","Kaznena prijava","Zawiadomienie o przestępstwie","Denuncia penal","Denuncia penale","Plainte pénale","Brottsanmälan"),
  "obl_m":S("Eingriff in Eigentumsrechte","Interference with property rights","Zasahovanie do majetkových práv občana","Zadiranje u imovinska prava","Ingerencja w prawa majątkowe","Injerencia en derechos patrimoniales","Lesione dei diritti patrimoniali","Atteinte aux droits patrimoniaux","Ingrepp i egendomsrätt"),
  "sort": S("SORTIEREN","SORT","ZORADIŤ","SORTIRAJ","SORTUJ","ORDENAR","ORDINA","TRIER","SORTERA"),
- "s_dat":S("📅 Datum","📅 Date","📅 Dátum","📅 Datum","📅 Data","📅 Fecha","📅 Data","📅 Date","📅 Datum"),
+ "s_dat":S("📅 Älteste","📅 Oldest","📅 Najstaršie","📅 Najstarije","📅 Najstarsze","📅 Más antiguos","📅 Più vecchi","📅 Plus anciens","📅 Äldsta"),
  "s_az": S("🏛 Az.","🏛 File ref.","🏛 Sp. zn.","🏛 Broj","🏛 Sygn.","🏛 Ref.","🏛 Rif.","🏛 Réf.","🏛 Nr"),
  "s_our":S("🦊 Unser Az.","🦊 Our ref.","🦊 Naša spis. zn.","🦊 Naš broj","🦊 Nasza sygn.","🦊 Ntra. ref.","🦊 Ns. rif.","🦊 Notre réf.","🦊 Vårt nr"),
  "s_obl":S("🗂 Bereich","🗂 Area","🗂 Oblasť","🗂 Područje","🗂 Obszar","🗂 Ámbito","🗂 Ambito","🗂 Domaine","🗂 Område"),
@@ -311,18 +311,18 @@ HTML = f"""<!DOCTYPE html>
   <button class="chip" data-o="majetok">{g(UI["obl_m"])}</button>
  </div>
  <div class="sortbar"><span class="sl">{g(UI["sort"])}</span>
-  <button class="sb on" data-s="d">{g(UI["s_dat"])}</button>
+  <button class="sb" data-s="d">{g(UI["s_dat"])}</button>
   <button class="sb" data-s="az">{g(UI["s_az"])}</button>
   <button class="sb" data-s="our">{g(UI["s_our"])}</button>
   <button class="sb" data-s="obl">{g(UI["s_obl"])}</button>
-  <button class="sb" data-s="new">{g(UI["s_new"])}</button>
+  <button class="sb on" data-s="new">{g(UI["s_new"])}</button>
  </div>
 
  <div id="zoznam">{karty_html}</div>
 </div>
 <script>
 var KJ = {kj_json};
-var SEL='all', JUR='all', OBL='', SORT='d';
+var SEL='all', JUR='all', OBL='', SORT='new';
 function kauzaOk(kz){{
  if(JUR==='all') return true;
  var j = KJ[kz] || [];
@@ -342,10 +342,12 @@ function apply(){{
  [].slice.call(z.querySelectorAll('.case')).sort(function(a,b){{
   var pa=pinR(a), pb=pinR(b);
   if(pa!==pb) return pa-pb;                       // pripnute vzdy hore, podla cisla
-  if(SORT==='az')  return (a.dataset.az||'').localeCompare(b.dataset.az||'');
-  if(SORT==='our') return (a.dataset.our||'').localeCompare(b.dataset.our||'');
-  if(SORT==='obl') return (a.dataset.obl||'').localeCompare(b.dataset.obl||'');
-  return (b.dataset.d||'').localeCompare(a.dataset.d||'');
+  if(SORT==='az')  return (a.dataset.az||'zzz').localeCompare(b.dataset.az||'zzz');
+  if(SORT==='our') return (a.dataset.our||'zzz').localeCompare(b.dataset.our||'zzz');
+  if(SORT==='obl') return (a.dataset.obl||'zzz').localeCompare(b.dataset.obl||'zzz');
+  if(SORT==='d')   return (a.dataset.d||'').localeCompare(b.dataset.d||'');   // od najstarších
+  return (b.dataset.d||'').localeCompare(a.dataset.d||'');                    // najnovšie
+
  }}).forEach(function(c){{ z.appendChild(c); }});
  var n=[].slice.call(z.querySelectorAll('.case')).filter(function(c){{return c.style.display!=='none';}}).length;
  var pv=document.getElementById('pocet'); if(pv) pv.textContent=n;
