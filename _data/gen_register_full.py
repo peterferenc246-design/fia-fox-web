@@ -131,8 +131,10 @@ def karta(cid, ps, otvorena=False):
             f'<div class="ct"><span class="cdate">📅 {html.escape(k.get("datum_txt") or k.get("date",""))}</span>{g(k.get("nazov") or {})}</div>'
             + (f'<div class="csub">{g(k.get("podtitul") or {})}</div>' if any((k.get("podtitul") or {}).values()) else "")
             + f'<div class="cmeta">{g(meta)}'
-            + (f' · <b>{g(UI["obl"])}:</b> {" ".join(k.get("area") or [])}' if k.get("area") else "")
-            + (f' · <b>{g(UI["our"])}:</b> {html.escape(k.get("ourref",""))}' if k.get("ourref") else "")
+            + ("" if ("Oblas" in (meta.get("sk") or "") or "Bereich" in (meta.get("de") or ""))
+                 else (f' · <b>{g(UI["obl"])}:</b> {" ".join(k.get("area") or [])}' if k.get("area") else ""))
+            + ("" if ("spis. zn" in (meta.get("sk") or "") or "Az." in (meta.get("de") or ""))
+                 else (f' · <b>{g(UI["our"])}:</b> {html.escape(k.get("ourref",""))}' if k.get("ourref") else ""))
             + f'</div></div><div class="cr">{pin}'
             f'<span class="pill {PILL.get(st,"p-blue")}">{g(k.get("stav") or STAV.get(st, STAV["laeuft"]))}</span>'
             f'<span class="chev">▾</span></div></summary>'
@@ -200,7 +202,9 @@ body{margin:0;color:#34435A;font:15px/1.55 "Segoe UI",Calibri,Arial,sans-serif;
 .case[open] .chev{transform:rotate(180deg);display:inline-block}
 .cbody{padding:14px 16px 16px;border-top:1px solid var(--bd)}
 .komu{font-size:11.5px;letter-spacing:.09em;color:var(--muted);font-weight:700;margin-bottom:9px}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+.col{min-width:0}
+.it{min-width:0;overflow-wrap:anywhere}
 @media(max-width:820px){.cols{grid-template-columns:1fr}}
 .col{background:#fbfcfe;border:1px solid var(--bd);border-radius:8px;padding:10px 12px}
 .col h4{margin:0 0 9px;font-size:13px;color:var(--navy);display:flex;justify-content:space-between}
@@ -222,7 +226,7 @@ body{margin:0;color:#34435A;font:15px/1.55 "Segoe UI",Calibri,Arial,sans-serif;
 .ib:hover{border-color:var(--navy);color:var(--navy)}
 .ib.og{background:#fff8e6;border-color:var(--gold);color:#8a5a00}
 .ib.kom{background:#eef4ff;border-color:#c3d5f5;color:#1F3864;margin-left:auto}
-.sumbox,.begbox{display:none;margin-top:9px;padding:11px 13px;background:#f7fafd;border:1px solid var(--bd);
+.sumbox,.begbox{display:none;overflow:hidden;margin-top:9px;padding:11px 13px;background:#f7fafd;border:1px solid var(--bd);
  border-radius:6px;font-size:13.5px;line-height:1.6}
 .sumbox.on,.begbox.on{display:block}
 .sumbox p,.begbox p{margin:0 0 9px}
