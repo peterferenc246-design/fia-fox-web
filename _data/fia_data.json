@@ -1139,7 +1139,10 @@
    "az": "",
    "ourref": "",
    "area": [
-    "strafrecht"
+    "strafrecht",
+    "gdpr",
+    "kartell",
+    "majetok"
    ],
    "organ_txt": "",
    "datum_txt": "11.07.2024",
@@ -3128,7 +3131,10 @@
    "dolezite": true,
    "komentare": true,
    "oblast": [
-    "strafrecht"
+    "strafrecht",
+    "gdpr",
+    "kartell",
+    "majetok"
    ],
    "jur": [
     "de"
