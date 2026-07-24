@@ -63,6 +63,10 @@ button:hover{border-color:var(--navy);color:var(--navy)}
 .doc .dt{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:#8a97a6;font-weight:700}
 .doc .ds{font-size:13px;color:var(--navy);font-weight:600;margin-top:2px;line-height:1.35}
 .doc .dw{margin-top:5px;display:flex;gap:5px;flex-wrap:wrap}
+.ob{font-size:11.5px;text-decoration:none;border:1px solid var(--bd);background:#fff;border-radius:4px;
+ padding:3px 10px;color:#3d4d5e;white-space:nowrap}
+.ob:hover{border-color:var(--navy);color:var(--navy);background:#f2f7fc}
+.ob.og{background:#fff8e6;border-color:var(--gold);color:#8a5a00}
 .warn{background:#fdeaea;color:#8a1c1c;border:1px solid #f0b8b8}
 .ed{background:#fff;border:1px solid var(--bd);border-top:4px solid var(--navy);border-radius:7px;
  padding:14px 16px;position:sticky;top:60px;max-height:calc(100vh - 80px);overflow:auto}
@@ -142,7 +146,7 @@ textarea{min-height:64px;resize:vertical}
 <script>
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
-const VERZIA="2026-07-24 13:05";
+const VERZIA="2026-07-24 13:12";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false;
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -305,6 +309,10 @@ function docs(){
    +(cuL?'<span class="pill warn">odkaz '+LANG.toUpperCase()+'</span>':'')
    +(cs&&!csL?'<span class="pill">predmet bez '+cs+'</span>':'')
    +(cu&&!cuL?'<span class="pill">odkaz bez '+cu+'</span>':'')
+   +'</div>'
+   +'<div class="dw" style="margin-top:6px">'
+   +(((p.urls||{})[LANG])?'<a class="ob" href="'+esc(p.urls[LANG])+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">📄 Otvoriť ('+LANG.toUpperCase()+')</a>':'<span class="pill warn">bez odkazu v '+LANG.toUpperCase()+'</span>')
+   +(p.orig?'<a class="ob og" href="'+esc(p.orig)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">✍ Originál (QES)</a>':'')
    +'</div></div>';}).join('');
  const s=zoz.filter(p=>p.dir==='sent'), r=zoz.filter(p=>p.dir!=='sent');
  document.getElementById('dsent').innerHTML=kresli(s)||'<div class="empty">—</div>';
@@ -357,6 +365,7 @@ function editor(){
   +'</div>'
   +pole('Názov súboru',p.fname||'',P+'.fname=this.value')
   +pole('Cesta k súboru v repe',p.fpath||'',P+'.fpath=this.value')
+  +pole('Podpísaný originál (QES) — URL',p.orig||'',P+'.orig=this.value;docs()')
   +pole('Náhradný odkaz (fallback)',p.fallback||'',P+'.fallback=this.value')
   +pole('Podtitul konania na položke',p.cardsubj||'',P+'.cardsubj=this.value')
   +ta('Sprievodný text k dokumentu',p.begleit||'',P+'.begleit=this.value')
@@ -418,7 +427,7 @@ function novaPolozka(){ if(!D){alert('Najprv načítaj dáta.');return;}
   date:('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear(),
   stav:'laeuft',access:'',az:'',ourref:'',court:'',cmtid:'',summodId:'',fname:'',fpath:'',
   cats:{},mode:'item',v:1,karta:cid,subj9:p9(),urls:p9(),subj:'',
-  begleit:'',cardsubj:'',fallback:'',thread:'',replyTo:'',dolezite:false,komentare:true,
+  begleit:'',cardsubj:'',fallback:'',orig:'',thread:'',replyTo:'',dolezite:false,komentare:true,
   important:false,comments:true,oblast:[],jur:[]});
  selPo=D.polozky.length-1; selKa=cid; render();}
 function klonPo(){const p=JSON.parse(JSON.stringify(D.polozky[selPo]));p.summodId='';
