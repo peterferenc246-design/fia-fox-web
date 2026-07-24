@@ -277,6 +277,9 @@ karty_html = "".join(karta(cid, ps) for cid, ps in
     sorted(((c, p) for c, p in pol_karty.items() if c),
            key=lambda x: dkey(karta_by_id.get(x[0], {}).get("date","")), reverse=True))
 
+import json as _j
+kj_json = _j.dumps({z["spis"]: (z.get("jur") or []) for z in KAUZY}, ensure_ascii=False)
+
 HTML = f"""<!DOCTYPE html>
 <html lang="sk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>Register káuz — FIA FOX</title>
@@ -312,17 +315,22 @@ HTML = f"""<!DOCTYPE html>
  <div id="zoznam">{karty_html}</div>
 </div>
 <script>
+var KJ = {kj_json};
 var SEL='all', JUR='all', OBL='', SORT='d';
+function kauzaOk(kz){{
+ if(JUR==='all') return true;
+ var j = KJ[kz] || [];
+ return j.indexOf(JUR) >= 0;
+}}
 function apply(){{
  document.querySelectorAll('.tile').forEach(function(t){{
-  var ok = t.dataset.k==='all' || JUR==='all' || t.dataset.jur.split(' ').indexOf(JUR)>=0;
+  var ok = t.dataset.k==='all' || kauzaOk(t.dataset.k);
   t.style.display = ok?'':'none';
   t.classList.toggle('on', SEL===t.dataset.k);}});
  document.querySelectorAll('.case').forEach(function(c){{
-  var okk = SEL==='all' || c.dataset.kz===SEL;
-  var okj = JUR==='all' || (c.dataset.jur||'').split(' ').indexOf(JUR)>=0;
+  var okk = (SEL==='all') ? kauzaOk(c.dataset.kz) : (c.dataset.kz===SEL);
   var oko = !OBL || (c.dataset.obl||'').split(' ').indexOf(OBL)>=0;
-  c.style.display = (okk&&okj&&oko)?'':'none';}});
+  c.style.display = (okk&&oko)?'':'none';}});
  var z=document.getElementById('zoznam');
  [].slice.call(z.querySelectorAll('.case')).sort(function(a,b){{
   if(SORT==='az')  return (a.dataset.az||'').localeCompare(b.dataset.az||'');
