@@ -185,7 +185,9 @@ body{margin:0;color:#34435A;font:15px/1.55 "Segoe UI",Calibri,Arial,sans-serif;
  border:1px solid rgba(31,56,100,.12);border-left:4px solid var(--navy);background:#fff;border-radius:10px;
  padding:9px 12px;font:inherit;line-height:1.2}
 .tile:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(31,56,100,.13)}
-.tile.on{box-shadow:0 0 0 2px rgba(31,56,100,.32)}
+.tile.on{border-color:#FFCB3E;border-left-color:#FFCB3E;background:linear-gradient(135deg,#fff,#FFF8E6);
+ box-shadow:0 0 0 3px rgba(255,203,62,.45),0 2px 6px rgba(0,0,0,.16)}
+.tile.on .tn{color:#8a5a00}
 .tile .tf{display:flex;gap:4px;margin-bottom:2px}
 .jf{width:17px;height:12px;object-fit:cover;border-radius:2px;font-size:12px;line-height:1}
 .tile .tn{font-size:13.5px;font-weight:700;color:var(--navy)}
@@ -332,7 +334,7 @@ function apply(){{
  document.querySelectorAll('.tile').forEach(function(t){{
   var ok = t.dataset.k==='all' || kauzaOk(t.dataset.k);
   t.style.display = ok?'':'none';
-  t.classList.toggle('on', SEL===t.dataset.k);}});
+  t.classList.toggle('on', SEL===t.dataset.k || (SEL==='all' && t.dataset.k==='all'));}});
  document.querySelectorAll('.case').forEach(function(c){{
   var okk = (SEL==='all') ? kauzaOk(c.dataset.kz) : (c.dataset.kz===SEL);
   var oko = !OBL || (c.dataset.obl||'').split(' ').indexOf(OBL)>=0;
