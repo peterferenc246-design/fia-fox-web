@@ -17,6 +17,15 @@ button:hover{border-color:var(--navy);color:var(--navy)}
 #bar button.go{background:#ffd34d;color:#3a2c00;border-color:#e8b93a;font-weight:700}
 .page{max-width:1700px;margin:0 auto;padding:14px 16px 40px}
 .sect{margin-bottom:16px}
+.langbar{background:#fff;border:1px solid var(--bd);border-radius:7px;padding:9px 13px;margin-bottom:14px;
+ display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.langbar .lb{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:#7a8899;margin-right:4px}
+.flg{background:none;border:1px solid rgba(31,56,100,.28);border-radius:4px;padding:0;cursor:pointer;
+ width:38px;height:25px;opacity:.5;overflow:hidden}
+.flg img{width:38px;height:25px;object-fit:cover;display:block}
+.flg.on{opacity:1;border-color:var(--navy);box-shadow:0 0 0 2px rgba(31,56,100,.28)}
+.langbar .info{margin-left:auto;font-size:12px;color:#8a97a6}
+.langbar .info b{color:var(--red)}
 .sect>h2{margin:0 0 8px;font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;color:#7a8899;
  display:flex;align-items:center;gap:10px}
 .sect>h2 .cnt{background:#dde6f0;color:#4a5b6d;border-radius:999px;padding:1px 9px;font-size:11px;letter-spacing:0}
@@ -90,6 +99,12 @@ textarea{min-height:64px;resize:vertical}
 </div>
 
 <div class="page">
+ <div class="langbar">
+  <span class="lb">Jazyk zobrazenia</span>
+  <span id="flags"></span>
+  <span class="info" id="langinfo"></span>
+ </div>
+
  <div class="sect">
   <h2>Kauzy <span class="cnt" id="c-kz">0</span>
    <button onclick="selKz=null;selKa=null;selPo=null;render()" style="margin-left:auto">Zobraziť všetko</button></h2>
@@ -118,15 +133,25 @@ textarea{min-height:64px;resize:vertical}
 <script>
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
-const VERZIA="2026-07-24 09:35";
+const VERZIA="2026-07-24 09:50";
 let D=null, selKz=null, selKa=null, selPo=null;
+let LANG='sk';
+const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
+function kresliVlajky(){
+ document.getElementById('flags').innerHTML = L9.map(L=>
+  '<button class="flg'+(L===LANG?' on':'')+'" data-l="'+L+'" title="'+L.toUpperCase()+'" onclick="setLang(\''+L+'\')">'
+  +'<img src="https://flagcdn.com/'+FLAG[L]+'.svg" alt="'+L.toUpperCase()+'"></button>').join('');
+}
+function setLang(L){ LANG=L; kresliVlajky(); render(); }
+function txt(o){ if(!o) return ''; return o[LANG] || ''; }
+function txtFb(o){ if(!o) return ''; return o[LANG] || o.sk || o.de || o.en || Object.values(o).find(v=>v) || ''; }
 document.getElementById('ver').textContent='v '+VERZIA;
 
 function stat(t){document.getElementById('stat').textContent=t;}
 function esc(s){return (s||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function kartaById(id){return (D.karty||[]).find(k=>k.id===id);}
-function nazovKarty(k){return (k.nazov&&(k.nazov.sk||k.nazov.de||k.nazov.en))||k.id;}
-function predmet(p){return (p.subj&&(p.subj.sk||p.subj.de||p.subj.en))||p.subj_snap||'(bez predmetu)';}
+function nazovKarty(k){return txtFb(k.nazov)||k.id;}
+function predmet(p){return txtFb(p.subj)||p.subj_snap||'(bez predmetu)';}
 function kzKarty(cid){const p=(D.polozky||[]).find(x=>x.karta===cid);return p?(p.kauza||'(bez kauzy)'):'(bez kauzy)';}
 function chyba9(o){return L9.filter(L=>!((o||{})[L]||'').trim()).length;}
 
@@ -154,7 +179,17 @@ function aktualizuj(){
 }
 
 /* ── vykreslenie ── */
-function render(){ if(!D) return; tiles(); cards(); docs(); editor(); }
+function render(){ if(!D) return; tiles(); cards(); docs(); editor(); langinfo(); }
+function langinfo(){
+ if(!D){document.getElementById('langinfo').textContent='';return;}
+ const kk=(D.karty||[]).filter(k=>!((k.nazov||{})[LANG]||'').trim()).length;
+ const pp=(D.polozky||[]).filter(p=>!((p.subj||{})[LANG]||'').trim()).length;
+ const uu=(D.polozky||[]).filter(p=>!((p.urls||{})[LANG]||'').trim()).length;
+ const el=document.getElementById('langinfo');
+ el.innerHTML = (kk+pp+uu)
+  ? 'V jazyku '+LANG.toUpperCase()+' chýba: <b>'+kk+'</b> názvov konaní · <b>'+pp+'</b> predmetov · <b>'+uu+'</b> odkazov'
+  : 'V jazyku '+LANG.toUpperCase()+' je všetko vyplnené.';
+}
 
 function tiles(){
  const m={};
@@ -175,13 +210,13 @@ function cards(){
  document.getElementById('c-ka').textContent=zoz.length;
  document.getElementById('cards').innerHTML = zoz.map(k=>{
   const n=(D.polozky||[]).filter(p=>p.karta===k.id).length;
-  const ch=chyba9(k.nazov);
+  const ch=chyba9(k.nazov); const chL=!((k.nazov||{})[LANG]||'').trim();
   return '<div class="card'+(selKa===k.id?' on':'')+'" onclick="pickKa(\''+k.id.replace(/'/g,"\\'")+'\')">'
    +'<div class="cn">'+esc(nazovKarty(k).slice(0,74))+'</div>'
-   +'<div class="co">'+esc(((k.organ&&(k.organ.sk||k.organ.de))||'').slice(0,70))+'</div>'
+   +'<div class="co">'+esc(txtFb(k.organ).slice(0,70))+'</div>'
    +'<div class="cb"><span class="pill az">'+esc(k.az||'bez značky')+'</span>'
    +'<span class="pill">'+n+' dok.</span>'
-   +(ch?'<span class="pill warn">chýba '+ch+' jaz.</span>':'')+'</div></div>';}).join('')
+   +(chL?'<span class="pill warn">chýba '+LANG.toUpperCase()+'</span>':'')+(ch?'<span class="pill">bez '+ch+' jaz.</span>':'')+'</div></div>';}).join('')
   || '<div class="empty">Žiadne konania'+(selKz?' v tejto kauze':'')+'.</div>';
 }
 function docs(){
@@ -189,12 +224,15 @@ function docs(){
  document.getElementById('c-po').textContent=zoz.length;
  const kresli=arr=>arr.map(p=>{const i=D.polozky.indexOf(p);
   const cs=chyba9(p.subj), cu=chyba9(p.urls);
+  const csL=!((p.subj||{})[LANG]||'').trim(), cuL=!((p.urls||{})[LANG]||'').trim();
   return '<div class="doc'+(selPo===i?' on':'')+'" onclick="pickPo('+i+')">'
    +'<div class="dt"><span>'+esc(p.date||'—')+'</span><span>'+esc(p.az||'')+'</span></div>'
    +'<div class="ds">'+esc(predmet(p).slice(0,90))+'</div>'
    +'<div class="dw">'+(p.summodId?'<span class="pill">súhrn</span>':'')
-   +(cs?'<span class="pill warn">predmet: chýba '+cs+'</span>':'')
-   +(cu===9?'<span class="pill warn">bez odkazu</span>':(cu?'<span class="pill warn">odkaz: chýba '+cu+'</span>':''))
+   +(csL?'<span class="pill warn">predmet '+LANG.toUpperCase()+'</span>':'')
+   +(cuL?'<span class="pill warn">odkaz '+LANG.toUpperCase()+'</span>':'')
+   +(cs&&!csL?'<span class="pill">predmet bez '+cs+'</span>':'')
+   +(cu&&!cuL?'<span class="pill">odkaz bez '+cu+'</span>':'')
    +'</div></div>';}).join('');
  const s=zoz.filter(p=>p.dir==='sent'), r=zoz.filter(p=>p.dir!=='sent');
  document.getElementById('dsent').innerHTML=kresli(s)||'<div class="empty">—</div>';
@@ -206,8 +244,9 @@ function pickPo(i){selPo=(selPo===i?null:i); if(selPo!==null){const p=D.polozky[
 
 /* ── editor ── */
 function pole(l,v,on){return '<label>'+l+'</label><input value="'+esc(v)+'" oninput="'+on+'">';}
-function jaz(o,c,ta){return L9.map(L=>{const v=(o&&o[L])||'';
- return '<div class="lang"><div class="lc">'+L.toUpperCase()+'</div>'
+function jaz(o,c,ta){const por=[LANG].concat(L9.filter(x=>x!==LANG));
+ return por.map(L=>{const v=(o&&o[L])||'';
+ return '<div class="lang"'+(L===LANG?' style="outline:2px solid #ffd34d;outline-offset:2px;border-radius:4px"':'')+'><div class="lc">'+L.toUpperCase()+'</div>'
   +(ta?'<textarea class="'+(v?'':'miss')+'" oninput="'+c+'[\''+L+'\']=this.value;this.classList.remove(\'miss\')">'+esc(v)+'</textarea>'
      :'<input class="'+(v?'':'miss')+'" value="'+esc(v)+'" oninput="'+c+'[\''+L+'\']=this.value;this.classList.remove(\'miss\')">')
   +'</div>';}).join('');}
@@ -295,7 +334,7 @@ function kontrola(){ if(!D){alert('Najprv načítaj dáta.');return;}
   ?'<div class="msg err"><b>'+ch.length+' nedostatkov:</b><br>'+ch.slice(0,50).map(esc).join('<br>')+(ch.length>50?'<br>…':'')+'</div>'
   :'<div class="msg ok">Kontrola prešla — 9 jazykov, dátumy aj väzby v poriadku.</div>');
 }
-window.addEventListener('DOMContentLoaded',loadWeb);
+window.addEventListener('DOMContentLoaded',()=>{kresliVlajky();loadWeb();});
 
 function stiahni(){ if(!D){alert('Najprv načítaj dáta.');return;}
  const m={}; D.kauzy=[];
