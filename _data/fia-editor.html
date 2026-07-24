@@ -21,13 +21,15 @@ button:hover{border-color:var(--navy);color:var(--navy)}
 .pane{background:#fff;border:1px solid var(--bd);border-radius:7px;padding:12px 14px;max-height:calc(100vh - 90px);overflow:auto}
 .pane h2{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:#7a8899}
 .tree{font-size:13px}
-.kz{margin-bottom:10px}
+.kz{margin-bottom:4px}
+.ar{display:inline-block;width:14px;text-align:center;color:#8a97a6;font-size:11px}
+.kz>.h .ar{color:var(--navy)}
 .kz>.h{font-weight:700;color:var(--navy);cursor:pointer;padding:4px 6px;border-radius:4px;display:flex;justify-content:space-between;gap:8px}
 .kz>.h:hover{background:#eef4fb}
-.ka{margin:2px 0 2px 12px;padding:4px 6px;border-left:2px solid var(--bd);cursor:pointer;border-radius:0 4px 4px 0}
+.ka{margin:2px 0 2px 14px;padding:4px 6px;border-left:2px solid var(--bd);cursor:pointer;border-radius:0 4px 4px 0}
 .ka:hover{background:#f2f7fc}
 .ka.sel{background:#eef4fb;border-left-color:var(--navy);font-weight:600}
-.po{margin:2px 0 2px 26px;padding:3px 6px;font-size:12.5px;color:#4a5b6d;cursor:pointer;border-radius:4px;display:flex;gap:6px}
+.po{margin:2px 0 2px 34px;padding:3px 6px;font-size:12.5px;color:#4a5b6d;cursor:pointer;border-radius:4px;display:flex;gap:6px}
 .po:hover{background:#f7fafd}
 .po.sel{background:#fff3d6;font-weight:600}
 .po .d{color:#8a97a6;font-variant-numeric:tabular-nums}
@@ -73,6 +75,8 @@ textarea{min-height:70px;resize:vertical}
   <h2>Kauzy → konania → dokumenty</h2>
   <div id="tree" class="tree"><p class="hint">Načítaj dáta tlačidlom hore.</p></div>
   <div class="acts">
+   <button onclick="vsetkoOtv(true)">▾ Rozbaliť</button>
+   <button onclick="vsetkoOtv(false)">▸ Zbaliť</button>
    <button onclick="novaKarta()">+ Nové konanie</button>
    <button onclick="novaPolozka()">+ Nový dokument</button>
   </div>
@@ -93,6 +97,9 @@ textarea{min-height:70px;resize:vertical}
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
 let D=null, sel=null;   // sel = {typ:'karta'|'polozka', i:index}
+let openKz=new Set(), openKa=new Set();
+function tglKz(k){openKz.has(k)?openKz.delete(k):openKz.add(k);strom();}
+function tglKa(c){openKa.has(c)?openKa.delete(c):openKa.add(c);strom();}
 
 function stat(t){document.getElementById('stat').textContent=t;}
 function esc(s){return (s||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
@@ -120,30 +127,52 @@ function kartaById(id){return D.karty.find(k=>k.id===id);}
 function nazovKarty(k){return (k.nazov&&(k.nazov.sk||k.nazov.de||k.nazov.en))||k.id;}
 function strom(){
  const kauzy={};
- D.polozky.forEach(p=>{ const kz=p.kauza||'?';
+ D.polozky.forEach(p=>{ const kz=p.kauza||'(bez kauzy)';
    (kauzy[kz]=kauzy[kz]||{nazov:p.kauza_nazov||kz,karty:new Set()}).karty.add(p.karta||''); });
  D.karty.forEach(k=>{ if(!Object.values(kauzy).some(z=>z.karty.has(k.id))){
    (kauzy['(bez kauzy)']=kauzy['(bez kauzy)']||{nazov:'(bez kauzy)',karty:new Set()}).karty.add(k.id);} });
  let h='';
  Object.keys(kauzy).sort().forEach(kz=>{
   const z=kauzy[kz];
-  h+='<div class="kz"><div class="h"><span>'+esc(z.nazov.slice(0,44))+'</span><span class="badge">'+kz+'</span></div>';
-  [...z.karty].filter(Boolean).sort().forEach(cid=>{
+  const karty=[...z.karty].filter(Boolean).sort();
+  const npol=D.polozky.filter(p=>(p.kauza||'(bez kauzy)')===kz).length;
+  const otv=openKz.has(kz);
+  h+='<div class="kz"><div class="h" onclick="tglKz(\''+kz.replace(/'/g,"\\'")+'\')">'
+    +'<span><span class="ar">'+(otv?'▾':'▸')+'</span>'+esc(z.nazov.slice(0,40))+'</span>'
+    +'<span class="badge">'+kz+' · '+karty.length+'/'+npol+'</span></div>';
+  if(otv) karty.forEach(cid=>{
    const k=kartaById(cid); const ps=D.polozky.filter(p=>p.karta===cid);
-   const si=sel&&sel.typ==='karta'&&D.karty[sel.i]&&D.karty[sel.i].id===cid;
-   h+='<div class="ka'+(si?' sel':'')+'" onclick="vyber(\'karta\','+D.karty.findIndex(x=>x.id===cid)+')">'
-     + esc(k?nazovKarty(k).slice(0,50):cid) + ' <span class="badge">'+ps.length+'</span></div>';
-   ps.forEach(p=>{ const i=D.polozky.indexOf(p);
+   const ki=D.karty.findIndex(x=>x.id===cid);
+   const si=sel&&sel.typ==='karta'&&ki>=0&&sel.i===ki;
+   const ok=openKa.has(cid);
+   h+='<div class="ka'+(si?' sel':'')+'">'
+     +'<span class="ar" onclick="event.stopPropagation();tglKa(\''+cid.replace(/'/g,"\\'")+'\')">'+(ps.length?(ok?'▾':'▸'):'·')+'</span>'
+     +'<span onclick="vyber(\'karta\','+ki+')">'+esc(k?nazovKarty(k).slice(0,44):cid)+'</span> '
+     +'<span class="badge">'+ps.length+'</span></div>';
+   if(ok) ps.forEach(p=>{ const i=D.polozky.indexOf(p);
     const sp=sel&&sel.typ==='polozka'&&sel.i===i;
     h+='<div class="po'+(sp?' sel':'')+'" onclick="vyber(\'polozka\','+i+')">'
       +'<span class="d">'+esc(p.date||'')+'</span><span>'+(p.dir==='sent'?'▲':'▼')+'</span>'
-      +'<span>'+esc(((p.subj&&(p.subj.sk||p.subj.de))||p.subj_snap||'').slice(0,38))+'</span></div>';});
+      +'<span>'+esc(((p.subj&&(p.subj.sk||p.subj.de))||p.subj_snap||'').slice(0,34))+'</span></div>';});
   });
   h+='</div>';
  });
  document.getElementById('tree').innerHTML=h||'<p class="hint">Žiadne dáta.</p>';
 }
-function vyber(typ,i){ sel={typ:typ,i:i}; strom(); editor(); nahlad(); }
+function vsetkoOtv(b){
+ openKz=new Set(); openKa=new Set();
+ if(b){ D.polozky.forEach(p=>{openKz.add(p.kauza||'(bez kauzy)'); if(p.karta)openKa.add(p.karta);});
+        D.karty.forEach(k=>openKa.add(k.id)); openKz.add('(bez kauzy)'); }
+ strom();
+}
+function vyber(typ,i){
+ sel={typ:typ,i:i};
+ const cid = typ==='karta' ? (D.karty[i]||{}).id : (D.polozky[i]||{}).karta;
+ const kz  = typ==='polozka' ? ((D.polozky[i]||{}).kauza||'(bez kauzy)')
+           : ((D.polozky.find(p=>p.karta===cid)||{}).kauza||'(bez kauzy)');
+ openKz.add(kz); if(cid) openKa.add(cid);
+ strom(); editor(); nahlad();
+}
 
 /* ─────────── EDITOR ─────────── */
 function pole(lbl,val,onin,cls){return '<label>'+lbl+'</label><input class="'+(cls||'')+'" value="'+esc(val)+'" oninput="'+onin+'">';}
