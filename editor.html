@@ -102,6 +102,12 @@ textarea{min-height:64px;resize:vertical}
 .tglb:hover{border-color:var(--navy);color:var(--navy);background:#f2f7fc}
 .tglb.on{background:var(--navy);color:#fff;border-color:var(--navy);font-weight:700;
  box-shadow:0 0 0 2px rgba(31,56,100,.22)}
+.dvarady{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+@media(max-width:760px){.dvarady{grid-template-columns:1fr}}
+.tglrow.akc .tglb{border-color:#b7e2c8;color:#0B7A3B;background:#f4fbf7}
+.tglrow.akc .tglb:hover{border-color:#0B7A3B;background:#e9f7ef;color:#0B7A3B}
+.tglrow.akc .tglb.on{background:#0B7A3B;color:#fff;border-color:#0B7A3B;
+ box-shadow:0 0 0 2px rgba(11,122,59,.25)}
 .katbox{border:1px dashed var(--bd);border-radius:8px;padding:11px 13px;margin-top:14px;background:#fbfcfe}
 .kath{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px}
 .katl{font-size:11px;letter-spacing:.06em;color:#7a8899;margin:6px 0 5px}
@@ -165,7 +171,7 @@ textarea.suh{min-height:190px;line-height:1.55}
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
 const VIEWER="https://peterferenc246-design.github.io/fia/viewer.html";
-const VERZIA="2026-07-24 15:03";
+const VERZIA="2026-07-24 15:32";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false, AKCIA='edit';
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -442,8 +448,13 @@ function editor(){
   +'<div class="row">'+pole('Dátum',p.date||'',P+'.date=this.value;docs()')
   +sel('Prístup',p.access||'pub',[['pub','🌐 Verejné'],['pw','🔒 Heslo']],P+'.access=this.value;docs()')+'</div>'
   +chk('bez dátumu (—)',p.bezDatumu,P+'.bezDatumu=this.checked;if(this.checked)'+P+'.date="";render()')
-  +'<label>Smer</label>'
+  +'<div class="dvarady"><div><label>Smer</label>'
   +tgl([['sent','↗ Odoslané'],['recv','↙ Došlé']],p.dir||'sent',P+'.dir=%V%;render()')
+  +'</div><div><label>Akcia</label><div class="tglrow akc">'
+  +'<button class="tglb'+(AKCIA==="add"?" on":"")+'" onclick="AKCIA=\'add\';novaPolozka()">➕ Pridať</button>'
+  +'<button class="tglb'+(AKCIA==="edit"?" on":"")+'" onclick="AKCIA=\'edit\';editor()">✏ Opraviť</button>'
+  +'<button class="tglb'+(AKCIA==="del"?" on":"")+'" onclick="AKCIA=\'del\';zmazPo()">🗑 Vymazať</button>'
+  +'</div></div></div>'
   +sel('Stav',p.stav||'laeuft',[['laeuft','prebieha'],['eingereicht','podané'],['erledigt','vybavené'],['abgelehnt','zamietnuté']],P+'.stav=this.value')
   +'<label>Typ výstupu</label>'
   +tgl([['item','Celý riadok'],['link','Len odkaz']],p.mode||'item',P+'.mode=%V%;render()')
@@ -488,11 +499,7 @@ function editor(){
         ['strafrecht','Trestné oznámenie'],['majetok','Zasahovanie do majetkových práv']],
        (p.oblast&&p.oblast.length)?p.oblast:['all'],'prepniOblast(%V%)',1)
   +'</div>'
-  +'<label>Akcia</label>'
-  +'<div class="tglrow">'
-  +'<button class="tglb'+(AKCIA==="add"?" on":"")+'" onclick="AKCIA=\'add\';novaPolozka()">➕ Pridať</button>'
-  +'<button class="tglb'+(AKCIA==="edit"?" on":"")+'" onclick="AKCIA=\'edit\';editor()">✏ Opraviť</button>'
-  +'<button class="tglb'+(AKCIA==="del"?" on":"")+'" onclick="AKCIA=\'del\';zmazPo()">🗑 Vymazať</button></div>'
+
   +'<div class="acts"><button onclick="klonPo()">⧉ Duplikovať</button></div>';
  } else if(selKa && kartaById(selKa)){
   const k=kartaById(selKa), i=D.karty.indexOf(k);
