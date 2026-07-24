@@ -118,7 +118,7 @@ textarea{min-height:64px;resize:vertical}
 <script>
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
-const VERZIA="2026-07-24 09:31";
+const VERZIA="2026-07-24 09:35";
 let D=null, selKz=null, selKa=null, selPo=null;
 document.getElementById('ver').textContent='v '+VERZIA;
 
@@ -137,9 +137,15 @@ document.getElementById('fl').addEventListener('change',e=>{
  r.onload=()=>{ try{ D=JSON.parse(r.result); poNacitani('súbor '+f.name);}catch(err){alert('Chybný JSON: '+err);} };
  r.readAsText(f,'utf-8');
 });
-function loadWeb(){ stat('načítavam…');
- fetch(RAW+'?v='+Date.now()).then(r=>r.json()).then(j=>{D=j;poNacitani('web');})
- .catch(e=>{stat('');alert('Načítanie z webu zlyhalo: '+e);}); }
+function loadWeb(){ stat('načítavam dáta…');
+ document.getElementById('tiles').innerHTML='<div class="empty">Načítavam dáta z repozitára…</div>';
+ fetch(RAW+'?v='+Date.now())
+  .then(r=>{ if(!r.ok) throw new Error('server vrátil '+r.status); return r.json(); })
+  .then(j=>{D=j;poNacitani('web');})
+  .catch(e=>{ stat('načítanie zlyhalo');
+   document.getElementById('tiles').innerHTML='<div class="empty" style="color:#8a1c1c;border-color:#f0b8b8">'
+    +'Načítanie dát zlyhalo: '+esc(String(e))+'<br><br>Skús tlačidlo <b>Načítať JSON</b> a vyber súbor z disku.</div>'; });
+}
 function poNacitani(z){ D.karty=D.karty||[];D.polozky=D.polozky||[];D.suhrny=D.suhrny||{};
  selKz=selKa=selPo=null; stat(D.karty.length+' konaní · '+D.polozky.length+' dokumentov · '+z); render(); }
 function aktualizuj(){
@@ -289,6 +295,8 @@ function kontrola(){ if(!D){alert('Najprv načítaj dáta.');return;}
   ?'<div class="msg err"><b>'+ch.length+' nedostatkov:</b><br>'+ch.slice(0,50).map(esc).join('<br>')+(ch.length>50?'<br>…':'')+'</div>'
   :'<div class="msg ok">Kontrola prešla — 9 jazykov, dátumy aj väzby v poriadku.</div>');
 }
+window.addEventListener('DOMContentLoaded',loadWeb);
+
 function stiahni(){ if(!D){alert('Najprv načítaj dáta.');return;}
  const m={}; D.kauzy=[];
  (D.polozky||[]).forEach(p=>{const kz=p.kauza||'?';
