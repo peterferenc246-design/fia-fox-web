@@ -18,6 +18,7 @@ def g(d, b=False):
     return "".join(f'<span class="{c} {L}">{d.get(L, fb)}</span>' for L in LANGS)
 
 UI = {
+ "orig": S("Signiertes Original (QES)","Signed original (QES)","Podpísaný originál (QES)","Potpisani izvornik (QES)","Podpisany oryginał (QES)","Original firmado (QES)","Originale firmato (QES)","Original signé (QES)","Signerat original (QES)"),
  "reg":  S("Fallregister","Case register","Register káuz","Registar predmeta","Rejestr spraw","Registro de casos","Registro dei casi","Registre des affaires","Ärenderegister"),
  "home": S("← Zur Startseite","← Home","← Späť na úvod","← Naslovnica","← Strona główna","← Inicio","← Home","← Accueil","← Startsidan"),
  "back": S("← Zum Register","← To the register","← Späť na register","← Na registar","← Do rejestru","← Al registro","← Al registro","← Au registre","← Till registret"),
@@ -112,6 +113,7 @@ body{margin:0;color:#22303f;font:15px/1.55 -apple-system,BlinkMacSystemFont,"Seg
 .ibtn{display:flex;gap:6px;flex-wrap:wrap}
 .b{font-size:11.5px;text-decoration:none;border:1px solid var(--bd);border-radius:3px;padding:3px 9px;color:#3d4d5e;background:#fbfcfd;cursor:pointer}
 .b:hover{border-color:var(--navy);color:var(--navy)}
+.b-qes{background:#fff8e6;border-color:#f0c040;color:#8a5a00}
 .sumbox{margin-top:9px;border-top:1px dashed var(--bd);padding-top:9px;font-size:13px;line-height:1.6;color:#3d4d5e;display:none}
 .sumbox.on{display:block}
 .sumbox p{margin:0 0 8px}
@@ -224,6 +226,10 @@ def item_html(p, n):
     url = (p.get("urls") or {})
     doc = "".join(f'<span class="gtl {L}"><a class="b" href="{html.escape(url.get(L,""))}" target="_blank" rel="noopener">📄 {UI["doc"][L]}</a></span>'
                   for L in LANGS if url.get(L))
+    og = ""
+    if p.get("orig"):
+        og = (f'<a class="b b-qes" href="{html.escape(p["orig"])}" target="_blank" rel="noopener" download>'
+              f'✍ {g(UI["orig"])}</a>')
     sm = ""
     if p.get("summodId","") and p.get("summodId","") in SUHRNY:
         s = SUHRNY[p.get("summodId","")]
@@ -233,7 +239,7 @@ def item_html(p, n):
     st = p.get("stav","") or "laeuft"
     return (f'<div class="item"><div class="itop"><span class="idate">{html.escape(p.get("date",""))}</span>'
             f'<span class="st st-{st}">{g(STAV.get(st, STAV["laeuft"]))}</span></div>'
-            f'<div class="isubj">{g(p.get("subj9") or {})}</div><div class="ibtn">{doc}{sm}</div></div>')
+            f'<div class="isubj">{g(p.get("subj9") or {})}</div><div class="ibtn">{doc}{og}{sm}</div></div>')
 
 n = 0
 for cid, ps in pol_karty.items():
