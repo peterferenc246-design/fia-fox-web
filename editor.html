@@ -147,7 +147,7 @@ textarea{min-height:64px;resize:vertical}
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
 const VIEWER="https://peterferenc246-design.github.io/fia/viewer.html";
-const VERZIA="2026-07-24 13:15";
+const VERZIA="2026-07-24 13:58";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false;
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -306,6 +306,8 @@ function docs(){
    +(p.dolezite?'<span class="pill warn">❗ dôležité</span>':'')
    +'<span class="pill">'+(p.access==='pw'?'🔒 heslo':'🌐 verejné')+'</span>'
    +(p.summodId?'<span class="pill">súhrn</span>':'')
+   +(p.law?'<span class="pill">predpis</span>':'')
+   +(p.bezDatumu?'<span class="pill">bez dátumu</span>':'')
    +(csL?'<span class="pill warn">predmet '+LANG.toUpperCase()+'</span>':'')
    +(cuL?'<span class="pill warn">odkaz '+LANG.toUpperCase()+'</span>':'')
    +(cs&&!csL?'<span class="pill">predmet bez '+cs+'</span>':'')
@@ -342,6 +344,7 @@ function editor(){
   const p=D.polozky[selPo], i=selPo, P='D.polozky['+i+']';
   const sid=p.summodId||'', suh=sid?(D.suhrny[sid]=D.suhrny[sid]||{}):null;
   e.innerHTML='<h2>Dokument</h2><div class="sub">'+esc(p.date||'')+' · '+(p.dir==='sent'?'odoslané':'došlé')+'</div>'
+  +chk('📅 Bez dátumu (—)',p.bezDatumu,P+'.bezDatumu=this.checked;if(this.checked)'+P+'.date="";render()')
   +'<div class="row3">'+pole('Dátum DD.MM.RRRR',p.date||'',P+'.date=this.value;docs()')
   +sel('Smer',p.dir||'sent',[['sent','▲ odoslané'],['recv','▼ došlé']],P+'.dir=this.value;docs()')
   +sel('Stav',p.stav||'laeuft',[['laeuft','prebieha'],['eingereicht','podané'],['erledigt','vybavené'],
@@ -372,6 +375,14 @@ function editor(){
   +ta('Sprievodný text k dokumentu',p.begleit||'',P+'.begleit=this.value')
   +'<div class="row">'+pole('Odpoveď na (replyTo)',p.replyTo||'',P+'.replyTo=this.value')
   +pole('Vlákno (thread)',p.thread||'',P+'.thread=this.value')+'</div>'
+  +'<label>Tlačidlá vo VLAJKA-VIEWERI — pridajú sa do všetkých 9 URL</label>'
+  +'<div style="background:#eef4fb;border:1px solid var(--bd);border-radius:6px;padding:9px 12px">'
+  +chk('✍ QES — skok na podpisový blok v origináli',p.btnQes!==false,P+'.btnQes=this.checked')
+  +chk('📄 Súhrn — okno so súhrnom priamo vo vieweri',p.btnSum!==false,P+'.btnSum=this.checked')
+  +chk('⚖ Predpis — odkaz na nosný právny predpis',p.btnLaw!==false,P+'.btnLaw=this.checked')
+  +pole('Predpis — URL alebo CELEX ~ popis',p.law||'',P+'.law=this.value')
+  +'<p class="hint">Napr. CELEX:32001R1049~1049/2001~Nariadenie o prístupe k dokumentom</p></div>'
+  +pole('Strana podpisu v origináli (qes=STRANA:DOK:ZAROVNANIE)',p.qes||'',P+'.qes=this.value')
   +pole('ID súhrnu',sid,P+'.summodId=this.value;editor()')
   +(suh?('<label>Súhrn — 9 jazykov</label>'+jaz(suh,'D.suhrny[\''+sid+'\']',1)):'<p class="hint">Bez ID súhrnu sa súhrn needituje.</p>')
   +'<div class="acts"><button onclick="klonPo()">⧉ Duplikovať</button><button onclick="zmazPo()">🗑 Zmazať</button></div>';
@@ -387,7 +398,8 @@ function editor(){
   +'<div class="row">'+pole('Jurisdikcia (de sk eu)',(k.jur||[]).join(' '),P+'.jur=this.value.split(/\s+/).filter(Boolean)')
   +pole('Oblasť (kartell gdpr majetok…)',(k.area||[]).join(' '),P+'.area=this.value.split(/\s+/).filter(Boolean)')+'</div>'
   +'<div class="row">'+pole('Orgán (text)',k.organ_txt||'',P+'.organ_txt=this.value')
-  +pole('Pripnuté navrch (číslo)',k.pin||'',P+'.pin=this.value')+'</div>'
+  +pole('📌 Pripnúť navrch — pozícia (1,2,3…)',k.pin||'',P+'.pin=this.value;render()')+'</div>'
+  +chk('📌 Odopnúť — dať dole medzi nepripnuté',!k.pin,P+'.pin=this.checked?"":(this.checked?"":"1");render()')
   +sel('Farba stavu',k.stav_trieda||'p-blue',[['p-blue','modrá — prebieha'],['p-amber','žltá — podané'],
       ['p-green','zelená — vybavené'],['p-red','červená — zamietnuté']],P+'.stav_trieda=this.value')
   +'<label>Názov konania — 9 jazykov</label>'+jaz(k.nazov=k.nazov||{},P+'.nazov')
@@ -428,7 +440,7 @@ function novaPolozka(){ if(!D){alert('Najprv načítaj dáta.');return;}
   date:('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear(),
   stav:'laeuft',access:'',az:'',ourref:'',court:'',cmtid:'',summodId:'',fname:'',fpath:'',
   cats:{},mode:'item',v:1,karta:cid,subj9:p9(),urls:p9(),subj:'',
-  begleit:'',cardsubj:'',fallback:'',orig:'',thread:'',replyTo:'',dolezite:false,komentare:true,
+  begleit:'',cardsubj:'',fallback:'',orig:'',law:'',qes:'',thread:'',replyTo:'',bezDatumu:false,btnQes:true,btnSum:true,btnLaw:true,dolezite:false,komentare:true,
   important:false,comments:true,oblast:[],jur:[]});
  selPo=D.polozky.length-1; selKa=cid; render();}
 function klonPo(){const p=JSON.parse(JSON.stringify(D.polozky[selPo]));p.summodId='';
