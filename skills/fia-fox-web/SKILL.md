@@ -8,7 +8,7 @@ description: |
   "fia-fox-web", "register.foxprof.club", "nasaď", "pregeneruj", "dáta registra", "fia_data.json".
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   updated: "2026-07-24"
 ---
 
@@ -119,20 +119,40 @@ a nahraním súboru; z kontajnera sa naň nedá dostať.
 Verejná adresa `https://register.foxprof.club/editor.html`, `noindex`, **bez tokenu** — nič nezapisuje.
 Kolobeh: načíta dáta → Peter upraví → Stiahnuť JSON → nahrá Claudovi → Claude commitne a pregeneruje.
 
-Musí obsahovať:
-- jazykový prepínač nad kauzami; prepína **kauzy aj konania aj dokumenty**
-- počítadlo chýbajúcich položiek v zvolenom jazyku
-- dlaždice kauz → karty konaní → dokumenty v dvoch stĺpcoch (rovnaké rozloženie ako register)
-- pri každom dokumente tlačidlá **Otvoriť** (v zvolenom jazyku) a **Originál (QES)**
-- ⟳ Aktualizovať formulár — **zachová rozpracované dáta, výber, jazyk aj pozíciu**
-  (`sessionStorage`), bez rozrobených zmien stiahne čerstvé dáta z webu
-- automatické načítanie dát pri otvorení; pri zlyhaní červená hláška, nie prázdna stránka
-- polia podľa x5: pripnutie + odopnutie, bez dátumu, prístup, dôležité, komentáre,
-  tlačidlá vo VLAJKA-VIEWERI (QES/Súhrn/Predpis), Predpis URL~CELEX~popis, strana podpisu `qes=`,
-  názov súboru, cesta, fallback, thread, replyTo, sprievodný text, súhrn v 9 jazykoch
-- kontrolu úplnosti a export JSON
+### Zdroj pravdy pre polia
+**`Formular-podania-x5.html` v repe `fia`.** Keď Peter povie „chýba tam pole" alebo „nechaj rovnaké polia",
+stiahni ten súbor a vytiahni popisky z neho — nevymýšľaj ich a nepíš ich spamäti.
 
----
+### Základné princípy
+- **Jeden jazyk, nie deväť.** Každé viacjazyčné pole má JEDNO textové pole v jazyku, ktorý je práve
+  zapnutý vlajkou. Pod ním stav: „ostatné jazyky doplní Claude" / „vyplnených ďalších N z 8" /
+  „✔ ostatných 8 jazykov vyplnených“. Zodpovedá pravidlu x5: *stačí 1 jazyk, ostatných 8 doplní Claude*.
+- **Bohatý text sa needituje ako HTML.** Súhrn aj sprievodný text sa zobrazujú ako čitateľný text
+  v odsekoch; odkaz sa píše `[text](adresa)`. Pri ukladaní sa prevedie na HTML a doplní sa nadpis
+  v danom jazyku (`Súhrn dokumentu` / `O tomto podaní` a ich preklady). Surové značky v políčku = chyba.
+- **`summodId` sa vo formulári nezobrazuje.** Generuje sa sám: `summod-<karta bez case->-<poradie>`.
+- **Prepínacie tlačidlá** namiesto rozbaľovacích zoznamov tam, kde ich má x5: Smer, Typ výstupu,
+  Akcia, Oblasť práva. Aktívne tmavomodré s bielym písmom, spojené do jedného pásu.
+
+### Polia položky (poradie ako v x5)
+Dátum · Prístup · bez dátumu (—) · Smer (↗/↙) · Stav · Typ výstupu (Celý riadok / Len odkaz) ·
+Konanie · ⚖️ Orgán tejto položky (len ak iný než na konaní) · Az. súdna · Naša spis. zn. interná ·
+Predmet dokumentu · 🔒 Pokyn k heslu · ❗ Dôležité · 💬 Komentáre ·
+rámček **Tlačidlá vo VLAJKA-VIEWERI** (✍ QES · 📄 Súhrn · ⚖ Predpis + Predpis URL/CELEX~popis +
+strana podpisu `qes=`) · ↩ Odpoveď na (rozbaľovací zoznam dokumentov toho istého konania) ·
+Odkaz na dokument · Fallback URL · ✍ Podpísaný originál (QES) · 🛈 Názov súboru · 📁 Cesta k súboru ·
+🔗 Extra odkaz text + URL · 📄 Súhrn dokumentu · 📝 Sprievodný text · 🗒️ Príkazy pre CLAUDE ·
+🏷 Kategórie a spis. značky kauzy (OBLASŤ PRÁVA — prenesie sa na celú kartu) · Akcia (Pridať/Opraviť/Vymazať)
+
+### Ďalšie požiadavky
+- jazykový prepínač nad kauzami, prepína kauzy aj konania aj dokumenty
+- počítadlo chýbajúcich položiek v zvolenom jazyku
+- dlaždice → karty → dokumenty v dvoch stĺpcoch (rovnaké rozloženie ako register)
+- pri každom dokumente tlačidlá **Otvoriť** (v zvolenom jazyku) a **Originál (QES)** — obe cez viewer
+- ⟳ Aktualizovať formulár zachová dáta, výber, jazyk aj pozíciu (`sessionStorage`);
+  bez rozrobených zmien stiahne čerstvé dáta
+- automatické načítanie dát pri otvorení, pri zlyhaní červená hláška
+- kontrola úplnosti a export JSON
 
 ## 7. Klony dokumentov
 
@@ -204,6 +224,21 @@ najprv over súbor v repe cez `raw.githubusercontent.com` a až potom hľadaj ch
 - Odkaz na originál bez `orig=` → tlačidlo sťahovalo klon.
 - Klon som staval z PDF namiesto Wordu → stratená hlavička, tabuľky aj podpisový blok.
 - Poslal som Petra na kartu, keď hovoril o formulári → dve kolá zbytočnej práce.
+- Popisky polí som písal spamäti namiesto toho, aby som ich vytiahol z `Formular-podania-x5.html`.
+- Do políčka som strkal surové HTML (súhrn, sprievodný text) namiesto čitateľného textu.
+- Patch skript spadol na `ValueError`, ale commit sa napriek tomu vykonal a nasadil nezmenený súbor
+  s popisom, ktorý nesedel. **Po každej úprave over, že sa súbor naozaj zmenil, a až potom commituj.**
+
+---
+
+## 11b. Povinná kontrola pred commitom
+
+1. `node --check` na skript editora — v kontajneri je Node, syntaktickú chybu odhalí okamžite.
+   `python3 -c "…"` vytiahni `<script>` do `/tmp/ed.js` a spusti `node --check /tmp/ed.js`.
+2. Vyváženosť značiek vygenerovanej stránky: `<div>` vs `</div>`, `<details>` vs `</details>`.
+3. Over, že patch skript naozaj zmenil súbor (veľkosť, verzia, výskyt nového reťazca).
+   Ak skript spadol, **necommituj**.
+4. Po nasadení over súbor cez `raw.githubusercontent.com`, nie cez `github.io` — Pages prestavuje 1–2 min.
 
 ---
 
