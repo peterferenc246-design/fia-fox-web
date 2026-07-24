@@ -8,6 +8,7 @@ LANGS = ["de","en","sk","hr","pl","es","it","fr","sv"]
 FLAG  = {"de":"de","en":"gb","sk":"sk","hr":"hr","pl":"pl","es":"es","it":"it","fr":"fr","sv":"se"}
 D = json.load(open('fia_data.json', encoding='utf-8'))
 KARTY, POLOZKY, SUHRNY = D["karty"], D["polozky"], D["suhrny"]
+KAUZY = D.get("kauzy_reg", [])
 
 def S(*v): return dict(zip(LANGS, v))
 def g(d, b=False):
@@ -138,17 +139,22 @@ def page(title, body, script=""):
 # ─────────── KARTY: doplnkove udaje ───────────
 pol_karty = {}
 for p in POLOZKY:
-    pol_karty.setdefault(p["karta"], []).append(p)
+    pol_karty.setdefault(p.get("karta",""), []).append(p)
 karta_by_id = {k["id"]: k for k in KARTY}
 kauza_karty = {}
 for p in POLOZKY:
-    if p["karta"]:
-        kauza_karty.setdefault(p["kauza"] or "?", set()).add(p["karta"])
+    if p.get("karta",""):
+        kauza_karty.setdefault(p["kauza"] or "?", set()).add(p.get("karta",""))
 
 kauza_nazov = {}
 for p in POLOZKY:
-    if p["kauza"] and p["kauza_nazov"]:
-        kauza_nazov.setdefault(p["kauza"], p["kauza_nazov"])
+    if p.get("kauza") and p.get("kauza_nazov"):
+        kauza_nazov.setdefault(p["kauza"], p.get("kauza_nazov",""))
+
+def kauza_karty(cid):
+    for z in KAUZY:
+        if cid in (z.get("ids") or []): return z
+    return None
 
 def jur_karty(cid):
     k = karta_by_id.get(cid)
@@ -156,21 +162,21 @@ def jur_karty(cid):
 
 # ─────────── REGISTER ───────────
 tiles = ""
-for kz in sorted(kauza_karty, key=lambda x: -len(kauza_karty[x])):
-    cids = sorted(kauza_karty[kz])
-    js = sorted({j for c in cids for j in jur_karty(c)})
-    npol = sum(1 for p in POLOZKY if p["kauza"] == kz)
-    tiles += (f'<button class="tile" data-k="{kz}" data-jur="{" ".join(js)}">'
+for z in KAUZY:
+    cids = [c for c in (z.get("ids") or []) if c in pol_karty]
+    npol = sum(len(pol_karty.get(c, [])) for c in cids)
+    js = z.get("jur") or ["de"]
+    tiles += (f'<button class="tile" data-k="{z["spis"]}" data-jur="{" ".join(js)}">'
               f'<div class="tf">{"".join(jflag(j) for j in js)}</div>'
-              f'<div class="tn">{html.escape(kauza_nazov.get(kz, kz))[:70]}</div>'
-              f'<div class="tk">{kz}</div>'
+              f'<div class="tn">{g(z.get("nazov") or {})}</div>'
+              f'<div class="tk">{z["spis"]}</div>'
               f'<span class="tc">• {len(cids)} {g(UI["verf"])} · {npol} {g(UI["docs"])}</span></button>')
 
 rows = ""
 for cid, ps in sorted(pol_karty.items(), key=lambda x: -len(x[1])):
     k = karta_by_id.get(cid, {})
-    kz = ps[0]["kauza"] or "?"
-    st = ps[0]["stav"] or "laeuft"
+    _z = kauza_karty(cid); kz = _z["spis"] if _z else "?"
+    st = ps[0].get("stav") or "laeuft"
     rows += (f'<div class="kon" data-k="{kz}" data-d="{k.get("date","")}" data-az="{html.escape(k.get("az","") or "")}">'
              f'<div><div class="knaz">{g(k.get("nazov")) or html.escape(cid)}</div>'
              f'<div class="korg">{g(k.get("organ"))} &nbsp;·&nbsp; <b>{html.escape(k.get("az","") or "—")}</b>'
@@ -219,22 +225,22 @@ def item_html(p, n):
     doc = "".join(f'<span class="gtl {L}"><a class="b" href="{html.escape(url.get(L,""))}" target="_blank" rel="noopener">📄 {UI["doc"][L]}</a></span>'
                   for L in LANGS if url.get(L))
     sm = ""
-    if p["summodId"] and p["summodId"] in SUHRNY:
-        s = SUHRNY[p["summodId"]]
+    if p.get("summodId","") and p.get("summodId","") in SUHRNY:
+        s = SUHRNY[p.get("summodId","")]
         blocks = "".join(f'<div class="gtl-b {L}">{s[L]}</div>' for L in LANGS if L in s)
         sm = (f'<button class="b" onclick="document.getElementById(\'s{n}\').classList.toggle(\'on\')">📄 {g(UI["sum"])}</button>'
               f'<div class="sumbox" id="s{n}">{blocks}</div>')
-    st = p["stav"] or "laeuft"
-    return (f'<div class="item"><div class="itop"><span class="idate">{html.escape(p["date"])}</span>'
+    st = p.get("stav","") or "laeuft"
+    return (f'<div class="item"><div class="itop"><span class="idate">{html.escape(p.get("date",""))}</span>'
             f'<span class="st st-{st}">{g(STAV.get(st, STAV["laeuft"]))}</span></div>'
-            f'<div class="isubj">{g(p["subj"])}</div><div class="ibtn">{doc}{sm}</div></div>')
+            f'<div class="isubj">{g(p.get("subj9") or {})}</div><div class="ibtn">{doc}{sm}</div></div>')
 
 n = 0
 for cid, ps in pol_karty.items():
     if not cid: continue
     k = karta_by_id.get(cid, {})
-    sent = [p for p in ps if p["dir"] == "sent"]
-    recv = [p for p in ps if p["dir"] != "sent"]
+    sent = [p for p in ps if p.get("dir","") == "sent"]
+    recv = [p for p in ps if p.get("dir","") != "sent"]
     hs = ""
     for p in sent: n += 1; hs += item_html(p, n)
     hr = ""
@@ -253,7 +259,7 @@ for cid, ps in pol_karty.items():
     open(f'karta-{cid}.html', 'w', encoding='utf-8').write(page(k.get("nazov", {}).get("sk", cid), body))
 
 print(f"register.html + {len([c for c in pol_karty if c])} kariet")
-print(f"  kauzy (dlazdice): {len(kauza_karty)}")
+print(f"  kauzy (dlazdice): {len(KAUZY)}")
 print(f"  dokumentov:       {len(POLOZKY)}")
 print(f"  suhrnov vlozenych: {sum(1 for p in POLOZKY if p['summodId'] in SUHRNY)}")
 tot = sum(os.path.getsize(f) for f in os.listdir('.') if f.startswith(('register.html','karta-')))
