@@ -72,6 +72,8 @@ button:hover{border-color:var(--navy);color:var(--navy)}
  padding:14px 16px;position:sticky;top:60px;max-height:calc(100vh - 80px);overflow:auto}
 .ed h2{margin:0 0 4px;font-size:15px;color:var(--navy)}
 .ed .sub{font-size:12px;color:#8a97a6;margin-bottom:6px}
+.ramik{background:#eef4fb;border:1px solid var(--bd);border-radius:6px;padding:9px 12px;margin-top:4px}
+.hint{font-size:11.5px;color:#8a97a6;font-weight:400;text-transform:none;letter-spacing:0}
 .chk{display:flex;align-items:center;gap:7px;font-size:13px;margin-top:10px}
 .chk input{width:auto}
 label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#7a8899;margin:11px 0 3px}
@@ -147,7 +149,7 @@ textarea{min-height:64px;resize:vertical}
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
 const VIEWER="https://peterferenc246-design.github.io/fia/viewer.html";
-const VERZIA="2026-07-24 13:58";
+const VERZIA="2026-07-24 14:15";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false;
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -341,50 +343,52 @@ function jaz(o,c,ta,link){const por=[LANG].concat(L9.filter(x=>x!==LANG));
 function editor(){
  const e=document.getElementById('ed');
  if(selPo!==null && D.polozky[selPo]){
-  const p=D.polozky[selPo], i=selPo, P='D.polozky['+i+']';
+  const p=D.polozky[selPo], i=selPo;
+  const P='D.polozky['+i+']';
   const sid=p.summodId||'', suh=sid?(D.suhrny[sid]=D.suhrny[sid]||{}):null;
-  e.innerHTML='<h2>Dokument</h2><div class="sub">'+esc(p.date||'')+' · '+(p.dir==='sent'?'odoslané':'došlé')+'</div>'
-  +chk('📅 Bez dátumu (—)',p.bezDatumu,P+'.bezDatumu=this.checked;if(this.checked)'+P+'.date="";render()')
-  +'<div class="row3">'+pole('Dátum DD.MM.RRRR',p.date||'',P+'.date=this.value;docs()')
-  +sel('Smer',p.dir||'sent',[['sent','▲ odoslané'],['recv','▼ došlé']],P+'.dir=this.value;docs()')
-  +sel('Stav',p.stav||'laeuft',[['laeuft','prebieha'],['eingereicht','podané'],['erledigt','vybavené'],
-      ['abgelehnt','zamietnuté']],P+'.stav=this.value')+'</div>'
+  e.innerHTML='<h2>Dokument</h2><div class="sub">'+esc(p.date||'—')+' · '+(p.dir==='sent'?'↗ odoslané':'↙ prijaté')+'</div>'
+  +'<div class="row">'+pole('Dátum',p.date||'',P+'.date=this.value;docs()')
+  +sel('Prístup',p.access||'pub',[['pub','🌐 Verejné'],['pw','🔒 Heslo']],P+'.access=this.value;docs()')+'</div>'
+  +chk('bez dátumu (—)',p.bezDatumu,P+'.bezDatumu=this.checked;if(this.checked)'+P+'.date="";render()')
   +'<div class="row">'
-  +sel('Prístup',p.access||'pub',[['pub','🌐 verejné'],['pw','🔒 heslo']],P+'.access=this.value;docs()')
-  +'<label>Konanie</label><select onchange="'+P+'.karta=this.value;render()">'
-  +(D.karty||[]).map(k=>'<option value="'+esc(k.id)+'"'+(k.id===p.karta?' selected':'')+'>'+esc(nazovKarty(k))+'</option>').join('')
-  +'</select></div>'
-  +'<div class="row">'+pole('Spisová značka',p.az||'',P+'.az=this.value;docs()')
-  +pole('Naša značka',p.ourref||'',P+'.ourref=this.value')+'</div>'
-  +pole('Orgán',p.court||'',P+'.court=this.value')
-  +pole('Oblasť (kartell gdpr…)',(p.oblast||[]).join(' '),P+'.oblast=this.value.split(/\s+/).filter(Boolean)')
-  +chk('❗ Dôležité — červený pruh a výkričník',p.dolezite,P+'.dolezite=this.checked;'+P+'.important=this.checked;docs()')
-  +chk('💬 Povoliť komentáre',p.komentare,P+'.komentare=this.checked;'+P+'.comments=this.checked')
-  +'<label>Predmet — 9 jazykov</label>'+jaz(p.subj9=p.subj9||{},P+'.subj9')
-  +'<label>Odkaz na dokument — 9 jazykov <span style="text-transform:none;letter-spacing:0">(↗ otvorí)</span></label>'+jaz(p.urls=p.urls||{},P+'.urls',0,1)
-  +'<div class="origbox">'
-  +pole('Podpísaný originál (QES) — URL',p.orig||'',P+'.orig=this.value;editor();docs()')
-  +(p.orig?('<a href="'+esc(p.orig)+'" target="_blank" rel="noopener">✍ Otvoriť podpísaný originál</a>')
-          :'<div class="hint">Bez tejto adresy sa na karte nezobrazí tlačidlo „Podpísaný originál (QES)".</div>')
+  +sel('Smer',p.dir||'sent',[['sent','↗ odoslané'],['recv','↙ prijaté']],P+'.dir=this.value;docs()')
+  +sel('Stav',p.stav||'laeuft',[['laeuft','prebieha'],['eingereicht','podané'],['erledigt','vybavené'],['abgelehnt','zamietnuté']],P+'.stav=this.value')
   +'</div>'
-  +pole('Názov súboru',p.fname||'',P+'.fname=this.value')
-  +pole('Cesta k súboru v repe',p.fpath||'',P+'.fpath=this.value')
-  +pole('Podpísaný originál (QES) — URL',p.orig||'',P+'.orig=this.value;docs()')
-  +pole('Náhradný odkaz (fallback)',p.fallback||'',P+'.fallback=this.value')
-  +pole('Podtitul konania na položke',p.cardsubj||'',P+'.cardsubj=this.value')
-  +ta('Sprievodný text k dokumentu',p.begleit||'',P+'.begleit=this.value')
-  +'<div class="row">'+pole('Odpoveď na (replyTo)',p.replyTo||'',P+'.replyTo=this.value')
-  +pole('Vlákno (thread)',p.thread||'',P+'.thread=this.value')+'</div>'
-  +'<label>Tlačidlá vo VLAJKA-VIEWERI — pridajú sa do všetkých 9 URL</label>'
-  +'<div style="background:#eef4fb;border:1px solid var(--bd);border-radius:6px;padding:9px 12px">'
+  +'<label>Konanie</label><select onchange="'+P+'.karta=this.value;render()">'
+  +(D.karty||[]).map(k=>'<option value="'+esc(k.id)+'"'+(k.id===p.karta?' selected':'')+'>'+esc(nazovKarty(k))+'</option>').join('')+'</select>'
+  +'<label>⚖️ Orgán tejto položky <span class="hint">(voliteľné — vyplň LEN ak dokument poslal iný orgán než ten na konaní, napr. pokladnica súdu. Prázdne = preberie sa orgán konania.)</span></label>'
+  +'<input value="'+esc(p.court||'')+'" placeholder="Vyplň len v prípade iného orgánu!" oninput="'+P+'.court=this.value">'
+  +'<div class="row">'+pole('Az. súdna / úradná spis. zn.',p.az||'',P+'.az=this.value;docs()')
+  +pole('Naša spis. zn. interná',p.ourref||'',P+'.ourref=this.value')+'</div>'
+  +'<label>Predmet dokumentu (položka vo vlákne) — 9 jazykov</label>'+jaz(p.subj9=p.subj9||{},P+'.subj9')
+  +pole('🔒 Pokyn k heslu <span class="hint">(zobrazí sa návštevníkovi; heslo drží SharePoint — sem píš LEN ako ho získať)</span>',p.pwhint||'',P+'.pwhint=this.value')
+  +chk('❗ Označiť ako dôležité (červený výkričník + ľavý okraj)',p.dolezite,P+'.dolezite=this.checked;'+P+'.important=this.checked;docs()')
+  +chk('💬 Povoliť komentáre k tomuto dokumentu (kcmt + cmt-wrap placeholder)',p.komentare,P+'.komentare=this.checked;'+P+'.comments=this.checked')
+  +'<label>Tlačidlá vo VLAJKA-VIEWERI (odoslané podania) — pridajú sa do všetkých 9 URL</label>'
+  +'<div class="ramik">'
   +chk('✍ QES — skok na podpisový blok v origináli',p.btnQes!==false,P+'.btnQes=this.checked')
-  +chk('📄 Súhrn — okno so súhrnom priamo vo vieweri',p.btnSum!==false,P+'.btnSum=this.checked')
-  +chk('⚖ Predpis — odkaz na nosný právny predpis',p.btnLaw!==false,P+'.btnLaw=this.checked')
-  +pole('Predpis — URL alebo CELEX ~ popis',p.law||'',P+'.law=this.value')
-  +'<p class="hint">Napr. CELEX:32001R1049~1049/2001~Nariadenie o prístupe k dokumentom</p></div>'
-  +pole('Strana podpisu v origináli (qes=STRANA:DOK:ZAROVNANIE)',p.qes||'',P+'.qes=this.value')
-  +pole('ID súhrnu',sid,P+'.summodId=this.value;editor()')
-  +(suh?('<label>Súhrn — 9 jazykov</label>'+jaz(suh,'D.suhrny[\''+sid+'\']',1)):'<p class="hint">Bez ID súhrnu sa súhrn needituje.</p>')
+  +chk('📄 Súhrn — okno so súhrnom priamo vo vieweri (ťahá z karty)',p.btnSum!==false,P+'.btnSum=this.checked')
+  +chk('⚖ Predpis (law) — odkaz na nosný právny predpis',p.btnLaw!==false,P+'.btnLaw=this.checked')
+  +pole('Predpis — URL/CELEX ~ popis <span class="hint">(voliteľné; prázdne = Claude vyberie nosný predpis)</span>',p.law||'',P+'.law=this.value;docs()')
+  +pole('Strana podpisu (qes = STRANA:DOK:ZAROVNANIE)',p.qes||'',P+'.qes=this.value')
+  +'</div>'
+  +'<label>↩ Odpoveď na (vlákno)</label><select onchange="'+P+'.replyTo=this.value">'
+  +'<option value="">— bez väzby —</option>'
+  +(D.polozky||[]).filter(x=>x!==p&&x.karta===p.karta).map(x=>{const t=(x.dir==='sent'?'↗ ':'↙ ')+(x.date||'')+' · '+predmet(x);
+     return '<option value="'+esc(predmet(x))+'"'+(predmet(x)===p.replyTo?' selected':'')+'>'+esc(t)+'</option>';}).join('')
+  +'</select>'
+  +'<label>Odkazy na dokument — jeden súbor pre každý jazyk</label>'+jaz(p.urls=p.urls||{},P+'.urls')
+  +pole('Fallback URL <span class="hint">(pre každý prázdny jazyk)</span>',p.fallback||'',P+'.fallback=this.value')
+  +pole('✍ Podpísaný originál (QES) — URL',p.orig||'',P+'.orig=this.value;docs()')
+  +pole('🛈 Názov súboru <span class="hint">(vidíš LEN ty, verejnosť nie)</span>',p.fname||'',P+'.fname=this.value')
+  +pole('📁 Cesta k súboru <span class="hint">(vidíš LEN ty)</span>',p.fpath||'',P+'.fpath=this.value')
+  +'<div class="row">'+pole('🔗 Extra odkaz — text',(p.extra||{}).label||'',P+'.extra=Object.assign('+P+'.extra||{},{label:this.value})')
+  +pole('🔗 Extra odkaz — URL',(p.extra||{}).url||'',P+'.extra=Object.assign('+P+'.extra||{},{url:this.value})')+'</div>'
+  +pole('ID súhrnu (summodId)',sid,P+'.summodId=this.value;editor()')
+  +(suh?('<label>📄 Súhrn dokumentu — 9 jazykov <span class="hint">(zobrazí sa aj verejnosti)</span></label>'+jaz(suh,'D.suhrny[\''+sid+'\']',1))
+       :'<p class="hint">Bez ID súhrnu sa súhrn needituje.</p>')
+  +ta('📝 Sprievodný text (Begleittext) k dokumentu',p.begleit||'',P+'.begleit=this.value')
+  +ta('🗒️ Príkazy pre CLAUDE <span class="hint">(prenesú sa do MK, NEZOBRAZUJÚ sa na webe)</span>',p.prikazy||'',P+'.prikazy=this.value')
   +'<div class="acts"><button onclick="klonPo()">⧉ Duplikovať</button><button onclick="zmazPo()">🗑 Zmazať</button></div>';
  } else if(selKa && kartaById(selKa)){
   const k=kartaById(selKa), i=D.karty.indexOf(k);
@@ -440,7 +444,7 @@ function novaPolozka(){ if(!D){alert('Najprv načítaj dáta.');return;}
   date:('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear(),
   stav:'laeuft',access:'',az:'',ourref:'',court:'',cmtid:'',summodId:'',fname:'',fpath:'',
   cats:{},mode:'item',v:1,karta:cid,subj9:p9(),urls:p9(),subj:'',
-  begleit:'',cardsubj:'',fallback:'',orig:'',law:'',qes:'',thread:'',replyTo:'',bezDatumu:false,btnQes:true,btnSum:true,btnLaw:true,dolezite:false,komentare:true,
+  begleit:'',cardsubj:'',prikazy:'',pwhint:'',extra:{},fallback:'',orig:'',law:'',qes:'',thread:'',replyTo:'',bezDatumu:false,btnQes:true,btnSum:true,btnLaw:true,dolezite:false,komentare:true,
   important:false,comments:true,oblast:[],jur:[]});
  selPo=D.polozky.length-1; selKa=cid; render();}
 function klonPo(){const p=JSON.parse(JSON.stringify(D.polozky[selPo]));p.summodId='';
