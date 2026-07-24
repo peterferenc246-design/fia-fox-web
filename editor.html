@@ -149,7 +149,7 @@ textarea{min-height:64px;resize:vertical}
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
 const VIEWER="https://peterferenc246-design.github.io/fia/viewer.html";
-const VERZIA="2026-07-24 14:32";
+const VERZIA="2026-07-24 14:36";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false;
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -377,6 +377,19 @@ function jaz(o,c,ta,link){
  return '<div class="j1"><span class="jl">'+LANG.toUpperCase()+'</span>'+pole+'</div><div class="jn">'+stav+'</div>';
 }
 
+function tgl(zoz, aktiv, onclick, viac){
+ return '<div class="tglrow">'+zoz.map(function(o){
+  var on = viac ? (aktiv.indexOf(o[0])>=0) : (aktiv===o[0]);
+  return '<button class="tglb'+(on?' on':'')+'" onclick="'+onclick.replace('%V%',"'"+o[0]+"'")+'">'+o[1]+'</button>';
+ }).join('')+'</div>';
+}
+function prepniOblast(v){
+ var p=D.polozky[selPo]; p.oblast=p.oblast||[];
+ if(v==='all'){ p.oblast=[]; }
+ else { var i=p.oblast.indexOf(v); if(i>=0) p.oblast.splice(i,1); else p.oblast.push(v); }
+ var k=kartaById(p.karta); if(k) k.area=p.oblast.slice();   // prenesie sa na celú kartu
+ render();
+}
 function richPole(obj, cesta, nadpisy){
  var v=html2txt(obj[LANG]||'');
  var ine=L9.filter(function(L){return L!==LANG && (obj[L]||'').trim();}).length;
@@ -413,10 +426,11 @@ function editor(){
   +'<div class="row">'+pole('Dátum',p.date||'',P+'.date=this.value;docs()')
   +sel('Prístup',p.access||'pub',[['pub','🌐 Verejné'],['pw','🔒 Heslo']],P+'.access=this.value;docs()')+'</div>'
   +chk('bez dátumu (—)',p.bezDatumu,P+'.bezDatumu=this.checked;if(this.checked)'+P+'.date="";render()')
-  +'<div class="row">'
-  +sel('Smer',p.dir||'sent',[['sent','↗ odoslané'],['recv','↙ prijaté']],P+'.dir=this.value;docs()')
+  +'<label>Smer</label>'
+  +tgl([['sent','↗ Odoslané'],['recv','↙ Došlé']],p.dir||'sent',P+'.dir=%V%;render()')
   +sel('Stav',p.stav||'laeuft',[['laeuft','prebieha'],['eingereicht','podané'],['erledigt','vybavené'],['abgelehnt','zamietnuté']],P+'.stav=this.value')
-  +'</div>'
+  +'<label>Typ výstupu</label>'
+  +tgl([['item','Celý riadok'],['link','Len odkaz']],p.mode||'item',P+'.mode=%V%;render()')
   +'<label>Konanie</label><select onchange="'+P+'.karta=this.value;render()">'
   +(D.karty||[]).map(k=>'<option value="'+esc(k.id)+'"'+(k.id===p.karta?' selected':'')+'>'+esc(nazovKarty(k))+'</option>').join('')+'</select>'
   +'<label>⚖️ Orgán tejto položky <span class="hint">(voliteľné — vyplň LEN ak dokument poslal iný orgán než ten na konaní, napr. pokladnica súdu. Prázdne = preberie sa orgán konania.)</span></label>'
@@ -451,7 +465,18 @@ function editor(){
   +suhrnPole(sid)
   +ta('📝 Sprievodný text (Begleittext) k dokumentu',p.begleit||'',P+'.begleit=this.value')
   +ta('🗒️ Príkazy pre CLAUDE <span class="hint">(prenesú sa do MK, NEZOBRAZUJÚ sa na webe)</span>',p.prikazy||'',P+'.prikazy=this.value')
-  +'<div class="acts"><button onclick="klonPo()">⧉ Duplikovať</button><button onclick="zmazPo()">🗑 Zmazať</button></div>';
+  +'<div class="katbox"><div class="kath">🏷 Kategórie a spis. značky kauzy '
+  +'<span class="hint">(pri existujúcej kauze predvyplnené — zmena sa prenesie na celú kartu vrátane starších položiek)</span></div>'
+  +'<div class="katl">OBLASŤ PRÁVA (data-area)</div>'
+  +tgl([['all','🌐 Všetky'],['kartell','Kartelové právo'],['gdpr','GDPR'],
+        ['strafrecht','Trestné oznámenie'],['majetok','Zasahovanie do majetkových práv']],
+       (p.oblast&&p.oblast.length)?p.oblast:['all'],'prepniOblast(%V%)',1)
+  +'</div>'
+  +'<label>Akcia</label>'
+  +'<div class="tglrow"><button class="tglb" onclick="novaPolozka()">➕ Pridať</button>'
+  +'<button class="tglb on">✏ Opraviť</button>'
+  +'<button class="tglb" onclick="zmazPo()">🗑 Vymazať</button></div>'
+  +'<div class="acts"><button onclick="klonPo()">⧉ Duplikovať</button></div>';
  } else if(selKa && kartaById(selKa)){
   const k=kartaById(selKa), i=D.karty.indexOf(k);
   const P='D.karty['+i+']';
