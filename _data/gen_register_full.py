@@ -136,7 +136,7 @@ def karta(cid, ps, otvorena=False):
     begbox = (f'<div class="begbox" id="b-{cid}">{gb(k.get("sprievodny") or {})}</div>'
               if any((k.get("sprievodny") or {}).values()) else "")
     return (f'<details class="case" id="{cid}"{" open" if otvorena else ""} data-kz="{z["spis"] if z else ""}" '
-            f'data-jur="{" ".join(k.get("jur") or [])}" data-d="{dkey(k.get("date",""))}" data-az="{html.escape(k.get("az","") or "zzz")}" data-our="{html.escape(k.get("ourref","") or "zzz")}" data-obl="{" ".join(k.get("area") or [])}">'
+            f'data-jur="{" ".join(k.get("jur") or [])}" data-d="{dkey(k.get("date",""))}" data-az="{html.escape(k.get("az","") or "zzz")}" data-our="{html.escape(k.get("ourref","") or "zzz")}" data-obl="{" ".join(k.get("area") or [])}" data-pin="{k.get("pin") or ""}">'
             f'<summary class="chead"><div class="cl">'
             f'<div class="ct"><span class="cdate">📅 {html.escape(k.get("datum_txt") or k.get("date",""))}</span>{g(k.get("nazov") or {})}</div>'
             + (f'<div class="csub">{g(k.get("podtitul") or {})}</div>' if any((k.get("podtitul") or {}).values()) else "")
@@ -195,6 +195,7 @@ body{margin:0;color:#34435A;font:15px/1.55 "Segoe UI",Calibri,Arial,sans-serif;
 .case{background:#fff;border:1px solid var(--bd);border-radius:10px;margin-bottom:11px;overflow:hidden;
  box-shadow:0 2px 8px rgba(31,56,100,.08)}
 .case[open]{box-shadow:0 4px 16px rgba(31,56,100,.14)}
+.case[data-pin]:not([data-pin=""]){border-left:4px solid #f5b722}
 .chead{cursor:pointer;list-style:none;display:flex;gap:14px;align-items:flex-start;padding:13px 16px;background:#f7fafd}
 .chead::-webkit-details-marker{display:none}
 .cl{flex:1}
@@ -273,9 +274,14 @@ for z in KAUZY:
               + (f'<div class="tw">{g(z.get("warn"))}</div>' if any((z.get("warn") or {}).values()) else "")
               + f'<div class="tc">{len(cids)} {g(UI["verf"])} · {nd} {g(UI["docs"])}</div></button>')
 
+def poradie(x):
+    k = karta_by_id.get(x[0], {})
+    pin = k.get("pin")
+    try: pin = int(pin)
+    except (TypeError, ValueError): pin = 9999
+    return (pin, "9999" if pin == 9999 else "", 10**9 - int(dkey(k.get("date","")) or 0))
 karty_html = "".join(karta(cid, ps) for cid, ps in
-    sorted(((c, p) for c, p in pol_karty.items() if c),
-           key=lambda x: dkey(karta_by_id.get(x[0], {}).get("date","")), reverse=True))
+    sorted(((c, p) for c, p in pol_karty.items() if c), key=poradie))
 
 import json as _j
 kj_json = _j.dumps({z["spis"]: (z.get("jur") or []) for z in KAUZY}, ensure_ascii=False)
@@ -332,7 +338,10 @@ function apply(){{
   var oko = !OBL || (c.dataset.obl||'').split(' ').indexOf(OBL)>=0;
   c.style.display = (okk&&oko)?'':'none';}});
  var z=document.getElementById('zoznam');
+ function pinR(c){{ var v=parseInt(c.dataset.pin,10); return isNaN(v)?9999:v; }}
  [].slice.call(z.querySelectorAll('.case')).sort(function(a,b){{
+  var pa=pinR(a), pb=pinR(b);
+  if(pa!==pb) return pa-pb;                       // pripnute vzdy hore, podla cisla
   if(SORT==='az')  return (a.dataset.az||'').localeCompare(b.dataset.az||'');
   if(SORT==='our') return (a.dataset.our||'').localeCompare(b.dataset.our||'');
   if(SORT==='obl') return (a.dataset.obl||'').localeCompare(b.dataset.obl||'');
