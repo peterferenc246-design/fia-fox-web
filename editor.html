@@ -133,8 +133,8 @@ textarea{min-height:64px;resize:vertical}
 <script>
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
-const VERZIA="2026-07-24 09:56";
-let D=null, selKz=null, selKa=null, selPo=null;
+const VERZIA="2026-07-24 10:05";
+let D=null, selKz=null, selKa=null, selPo=null, zmenene=false;
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
 function kresliVlajky(){
@@ -177,7 +177,7 @@ function pripravKauzy(){
  (D.polozky||[]).forEach(p=>kody.add(p.kauza||'(bez kauzy)'));
  (D.karty||[]).forEach(k=>{ if(!(D.polozky||[]).some(p=>p.karta===k.id)) kody.add('(bez kauzy)'); });
  kody.forEach(kod=>{
-  if(!D.kauzy_nazvy[kod]){
+  if(!D.kauzy_nazvy[kod] || !Object.values(D.kauzy_nazvy[kod]).some(v=>v)){
    const o={}; L9.forEach(L=>o[L]='');
    const st=((D.polozky||[]).find(p=>(p.kauza||'(bez kauzy)')===kod)||{}).kauza_nazov||'';
    o.sk = st;                      // doterajsi nazov bol slovensky
@@ -189,6 +189,11 @@ function poNacitani(z){ D.karty=D.karty||[];D.polozky=D.polozky||[];D.suhrny=D.s
  selKz=selKa=selPo=null; stat(D.karty.length+' konaní · '+D.polozky.length+' dokumentov · '+z); render(); }
 function aktualizuj(){
  window.__akt=true;
+ try{ sessionStorage.removeItem('fia_stav'); }catch(e){}
+ if(!zmenene){                      // nic rozrobene -> stiahni cerstve data
+  location.replace(location.pathname.split('?')[0]+'?v='+Date.now());
+  return;
+ }
  try{
   if(D) sessionStorage.setItem('fia_stav', JSON.stringify({
     D:D, selKz:selKz, selKa:selKa, selPo:selPo, LANG:LANG, y:window.scrollY, t:Date.now()}));
@@ -209,7 +214,9 @@ function obnovStav(){
   kresliVlajky(); render();
   stat(D.karty.length+' konaní · '+D.polozky.length+' dokumentov · obnovené po aktualizácii');
   document.getElementById('ed').insertAdjacentHTML('afterbegin',
-   '<div class="msg ok">Formulár aktualizovaný na v '+VERZIA+'. Rozpracované dáta aj výber zostali zachované.</div>');
+   '<div class="msg ok">Formulár aktualizovaný na v '+VERZIA+'. Rozpracované dáta aj výber zostali zachované.<br>'
+   +'<button style="margin-top:7px" onclick="if(confirm(\'Zahodiť rozpracované zmeny a načítať čerstvé dáta z webu?\')){zmenene=false;loadWeb();}">'
+   +'⟲ Načítať čerstvé dáta z webu</button></div>');
   setTimeout(()=>window.scrollTo(0,st.y||0),60);
   return true;
  }catch(e){ try{sessionStorage.removeItem('fia_stav');}catch(x){} return false; }
@@ -239,7 +246,7 @@ function tiles(){
  document.getElementById('c-kz').textContent=ks.length;
  document.getElementById('tiles').innerHTML = ks.map(z=>
   ((nz)=>'<button class="tile'+(selKz===z.kod?' on':'')+'" onclick="pickKz(\''+z.kod.replace(/'/g,"\\'")+'\')">'
-  +'<div class="tn">'+esc((txtFb(nz)||z.kod).slice(0,58))+'</div><div class="tk">'+esc(z.kod)+'</div>'
+  +'<div class="tn">'+esc((txtFb(nz)||z.kod))+'</div><div class="tk">'+esc(z.kod)+'</div>'
   +'<span class="tc">'+z.karty.size+' konaní · '+z.n+' dok.</span>'
   +(((nz||{})[LANG]||'').trim()?'':'<span class="pill warn" style="margin-left:6px">chýba '+LANG.toUpperCase()+'</span>')
   +'</button>')((D.kauzy_nazvy||{})[z.kod])).join('')
@@ -252,8 +259,8 @@ function cards(){
   const n=(D.polozky||[]).filter(p=>p.karta===k.id).length;
   const ch=chyba9(k.nazov); const chL=!((k.nazov||{})[LANG]||'').trim();
   return '<div class="card'+(selKa===k.id?' on':'')+'" onclick="pickKa(\''+k.id.replace(/'/g,"\\'")+'\')">'
-   +'<div class="cn">'+esc(nazovKarty(k).slice(0,74))+'</div>'
-   +'<div class="co">'+esc(txtFb(k.organ).slice(0,70))+'</div>'
+   +'<div class="cn">'+esc(nazovKarty(k))+'</div>'
+   +'<div class="co">'+esc(txtFb(k.organ))+'</div>'
    +'<div class="cb"><span class="pill az">'+esc(k.az||'bez značky')+'</span>'
    +'<span class="pill">'+n+' dok.</span>'
    +(chL?'<span class="pill warn">chýba '+LANG.toUpperCase()+'</span>':'')+(ch?'<span class="pill">bez '+ch+' jaz.</span>':'')+'</div></div>';}).join('')
@@ -267,7 +274,7 @@ function docs(){
   const csL=!((p.subj||{})[LANG]||'').trim(), cuL=!((p.urls||{})[LANG]||'').trim();
   return '<div class="doc'+(selPo===i?' on':'')+'" onclick="pickPo('+i+')">'
    +'<div class="dt"><span>'+esc(p.date||'—')+'</span><span>'+esc(p.az||'')+'</span></div>'
-   +'<div class="ds">'+esc(predmet(p).slice(0,90))+'</div>'
+   +'<div class="ds">'+esc(predmet(p))+'</div>'
    +'<div class="dw">'+(p.summodId?'<span class="pill">súhrn</span>':'')
    +(csL?'<span class="pill warn">predmet '+LANG.toUpperCase()+'</span>':'')
    +(cuL?'<span class="pill warn">odkaz '+LANG.toUpperCase()+'</span>':'')
@@ -303,7 +310,7 @@ function editor(){
   +'<label>Stav</label><select onchange="D.polozky['+i+'].stav=this.value">'
   +['laeuft','eingereicht','abgelehnt'].map(s=>'<option'+(p.stav===s?' selected':'')+'>'+s+'</option>').join('')+'</select></div>'
   +'<label>Konanie</label><select onchange="D.polozky['+i+'].karta=this.value;render()">'
-  +(D.karty||[]).map(k=>'<option value="'+esc(k.id)+'"'+(k.id===p.karta?' selected':'')+'>'+esc(nazovKarty(k).slice(0,50))+'</option>').join('')+'</select>'
+  +(D.karty||[]).map(k=>'<option value="'+esc(k.id)+'"'+(k.id===p.karta?' selected':'')+'>'+esc(nazovKarty(k))+'</option>').join('')+'</select>'
   +'<div class="row">'+pole('Spisová značka',p.az||'','D.polozky['+i+'].az=this.value;docs()')
   +pole('Naša značka',p.ourref||'','D.polozky['+i+'].ourref=this.value')+'</div>'
   +'<label>Predmet — 9 jazykov</label>'+jaz(p.subj=p.subj||{},'D.polozky['+i+'].subj')
@@ -381,7 +388,6 @@ function kontrola(){ if(!D){alert('Najprv načítaj dáta.');return;}
 }
 window.addEventListener('DOMContentLoaded',()=>{kresliVlajky(); if(!obnovStav()) loadWeb();});
 
-let zmenene=false;
 document.addEventListener('input',()=>{zmenene=true;},true);
 window.addEventListener('beforeunload',e=>{ if(zmenene && !window.__akt){ e.preventDefault(); e.returnValue=''; }});
 
