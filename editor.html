@@ -109,7 +109,8 @@ textarea{min-height:64px;resize:vertical}
  <span class="sp"></span>
  <span id="stat" style="font-size:12.5px;opacity:.85"></span>
  <button onclick="kontrola()">✔ Kontrola</button>
- <button class="go" onclick="stiahni()">⬇ Stiahnuť JSON</button>
+ <button class="go" onclick="ulozDoRepa()">⬆ Uložiť do repa</button>
+ <button onclick="stiahni()" title="Záloha na disk">⬇ JSON</button>
 </div>
 
 <div class="page">
@@ -149,7 +150,7 @@ textarea{min-height:64px;resize:vertical}
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
 const VIEWER="https://peterferenc246-design.github.io/fia/viewer.html";
-const VERZIA="2026-07-24 14:36";
+const VERZIA="2026-07-24 14:46";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false;
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -568,6 +569,61 @@ window.addEventListener('DOMContentLoaded',()=>{kresliVlajky(); if(!obnovStav())
 document.addEventListener('input',()=>{zmenene=true;},true);
 window.addEventListener('beforeunload',e=>{ if(zmenene && !window.__akt){ e.preventDefault(); e.returnValue=''; }});
 
+
+// ── priamy zápis do repozitára ─────────────────────────────────
+const REPO="peterferenc246-design/fia-fox-web";
+const CESTA="_data/fia_data.json";
+function token(){
+ var t=null;
+ try{ t=sessionStorage.getItem('gh_tok'); }catch(e){}
+ if(!t){
+  t=prompt('Vlož GitHub token (fine-grained, Contents: read+write).\n\n'
+    +'Uloží sa LEN do tejto relácie prehliadača, nikam sa neposiela okrem GitHubu\n'
+    +'a po zatvorení karty zmizne.');
+  if(!t) return null;
+  t=t.trim();
+  try{ sessionStorage.setItem('gh_tok',t); }catch(e){}
+ }
+ return t;
+}
+function zabudniToken(){ try{ sessionStorage.removeItem('gh_tok'); }catch(e){} stat('token zabudnutý'); }
+async function ulozDoRepa(){
+ if(!D){ alert('Najprv načítaj dáta.'); return; }
+ var t=token(); if(!t) return;
+ pripravExport();
+ var telo=JSON.stringify(D,null,1);
+ stat('ukladám do repa…');
+ try{
+  var api='https://api.github.com/repos/'+REPO+'/contents/'+CESTA;
+  var r=await fetch(api+'?ref=main',{headers:{Authorization:'Bearer '+t,Accept:'application/vnd.github+json'}});
+  if(r.status===401||r.status===403){ zabudniToken(); throw new Error('token neplatí alebo nemá práva'); }
+  if(!r.ok) throw new Error('čítanie zlyhalo ('+r.status+')');
+  var meta=await r.json();
+  var b64=btoa(String.fromCharCode.apply(null,new Uint8Array(new TextEncoder().encode(telo))));
+  var put=await fetch(api,{method:'PUT',
+    headers:{Authorization:'Bearer '+t,Accept:'application/vnd.github+json','Content-Type':'application/json'},
+    body:JSON.stringify({message:'Editor: aktualizacia dat registra ('+new Date().toISOString().slice(0,16).replace('T',' ')+')',
+                         content:b64, sha:meta.sha, branch:'main'})});
+  if(!put.ok){ var e=await put.json(); throw new Error(e.message||('zápis zlyhal ('+put.status+')')); }
+  var out=await put.json();
+  zmenene=false;
+  stat('uložené · commit '+out.commit.sha.slice(0,8));
+  document.getElementById('ed').insertAdjacentHTML('afterbegin',
+   '<div class="msg ok"><b>Dáta uložené do repozitára.</b><br>commit '+out.commit.sha.slice(0,8)
+   +'<br>Napíš Claudovi <b>pregeneruj</b> a register sa prestaví.</div>');
+ }catch(err){
+  stat('uloženie zlyhalo');
+  document.getElementById('ed').insertAdjacentHTML('afterbegin',
+   '<div class="msg err"><b>Uloženie zlyhalo:</b> '+esc(String(err.message||err))
+   +'<br>Použi ⬇ JSON a pošli súbor Claudovi.</div>');
+ }
+}
+
+function pripravExport(){
+ D.kauzy=(D.kauzy_reg||[]).map(function(z){return {spis:z.spis,jur:z.jur||[],ids:z.ids||[],
+   n:(D.polozky||[]).filter(function(p){return (z.ids||[]).indexOf(p.karta)>=0;}).length};});
+ (D.polozky||[]).forEach(function(p){ var kz=kauzaKarty(p.karta); if(kz) p.kauza=kz; });
+}
 function stiahni(){ if(!D){alert('Najprv načítaj dáta.');return;}
  D.kauzy=(D.kauzy_reg||[]).map(z=>({spis:z.spis,jur:z.jur||[],ids:z.ids||[],
    n:(D.polozky||[]).filter(p=>(z.ids||[]).indexOf(p.karta)>=0).length}));
