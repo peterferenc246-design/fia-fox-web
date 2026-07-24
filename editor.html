@@ -113,7 +113,8 @@ textarea{min-height:64px;resize:vertical}
 
  <div class="sect">
   <h2>Konania <span class="cnt" id="c-ka">0</span>
-   <button onclick="novaKarta()" style="margin-left:auto">+ Nové konanie</button></h2>
+   <button onclick="prepniRadenie()" id="radbtn" style="margin-left:auto">↓ najnovšie</button>
+   <button onclick="novaKarta()">+ Nové konanie</button></h2>
   <div class="cards" id="cards"><div class="empty">—</div></div>
  </div>
 
@@ -133,7 +134,7 @@ textarea{min-height:64px;resize:vertical}
 <script>
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
-const VERZIA="2026-07-24 10:14";
+const VERZIA="2026-07-24 10:18";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false;
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -153,6 +154,14 @@ function kartaById(id){return (D.karty||[]).find(k=>k.id===id);}
 function nazovKarty(k){return txtFb(k.nazov)||k.id;}
 function predmet(p){return txtFb(p.subj)||p.subj_snap||'(bez predmetu)';}
 
+function dkey(v){
+ v=(v||'').trim();
+ let m=v.match(/^(\d{4})-(\d{2})-(\d{2})$/);        if(m) return m[1]+m[2]+m[3];
+ m=v.match(/^(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})$/); if(m) return m[3]+('0'+m[2]).slice(-2)+('0'+m[1]).slice(-2);
+ return '00000000';
+}
+let radDesc=true;
+function prepniRadenie(){ radDesc=!radDesc; render(); }
 function chyba9(o){return L9.filter(L=>!((o||{})[L]||'').trim()).length;}
 
 /* ── načítanie ── */
@@ -215,7 +224,9 @@ function obnovStav(){
 }
 
 /* ── vykreslenie ── */
-function render(){ if(!D) return; tiles(); cards(); docs(); editor(); langinfo(); }
+function render(){ if(!D) return; tiles(); cards(); docs(); editor(); langinfo();
+ const b=document.getElementById('radbtn'); if(b) b.textContent = radDesc?'↓ najnovšie':'↑ najstaršie';
+}
 function langinfo(){
  if(!D){document.getElementById('langinfo').textContent='';return;}
  const kz=(D.kauzy_reg||[]).filter(z=>!((z.nazov||{})[LANG]||'').trim()).length;
@@ -248,7 +259,8 @@ function tiles(){
 }
 function cards(){
  const kz=selKz?kauzaPodla(selKz):null;
- const zoz=(D.karty||[]).filter(k=>!kz||(kz.ids||[]).indexOf(k.id)>=0);
+ const zoz=(D.karty||[]).filter(k=>!kz||(kz.ids||[]).indexOf(k.id)>=0)
+   .slice().sort((a,b)=>{const x=dkey(a.date),y=dkey(b.date); return radDesc? y.localeCompare(x): x.localeCompare(y);});
  document.getElementById('c-ka').textContent=zoz.length;
  document.getElementById('cards').innerHTML = zoz.map(k=>{
   const n=(D.polozky||[]).filter(p=>p.karta===k.id).length;
@@ -256,14 +268,16 @@ function cards(){
   return '<div class="card'+(selKa===k.id?' on':'')+'" onclick="pickKa(\''+k.id.replace(/'/g,"\\'")+'\')">'
    +'<div class="cn">'+esc(nazovKarty(k))+'</div>'
    +'<div class="co">'+esc(txtFb(k.organ))+'</div>'
-   +'<div class="cb"><span class="pill az">'+esc(k.az||'bez značky')+'</span>'
+   +'<div class="cb"><span class="pill">'+esc(k.date||'bez dátumu')+'</span>'
+   +'<span class="pill az">'+esc(k.az||'bez značky')+'</span>'
    +'<span class="pill">'+n+' dok.</span>'
    +(chL?'<span class="pill warn">chýba '+LANG.toUpperCase()+'</span>':'')+(ch?'<span class="pill">bez '+ch+' jaz.</span>':'')+'</div></div>';}).join('')
   || '<div class="empty">Žiadne konania'+(selKz?' v tejto kauze':'')+'.</div>';
 }
 function docs(){
  const kzo=selKz?kauzaPodla(selKz):null;
- const zoz=(D.polozky||[]).filter(p=>(!selKa||p.karta===selKa)&&(!kzo||(kzo.ids||[]).indexOf(p.karta)>=0));
+ const zoz=(D.polozky||[]).filter(p=>(!selKa||p.karta===selKa)&&(!kzo||(kzo.ids||[]).indexOf(p.karta)>=0))
+   .slice().sort((a,b)=>{const x=dkey(a.date),y=dkey(b.date); return radDesc? y.localeCompare(x): x.localeCompare(y);});
  document.getElementById('c-po').textContent=zoz.length;
  const kresli=arr=>arr.map(p=>{const i=D.polozky.indexOf(p);
   const cs=chyba9(p.subj), cu=chyba9(p.urls);
