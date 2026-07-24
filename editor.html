@@ -133,7 +133,7 @@ textarea{min-height:64px;resize:vertical}
 <script>
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
-const VERZIA="2026-07-24 10:05";
+const VERZIA="2026-07-24 10:14";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false;
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -152,7 +152,7 @@ function esc(s){return (s||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>'
 function kartaById(id){return (D.karty||[]).find(k=>k.id===id);}
 function nazovKarty(k){return txtFb(k.nazov)||k.id;}
 function predmet(p){return txtFb(p.subj)||p.subj_snap||'(bez predmetu)';}
-function kzKarty(cid){const p=(D.polozky||[]).find(x=>x.karta===cid);return p?(p.kauza||'(bez kauzy)'):'(bez kauzy)';}
+
 function chyba9(o){return L9.filter(L=>!((o||{})[L]||'').trim()).length;}
 
 /* ── načítanie ── */
@@ -172,19 +172,11 @@ function loadWeb(){ stat('načítavam dáta…');
     +'Načítanie dát zlyhalo: '+esc(String(e))+'<br><br>Skús tlačidlo <b>Načítať JSON</b> a vyber súbor z disku.</div>'; });
 }
 function pripravKauzy(){
- D.kauzy_nazvy = D.kauzy_nazvy || {};
- const kody=new Set();
- (D.polozky||[]).forEach(p=>kody.add(p.kauza||'(bez kauzy)'));
- (D.karty||[]).forEach(k=>{ if(!(D.polozky||[]).some(p=>p.karta===k.id)) kody.add('(bez kauzy)'); });
- kody.forEach(kod=>{
-  if(!D.kauzy_nazvy[kod] || !Object.values(D.kauzy_nazvy[kod]).some(v=>v)){
-   const o={}; L9.forEach(L=>o[L]='');
-   const st=((D.polozky||[]).find(p=>(p.kauza||'(bez kauzy)')===kod)||{}).kauza_nazov||'';
-   o.sk = st;                      // doterajsi nazov bol slovensky
-   D.kauzy_nazvy[kod]=o;
-  }
- });
+ D.kauzy_reg = D.kauzy_reg || [];
+ D.kauzy_reg.forEach(z=>{ z.nazov=z.nazov||{}; z.warn=z.warn||{}; z.jur=z.jur||[]; z.ids=z.ids||[]; });
 }
+function kauzaKarty(cid){ const z=(D.kauzy_reg||[]).find(z=>(z.ids||[]).indexOf(cid)>=0); return z?z.spis:''; }
+function kauzaPodla(spis){ return (D.kauzy_reg||[]).find(z=>z.spis===spis); }
 function poNacitani(z){ D.karty=D.karty||[];D.polozky=D.polozky||[];D.suhrny=D.suhrny||{}; pripravKauzy();
  selKz=selKa=selPo=null; stat(D.karty.length+' konaní · '+D.polozky.length+' dokumentov · '+z); render(); }
 function aktualizuj(){
@@ -226,7 +218,7 @@ function obnovStav(){
 function render(){ if(!D) return; tiles(); cards(); docs(); editor(); langinfo(); }
 function langinfo(){
  if(!D){document.getElementById('langinfo').textContent='';return;}
- const kz=Object.keys(D.kauzy_nazvy||{}).filter(k=>!((D.kauzy_nazvy[k]||{})[LANG]||'').trim()).length;
+ const kz=(D.kauzy_reg||[]).filter(z=>!((z.nazov||{})[LANG]||'').trim()).length;
  const kk=(D.karty||[]).filter(k=>!((k.nazov||{})[LANG]||'').trim()).length;
  const pp=(D.polozky||[]).filter(p=>!((p.subj||{})[LANG]||'').trim()).length;
  const uu=(D.polozky||[]).filter(p=>!((p.urls||{})[LANG]||'').trim()).length;
@@ -237,23 +229,26 @@ function langinfo(){
 }
 
 function tiles(){
- const m={};
- (D.polozky||[]).forEach(p=>{const kz=p.kauza||'(bez kauzy)';
-  (m[kz]=m[kz]||{kod:kz,karty:new Set(),n:0}); m[kz].n++; if(p.karta)m[kz].karty.add(p.karta);});
- (D.karty||[]).forEach(k=>{ if(!Object.values(m).some(z=>z.karty.has(k.id)))
-  (m['(bez kauzy)']=m['(bez kauzy)']||{kod:'(bez kauzy)',karty:new Set(),n:0}).karty.add(k.id);});
- const ks=Object.values(m).sort((a,b)=>b.karty.size-a.karty.size);
- document.getElementById('c-kz').textContent=ks.length;
- document.getElementById('tiles').innerHTML = ks.map(z=>
-  ((nz)=>'<button class="tile'+(selKz===z.kod?' on':'')+'" onclick="pickKz(\''+z.kod.replace(/'/g,"\\'")+'\')">'
-  +'<div class="tn">'+esc((txtFb(nz)||z.kod))+'</div><div class="tk">'+esc(z.kod)+'</div>'
-  +'<span class="tc">'+z.karty.size+' konaní · '+z.n+' dok.</span>'
-  +(((nz||{})[LANG]||'').trim()?'':'<span class="pill warn" style="margin-left:6px">chýba '+LANG.toUpperCase()+'</span>')
-  +'</button>')((D.kauzy_nazvy||{})[z.kod])).join('')
-  || '<div class="empty">Žiadne kauzy.</div>';
+ const zoz=(D.kauzy_reg||[]);
+ document.getElementById('c-kz').textContent=zoz.length;
+ document.getElementById('tiles').innerHTML = zoz.map(z=>{
+  const nk=(z.ids||[]).filter(id=>kartaById(id)).length;
+  const nd=(D.polozky||[]).filter(p=>(z.ids||[]).indexOf(p.karta)>=0).length;
+  const chL=!((z.nazov||{})[LANG]||'').trim();
+  const fl=(z.jur||[]).map(j=> j==='eu' ? '🇪🇺'
+        : '<img src="https://flagcdn.com/'+(j==='sk'?'sk':j)+'.svg" style="width:16px;height:11px;object-fit:cover;border-radius:2px;vertical-align:-1px">').join(' ');
+  return '<button class="tile'+(selKz===z.spis?' on':'')+'" onclick="pickKz(\''+z.spis.replace(/'/g,"\'")+'\')">'
+   +'<div style="margin-bottom:4px">'+fl+'</div>'
+   +'<div class="tn">'+esc(txtFb(z.nazov)||z.spis)+'</div>'
+   +'<div class="tk">'+esc(z.spis)+'</div>'
+   +(((z.warn||{})[LANG]||'')?'<div style="font-size:11px;color:var(--red);font-style:italic;font-weight:700;margin-top:5px">'+esc(z.warn[LANG])+'</div>':'')
+   +'<span class="tc">'+nk+' konaní · '+nd+' dok.</span>'
+   +(chL?'<span class="pill warn" style="margin-left:6px">chýba '+LANG.toUpperCase()+'</span>':'')
+   +'</button>';}).join('') || '<div class="empty">Žiadne kauzy.</div>';
 }
 function cards(){
- const zoz=(D.karty||[]).filter(k=>!selKz||kzKarty(k.id)===selKz);
+ const kz=selKz?kauzaPodla(selKz):null;
+ const zoz=(D.karty||[]).filter(k=>!kz||(kz.ids||[]).indexOf(k.id)>=0);
  document.getElementById('c-ka').textContent=zoz.length;
  document.getElementById('cards').innerHTML = zoz.map(k=>{
   const n=(D.polozky||[]).filter(p=>p.karta===k.id).length;
@@ -267,7 +262,8 @@ function cards(){
   || '<div class="empty">Žiadne konania'+(selKz?' v tejto kauze':'')+'.</div>';
 }
 function docs(){
- const zoz=(D.polozky||[]).filter(p=>(!selKa||p.karta===selKa)&&(!selKz||(p.kauza||'(bez kauzy)')===selKz));
+ const kzo=selKz?kauzaPodla(selKz):null;
+ const zoz=(D.polozky||[]).filter(p=>(!selKa||p.karta===selKa)&&(!kzo||(kzo.ids||[]).indexOf(p.karta)>=0));
  document.getElementById('c-po').textContent=zoz.length;
  const kresli=arr=>arr.map(p=>{const i=D.polozky.indexOf(p);
   const cs=chyba9(p.subj), cu=chyba9(p.urls);
@@ -286,8 +282,8 @@ function docs(){
  document.getElementById('drecv').innerHTML=kresli(r)||'<div class="empty">—</div>';
 }
 function pickKz(k){selKz=(selKz===k?null:k); selKa=null; selPo=null; render();}
-function pickKa(c){selKa=(selKa===c?null:c); selPo=null; selKz=selKa?kzKarty(c):selKz; render();}
-function pickPo(i){selPo=(selPo===i?null:i); if(selPo!==null){const p=D.polozky[i]; selKa=p.karta; selKz=p.kauza||'(bez kauzy)';} render();}
+function pickKa(c){selKa=(selKa===c?null:c); selPo=null; selKz=selKa?kauzaKarty(c):selKz; render();}
+function pickPo(i){selPo=(selPo===i?null:i); if(selPo!==null){const p=D.polozky[i]; selKa=p.karta; selKz=kauzaKarty(p.karta);} render();}
 
 /* ── editor ── */
 function pole(l,v,on){return '<label>'+l+'</label><input value="'+esc(v)+'" oninput="'+on+'">';}
@@ -329,16 +325,19 @@ function editor(){
   +'<label>Názov konania — 9 jazykov</label>'+jaz(k.nazov=k.nazov||{},'D.karty['+i+'].nazov')
   +'<label>Orgán — 9 jazykov</label>'+jaz(k.organ=k.organ||{},'D.karty['+i+'].organ')
   +'<div class="acts"><button onclick="zmazKa()">🗑 Zmazať konanie</button></div>';
- } else if(selKz){
-  const ps=(D.polozky||[]).filter(p=>(p.kauza||'(bez kauzy)')===selKz);
-  const karty=new Set(ps.map(p=>p.karta).filter(Boolean));
-  D.kauzy_nazvy=D.kauzy_nazvy||{}; 
-  if(!D.kauzy_nazvy[selKz]){const o={};L9.forEach(L=>o[L]='');D.kauzy_nazvy[selKz]=o;}
-  e.innerHTML='<h2>Kauza</h2><div class="sub">'+esc(selKz)+' · '+karty.size+' konaní · '+ps.length+' dokumentov</div>'
-  +'<label>Názov kauzy — 9 jazykov</label>'
-  +jaz(D.kauzy_nazvy[selKz],'D.kauzy_nazvy[\''+selKz.replace(/'/g,"\\'")+'\']')
-  +'<p class="hint">Tento názov sa zobrazuje na dlaždici kauzy v registri a prepína sa vlajkou.</p>'
-  +'<div class="acts"><button onclick="tiles();stat(\'Názov kauzy prepísaný\')">↻ Prekresliť dlaždice</button></div>';
+ } else if(selKz && kauzaPodla(selKz)){
+  const z=kauzaPodla(selKz), zi=D.kauzy_reg.indexOf(z);
+  const nk=(z.ids||[]).filter(id=>kartaById(id)).length;
+  const nd=(D.polozky||[]).filter(p=>(z.ids||[]).indexOf(p.karta)>=0).length;
+  e.innerHTML='<h2>Kauza</h2><div class="sub">'+esc(z.spis)+' · '+nk+' konaní · '+nd+' dokumentov</div>'
+  +pole('Kód kauzy (data-spis)',z.spis,'D.kauzy_reg['+zi+'].spis=this.value')
+  +pole('Jurisdikcia (de sk eu)',(z.jur||[]).join(' '),'D.kauzy_reg['+zi+'].jur=this.value.split(/\s+/).filter(Boolean);tiles()')
+  +'<label>Názov kauzy — 9 jazykov</label>'+jaz(z.nazov,'D.kauzy_reg['+zi+'].nazov')
+  +'<label>Červený podtitul — 9 jazykov (nepovinné)</label>'+jaz(z.warn,'D.kauzy_reg['+zi+'].warn')
+  +'<label>Konania v kauze</label>'
+  +'<div style="font-size:12.5px;color:#4a5b6d">'+(z.ids||[]).map(id=>{const k=kartaById(id);
+     return '• '+esc(k?nazovKarty(k):id)+(k?'':' <span class="pill warn">karta neexistuje</span>');}).join('<br>')+'</div>'
+  +'<div class="acts"><button onclick="tiles();stat(\'Dlaždice prekreslené\')">↻ Prekresliť</button></div>';
  } else e.innerHTML='<h2>Editor</h2><p class="hint">Vyber kauzu, konanie alebo dokument.</p>';
 }
 
@@ -353,7 +352,7 @@ function novaKarta(){ if(!D){alert('Najprv načítaj dáta.');return;}
  selKa=id; selPo=null; render();}
 function novaPolozka(){ if(!D){alert('Najprv načítaj dáta.');return;}
  if(!(D.karty||[]).length){alert('Najprv vytvor konanie.');return;}
- const cid=selKa||D.karty[0].id, kz=kzKarty(cid), d=new Date();
+ const cid=selKa||D.karty[0].id, kz=kauzaKarty(cid), d=new Date();
  D.polozky.push({kauza:(kz==='(bez kauzy)'?'':kz),kauza_nazov:'',dir:'sent',
   date:('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear(),
   stav:'laeuft',access:'',az:'',ourref:'',court:'',cmtid:'',summodId:'',fname:'',fpath:'',
@@ -369,8 +368,9 @@ function zmazKa(){const k=kartaById(selKa);const n=D.polozky.filter(p=>p.karta==
 /* ── kontrola a export ── */
 function kontrola(){ if(!D){alert('Najprv načítaj dáta.');return;}
  const ch=[];
- Object.keys(D.kauzy_nazvy||{}).forEach(kod=>{const c=L9.filter(L=>!((D.kauzy_nazvy[kod]||{})[L]||'').trim());
-  if(c.length)ch.push('Kauza '+kod+': chýba názov v '+c.join(', ').toUpperCase());});
+ (D.kauzy_reg||[]).forEach(z=>{const c=L9.filter(L=>!((z.nazov||{})[L]||'').trim());
+  if(c.length)ch.push('Kauza '+z.spis+': chýba názov v '+c.join(', ').toUpperCase());
+  (z.ids||[]).forEach(id=>{if(!kartaById(id))ch.push('Kauza '+z.spis+': odkazuje na neexistujúce konanie '+id);});});
  (D.karty||[]).forEach(k=>{const c=L9.filter(L=>!(k.nazov||{})[L]);
   if(c.length)ch.push('Konanie '+k.id+': chýba názov v '+c.join(', ').toUpperCase());
   if(!k.az)ch.push('Konanie '+k.id+': prázdna spisová značka');});
@@ -392,13 +392,9 @@ document.addEventListener('input',()=>{zmenene=true;},true);
 window.addEventListener('beforeunload',e=>{ if(zmenene && !window.__akt){ e.preventDefault(); e.returnValue=''; }});
 
 function stiahni(){ if(!D){alert('Najprv načítaj dáta.');return;}
- const m={}; D.kauzy=[];
- (D.polozky||[]).forEach(p=>{const kz=p.kauza||'?';
-  (m[kz]=m[kz]||{kod:kz,nazov:((D.kauzy_nazvy||{})[kz]||{}).sk||p.kauza_nazov||'',n:0,jur:new Set(),karty:new Set()});
-  m[kz].n++; if(p.karta)m[kz].karty.add(p.karta);
-  ((kartaById(p.karta)||{}).jur||[]).forEach(j=>m[kz].jur.add(j));});
- Object.values(m).forEach(z=>D.kauzy.push({kod:z.kod,nazov:z.nazov,nazvy:(D.kauzy_nazvy||{})[z.kod]||{},
-   n:z.n,jur:[...z.jur].sort(),karty:[...z.karty].sort()}));
+ D.kauzy=(D.kauzy_reg||[]).map(z=>({spis:z.spis,jur:z.jur||[],ids:z.ids||[],
+   n:(D.polozky||[]).filter(p=>(z.ids||[]).indexOf(p.karta)>=0).length}));
+ (D.polozky||[]).forEach(p=>{ const kz=kauzaKarty(p.karta); if(kz) p.kauza=kz; });
  const a=document.createElement('a');
  a.href=URL.createObjectURL(new Blob([JSON.stringify(D,null,1)],{type:'application/json'}));
  a.download='fia_data.json'; a.click();

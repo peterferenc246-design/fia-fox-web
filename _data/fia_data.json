@@ -475,7 +475,7 @@
  ],
  "polozky": [
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Žaloba proti Deutsche Telekom AG, porušovanie ľudských práv a GDPR, Landgericht Landshut",
    "dir": "sent",
    "date": "14.11.2024",
@@ -526,7 +526,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Žaloba proti Deutsche Telekom AG, porušovanie ľudských práv a GDPR, Landgericht Landshut",
    "dir": "sent",
    "date": "17.10.2024",
@@ -573,7 +573,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Žaloba proti Deutsche Telekom AG, porušovanie ľudských práv a GDPR, Landgericht Landshut",
    "dir": "recv",
    "date": "06.11.2024",
@@ -624,7 +624,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Žaloba proti Deutsche Telekom AG, porušovanie ľudských práv a GDPR, Landgericht Landshut",
    "dir": "recv",
    "date": "06.11.2024",
@@ -675,7 +675,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Žaloba proti Deutsche Telekom AG, porušovanie ľudských práv a GDPR, Landgericht Landshut",
    "dir": "recv",
    "date": "12.12.2024",
@@ -726,7 +726,7 @@
    }
   },
   {
-   "kauza": "k-dak",
+   "kauza": "PER-DE-2026-DAK-",
    "kauza_nazov": "Konanie proti zasahovaniu do mojich majetkových práv Nemeckou zdravotnou poisťovňou DAK",
    "dir": "sent",
    "date": "06.07.2025",
@@ -776,7 +776,7 @@
    }
   },
   {
-   "kauza": "k-fon",
+   "kauza": "TCFIA-2026-FON",
    "kauza_nazov": "Podvodné správanie O2 Telefónica Deutschland",
    "dir": "sent",
    "date": "18.01.2025",
@@ -825,7 +825,7 @@
    }
   },
   {
-   "kauza": "k-vszp",
+   "kauza": "PR-2026-VsZ-006",
    "kauza_nazov": "ŽALOBA O NÁHRADU ŠKODY",
    "dir": "sent",
    "date": "10.07.2025",
@@ -874,7 +874,7 @@
    }
   },
   {
-   "kauza": "k-lra",
+   "kauza": "LRA-2026-BG",
    "kauza_nazov": "Nezákonne uložená pokuta okresným úradom",
    "dir": "recv",
    "date": "18.03.2024",
@@ -923,7 +923,7 @@
    }
   },
   {
-   "kauza": "k-lra",
+   "kauza": "LRA-2026-BG",
    "kauza_nazov": "Súdne konanie – Landgericht Landshut (Erzwingungshaft)",
    "dir": "sent",
    "date": "7.6.2025",
@@ -972,7 +972,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "V širšom zmysle kauzy – kartelové prepojenia Schufa, bánk, Telekomu a spolkovej vlády Nemecka",
    "dir": "recv",
    "date": "07.07.2026",
@@ -1023,7 +1023,7 @@
    }
   },
   {
-   "kauza": "k-exs",
+   "kauza": "PR-2026-EXS",
    "kauza_nazov": "Adriana Soldan Steinerova — nezákonná exekúcia za nulový dlh (ÚDZS) a zásah do majetkových práv",
    "dir": "sent",
    "date": "06.06.2026",
@@ -1070,7 +1070,7 @@
    }
   },
   {
-   "kauza": "k-exs",
+   "kauza": "PR-2026-EXS",
    "kauza_nazov": "Adriana Soldan Steinerova — nezákonná exekúcia za nulový dlh (ÚDZS) a zásah do majetkových práv",
    "dir": "sent",
    "date": "29.06.2026",
@@ -1117,7 +1117,7 @@
    }
   },
   {
-   "kauza": "k-exs",
+   "kauza": "PR-2026-EXS",
    "kauza_nazov": "Adriana Soldan Steinerova — nezákonná exekúcia za nulový dlh (ÚDZS) a zásah do majetkových práv",
    "dir": "recv",
    "date": "29.06.2026",
@@ -1164,7 +1164,7 @@
    }
   },
   {
-   "kauza": "k-ms",
+   "kauza": "PIF-EU-2026-MBS",
    "kauza_nazov": "Microsoft — inštitucionálne porušenie GDPR a cezhraničný podvod na DPH",
    "dir": "sent",
    "date": "17.05.2026",
@@ -1215,7 +1215,7 @@
    }
   },
   {
-   "kauza": "k-ms",
+   "kauza": "PIF-EU-2026-MBS",
    "kauza_nazov": "Microsoft — inštitucionálne porušenie GDPR a cezhraničný podvod na DPH",
    "dir": "sent",
    "date": "11. máj 2026",
@@ -1265,7 +1265,7 @@
    }
   },
   {
-   "kauza": "k-ms",
+   "kauza": "PIF-EU-2026-MBS",
    "kauza_nazov": "Microsoft — inštitucionálne porušenie GDPR a cezhraničný podvod na DPH",
    "dir": "recv",
    "date": "02. júl 2026",
@@ -1316,7 +1316,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Nichtigkeitsklage — Zusammenschluss (Joint Venture) M.10815",
    "dir": "sent",
    "date": "14. 04. 2026",
@@ -1365,7 +1365,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Nichtigkeitsklage — Zusammenschluss (Joint Venture) M.10815",
    "dir": "sent",
    "date": "13. 12. 2025",
@@ -1414,7 +1414,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Nichtigkeitsklage — Zusammenschluss (Joint Venture) M.10815",
    "dir": "sent",
    "date": "24. 12. 2025",
@@ -1463,7 +1463,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Nichtigkeitsklage — Zusammenschluss (Joint Venture) M.10815",
    "dir": "recv",
    "date": "22.12.2025",
@@ -1512,7 +1512,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Nichtigkeitsklage — Zusammenschluss (Joint Venture) M.10815",
    "dir": "recv",
    "date": "12.05.2026",
@@ -1561,7 +1561,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Nichtigkeitsklage — Zusammenschluss (Joint Venture) M.10815",
    "dir": "recv",
    "date": "22.12.2025",
@@ -1611,7 +1611,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Nichtigkeitsklage — Zusammenschluss (Joint Venture) M.10815",
    "dir": "recv",
    "date": "12.05.2026",
@@ -1660,7 +1660,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Beschwerde wegen Kartellpraktiken — DG COMP",
    "dir": "sent",
    "date": "07.02.2026",
@@ -1710,7 +1710,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Beschwerde wegen Kartellpraktiken — DG COMP",
    "dir": "sent",
    "date": "11.12.2025",
@@ -1760,7 +1760,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Beschwerde wegen Kartellpraktiken — DG COMP",
    "dir": "sent",
    "date": "19.07.2026",
@@ -1811,7 +1811,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Beschwerde wegen Kartellpraktiken — DG COMP",
    "dir": "recv",
    "date": "07.01.2026",
@@ -1862,7 +1862,7 @@
    }
   },
   {
-   "kauza": "k-jv",
+   "kauza": "TFIA-2026-JV",
    "kauza_nazov": "Trestné oznámenie proti Telekom Deutschland GmbH a Schufa Holding AG - Landshut",
    "dir": "sent",
    "date": "11.07.2024",
@@ -2102,179 +2102,268 @@
  },
  "kauzy": [
   {
-   "kod": "k-jv",
-   "nazov": "Žaloba proti Deutsche Telekom AG, porušovanie ľudských práv a GDPR, Landgericht Landshut",
-   "n": 18,
+   "spis": "TFIA-2026-JV",
    "jur": [
     "de",
     "eu"
    ],
-   "karty": [
-    "case-dgcomp",
+   "ids": [
     "case-m10815",
+    "case-dgcomp",
     "case-telekom",
     "case-v-sirsom-zmysle-kauzy-kartelove-prepojen",
     "case-zaloba-proti-deutsche-telekom-ag-porusov"
-   ]
+   ],
+   "n": 18
   },
   {
-   "kod": "k-dak",
-   "nazov": "Konanie proti zasahovaniu do mojich majetkových práv Nemeckou zdravotnou poisťovňou DAK",
-   "n": 1,
+   "spis": "TCFIA-2026-FON",
    "jur": [
     "de"
    ],
-   "karty": [
-    "case-konanie-proti-zasahovaniu-do-mojich-maje"
-   ]
-  },
-  {
-   "kod": "k-fon",
-   "nazov": "Podvodné správanie O2 Telefónica Deutschland",
-   "n": 1,
-   "jur": [
-    "de"
-   ],
-   "karty": [
+   "ids": [
     "case-podvodne-spravanie-o2-telefonica-deutsch"
-   ]
-  },
-  {
-   "kod": "k-vszp",
-   "nazov": "ŽALOBA O NÁHRADU ŠKODY",
-   "n": 1,
-   "jur": [
-    "sk"
    ],
-   "karty": [
-    "case-zaloba-o-nahradu-skody"
-   ]
+   "n": 1
   },
   {
-   "kod": "k-lra",
-   "nazov": "Nezákonne uložená pokuta okresným úradom",
-   "n": 2,
+   "spis": "LRA-2026-BG",
    "jur": [
     "de"
    ],
-   "karty": [
-    "case-landgericht-landshut-erzwingungshaft",
-    "case-nezakonne-ulozena-pokuta-okresnym-uradom"
-   ]
+   "ids": [
+    "case-nezakonne-ulozena-pokuta-okresnym-uradom",
+    "case-landgericht-landshut-erzwingungshaft"
+   ],
+   "n": 2
   },
   {
-   "kod": "k-exs",
-   "nazov": "Adriana Soldan Steinerova — nezákonná exekúcia za nulový dlh (ÚDZS) a zásah do majetkových práv",
-   "n": 3,
+   "spis": "PER-DE-2026-INS-005",
+   "jur": [
+    "de"
+   ],
+   "ids": [],
+   "n": 0
+  },
+  {
+   "spis": "PR-2026-EXS",
    "jur": [
     "sk"
    ],
-   "karty": [
+   "ids": [
     "case-udzs-namietka"
-   ]
+   ],
+   "n": 3
   },
   {
-   "kod": "k-ms",
-   "nazov": "Microsoft — inštitucionálne porušenie GDPR a cezhraničný podvod na DPH",
-   "n": 3,
+   "spis": "PR-2026-VsZ-006",
+   "jur": [
+    "sk"
+   ],
+   "ids": [
+    "case-trestne-oznamenie-na-gpsr-proti-prokurat",
+    "case-zaloba-o-nahradu-skody"
+   ],
+   "n": 1
+  },
+  {
+   "spis": "PIF-EU-2026-MBS",
    "jur": [
     "de",
     "eu"
    ],
-   "karty": [
+   "ids": [
     "case-mstest",
     "case-staznost-dozornemu-organu"
-   ]
+   ],
+   "n": 3
+  },
+  {
+   "spis": "PER-DE-2026-DAK-",
+   "jur": [
+    "de"
+   ],
+   "ids": [
+    "case-konanie-proti-zasahovaniu-do-mojich-maje"
+   ],
+   "n": 1
   }
  ],
- "kauzy_nazvy": {
-  "k-jv": {
-   "de": "Klage gegen die Deutsche Telekom AG — Verletzung der Menschenrechte und der DSGVO, Landgericht Landshut",
-   "en": "Action against Deutsche Telekom AG — violation of human rights and the GDPR, Landgericht Landshut",
-   "sk": "Žaloba proti Deutsche Telekom AG, porušovanie ľudských práv a GDPR, Landgericht Landshut",
-   "hr": "Tužba protiv Deutsche Telekom AG — povreda ljudskih prava i GDPR-a, Landgericht Landshut",
-   "pl": "Powództwo przeciwko Deutsche Telekom AG — naruszenie praw człowieka i RODO, Landgericht Landshut",
-   "es": "Demanda contra Deutsche Telekom AG — vulneración de derechos humanos y del RGPD, Landgericht Landshut",
-   "it": "Azione contro Deutsche Telekom AG — violazione dei diritti umani e del GDPR, Landgericht Landshut",
-   "fr": "Action contre Deutsche Telekom AG — atteinte aux droits de l'homme et au RGPD, Landgericht Landshut",
-   "sv": "Talan mot Deutsche Telekom AG — kränkning av mänskliga rättigheter och dataskyddsförordningen, Landgericht Landshut"
+ "kauzy_reg": [
+  {
+   "spis": "TFIA-2026-JV",
+   "jur": [
+    "de",
+    "eu"
+   ],
+   "ids": [
+    "case-m10815",
+    "case-dgcomp",
+    "case-telekom",
+    "case-v-sirsom-zmysle-kauzy-kartelove-prepojen",
+    "case-zaloba-proti-deutsche-telekom-ag-porusov"
+   ],
+   "nazov": {
+    "de": "Telekom — Kartell / Joint Venture",
+    "en": "Telekom — cartel / Joint Venture",
+    "sk": "Telekom — kartel / Joint Venture",
+    "hr": "Telekom — kartel / Joint Venture",
+    "pl": "Telekom — kartel / Joint Venture",
+    "es": "Telekom — cártel / empresa común",
+    "it": "Telekom — cartello / impresa comune",
+    "fr": "Telekom — entente / entreprise commune",
+    "sv": "Telekom — kartell / Joint Venture"
+   },
+   "warn": {}
   },
-  "k-exs": {
-   "de": "Adriana Soldan Steinerova — rechtswidrige Vollstreckung ohne Schuld (ÚDZS) und Eingriff in Vermögensrechte",
-   "en": "Adriana Soldan Steinerova — unlawful enforcement without debt (ÚDZS) and interference with property rights",
-   "sk": "Adriana Soldan Steinerova — nezákonná exekúcia za nulový dlh (ÚDZS) a zásah do majetkových práv",
-   "hr": "Adriana Soldan Steinerova — nezakonita ovrha bez duga (ÚDZS) i zadiranje u imovinska prava",
-   "pl": "Adriana Soldan Steinerova — bezprawna egzekucja bez długu (ÚDZS) i ingerencja w prawa majątkowe",
-   "es": "Adriana Soldan Steinerova — ejecución ilegal sin deuda (ÚDZS) e injerencia en derechos patrimoniales",
-   "it": "Adriana Soldan Steinerova — esecuzione illegittima senza debito (ÚDZS) e lesione dei diritti patrimoniali",
-   "fr": "Adriana Soldan Steinerova — exécution illégale sans dette (ÚDZS) et atteinte aux droits patrimoniaux",
-   "sv": "Adriana Soldan Steinerova — olaglig verkställighet utan skuld (ÚDZS) och ingrepp i egendomsrätt"
+  {
+   "spis": "TCFIA-2026-FON",
+   "jur": [
+    "de"
+   ],
+   "ids": [
+    "case-podvodne-spravanie-o2-telefonica-deutsch"
+   ],
+   "nazov": {
+    "de": "Telefónica — Betrug",
+    "en": "Telefónica — fraud",
+    "sk": "Telefónica — podvod",
+    "hr": "Telefónica — prijevara",
+    "pl": "Telefónica — oszustwo",
+    "es": "Telefónica — fraude",
+    "it": "Telefónica — frode",
+    "fr": "Telefónica — fraude",
+    "sv": "Telefónica — bedrägeri"
+   },
+   "warn": {}
   },
-  "k-ms": {
-   "de": "Microsoft — institutioneller DSGVO-Verstoß und grenzüberschreitender Mehrwertsteuerbetrug",
-   "en": "Microsoft — institutional GDPR infringement and cross-border VAT fraud",
-   "sk": "Microsoft — inštitucionálne porušenie GDPR a cezhraničný podvod na DPH",
-   "hr": "Microsoft — institucionalna povreda GDPR-a i prekogranična prijevara s PDV-om",
-   "pl": "Microsoft — instytucjonalne naruszenie RODO i transgraniczne oszustwo VAT",
-   "es": "Microsoft — infracción institucional del RGPD y fraude transfronterizo del IVA",
-   "it": "Microsoft — violazione istituzionale del GDPR e frode IVA transfrontaliera",
-   "fr": "Microsoft — violation institutionnelle du RGPD et fraude transfrontalière à la TVA",
-   "sv": "Microsoft — institutionell överträdelse av dataskyddsförordningen och gränsöverskridande momsbedrägeri"
+  {
+   "spis": "LRA-2026-BG",
+   "jur": [
+    "de"
+   ],
+   "ids": [
+    "case-nezakonne-ulozena-pokuta-okresnym-uradom",
+    "case-landgericht-landshut-erzwingungshaft"
+   ],
+   "nazov": {
+    "de": "Landratsamt — Bußgeld",
+    "en": "Landratsamt — fine",
+    "sk": "Landratsamt — Bußgeld",
+    "hr": "Landratsamt — novčana kazna",
+    "pl": "Landratsamt — grzywna",
+    "es": "Landratsamt — multa",
+    "it": "Landratsamt — sanzione",
+    "fr": "Landratsamt — amende",
+    "sv": "Landratsamt — böter"
+   },
+   "warn": {}
   },
-  "k-lra": {
-   "de": "Rechtswidrig verhängtes Bußgeld durch das Landratsamt",
-   "en": "Administrative fine unlawfully imposed by the district authority",
-   "sk": "Nezákonne uložená pokuta okresným úradom",
-   "hr": "Nezakonito izrečena novčana kazna od strane okružnog ureda",
-   "pl": "Bezprawnie nałożona grzywna przez urząd powiatowy",
-   "es": "Multa impuesta ilegalmente por la administración del distrito",
-   "it": "Sanzione pecuniaria illegittimamente irrogata dall'ufficio distrettuale",
-   "fr": "Amende infligée illégalement par l'administration de district",
-   "sv": "Böter som olagligen ålagts av distriktsmyndigheten"
+  {
+   "spis": "PER-DE-2026-INS-005",
+   "jur": [
+    "de"
+   ],
+   "ids": [],
+   "nazov": {
+    "de": "Insolvenzantrag (Personal)",
+    "en": "Insolvency petition (personal)",
+    "sk": "Insolvenčný návrh (Personal)",
+    "hr": "Prijedlog za stečaj (osobni)",
+    "pl": "Wniosek o upadłość (osobisty)",
+    "es": "Solicitud de insolvencia (personal)",
+    "it": "Istanza di insolvenza (personale)",
+    "fr": "Demande d'insolvabilité (personnelle)",
+    "sv": "Konkursansökan (personlig)"
+   },
+   "warn": {}
   },
-  "k-dak": {
-   "de": "Verfahren gegen Eingriffe in meine Vermögensrechte durch die deutsche Krankenkasse DAK",
-   "en": "Proceedings against interference with my property rights by the German health insurer DAK",
-   "sk": "Konanie proti zasahovaniu do mojich majetkových práv Nemeckou zdravotnou poisťovňou DAK",
-   "hr": "Postupak protiv zadiranja u moja imovinska prava od njemačkog zdravstvenog osiguravatelja DAK",
-   "pl": "Postępowanie przeciwko ingerencji w moje prawa majątkowe przez niemiecką kasę chorych DAK",
-   "es": "Procedimiento contra la injerencia en mis derechos patrimoniales por la caja de enfermedad alemana DAK",
-   "it": "Procedimento contro la lesione dei miei diritti patrimoniali da parte della cassa malattia tedesca DAK",
-   "fr": "Procédure contre l'atteinte à mes droits patrimoniaux par la caisse maladie allemande DAK",
-   "sv": "Förfarande mot ingrepp i min egendomsrätt av den tyska sjukkassan DAK"
+  {
+   "spis": "PR-2026-EXS",
+   "jur": [
+    "sk"
+   ],
+   "ids": [
+    "case-udzs-namietka"
+   ],
+   "nazov": {
+    "de": "Schadenersatz 15 000 €",
+    "en": "Damages claim €15,000",
+    "sk": "Vymáhanie odškodného 15 000 €",
+    "hr": "Naknada štete 15 000 €",
+    "pl": "Odszkodowanie 15 000 €",
+    "es": "Indemnización 15 000 €",
+    "it": "Risarcimento 15 000 €",
+    "fr": "Indemnisation 15 000 €",
+    "sv": "Skadestånd 15 000 €"
+   },
+   "warn": {}
   },
-  "k-fon": {
-   "de": "Betrügerisches Verhalten von O2 Telefónica Deutschland",
-   "en": "Fraudulent conduct of O2 Telefónica Deutschland",
-   "sk": "Podvodné správanie O2 Telefónica Deutschland",
-   "hr": "Prijevarno postupanje O2 Telefónica Deutschland",
-   "pl": "Oszukańcze postępowanie O2 Telefónica Deutschland",
-   "es": "Conducta fraudulenta de O2 Telefónica Deutschland",
-   "it": "Condotta fraudolenta di O2 Telefónica Deutschland",
-   "fr": "Comportement frauduleux d'O2 Telefónica Deutschland",
-   "sv": "Bedrägligt agerande av O2 Telefónica Deutschland"
+  {
+   "spis": "PR-2026-VsZ-006",
+   "jur": [
+    "sk"
+   ],
+   "ids": [
+    "case-trestne-oznamenie-na-gpsr-proti-prokurat",
+    "case-zaloba-o-nahradu-skody"
+   ],
+   "nazov": {
+    "de": "Schadenersatz 10 000 € — VšZP",
+    "en": "Damages claim €10,000 — VšZP",
+    "sk": "Odškodné 10 000 € — VšZP",
+    "hr": "Naknada štete 10 000 € — VšZP",
+    "pl": "Odszkodowanie 10 000 € — VšZP",
+    "es": "Indemnización 10 000 € — VšZP",
+    "it": "Risarcimento 10 000 € — VšZP",
+    "fr": "Indemnisation 10 000 € — VšZP",
+    "sv": "Skadestånd 10 000 € — VšZP"
+   },
+   "warn": {}
   },
-  "k-vszp": {
-   "de": "Klage auf Schadenersatz",
-   "en": "Action for damages",
-   "sk": "Žaloba o náhradu škody",
-   "hr": "Tužba za naknadu štete",
-   "pl": "Powództwo o odszkodowanie",
-   "es": "Demanda de indemnización por daños",
-   "it": "Azione di risarcimento del danno",
-   "fr": "Action en réparation du préjudice",
-   "sv": "Talan om skadestånd"
+  {
+   "spis": "PIF-EU-2026-MBS",
+   "jur": [
+    "de",
+    "eu"
+   ],
+   "ids": [
+    "case-mstest",
+    "case-staznost-dozornemu-organu"
+   ],
+   "nazov": {
+    "de": "Microsoft — DSGVO-Verstöße",
+    "en": "Microsoft — GDPR breaches",
+    "sk": "Microsoft — GDPR porušenia",
+    "hr": "Microsoft — GDPR povrede",
+    "pl": "Microsoft — naruszenia RODO",
+    "es": "Microsoft — infracciones RGPD",
+    "it": "Microsoft — violazioni GDPR",
+    "fr": "Microsoft — violations RGPD",
+    "sv": "Microsoft — GDPR-överträdelser"
+   },
+   "warn": {}
   },
-  "(bez kauzy)": {
-   "de": "Ohne Fallzuordnung",
-   "en": "Not assigned to a case",
-   "sk": "Bez priradenia ku kauze",
-   "hr": "Bez pridruženog predmeta",
-   "pl": "Bez przypisania do sprawy",
-   "es": "Sin caso asignado",
-   "it": "Senza caso assegnato",
-   "fr": "Sans affaire attribuée",
-   "sv": "Utan ärendetillhörighet"
+  {
+   "spis": "PER-DE-2026-DAK-",
+   "jur": [
+    "de"
+   ],
+   "ids": [
+    "case-konanie-proti-zasahovaniu-do-mojich-maje"
+   ],
+   "nazov": {
+    "de": "DAK — Betrug (Krankenkasse)",
+    "en": "DAK — fraud (health insurer)",
+    "sk": "DAK — podvod (poisťovňa)",
+    "hr": "DAK — prijevara (osiguranje)",
+    "pl": "DAK — oszustwo (ubezpieczyciel)",
+    "es": "DAK — fraude (aseguradora)",
+    "it": "DAK — frode (assicurazione)",
+    "fr": "DAK — fraude (assurance)",
+    "sv": "DAK — bedrägeri (sjukkassa)"
+   },
+   "warn": {}
   }
- }
+ ]
 }
