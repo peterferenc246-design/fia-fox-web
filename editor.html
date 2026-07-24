@@ -149,7 +149,7 @@ textarea{min-height:64px;resize:vertical}
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
 const VIEWER="https://peterferenc246-design.github.io/fia/viewer.html";
-const VERZIA="2026-07-24 14:23";
+const VERZIA="2026-07-24 14:28";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false;
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -333,6 +333,34 @@ function ta(l,v,on){return '<label>'+l+'</label><textarea oninput="'+on+'">'+esc
 function chk(l,v,on){return '<div class="chk"><input type="checkbox" '+(v?'checked':'')+' onchange="'+on+'"><span>'+l+'</span></div>';}
 function sel(l,v,opts,on){return '<label>'+l+'</label><select onchange="'+on+'">'
  +opts.map(o=>'<option value="'+esc(o[0])+'"'+(o[0]===v?' selected':'')+'>'+esc(o[1])+'</option>').join('')+'</select>';}
+
+// ── súhrn: HTML <-> čitateľný text ──────────────────────────────
+const NADPIS={de:"Zusammenfassung des Dokuments",en:"Document summary",sk:"Súhrn dokumentu",
+ hr:"Sažetak dokumenta",pl:"Streszczenie dokumentu",es:"Resumen del documento",
+ it:"Riepilogo del documento",fr:"Résumé du document",sv:"Sammanfattning av dokumentet"};
+function html2txt(h){
+ if(!h) return '';
+ var t=h;
+ t=t.replace(/<h[1-6][^>]*>.*?<\/h[1-6]>/gi,'');                       // nadpis preč
+ t=t.replace(/<a\s[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/gi,'[$2]($1)');  // odkaz -> [text](url)
+ t=t.replace(/<\/p>\s*<p[^>]*>/gi,'\n\n').replace(/<\/?p[^>]*>/gi,'');
+ t=t.replace(/<br\s*\/?>/gi,'\n');
+ t=t.replace(/<li[^>]*>/gi,'• ').replace(/<\/li>/gi,'\n').replace(/<\/?ul[^>]*>/gi,'');
+ t=t.replace(/<[^>]+>/g,'');
+ var d=document.createElement('textarea'); d.innerHTML=t; t=d.value;
+ return t.replace(/\n{3,}/g,'\n\n').trim();
+}
+function txt2html(t,L){
+ if(!t||!t.trim()) return '';
+ var esc1=function(x){return x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
+ var out=t.trim().split(/\n\s*\n/).map(function(od){
+   var b=esc1(od.trim()).replace(/\n/g,'<br>');
+   b=b.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+   return '<p>'+b+'</p>';
+ }).join('');
+ return '<h3>'+(NADPIS[L]||NADPIS.sk)+'</h3>'+out;
+}
+
 function jaz(o,c,ta,link){
  o=o||{}; var v=o[LANG]||'';
  var ine=L9.filter(function(L){return L!==LANG && (o[L]||'').trim();}).length;
@@ -345,6 +373,17 @@ function jaz(o,c,ta,link){
  return '<div class="j1"><span class="jl">'+LANG.toUpperCase()+'</span>'+pole+'</div><div class="jn">'+stav+'</div>';
 }
 
+function suhrnPole(sid){
+ D.suhrny[sid]=D.suhrny[sid]||{};
+ var v=html2txt(D.suhrny[sid][LANG]||'');
+ var ine=L9.filter(function(L){return L!==LANG && (D.suhrny[sid][L]||'').trim();}).length;
+ var stav = ine===8 ? '<span style="color:#0B7A3B">✔ ostatných 8 jazykov vyplnených</span>'
+          : ine===0 ? '<span style="color:#8a5a00">ostatné jazyky doplní Claude</span>'
+          : '<span style="color:#8a5a00">vyplnených ďalších '+ine+' z 8 — zvyšok doplní Claude</span>';
+ return '<div class="j1"><span class="jl">'+LANG.toUpperCase()+'</span>'
+  +'<textarea class="suh'+(v?'':' miss')+'" oninput="D.suhrny[\''+sid+'\'][LANG]=txt2html(this.value,LANG);this.classList.remove(\'miss\')">'
+  +esc(v)+'</textarea></div><div class="jn">'+stav+'</div>';
+}
 function editor(){
  const e=document.getElementById('ed');
  if(selPo!==null && D.polozky[selPo]){
@@ -394,8 +433,8 @@ function editor(){
   +pole('📁 Cesta k súboru <span class="hint">(vidíš LEN ty)</span>',p.fpath||'',P+'.fpath=this.value')
   +'<div class="row">'+pole('🔗 Extra odkaz — text',(p.extra||{}).label||'',P+'.extra=Object.assign('+P+'.extra||{},{label:this.value})')
   +pole('🔗 Extra odkaz — URL',(p.extra||{}).url||'',P+'.extra=Object.assign('+P+'.extra||{},{url:this.value})')+'</div>'
-  +'<label>📄 Súhrn dokumentu <span class="hint">(zobrazí sa aj verejnosti)</span></label>'
-  +jaz(D.suhrny[sid]=D.suhrny[sid]||{},'D.suhrny[\''+sid+'\']',1)
+  +'<label>📄 Súhrn dokumentu <span class="hint">(zobrazí sa aj verejnosti · odkaz píš ako [text](adresa))</span></label>'
+  +suhrnPole(sid)
   +ta('📝 Sprievodný text (Begleittext) k dokumentu',p.begleit||'',P+'.begleit=this.value')
   +ta('🗒️ Príkazy pre CLAUDE <span class="hint">(prenesú sa do MK, NEZOBRAZUJÚ sa na webe)</span>',p.prikazy||'',P+'.prikazy=this.value')
   +'<div class="acts"><button onclick="klonPo()">⧉ Duplikovať</button><button onclick="zmazPo()">🗑 Zmazať</button></div>';
