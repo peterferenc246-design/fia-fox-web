@@ -149,7 +149,7 @@ textarea{min-height:64px;resize:vertical}
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
 const VIEWER="https://peterferenc246-design.github.io/fia/viewer.html";
-const VERZIA="2026-07-24 14:28";
+const VERZIA="2026-07-24 14:32";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false;
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -335,6 +335,9 @@ function sel(l,v,opts,on){return '<label>'+l+'</label><select onchange="'+on+'">
  +opts.map(o=>'<option value="'+esc(o[0])+'"'+(o[0]===v?' selected':'')+'>'+esc(o[1])+'</option>').join('')+'</select>';}
 
 // ── súhrn: HTML <-> čitateľný text ──────────────────────────────
+const NADPIS2={de:"Über diese Eingabe",en:"About this submission",sk:"O tomto podaní",
+ hr:"O ovom podnesku",pl:"O tym piśmie",es:"Sobre este escrito",it:"Su questa istanza",
+ fr:"À propos de cet écrit",sv:"Om denna inlaga"};
 const NADPIS={de:"Zusammenfassung des Dokuments",en:"Document summary",sk:"Súhrn dokumentu",
  hr:"Sažetak dokumenta",pl:"Streszczenie dokumentu",es:"Resumen del documento",
  it:"Riepilogo del documento",fr:"Résumé du document",sv:"Sammanfattning av dokumentet"};
@@ -350,7 +353,8 @@ function html2txt(h){
  var d=document.createElement('textarea'); d.innerHTML=t; t=d.value;
  return t.replace(/\n{3,}/g,'\n\n').trim();
 }
-function txt2html(t,L){
+function txt2html(t,L,NAD){
+ NAD=NAD||NADPIS;
  if(!t||!t.trim()) return '';
  var esc1=function(x){return x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
  var out=t.trim().split(/\n\s*\n/).map(function(od){
@@ -358,7 +362,7 @@ function txt2html(t,L){
    b=b.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
    return '<p>'+b+'</p>';
  }).join('');
- return '<h3>'+(NADPIS[L]||NADPIS.sk)+'</h3>'+out;
+ return '<h3>'+(NAD[L]||NAD.sk)+'</h3>'+out;
 }
 
 function jaz(o,c,ta,link){
@@ -373,6 +377,16 @@ function jaz(o,c,ta,link){
  return '<div class="j1"><span class="jl">'+LANG.toUpperCase()+'</span>'+pole+'</div><div class="jn">'+stav+'</div>';
 }
 
+function richPole(obj, cesta, nadpisy){
+ var v=html2txt(obj[LANG]||'');
+ var ine=L9.filter(function(L){return L!==LANG && (obj[L]||'').trim();}).length;
+ var stav = ine===8 ? '<span style="color:#0B7A3B">✔ ostatných 8 jazykov vyplnených</span>'
+          : ine===0 ? '<span style="color:#8a5a00">ostatné jazyky doplní Claude</span>'
+          : '<span style="color:#8a5a00">vyplnených ďalších '+ine+' z 8 — zvyšok doplní Claude</span>';
+ return '<div class="j1"><span class="jl">'+LANG.toUpperCase()+'</span>'
+  +'<textarea class="suh'+(v?'':' miss')+'" oninput="'+cesta+'[LANG]=txt2html(this.value,LANG,'+nadpisy+');this.classList.remove(\'miss\')">'
+  +esc(v)+'</textarea></div><div class="jn">'+stav+'</div>';
+}
 function suhrnPole(sid){
  D.suhrny[sid]=D.suhrny[sid]||{};
  var v=html2txt(D.suhrny[sid][LANG]||'');
@@ -381,7 +395,7 @@ function suhrnPole(sid){
           : ine===0 ? '<span style="color:#8a5a00">ostatné jazyky doplní Claude</span>'
           : '<span style="color:#8a5a00">vyplnených ďalších '+ine+' z 8 — zvyšok doplní Claude</span>';
  return '<div class="j1"><span class="jl">'+LANG.toUpperCase()+'</span>'
-  +'<textarea class="suh'+(v?'':' miss')+'" oninput="D.suhrny[\''+sid+'\'][LANG]=txt2html(this.value,LANG);this.classList.remove(\'miss\')">'
+  +'<textarea class="suh'+(v?'':' miss')+'" oninput="D.suhrny[\''+sid+'\'][LANG]=txt2html(this.value,LANG,NADPIS);this.classList.remove(\'miss\')">'
   +esc(v)+'</textarea></div><div class="jn">'+stav+'</div>';
 }
 function editor(){
@@ -458,7 +472,8 @@ function editor(){
   +'<label>Podtitul konania</label>'+jaz(k.podtitul=k.podtitul||{},P+'.podtitul')
   +'<label>Riadok Orgán / Oblasť</label>'+jaz(k.meta=k.meta||{},P+'.meta')
   +'<label>Stav</label>'+jaz(k.stav=k.stav||{},P+'.stav')
-  +'<label>Sprievodný text ku konaniu</label>'+jaz(k.sprievodny=k.sprievodny||{},P+'.sprievodny',1)
+  +'<label>📝 Sprievodný text ku konaniu <span class="hint">(modal kauzy · odkaz píš ako [text](adresa))</span></label>'
+  +richPole(k.sprievodny=k.sprievodny||{}, P+'.sprievodny', 'NADPIS2')
   +'<div class="acts"><button onclick="zmazKa()">🗑 Zmazať konanie</button></div>';
  } else if(selKz && kauzaPodla(selKz)){
   const z=kauzaPodla(selKz), zi=D.kauzy_reg.indexOf(z);
