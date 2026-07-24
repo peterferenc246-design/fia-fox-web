@@ -48,6 +48,16 @@ UI = {
  "obl":  S("Bereich","Area","Oblasť","Područje","Obszar","Ámbito","Ambito","Domaine","Område"),
  "our":  S("Unser Az.","Our ref.","Naša spis. zn.","Naš broj","Nasza sygn.","Ntra. ref.","Ns. rif.","Notre réf.","Vårt nr"),
  "pub":  S("Öffentlich","Public","Verejné","Javno","Publiczne","Público","Pubblico","Public","Offentlig"),
+ "obl_k":S("Kartellrecht","Competition law","Kartelové právo","Pravo tržišnog natjecanja","Prawo kartelowe","Derecho de la competencia","Diritto della concorrenza","Droit de la concurrence","Konkurrensrätt"),
+ "obl_g":S("DSGVO","GDPR","GDPR","GDPR","RODO","RGPD","GDPR","RGPD","Dataskydd"),
+ "obl_s":S("Strafanzeige","Criminal complaint","Trestné oznámenie","Kaznena prijava","Zawiadomienie o przestępstwie","Denuncia penal","Denuncia penale","Plainte pénale","Brottsanmälan"),
+ "obl_m":S("Eingriff in Eigentumsrechte","Interference with property rights","Zasahovanie do majetkových práv občana","Zadiranje u imovinska prava","Ingerencja w prawa majątkowe","Injerencia en derechos patrimoniales","Lesione dei diritti patrimoniali","Atteinte aux droits patrimoniaux","Ingrepp i egendomsrätt"),
+ "sort": S("SORTIEREN","SORT","ZORADIŤ","SORTIRAJ","SORTUJ","ORDENAR","ORDINA","TRIER","SORTERA"),
+ "s_dat":S("📅 Datum","📅 Date","📅 Dátum","📅 Datum","📅 Data","📅 Fecha","📅 Data","📅 Date","📅 Datum"),
+ "s_az": S("🏛 Az.","🏛 File ref.","🏛 Sp. zn.","🏛 Broj","🏛 Sygn.","🏛 Ref.","🏛 Rif.","🏛 Réf.","🏛 Nr"),
+ "s_our":S("🦊 Unser Az.","🦊 Our ref.","🦊 Naša spis. zn.","🦊 Naš broj","🦊 Nasza sygn.","🦊 Ntra. ref.","🦊 Ns. rif.","🦊 Notre réf.","🦊 Vårt nr"),
+ "s_obl":S("🗂 Bereich","🗂 Area","🗂 Oblasť","🗂 Područje","🗂 Obszar","🗂 Ámbito","🗂 Ambito","🗂 Domaine","🗂 Område"),
+ "s_new":S("↓ Neueste","↓ Newest","↓ Najnovšie","↓ Najnovije","↓ Najnowsze","↓ Más recientes","↓ Più recenti","↓ Plus récents","↓ Nyaste"),
  "pw":   S("Passwort","Password","Heslo","Lozinka","Hasło","Contraseña","Password","Mot de passe","Lösenord"),
 }
 STAV = {"laeuft":S("Läuft","Pending","Prebieha","U tijeku","W toku","En curso","In corso","En cours","Pågår"),
@@ -126,7 +136,7 @@ def karta(cid, ps, otvorena=False):
     begbox = (f'<div class="begbox" id="b-{cid}">{gb(k.get("sprievodny") or {})}</div>'
               if any((k.get("sprievodny") or {}).values()) else "")
     return (f'<details class="case" id="{cid}"{" open" if otvorena else ""} data-kz="{z["spis"] if z else ""}" '
-            f'data-jur="{" ".join(k.get("jur") or [])}" data-d="{k.get("date","")}">'
+            f'data-jur="{" ".join(k.get("jur") or [])}" data-d="{dkey(k.get("date",""))}" data-az="{html.escape(k.get("az","") or "zzz")}" data-our="{html.escape(k.get("ourref","") or "zzz")}" data-obl="{" ".join(k.get("area") or [])}">'
             f'<summary class="chead"><div class="cl">'
             f'<div class="ct"><span class="cdate">📅 {html.escape(k.get("datum_txt") or k.get("date",""))}</span>{g(k.get("nazov") or {})}</div>'
             + (f'<div class="csub">{g(k.get("podtitul") or {})}</div>' if any((k.get("podtitul") or {}).values()) else "")
@@ -163,6 +173,7 @@ body{margin:0;color:#34435A;font:15px/1.55 "Segoe UI",Calibri,Arial,sans-serif;
 .panel{background:rgba(242,246,252,.97);border:1px solid rgba(31,56,100,.12);border-radius:14px;
  padding:12px 16px 14px;margin-bottom:18px;box-shadow:0 6px 18px rgba(31,56,100,.10)}
 .panel h2{font-size:19px;color:var(--navy);font-weight:800;margin:0 0 11px}
+.cnt2{font-size:12px;font-weight:600;color:var(--muted);margin-left:8px}
 .tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
 .tab{cursor:pointer;border:2px solid transparent;border-radius:8px;background:#fff;padding:4px 10px;
  display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:12.5px;font-weight:700;color:var(--navy);box-shadow:0 1px 3px rgba(0,0,0,.12)}
@@ -235,6 +246,16 @@ body{margin:0;color:#34435A;font:15px/1.55 "Segoe UI",Calibri,Arial,sans-serif;
 .cb{font-size:13px;border:1px solid var(--bd);background:#fff;border-radius:6px;padding:6px 14px;
  cursor:pointer;text-decoration:none;color:#3d4d5e;font-family:inherit}
 .cb:hover{border-color:var(--navy);color:var(--navy)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:0 0 10px}
+.chip{font-size:12.5px;border:1px solid var(--bd);background:#fff;border-radius:999px;padding:5px 15px;
+ cursor:pointer;color:#3d4d5e;font-family:inherit}
+.chip:hover{border-color:var(--navy);color:var(--navy)}
+.chip.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.sortbar{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;align-items:center;margin:0 0 16px}
+.sl{font-size:10.5px;letter-spacing:.12em;color:var(--muted);margin-right:4px}
+.sb{font-size:12.5px;border:1px solid var(--bd);background:#fff;border-radius:6px;padding:5px 13px;
+ cursor:pointer;color:#3d4d5e;font-family:inherit}
+.sb.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 .gtl,.gtl-b{display:none}
 """
 SHOW = "".join(f'body[data-l="{L}"] .gtl.{L}{{display:inline}}body[data-l="{L}"] .gtl-b.{L}{{display:block}}' for L in L9)
@@ -265,7 +286,7 @@ HTML = f"""<!DOCTYPE html>
  <div class="navbar"><a class="hm" href="index.html">{g(UI["home"])}</a>
   <div class="lang"><span class="lb">LANG</span>{FLAGS}</div></div>
 
- <div class="panel"><h2>{g(UI["reg"])}</h2>
+ <div class="panel"><h2>{g(UI["reg"])} <span class="cnt2"><span id="pocet">0</span> {g(UI["verf"])}</span></h2>
   <div class="tabs"><button class="tab on" data-j="all">{g(UI["all"])}</button>
    <button class="tab" data-j="de"><img src="https://flagcdn.com/de.svg" alt="DE">{g(UI["jde"])}</button>
    <button class="tab" data-j="sk"><img src="https://flagcdn.com/sk.svg" alt="SK">{g(UI["jsk"])}</button>
@@ -274,10 +295,24 @@ HTML = f"""<!DOCTYPE html>
     <div class="tn">🌐 {g(UI["allv"])}</div><div class="tc">{len(KAUZY)} {g(UI["verf"])}</div></button>{tiles}</div>
  </div>
 
+ <div class="chips">
+  <button class="chip" data-o="kartell">{g(UI["obl_k"])}</button>
+  <button class="chip" data-o="gdpr">{g(UI["obl_g"])}</button>
+  <button class="chip" data-o="strafrecht">{g(UI["obl_s"])}</button>
+  <button class="chip" data-o="majetok">{g(UI["obl_m"])}</button>
+ </div>
+ <div class="sortbar"><span class="sl">{g(UI["sort"])}</span>
+  <button class="sb on" data-s="d">{g(UI["s_dat"])}</button>
+  <button class="sb" data-s="az">{g(UI["s_az"])}</button>
+  <button class="sb" data-s="our">{g(UI["s_our"])}</button>
+  <button class="sb" data-s="obl">{g(UI["s_obl"])}</button>
+  <button class="sb" data-s="new">{g(UI["s_new"])}</button>
+ </div>
+
  <div id="zoznam">{karty_html}</div>
 </div>
 <script>
-var SEL='all', JUR='all';
+var SEL='all', JUR='all', OBL='', SORT='d';
 function apply(){{
  document.querySelectorAll('.tile').forEach(function(t){{
   var ok = t.dataset.k==='all' || JUR==='all' || t.dataset.jur.split(' ').indexOf(JUR)>=0;
@@ -286,10 +321,27 @@ function apply(){{
  document.querySelectorAll('.case').forEach(function(c){{
   var okk = SEL==='all' || c.dataset.kz===SEL;
   var okj = JUR==='all' || (c.dataset.jur||'').split(' ').indexOf(JUR)>=0;
-  c.style.display = (okk&&okj)?'':'none';}});
+  var oko = !OBL || (c.dataset.obl||'').split(' ').indexOf(OBL)>=0;
+  c.style.display = (okk&&okj&&oko)?'':'none';}});
+ var z=document.getElementById('zoznam');
+ [].slice.call(z.querySelectorAll('.case')).sort(function(a,b){{
+  if(SORT==='az')  return (a.dataset.az||'').localeCompare(b.dataset.az||'');
+  if(SORT==='our') return (a.dataset.our||'').localeCompare(b.dataset.our||'');
+  if(SORT==='obl') return (a.dataset.obl||'').localeCompare(b.dataset.obl||'');
+  return (b.dataset.d||'').localeCompare(a.dataset.d||'');
+ }}).forEach(function(c){{ z.appendChild(c); }});
+ var n=[].slice.call(z.querySelectorAll('.case')).filter(function(c){{return c.style.display!=='none';}}).length;
+ var pv=document.getElementById('pocet'); if(pv) pv.textContent=n;
 }}
 document.querySelectorAll('.tile').forEach(function(t){{
  t.addEventListener('click',function(){{ SEL=(SEL===t.dataset.k?'all':t.dataset.k); apply(); }});}});
+document.querySelectorAll('.chip').forEach(function(b){{
+ b.addEventListener('click',function(){{ OBL=(OBL===b.dataset.o?'':b.dataset.o);
+  document.querySelectorAll('.chip').forEach(function(x){{x.classList.remove('on');}});
+  if(OBL) b.classList.add('on'); apply(); }});}});
+document.querySelectorAll('.sb').forEach(function(b){{
+ b.addEventListener('click',function(){{ SORT=b.dataset.s;
+  document.querySelectorAll('.sb').forEach(function(x){{x.classList.remove('on');}}); b.classList.add('on'); apply(); }});}});
 document.querySelectorAll('.tab').forEach(function(b){{
  b.addEventListener('click',function(){{ JUR=b.dataset.j; SEL='all';
   document.querySelectorAll('.tab').forEach(function(x){{x.classList.remove('on');}}); b.classList.add('on'); apply(); }});}});
