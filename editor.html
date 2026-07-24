@@ -68,6 +68,8 @@ button:hover{border-color:var(--navy);color:var(--navy)}
  padding:14px 16px;position:sticky;top:60px;max-height:calc(100vh - 80px);overflow:auto}
 .ed h2{margin:0 0 4px;font-size:15px;color:var(--navy)}
 .ed .sub{font-size:12px;color:#8a97a6;margin-bottom:6px}
+.chk{display:flex;align-items:center;gap:7px;font-size:13px;margin-top:10px}
+.chk input{width:auto}
 label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#7a8899;margin:11px 0 3px}
 input,select,textarea{width:100%;border:1px solid var(--bd);border-radius:4px;padding:7px 9px;font:inherit;background:#fff}
 textarea{min-height:64px;resize:vertical}
@@ -134,7 +136,7 @@ textarea{min-height:64px;resize:vertical}
 <script>
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
-const VERZIA="2026-07-24 10:18";
+const VERZIA="2026-07-24 10:29";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false;
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -152,7 +154,7 @@ function stat(t){document.getElementById('stat').textContent=t;}
 function esc(s){return (s||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function kartaById(id){return (D.karty||[]).find(k=>k.id===id);}
 function nazovKarty(k){return txtFb(k.nazov)||k.id;}
-function predmet(p){return txtFb(p.subj)||p.subj_snap||'(bez predmetu)';}
+function predmet(p){return txtFb(p.subj9)||p.subj||'(bez predmetu)';}
 
 function dkey(v){
  v=(v||'').trim();
@@ -231,7 +233,7 @@ function langinfo(){
  if(!D){document.getElementById('langinfo').textContent='';return;}
  const kz=(D.kauzy_reg||[]).filter(z=>!((z.nazov||{})[LANG]||'').trim()).length;
  const kk=(D.karty||[]).filter(k=>!((k.nazov||{})[LANG]||'').trim()).length;
- const pp=(D.polozky||[]).filter(p=>!((p.subj||{})[LANG]||'').trim()).length;
+ const pp=(D.polozky||[]).filter(p=>!((p.subj9||{})[LANG]||'').trim()).length;
  const uu=(D.polozky||[]).filter(p=>!((p.urls||{})[LANG]||'').trim()).length;
  const el=document.getElementById('langinfo');
  el.innerHTML = (kz+kk+pp+uu)
@@ -280,12 +282,14 @@ function docs(){
    .slice().sort((a,b)=>{const x=dkey(a.date),y=dkey(b.date); return radDesc? y.localeCompare(x): x.localeCompare(y);});
  document.getElementById('c-po').textContent=zoz.length;
  const kresli=arr=>arr.map(p=>{const i=D.polozky.indexOf(p);
-  const cs=chyba9(p.subj), cu=chyba9(p.urls);
-  const csL=!((p.subj||{})[LANG]||'').trim(), cuL=!((p.urls||{})[LANG]||'').trim();
+  const cs=chyba9(p.subj9), cu=chyba9(p.urls);
+  const csL=!((p.subj9||{})[LANG]||'').trim(), cuL=!((p.urls||{})[LANG]||'').trim();
   return '<div class="doc'+(selPo===i?' on':'')+'" onclick="pickPo('+i+')">'
    +'<div class="dt"><span>'+esc(p.date||'—')+'</span><span>'+esc(p.az||'')+'</span></div>'
    +'<div class="ds">'+esc(predmet(p))+'</div>'
-   +'<div class="dw">'+(p.summodId?'<span class="pill">súhrn</span>':'')
+   +'<div class="dw">'+(p.dolezite?'<span class="pill warn">❗ dôležité</span>':'')
+   +'<span class="pill">'+(p.access==='pw'?'🔒 heslo':'🌐 verejné')+'</span>'
+   +(p.summodId?'<span class="pill">súhrn</span>':'')
    +(csL?'<span class="pill warn">predmet '+LANG.toUpperCase()+'</span>':'')
    +(cuL?'<span class="pill warn">odkaz '+LANG.toUpperCase()+'</span>':'')
    +(cs&&!csL?'<span class="pill">predmet bez '+cs+'</span>':'')
@@ -301,6 +305,10 @@ function pickPo(i){selPo=(selPo===i?null:i); if(selPo!==null){const p=D.polozky[
 
 /* ── editor ── */
 function pole(l,v,on){return '<label>'+l+'</label><input value="'+esc(v)+'" oninput="'+on+'">';}
+function ta(l,v,on){return '<label>'+l+'</label><textarea oninput="'+on+'">'+esc(v)+'</textarea>';}
+function chk(l,v,on){return '<div class="chk"><input type="checkbox" '+(v?'checked':'')+' onchange="'+on+'"><span>'+l+'</span></div>';}
+function sel(l,v,opts,on){return '<label>'+l+'</label><select onchange="'+on+'">'
+ +opts.map(o=>'<option value="'+esc(o[0])+'"'+(o[0]===v?' selected':'')+'>'+esc(o[1])+'</option>').join('')+'</select>';}
 function jaz(o,c,ta){const por=[LANG].concat(L9.filter(x=>x!==LANG));
  return por.map(L=>{const v=(o&&o[L])||'';
  return '<div class="lang"'+(L===LANG?' style="outline:2px solid #ffd34d;outline-offset:2px;border-radius:4px"':'')+'><div class="lc">'+L.toUpperCase()+'</div>'
@@ -310,34 +318,56 @@ function jaz(o,c,ta){const por=[LANG].concat(L9.filter(x=>x!==LANG));
 function editor(){
  const e=document.getElementById('ed');
  if(selPo!==null && D.polozky[selPo]){
-  const p=D.polozky[selPo], i=selPo, sid=p.summodId||'';
-  const suh=sid?(D.suhrny[sid]=D.suhrny[sid]||{}):null;
+  const p=D.polozky[selPo], i=selPo, P='D.polozky['+i+']';
+  const sid=p.summodId||'', suh=sid?(D.suhrny[sid]=D.suhrny[sid]||{}):null;
   e.innerHTML='<h2>Dokument</h2><div class="sub">'+esc(p.date||'')+' · '+(p.dir==='sent'?'odoslané':'došlé')+'</div>'
-  +'<div class="row3">'+pole('Dátum DD.MM.RRRR',p.date||'','D.polozky['+i+'].date=this.value;docs()')
-  +'<label>Smer</label><select onchange="D.polozky['+i+'].dir=this.value;docs()">'
-  +'<option value="sent"'+(p.dir==='sent'?' selected':'')+'>▲ odoslané</option>'
-  +'<option value="recv"'+(p.dir!=='sent'?' selected':'')+'>▼ došlé</option></select>'
-  +'<label>Stav</label><select onchange="D.polozky['+i+'].stav=this.value">'
-  +['laeuft','eingereicht','abgelehnt'].map(s=>'<option'+(p.stav===s?' selected':'')+'>'+s+'</option>').join('')+'</select></div>'
-  +'<label>Konanie</label><select onchange="D.polozky['+i+'].karta=this.value;render()">'
-  +(D.karty||[]).map(k=>'<option value="'+esc(k.id)+'"'+(k.id===p.karta?' selected':'')+'>'+esc(nazovKarty(k))+'</option>').join('')+'</select>'
-  +'<div class="row">'+pole('Spisová značka',p.az||'','D.polozky['+i+'].az=this.value;docs()')
-  +pole('Naša značka',p.ourref||'','D.polozky['+i+'].ourref=this.value')+'</div>'
-  +'<label>Predmet — 9 jazykov</label>'+jaz(p.subj=p.subj||{},'D.polozky['+i+'].subj')
-  +'<label>Odkaz na dokument — 9 jazykov</label>'+jaz(p.urls=p.urls||{},'D.polozky['+i+'].urls')
-  +pole('ID súhrnu',sid,'D.polozky['+i+'].summodId=this.value;editor()')
+  +'<div class="row3">'+pole('Dátum DD.MM.RRRR',p.date||'',P+'.date=this.value;docs()')
+  +sel('Smer',p.dir||'sent',[['sent','▲ odoslané'],['recv','▼ došlé']],P+'.dir=this.value;docs()')
+  +sel('Stav',p.stav||'laeuft',[['laeuft','prebieha'],['eingereicht','podané'],['erledigt','vybavené'],
+      ['abgelehnt','zamietnuté']],P+'.stav=this.value')+'</div>'
+  +'<div class="row">'
+  +sel('Prístup',p.access||'pub',[['pub','🌐 verejné'],['pw','🔒 heslo']],P+'.access=this.value;docs()')
+  +'<label>Konanie</label><select onchange="'+P+'.karta=this.value;render()">'
+  +(D.karty||[]).map(k=>'<option value="'+esc(k.id)+'"'+(k.id===p.karta?' selected':'')+'>'+esc(nazovKarty(k))+'</option>').join('')
+  +'</select></div>'
+  +'<div class="row">'+pole('Spisová značka',p.az||'',P+'.az=this.value;docs()')
+  +pole('Naša značka',p.ourref||'',P+'.ourref=this.value')+'</div>'
+  +pole('Orgán',p.court||'',P+'.court=this.value')
+  +pole('Oblasť (kartell gdpr…)',(p.oblast||[]).join(' '),P+'.oblast=this.value.split(/\s+/).filter(Boolean)')
+  +chk('❗ Dôležité — červený pruh a výkričník',p.dolezite,P+'.dolezite=this.checked;'+P+'.important=this.checked;docs()')
+  +chk('💬 Povoliť komentáre',p.komentare,P+'.komentare=this.checked;'+P+'.comments=this.checked')
+  +'<label>Predmet — 9 jazykov</label>'+jaz(p.subj9=p.subj9||{},P+'.subj9')
+  +'<label>Odkaz na dokument — 9 jazykov</label>'+jaz(p.urls=p.urls||{},P+'.urls')
+  +pole('Názov súboru',p.fname||'',P+'.fname=this.value')
+  +pole('Cesta k súboru v repe',p.fpath||'',P+'.fpath=this.value')
+  +pole('Náhradný odkaz (fallback)',p.fallback||'',P+'.fallback=this.value')
+  +pole('Podtitul konania na položke',p.cardsubj||'',P+'.cardsubj=this.value')
+  +ta('Sprievodný text k dokumentu',p.begleit||'',P+'.begleit=this.value')
+  +'<div class="row">'+pole('Odpoveď na (replyTo)',p.replyTo||'',P+'.replyTo=this.value')
+  +pole('Vlákno (thread)',p.thread||'',P+'.thread=this.value')+'</div>'
+  +pole('ID súhrnu',sid,P+'.summodId=this.value;editor()')
   +(suh?('<label>Súhrn — 9 jazykov</label>'+jaz(suh,'D.suhrny[\''+sid+'\']',1)):'<p class="hint">Bez ID súhrnu sa súhrn needituje.</p>')
   +'<div class="acts"><button onclick="klonPo()">⧉ Duplikovať</button><button onclick="zmazPo()">🗑 Zmazať</button></div>';
  } else if(selKa && kartaById(selKa)){
   const k=kartaById(selKa), i=D.karty.indexOf(k);
+  const P='D.karty['+i+']';
   e.innerHTML='<h2>Konanie</h2><div class="sub">'+esc(k.id)+'</div>'
-  +pole('ID karty',k.id,'D.karty['+i+'].id=this.value')
-  +'<div class="row">'+pole('Spisová značka',k.az||'','D.karty['+i+'].az=this.value;cards()')
-  +pole('Naša značka',k.ourref||'','D.karty['+i+'].ourref=this.value')+'</div>'
-  +'<div class="row">'+pole('Dátum RRRR-MM-DD',k.date||'','D.karty['+i+'].date=this.value')
-  +pole('Jurisdikcia (de sk eu)',(k.jur||[]).join(' '),'D.karty['+i+'].jur=this.value.split(/\\s+/).filter(Boolean)')+'</div>'
-  +'<label>Názov konania — 9 jazykov</label>'+jaz(k.nazov=k.nazov||{},'D.karty['+i+'].nazov')
-  +'<label>Orgán — 9 jazykov</label>'+jaz(k.organ=k.organ||{},'D.karty['+i+'].organ')
+  +pole('ID karty',k.id,P+'.id=this.value')
+  +'<div class="row">'+pole('Spisová značka',k.az||'',P+'.az=this.value;cards()')
+  +pole('Naša značka',k.ourref||'',P+'.ourref=this.value')+'</div>'
+  +'<div class="row">'+pole('Dátum RRRR-MM-DD',k.date||'',P+'.date=this.value;cards()')
+  +pole('Dátum ako text',k.datum_txt||'',P+'.datum_txt=this.value')+'</div>'
+  +'<div class="row">'+pole('Jurisdikcia (de sk eu)',(k.jur||[]).join(' '),P+'.jur=this.value.split(/\s+/).filter(Boolean)')
+  +pole('Oblasť (kartell gdpr majetok…)',(k.area||[]).join(' '),P+'.area=this.value.split(/\s+/).filter(Boolean)')+'</div>'
+  +'<div class="row">'+pole('Orgán (text)',k.organ_txt||'',P+'.organ_txt=this.value')
+  +pole('Pripnuté navrch (číslo)',k.pin||'',P+'.pin=this.value')+'</div>'
+  +sel('Farba stavu',k.stav_trieda||'p-blue',[['p-blue','modrá — prebieha'],['p-amber','žltá — podané'],
+      ['p-green','zelená — vybavené'],['p-red','červená — zamietnuté']],P+'.stav_trieda=this.value')
+  +'<label>Názov konania — 9 jazykov</label>'+jaz(k.nazov=k.nazov||{},P+'.nazov')
+  +'<label>Podtitul konania — 9 jazykov</label>'+jaz(k.podtitul=k.podtitul||{},P+'.podtitul')
+  +'<label>Riadok Orgán / Oblasť — 9 jazykov</label>'+jaz(k.meta=k.meta||{},P+'.meta')
+  +'<label>Stav — 9 jazykov</label>'+jaz(k.stav=k.stav||{},P+'.stav')
+  +'<label>Sprievodný text ku konaniu — 9 jazykov (HTML)</label>'+jaz(k.sprievodny=k.sprievodny||{},P+'.sprievodny',1)
   +'<div class="acts"><button onclick="zmazKa()">🗑 Zmazať konanie</button></div>';
  } else if(selKz && kauzaPodla(selKz)){
   const z=kauzaPodla(selKz), zi=D.kauzy_reg.indexOf(z);
@@ -370,7 +400,9 @@ function novaPolozka(){ if(!D){alert('Najprv načítaj dáta.');return;}
  D.polozky.push({kauza:(kz==='(bez kauzy)'?'':kz),kauza_nazov:'',dir:'sent',
   date:('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear(),
   stav:'laeuft',access:'',az:'',ourref:'',court:'',cmtid:'',summodId:'',fname:'',fpath:'',
-  cats:{},mode:'',subj_snap:'',summary_snap:'',karta:cid,subj:p9(),urls:p9()});
+  cats:{},mode:'item',v:1,karta:cid,subj9:p9(),urls:p9(),subj:'',
+  begleit:'',cardsubj:'',fallback:'',thread:'',replyTo:'',dolezite:false,komentare:true,
+  important:false,comments:true,oblast:[],jur:[]});
  selPo=D.polozky.length-1; selKa=cid; render();}
 function klonPo(){const p=JSON.parse(JSON.stringify(D.polozky[selPo]));p.summodId='';
  D.polozky.splice(selPo+1,0,p);selPo=selPo+1;render();}
@@ -389,7 +421,7 @@ function kontrola(){ if(!D){alert('Najprv načítaj dáta.');return;}
   if(c.length)ch.push('Konanie '+k.id+': chýba názov v '+c.join(', ').toUpperCase());
   if(!k.az)ch.push('Konanie '+k.id+': prázdna spisová značka');});
  (D.polozky||[]).forEach((p,i)=>{
-  const s=L9.filter(L=>!(p.subj||{})[L]); if(s.length)ch.push('Dokument '+(p.date||'#'+(i+1))+': chýba predmet v '+s.join(', ').toUpperCase());
+  const s=L9.filter(L=>!(p.subj9||{})[L]); if(s.length)ch.push('Dokument '+(p.date||'#'+(i+1))+': chýba predmet v '+s.join(', ').toUpperCase());
   const u=L9.filter(L=>!(p.urls||{})[L]);
   if(u.length===9)ch.push('Dokument '+(p.date||'#'+(i+1))+': žiadny odkaz');
   else if(u.length)ch.push('Dokument '+(p.date||'#'+(i+1))+': chýba odkaz v '+u.join(', ').toUpperCase());
