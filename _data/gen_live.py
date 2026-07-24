@@ -228,7 +228,9 @@ def item_html(p, n):
                   for L in LANGS if url.get(L))
     og = ""
     if p.get("orig"):
-        og = (f'<a class="b b-qes" href="{html.escape(p["orig"])}" target="_blank" rel="noopener" download>'
+        import urllib.parse as _u
+        _v = "https://peterferenc246-design.github.io/fia/viewer.html?doc=" + _u.quote(p["orig"], safe="")
+        og = (f'<a class="b b-qes" href="{html.escape(_v)}" target="_blank" rel="noopener">'
               f'✍ {g(UI["orig"])}</a>')
     sm = ""
     if p.get("summodId","") and p.get("summodId","") in SUHRNY:

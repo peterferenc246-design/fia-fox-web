@@ -146,7 +146,8 @@ textarea{min-height:64px;resize:vertical}
 <script>
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
-const VERZIA="2026-07-24 13:12";
+const VIEWER="https://peterferenc246-design.github.io/fia/viewer.html";
+const VERZIA="2026-07-24 13:15";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false;
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -312,7 +313,7 @@ function docs(){
    +'</div>'
    +'<div class="dw" style="margin-top:6px">'
    +(((p.urls||{})[LANG])?'<a class="ob" href="'+esc(p.urls[LANG])+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">📄 Otvoriť ('+LANG.toUpperCase()+')</a>':'<span class="pill warn">bez odkazu v '+LANG.toUpperCase()+'</span>')
-   +(p.orig?'<a class="ob og" href="'+esc(p.orig)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">✍ Originál (QES)</a>':'')
+   +(p.orig?'<a class="ob og" href="'+esc(VIEWER+'?doc='+encodeURIComponent(p.orig))+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">✍ Originál (QES)</a>':'')
    +'</div></div>';}).join('');
  const s=zoz.filter(p=>p.dir==='sent'), r=zoz.filter(p=>p.dir!=='sent');
  document.getElementById('dsent').innerHTML=kresli(s)||'<div class="empty">—</div>';
