@@ -171,7 +171,7 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
 const VIEWER="https://peterferenc246-design.github.io/fia/viewer.html";
-const VERZIA="2026-07-24 15:42";
+const VERZIA="2026-07-24 15:50";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false, AKCIA='edit';
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -622,12 +622,17 @@ async function ulozDoRepa(){
   if(r.status===401||r.status===403){ zabudniToken(); throw new Error('token neplatí alebo nemá práva'); }
   if(!r.ok) throw new Error('čítanie zlyhalo ('+r.status+')');
   var meta=await r.json();
-  var b64=btoa(String.fromCharCode.apply(null,new Uint8Array(new TextEncoder().encode(telo))));
+  var bytes=new TextEncoder().encode(telo), bin='', KUS=0x8000;
+  for(var i=0;i<bytes.length;i+=KUS){ bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+KUS)); }
+  var b64=btoa(bin);
   var put=await fetch(api,{method:'PUT',
     headers:{Authorization:'Bearer '+t,Accept:'application/vnd.github+json','Content-Type':'application/json'},
     body:JSON.stringify({message:'Editor: aktualizacia dat registra ('+new Date().toISOString().slice(0,16).replace('T',' ')+')',
                          content:b64, sha:meta.sha, branch:'main'})});
-  if(!put.ok){ var e=await put.json(); throw new Error(e.message||('zápis zlyhal ('+put.status+')')); }
+  if(!put.ok){
+    var e={}; try{ e=await put.json(); }catch(x){}
+    throw new Error((e.message||'zápis zlyhal')+' (HTTP '+put.status+', '+Math.round(telo.length/1024)+' kB)');
+  }
   var out=await put.json();
   zmenene=false;
   stat('uložené · commit '+out.commit.sha.slice(0,8));
@@ -638,7 +643,8 @@ async function ulozDoRepa(){
   stat('uloženie zlyhalo');
   document.getElementById('ed').insertAdjacentHTML('afterbegin',
    '<div class="msg err"><b>Uloženie zlyhalo:</b> '+esc(String(err.message||err))
-   +'<br>Použi ⬇ JSON a pošli súbor Claudovi.</div>');
+   +'<br>Použi ⬇ JSON a pošli súbor Claudovi.'
+   +'<br><button style="margin-top:7px" onclick="zabudniToken()">🔑 Zabudnúť token a zadať znova</button></div>');
  }
 }
 
