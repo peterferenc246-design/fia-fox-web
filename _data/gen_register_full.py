@@ -106,7 +106,8 @@ def polozka(p, n):
     subox = f'<div class="sumbox" id="s{n}">{gb(SUHRNY.get(sid, {}))}</div>' if sm else ""
     fn = f'<div class="fn">📎 {html.escape(p.get("fname",""))}</div>' if p.get("fname") else ""
     acc = ("pw" if p.get("access")=="pw" else "pub")
-    thr = f' data-thread="{html.escape(p["thread"])}" data-d="{dkey(p.get("date",""))}"' if p.get("thread") else ""
+    thr = f' data-d="{dkey(p.get("date",""))}"'
+    if p.get("thread"): thr += f' data-thread="{html.escape(p["thread"])}"'
     return (f'<div class="it{" imp" if p.get("dolezite") else ""}"{thr}>'
             f'<div class="ih"><span class="idt">{html.escape(p.get("date",""))}</span>'
             f'<span class="acc acc-{acc}">{"🔒" if acc=="pw" else "🌐"} {g(UI["pw"] if acc=="pw" else UI["pub"])}</span></div>'
@@ -299,6 +300,7 @@ HTML = f"""<!DOCTYPE html>
 <div class="top"><h1>FIA FOX — Fair Internet Initiative</h1></div>
 <div class="wrap">
  <div class="navbar"><a class="hm" href="index.html">{g(UI["home"])}</a>
+  <button id="itemsort" class="hm" style="cursor:pointer" title="Poradie dokumentov v konaniach podľa dátumu (zostupne/vzostupne)">⇅ 📅 <span id="isarrow">↓</span></button>
   <div class="lang"><span class="lb">LANG</span>{FLAGS}</div></div>
 
  <div class="panel"><h2>{g(UI["reg"])} <span class="cnt2"><span id="pocet">0</span> {g(UI["verf"])}</span></h2>
@@ -393,11 +395,25 @@ apply();
       }});
     }});
   }});
-  function items(t){{return document.querySelectorAll('.it[data-thread="'+t+'"]');}}
-  function tOf(el){{var it=el.closest('.it[data-thread]');return it?it.getAttribute('data-thread'):null;}}
+  function items(t){{return document.querySelectorAll('.it[data-thread="'+t+'"]');}}  function tOf(el){{var it=el.closest('.it[data-thread]');return it?it.getAttribute('data-thread'):null;}}
   document.addEventListener('mouseover',function(ev){{var h=ev.target.closest&&ev.target.closest('.thr');if(!h)return;var t=tOf(h);if(t)items(t).forEach(function(e){{e.classList.add('thr-hl');}});}});
   document.addEventListener('mouseout',function(ev){{var h=ev.target.closest&&ev.target.closest('.thr');if(!h)return;var t=tOf(h);if(t)items(t).forEach(function(e){{e.classList.remove('thr-hl');}});}});
   document.addEventListener('click',function(ev){{var h=ev.target.closest&&ev.target.closest('.thr');if(!h)return;var t=tOf(h);if(!t)return;var all=items(t);if(!all.length)return;all.forEach(function(e){{e.classList.add('thr-hl');}});var self=h.closest('.it'),partner=null;all.forEach(function(e){{if(e!==self)partner=e;}});if(partner)partner.scrollIntoView({{behavior:'smooth',block:'center'}});setTimeout(function(){{all.forEach(function(e){{e.classList.remove('thr-hl');}});}},2600);}});
+}})();
+/* prepínač poradia položiek podľa dátumu (oba stĺpce, asc/desc) */
+(function(){{
+  var desc=true, btn=document.getElementById('itemsort'), ar=document.getElementById('isarrow');
+  function ap(){{
+    document.querySelectorAll('details.case .col').forEach(function(col){{
+      var its=[].slice.call(col.querySelectorAll('.it'));
+      its.sort(function(a,b){{var x=a.getAttribute('data-d')||'',y=b.getAttribute('data-d')||'';
+        return desc?(x<y?1:x>y?-1:0):(x<y?-1:x>y?1:0);}});
+      its.forEach(function(it){{col.appendChild(it);}});
+    }});
+    if(ar) ar.textContent = desc?'\u2193':'\u2191';
+  }}
+  if(btn) btn.addEventListener('click',function(){{desc=!desc; ap();}});
+  ap();
 }})();
 </script></body></html>"""
 
