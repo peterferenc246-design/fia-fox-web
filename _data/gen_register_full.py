@@ -153,9 +153,8 @@ def karta(cid, ps, otvorena=False):
             f'<span class="pill {PILL.get(st,"p-blue")}">{g(k.get("stav") or STAV.get(st, STAV["laeuft"]))}</span>'
             f'<span class="chev">▾</span></div></summary>'
             f'<div class="cbody"><div class="komu"><span class="komu-t">{g(UI["komu"])}</span>'
-            f'<span class="isort"><span class="ic">📅</span>'
-            f'<button class="isb on" data-dir="desc">{g(UI["in_new"])}</button>'
-            f'<button class="isb" data-dir="asc">{g(UI["in_old"])}</button></span></div>'
+            f'<button class="isb"><span class="lb-new">↓ {g(UI["in_new"])}</span>'
+            f'<span class="lb-old">↑ {g(UI["in_old"])}</span></button></div>'
             f'<div class="cols"><div class="col"><h4>↗ {g(UI["sent"])} <span class="cnt">{len(sent)}</span></h4>{hs}</div>'
             f'<div class="col"><h4>↙ {g(UI["recv"])} <span class="cnt">{len(recv)}</span></h4>{hr}</div></div>'
             f'<div class="cbtns">{beg}<a class="cb" href="{WP_KOMENT}" target="_blank" rel="noopener">↗ {g(UI["share"])}</a></div>'
@@ -224,11 +223,11 @@ body{margin:0;color:#34435A;font:15px/1.55 "Segoe UI",Calibri,Arial,sans-serif;
 .cbody{padding:14px 16px 16px;border-top:1px solid var(--bd)}
 .komu{font-size:11.5px;letter-spacing:.09em;color:var(--muted);font-weight:700;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
 .komu-t{letter-spacing:.09em}
-.isort{display:inline-flex;align-items:center;gap:5px;letter-spacing:0;font-weight:600}
-.isort .ic{font-size:12px}
-.isb{font-size:11px;border:1px solid var(--bd);background:#fff;color:var(--navy);border-radius:5px;padding:2px 9px;cursor:pointer;font-weight:600;font-family:inherit;white-space:nowrap}
+.isb{font-size:11px;border:1px solid var(--bd);background:#fff;color:var(--navy);border-radius:5px;padding:2px 10px;cursor:pointer;font-weight:600;font-family:inherit;white-space:nowrap;letter-spacing:0}
 .isb:hover{background:#f2f7fc}
-.isb.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.isb .lb-old{display:none}
+details.case[data-iasc="1"] .isb .lb-new{display:none}
+details.case[data-iasc="1"] .isb .lb-old{display:inline}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
 .col{min-width:0}
 .it{min-width:0;overflow-wrap:anywhere}
@@ -422,13 +421,12 @@ function sortCardItems(c){{
       return asc?(x<y?-1:x>y?1:0):(x<y?1:x>y?-1:0);}});
     its.forEach(function(it){{col.appendChild(it);}});
   }});
-  c.querySelectorAll('.isb').forEach(function(b){{b.classList.toggle('on',(b.getAttribute('data-dir')==='asc')===asc);}});
 }}
 function orderItems(){{ document.querySelectorAll('details.case').forEach(sortCardItems); }}
 document.addEventListener('click',function(ev){{
   var b=ev.target.closest&&ev.target.closest('.isb'); if(!b) return;
   var c=b.closest('details.case'); if(!c) return;
-  c.setAttribute('data-iasc', b.getAttribute('data-dir')==='asc'?'1':'0'); sortCardItems(c);
+  c.setAttribute('data-iasc', c.getAttribute('data-iasc')==='1'?'0':'1'); sortCardItems(c);
 }});
 </script></body></html>"""
 
