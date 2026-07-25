@@ -241,7 +241,7 @@ def item_html(p, n):
     st = p.get("stav","") or "laeuft"
     return (f'<div class="item"><div class="itop"><span class="idate">{html.escape(p.get("date",""))}</span>'
             f'<span class="st st-{st}">{g(STAV.get(st, STAV["laeuft"]))}</span></div>'
-            f'<div class="isubj">{g(p.get("subj9") or {})}</div><div class="ibtn">{doc}{og}{sm}</div></div>')
+            f'<div class="isubj">{g(p.get("subj9") or {})}</div><div class="ibtn">{doc}{sm}</div></div>')
 
 n = 0
 for cid, ps in pol_karty.items():
