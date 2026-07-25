@@ -6,8 +6,9 @@
 <style>
 :root{--navy:#1F3864;--red:#C00000;--bd:#c9d8e8;--bg:#eef3f8;--gold:#f0c040}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:#22303f;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-#bar{background:var(--navy);color:#fff;padding:9px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:20}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:#22303f;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;display:flex;flex-direction:column;overflow:hidden}
+#bar{background:var(--navy);color:#fff;padding:9px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex:0 0 auto;z-index:20}
 #bar b{letter-spacing:.02em}
 #bar .sp{flex:1}
 button{font:inherit;border:1px solid var(--bd);background:#fff;color:#3d4d5e;border-radius:5px;padding:6px 12px;cursor:pointer}
@@ -16,6 +17,17 @@ button:hover{border-color:var(--navy);color:var(--navy)}
 #bar button:hover{background:#375c9a;color:#fff}
 #bar button.go{background:#ffd34d;color:#3a2c00;border-color:#e8b93a;font-weight:700}
 .page{max-width:1700px;margin:0 auto;padding:14px 16px 40px}
+/* ── vodorovný rozdeľovač: horný a dolný panel, každý scrolluje samostatne ── */
+#hsplit{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+#hTop{flex:0 0 auto;height:55%;min-height:64px;overflow:auto}
+#hBot{flex:1 1 auto;min-height:90px;overflow:auto}
+#hTop .page,#hBot .page{padding-top:12px;padding-bottom:20px}
+#hDrag{flex:0 0 auto;height:12px;cursor:row-resize;background:linear-gradient(#dbe5f1,#c2d2e6);
+ border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);position:relative;user-select:none;touch-action:none}
+#hDrag::before{content:"";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+ width:48px;height:2px;border-radius:2px;background:#7f97b8;box-shadow:0 -4px 0 #7f97b8,0 4px 0 #7f97b8}
+#hDrag:hover{background:linear-gradient(#cddcee,#aec4e0)}
+#hDrag.drag{background:linear-gradient(#bcd0ea,#9bb6d8)}
 .sect{margin-bottom:16px}
 .langbar{background:#fff;border:1px solid var(--bd);border-radius:7px;padding:9px 13px;margin-bottom:14px;
  display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -69,7 +81,7 @@ button:hover{border-color:var(--navy);color:var(--navy)}
 .ob.og{background:#fff8e6;border-color:var(--gold);color:#8a5a00}
 .warn{background:#fdeaea;color:#8a1c1c;border:1px solid #f0b8b8}
 .ed{background:#fff;border:1px solid var(--bd);border-top:4px solid var(--navy);border-radius:7px;
- padding:14px 16px;position:sticky;top:60px;max-height:calc(100vh - 80px);overflow:auto}
+ padding:14px 16px}
 .ed h2{margin:0 0 4px;font-size:15px;color:var(--navy)}
 .ed .sub{font-size:12px;color:#8a97a6;margin-bottom:6px}
 .ramik{background:#eef4fb;border:1px solid var(--bd);border-radius:6px;padding:9px 12px;margin-top:4px}
@@ -134,36 +146,45 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
  <button onclick="stiahni()" title="Záloha na disk">⬇ JSON</button>
 </div>
 
-<div class="page">
- <div class="langbar">
-  <span class="lb">Jazyk zobrazenia</span>
-  <span id="flags"></span>
-  <span class="info" id="langinfo"></span>
- </div>
+<div id="hsplit">
+ <div id="hTop">
+  <div class="page">
+   <div class="langbar">
+    <span class="lb">Jazyk zobrazenia</span>
+    <span id="flags"></span>
+    <span class="info" id="langinfo"></span>
+   </div>
 
- <div class="sect">
-  <h2>Kauzy <span class="cnt" id="c-kz">0</span>
-   <button onclick="selKz=null;selKa=null;selPo=null;render()" style="margin-left:auto">Zobraziť všetko</button></h2>
-  <div class="tiles" id="tiles"><div class="empty">Načítaj dáta tlačidlom hore.</div></div>
- </div>
+   <div class="sect">
+    <h2>Kauzy <span class="cnt" id="c-kz">0</span>
+     <button onclick="selKz=null;selKa=null;selPo=null;render()" style="margin-left:auto">Zobraziť všetko</button></h2>
+    <div class="tiles" id="tiles"><div class="empty">Načítaj dáta tlačidlom hore.</div></div>
+   </div>
 
- <div class="sect">
-  <h2>Konania <span class="cnt" id="c-ka">0</span>
-   <button onclick="prepniRadenie()" id="radbtn" style="margin-left:auto">↓ najnovšie</button>
-   <button onclick="novaKarta()">+ Nové konanie</button></h2>
-  <div class="cards" id="cards"><div class="empty">—</div></div>
- </div>
+   <div class="sect">
+    <h2>Konania <span class="cnt" id="c-ka">0</span>
+     <button onclick="prepniRadenie()" id="radbtn" style="margin-left:auto">↓ najnovšie</button>
+     <button onclick="novaKarta()">+ Nové konanie</button></h2>
+    <div class="cards" id="cards"><div class="empty">—</div></div>
+   </div>
 
- <div class="split">
-  <div class="sect">
-   <h2>Dokumenty <span class="cnt" id="c-po">0</span>
-    <button onclick="novaPolozka()" style="margin-left:auto">+ Nový dokument</button></h2>
-   <div class="cols">
-    <div class="col"><h3>▲ Odoslané</h3><div id="dsent"><div class="empty">—</div></div></div>
-    <div class="col"><h3>▼ Došlé</h3><div id="drecv"><div class="empty">—</div></div></div>
+   <div class="sect">
+    <h2>Dokumenty <span class="cnt" id="c-po">0</span>
+     <button onclick="novaPolozka()" style="margin-left:auto">+ Nový dokument</button></h2>
+    <div class="cols">
+     <div class="col"><h3>▲ Odoslané</h3><div id="dsent"><div class="empty">—</div></div></div>
+     <div class="col"><h3>▼ Došlé</h3><div id="drecv"><div class="empty">—</div></div></div>
+    </div>
    </div>
   </div>
-  <div class="ed" id="ed"><h2>Editor</h2><p class="hint">Vyber kauzu, konanie alebo dokument.</p></div>
+ </div>
+
+ <div id="hDrag" title="Ťahaj hore/dole · dvojklik = 50/50"></div>
+
+ <div id="hBot">
+  <div class="page">
+   <div class="ed" id="ed"><h2>Editor</h2><p class="hint">Vyber kauzu, konanie alebo dokument.</p></div>
+  </div>
  </div>
 </div>
 
@@ -171,7 +192,7 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
 const VIEWER="https://peterferenc246-design.github.io/fia/viewer.html";
-const VERZIA="2026-07-24 15:50";
+const VERZIA="2026-07-25 · rozdeľovač";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false, AKCIA='edit';
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -234,7 +255,9 @@ function aktualizuj(){
  }
  try{
   if(D) sessionStorage.setItem('fia_stav', JSON.stringify({
-    D:D, selKz:selKz, selKa:selKa, selPo:selPo, LANG:LANG, y:window.scrollY, t:Date.now()}));
+    D:D, selKz:selKz, selKa:selKa, selPo:selPo, LANG:LANG,
+    y:(document.getElementById('hTop')||{}).scrollTop||0,
+    y2:(document.getElementById('hBot')||{}).scrollTop||0, t:Date.now()}));
  }catch(e){
   if(!confirm('Stav sa nepodarilo odložiť ('+e+').\nPokračovať a načítať formulár nanovo?')) return;
  }
@@ -255,7 +278,8 @@ function obnovStav(){
    '<div class="msg ok">Formulár aktualizovaný na v '+VERZIA+'. Rozpracované dáta aj výber zostali zachované.<br>'
    +'<button style="margin-top:7px" onclick="if(confirm(\'Zahodiť rozpracované zmeny a načítať čerstvé dáta z webu?\')){zmenene=false;loadWeb();}">'
    +'⟲ Načítať čerstvé dáta z webu</button></div>');
-  setTimeout(()=>window.scrollTo(0,st.y||0),60);
+  setTimeout(()=>{var T=document.getElementById('hTop'),B=document.getElementById('hBot');
+   if(T)T.scrollTop=st.y||0; if(B)B.scrollTop=st.y2||0;},60);
   return true;
  }catch(e){ try{sessionStorage.removeItem('fia_stav');}catch(x){} return false; }
 }
@@ -662,5 +686,44 @@ function stiahni(){ if(!D){alert('Najprv načítaj dáta.');return;}
  a.download='fia_data.json'; a.click();
  zmenene=false; stat('JSON stiahnutý — pošli ho na nasadenie.');
 }
+
+/* ── vodorovný rozdeľovač: ťahaj hore/dole, dvojklik = 50/50 ── */
+(function(){
+ var split=document.getElementById('hsplit'),
+     top=document.getElementById('hTop'),
+     drag=document.getElementById('hDrag'),
+     aktiv=false;
+ if(!split||!top||!drag) return;
+ function nastavH(px){
+  var H=split.clientHeight, min=64, max=H-90;
+  if(max<min) max=min;
+  if(px<min) px=min; if(px>max) px=max;
+  top.style.flex='0 0 auto';
+  top.style.height=px+'px';
+ }
+ function init(){ nastavH(Math.round(split.clientHeight*0.55)); }
+ drag.addEventListener('pointerdown',function(e){
+  aktiv=true; drag.classList.add('drag');
+  try{drag.setPointerCapture(e.pointerId);}catch(_){}
+  document.body.style.cursor='row-resize'; e.preventDefault();
+ });
+ window.addEventListener('pointermove',function(e){
+  if(!aktiv) return;
+  nastavH(e.clientY - split.getBoundingClientRect().top);
+ });
+ function koniec(e){
+  if(!aktiv) return; aktiv=false; drag.classList.remove('drag');
+  document.body.style.cursor='';
+  try{drag.releasePointerCapture(e.pointerId);}catch(_){}
+ }
+ window.addEventListener('pointerup',koniec);
+ window.addEventListener('pointercancel',koniec);
+ drag.addEventListener('dblclick',function(){ nastavH(Math.round(split.clientHeight*0.5)); });
+ window.addEventListener('resize',function(){
+  var h=parseInt(top.style.height,10);
+  nastavH(isNaN(h)?Math.round(split.clientHeight*0.55):h);
+ });
+ init();
+})();
 </script>
 </body></html>
