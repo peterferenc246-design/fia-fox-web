@@ -172,14 +172,15 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
 
    <div class="sect">
     <h2>Konania <span class="cnt" id="c-ka">0</span>
-     <button onclick="prepniRadenie()" id="radbtn" style="margin-left:auto">↓ najnovšie</button>
+     <button onclick="prepniRadenie()" id="radbtn" style="margin-left:auto">↓ Najnovšie</button>
      <button onclick="novaKarta()">+ Nové konanie</button></h2>
     <div class="cards" id="cards"><div class="empty">—</div></div>
    </div>
 
    <div class="sect">
     <h2>Dokumenty <span class="cnt" id="c-po">0</span>
-     <button onclick="novaPolozka()" style="margin-left:auto">+ Nový dokument</button></h2>
+     <button onclick="prepniRadenieDoc()" id="raddoc" style="margin-left:auto">↓ Najnovšie</button>
+     <button onclick="novaPolozka()">+ Nový dokument</button></h2>
     <div class="cols">
      <div class="col"><h3>▲ Odoslané</h3><div id="dsent"><div class="empty">—</div></div></div>
      <div class="col"><h3>▼ Došlé</h3><div id="drecv"><div class="empty">—</div></div></div>
@@ -229,6 +230,8 @@ function dkey(v){
 }
 let radDesc=true;
 function prepniRadenie(){ radDesc=!radDesc; render(); }
+let docDesc=true;
+function prepniRadenieDoc(){ docDesc=!docDesc; render(); }
 function chyba9(o){return L9.filter(L=>!((o||{})[L]||'').trim()).length;}
 
 /* ── načítanie ── */
@@ -266,7 +269,7 @@ function aktualizuj(){
  }
  try{
   if(D) sessionStorage.setItem('fia_stav', JSON.stringify({
-    D:D, selKz:selKz, selKa:selKa, selPo:selPo, LANG:LANG, radDesc:radDesc,
+    D:D, selKz:selKz, selKa:selKa, selPo:selPo, LANG:LANG, radDesc:radDesc, docDesc:docDesc,
     y:(document.getElementById('hTop')||{}).scrollTop||0,
     y2:(document.getElementById('hBot')||{}).scrollTop||0, t:Date.now()}));
  }catch(e){
@@ -283,6 +286,7 @@ function obnovStav(){
   sessionStorage.removeItem('fia_stav');
   D=st.D; selKz=st.selKz; selKa=st.selKa; selPo=st.selPo; LANG=st.LANG||'sk';
   if(typeof st.radDesc==='boolean') radDesc=st.radDesc;
+  if(typeof st.docDesc==='boolean') docDesc=st.docDesc;
   D.karty=D.karty||[]; D.polozky=D.polozky||[]; D.suhrny=D.suhrny||{}; pripravKauzy();
   kresliVlajky(); render();
   stat(D.karty.length+' konaní · '+D.polozky.length+' dokumentov · obnovené po aktualizácii');
@@ -298,10 +302,11 @@ function obnovStav(){
 
 /* ── trvalý stav (localStorage): výber + triedenie + jazyk pretrvajú cez refresh aj zatvorenie okna ── */
 const UIKEY='fia_ui_v1';
-function ulozUI(){ try{ localStorage.setItem(UIKEY, JSON.stringify({kz:selKz,ka:selKa,po:selPo,rad:radDesc,lang:LANG})); }catch(e){} }
+function ulozUI(){ try{ localStorage.setItem(UIKEY, JSON.stringify({kz:selKz,ka:selKa,po:selPo,rad:radDesc,dd:docDesc,lang:LANG})); }catch(e){} }
 function obnovUI(){ try{
   const u=JSON.parse(localStorage.getItem(UIKEY)||'null'); if(!u) return false;
   if(typeof u.rad==='boolean') radDesc=u.rad;
+  if(typeof u.dd==='boolean') docDesc=u.dd;
   if(u.lang && L9.indexOf(u.lang)>=0) LANG=u.lang;
   if(u.kz && kauzaPodla(u.kz)) selKz=u.kz;
   if(u.ka && kartaById(u.ka)){ selKa=u.ka; if(!selKz) selKz=kauzaKarty(u.ka)||null; }
@@ -313,7 +318,8 @@ function obnovUI(){ try{
 
 /* ── vykreslenie ── */
 function render(){ if(!D) return; tiles(); cards(); docs(); editor(); langinfo();
- const b=document.getElementById('radbtn'); if(b) b.textContent = radDesc?'↓ najnovšie':'↑ najstaršie';
+ const b=document.getElementById('radbtn'); if(b) b.textContent = radDesc?'↓ Najnovšie':'↑ Najstaršie';
+ const bd=document.getElementById('raddoc'); if(bd) bd.textContent = docDesc?'↓ Najnovšie':'↑ Najstaršie';
  ulozUI();
 }
 function langinfo(){
@@ -366,7 +372,7 @@ function cards(){
 function docs(){
  const kzo=selKz?kauzaPodla(selKz):null;
  const zoz=(D.polozky||[]).filter(p=>(!selKa||p.karta===selKa)&&(!kzo||(kzo.ids||[]).indexOf(p.karta)>=0))
-   .slice().sort((a,b)=>{const x=dkey(a.date),y=dkey(b.date); return radDesc? y.localeCompare(x): x.localeCompare(y);});
+   .slice().sort((a,b)=>{const x=dkey(a.date),y=dkey(b.date); return docDesc? y.localeCompare(x): x.localeCompare(y);});
  document.getElementById('c-po').textContent=zoz.length;
  const thrNum={};
  {const gr={};
