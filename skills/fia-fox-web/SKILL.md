@@ -11,7 +11,7 @@ description: |
   "dáta registra", "fia_data.json", "prelož podanie na kartu", "napoj vlajky".
 license: MIT
 metadata:
-  version: "1.2.1"
+  version: "1.2.2"
   updated: "2026-07-25"
 ---
 
@@ -247,14 +247,18 @@ sum/law/d/page/vw) a nechaj generátor URL poskladať. Reťazce/SHA generuj prog
 
 ---
 
-## 7. Vlákna odpovedí (thread) — párovanie
+## 7. Vlákna odpovedí (thread) — párovanie [FUNGUJE v statickom registri od 25.07.2026]
 
-- Ak má položka `replyTo`, **NESTAČÍ vložiť ju samu.** Partnerskú položku dohľadaj podľa predmetu z `replyTo`
-  a v tom istom kroku jej doplň rovnaký `thread` (`thr-<slug predmetu pôvodného podania>`) — na oboch položkách.
-  Bez toho vlákno neexistuje.
-- **Čísla v krúžkoch NEPÍŠ do markupu.** Krúžok `.thr` kreslí `kauzy.js` (`renderThreadNumbers()`): krúžok dostanú
-  LEN položky s `thread`; číslo = poradie dokumentu v jeho vlákne chronologicky (1 = pôvodné podanie, 2 = prvá
-  reakcia …), prepočíta sa samo pri načítaní. Klik na krúžok/„Odpoveď na" zvýrazní celé vlákno.
+- **Dáta:** obom partnerským položkám nastav rovnaký `thread` (`thr-<slug predmetu pôvodného podania>`);
+  odpovedi navyše `replyTo` = predmet pôvodného podania. Partnera dohľadaj podľa `replyTo`. Bez rovnakého
+  `thread` na OBOCH položkách vlákno neexistuje.
+- **Renderuje sa automaticky — čísla ani krúžky NEPÍŠ do dát ani markupu.** `gen_register_full.py` vypíše na
+  položku (`.it`) `data-thread` + `data-d` (dátumový kľúč). Skript registra v rámci každej karty zoskupí položky
+  podľa `data-thread`, zoradí podľa dátumu a nakreslí do hlavičky (`.ih`) číslovaný krúžok `.thr`
+  (1 = pôvodné podanie, 2 = reakcia …). Klik/hover na krúžok zvýrazní celé vlákno (`.thr-hl`) a odscrolluje
+  na partnera.
+- Vlákno spája položky NAPRIEČ stĺpcami Odoslané/Došlé v tej istej karte (odoslané podanie ↔ došlá odpoveď).
+- Karta-stránky `karta-*.html` z `gen_live.py` — rovnaké číslovanie doplniť analogicky (TODO, ak treba samostatné stránky).
 
 ---
 
