@@ -11,7 +11,7 @@ description: |
   "dáta registra", "fia_data.json", "prelož podanie na kartu", "napoj vlajky".
 license: MIT
 metadata:
-  version: "1.2.2"
+  version: "1.2.3"
   updated: "2026-07-25"
 ---
 
@@ -149,9 +149,9 @@ Export #303 získa Peter otvorením
   až PO otvorení dokumentu — tlačidlo naň žije v hlavičke otvoreného klonu (§8a), nie na karte. Generátory
   `gen_register_full.py` aj `gen_live.py` preto do karty `og`/orig button NEvkladajú (pole `orig` môže v dátach
   ostať ako kanonický odkaz, karta ho ale nezobrazuje).
-  **Popis tlačidla: „(QES)" LEN ak dokument reálne nesie Petrov kvalifikovaný podpis** (jeho odoslané podpísané
-  podania). Dokument bez QES (došlá pošta, nepodpísané) → v tlačidle „(PDF)", nikdy „(QES)". Napr. došlá odpoveď
-  orgánu = „Signiertes Original (PDF)" / „Podpísaný originál (PDF)".
+  **Popis tlačidla „(QES)" LEN ak dokument reálne nesie Petrov kvalifikovaný podpis** (jeho odoslané podpísané
+  podania). Dokument bez QES (došlá pošta, nepodpísané) → v tlačidle „(PDF)", nikdy „(QES)". Popis tlačidla v klone =
+  „Stiahnuť originál (PDF)" (9 jaz., §8a); vedie priamo na jsDelivr PDF (prehliadač vykreslí + natívne stiahne).
 
 ---
 
@@ -274,9 +274,21 @@ sum/law/d/page/vw) a nechaj generátor URL poskladať. Reťazce/SHA generuj prog
 - na konci podpisový blok s obrázkom podpisu a poznámkou o QES;
 - obrázky cez **relatívnu cestu `img/…`**, NIE cez jsDelivr (`@main` cachuje až 12 h);
 - vzor hotového riešenia: `dg-comp-kartel-pristup-k-dokumentom/dgcomp-correspondence-full.html` (repo `fia`);
-- **tlačidlo originálu žije v hlavičke klonu (langbar), NIE na karte** (§5). Popis „(QES)" LEN pri Petrovom
-  kvalifikovanom podpise; inak „(PDF)" (napr. došlá pošta = „Signiertes Original (PDF)" / „Podpísaný originál (PDF)").
-- podpísaný originál (PDF/QES) ostáva samostatné tlačidlo na stiahnutie ako dôkaz.
+- **tlačidlo originálu žije v hlavičke klonu (langbar), NIE na karte** (§5).
+- **★ ŽELEZNÉ PRAVIDLO — ZOBRAZENIE + STIAHNUTIE ORIGINÁLU (Peter 25.07.2026, TOTO SA UŽ NERIEŠI ZNOVA):**
+  tlačidlo v langbare vedie **PRIAMO na jsDelivr PDF**
+  `https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/<cesta>.pdf` — NIE cez `viewer.html`,
+  NIE cez `raw.githubusercontent.com` (ten posiela `application/octet-stream` + nosniff → slepé stiahnutie bez
+  náhľadu). Priamy jsDelivr = prehliadač PDF **vykreslí inline** (1. klik zobrazí originál) a v jeho vlastnej lište je
+  **natívne stiahnutie do PC** (2. klik). Toto je jediný správny a Petrom overený spôsob; žiadny viewer/blob medzikrok.
+- **Popis tlačidla = „Stiahnuť originál (PDF)"** vo všetkých 9 jaz.: Download original / Original herunterladen /
+  Télécharger l'original / Scarica originale / Descargar original / Pobierz oryginał / Preuzmi izvornik /
+  Ladda ner originalet. Prípona „(QES)" LEN ak dokument nesie Petrov kvalifikovaný podpis; došlá pošta a
+  nepodpísané → vždy „(PDF)".
+- **Obrázky klonu (erb, podpis) vkladaj ako base64 data-URI** raz cez CSS triedu (self-contained, súbor nenarastie
+  9×) — NIE cez jsDelivr (`@main` cachuje 12 h) ani `img/` (relatívna cesta zlyhá pri priamom otvorení súboru).
+- **Disclaimer** v každom preklade odkazuje na tlačidlo „Stiahnuť originál (PDF)", NIE na vlajku DE (DE vlajka je tiež
+  len HTML klon; záväzný je podpísaný PDF originál).
 
 ### 8b. PDF/DOCX klon — pre ODOSIELANÉ/podpisované dokumenty (prevzaté z fia-mk §4.1)
 Keď treba viacjazyčný PDF klon do jedného súboru (nie HTML) alebo keď sa dokument reálne odosiela:
