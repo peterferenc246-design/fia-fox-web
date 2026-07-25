@@ -129,6 +129,15 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
 .jn{font-size:11px;margin:3px 0 0 48px}
 .hint{font-size:11.5px;color:#8a97a6;font-weight:400;text-transform:none;letter-spacing:0}
 .ramik{background:#eef4fb;border:1px solid var(--bd);border-radius:6px;padding:9px 12px;margin-top:4px}
+.jall{margin:2px 0 8px 48px;font-size:12px}
+.jall>summary{cursor:pointer;color:#5a6b7e;font-size:11px}
+.jall>summary:hover{color:var(--navy)}
+.jall-row{display:grid;grid-template-columns:34px 1fr;gap:8px;padding:3px 0;border-top:1px solid #eef2f7}
+.jall-l{font-size:10.5px;font-weight:700;color:#fff;background:#7a8899;text-align:center;border-radius:3px;padding:3px 0;height:fit-content}
+.jall-l.cur{background:var(--navy)}
+.jall-t{white-space:pre-wrap;color:#34435a}
+.jall-t.emp{color:#b9c4d1}
+.thr{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:10px;background:var(--navy);color:#fff;font-size:11px;font-weight:800;vertical-align:middle}
 </style></head>
 <body>
 
@@ -192,7 +201,7 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
 const VIEWER="https://peterferenc246-design.github.io/fia/viewer.html";
-const VERZIA="2026-07-25 · rozdeľovač";
+const VERZIA="2026-07-25 · 9-jaz náhľad (prototyp)";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false, AKCIA='edit';
 let LANG='sk';
 const FLAG={de:"de",en:"gb",sk:"sk",hr:"hr",pl:"pl",es:"es",it:"it",fr:"fr",sv:"se"};
@@ -340,17 +349,20 @@ function docs(){
  const zoz=(D.polozky||[]).filter(p=>(!selKa||p.karta===selKa)&&(!kzo||(kzo.ids||[]).indexOf(p.karta)>=0))
    .slice().sort((a,b)=>{const x=dkey(a.date),y=dkey(b.date); return radDesc? y.localeCompare(x): x.localeCompare(y);});
  document.getElementById('c-po').textContent=zoz.length;
+ const thrNum={};
+ {const gr={};
+  zoz.forEach(p=>{if(p.thread){(gr[p.thread]=gr[p.thread]||[]).push(p);}});
+  Object.keys(gr).forEach(t=>{gr[t].slice().sort((a,b)=>dkey(a.date).localeCompare(dkey(b.date)))
+    .forEach((p,idx)=>{thrNum[D.polozky.indexOf(p)]=idx+1;});});}
  const kresli=arr=>arr.map(p=>{const i=D.polozky.indexOf(p);
   const cs=chyba9(p.subj9), cu=chyba9(p.urls);
   const csL=!((p.subj9||{})[LANG]||'').trim(), cuL=!((p.urls||{})[LANG]||'').trim();
   return '<div class="doc'+(selPo===i?' on':'')+'" onclick="pickPo('+i+')">'
-   +'<div class="dt"><span>'+esc(p.date||'—')+'</span><span>'+esc(p.az||'')+'</span></div>'
+   +'<div class="dt"><span>'+(thrNum[i]?'<span class="thr" title="Vlákno · '+thrNum[i]+'. dokument (podľa dátumu)">'+thrNum[i]+'</span> ':'')+esc(p.date||'—')+'</span><span>'+esc(p.az||'')+'</span></div>'
    +'<div class="ds">'+esc(predmet(p))+'</div>'
    +'<div class="dw">'
    +(((p.urls||{})[LANG])?'<a class="pill" style="background:#1F3864;color:#fff;text-decoration:none" '
       +'href="'+esc(p.urls[LANG])+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">↗ otvoriť</a>':'')
-   +(p.orig?'<a class="pill" style="background:#ffd34d;color:#3a2c00;text-decoration:none" '
-      +'href="'+esc(p.orig)+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">✍ QES</a>':'')
    +(p.dolezite?'<span class="pill warn">❗ dôležité</span>':'')
    +'<span class="pill">'+(p.access==='pw'?'🔒 heslo':'🌐 verejné')+'</span>'
    +(p.summodId?'<span class="pill">súhrn</span>':'')
@@ -363,7 +375,6 @@ function docs(){
    +'</div>'
    +'<div class="dw" style="margin-top:6px">'
    +(((p.urls||{})[LANG])?'<a class="ob" href="'+esc(p.urls[LANG])+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">📄 Otvoriť ('+LANG.toUpperCase()+')</a>':'<span class="pill warn">bez odkazu v '+LANG.toUpperCase()+'</span>')
-   +(p.orig?'<a class="ob og" href="'+esc(VIEWER+'?doc='+encodeURIComponent(p.orig))+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">✍ Originál (QES)</a>':'')
    +'</div></div>';}).join('');
  const s=zoz.filter(p=>p.dir==='sent'), r=zoz.filter(p=>p.dir!=='sent');
  document.getElementById('dsent').innerHTML=kresli(s)||'<div class="empty">—</div>';
@@ -420,7 +431,10 @@ function jaz(o,c,ta,link){
  var pole = ta
    ? '<textarea class="'+(v?'':'miss')+'" oninput="'+c+'[\''+LANG+'\']=this.value;this.classList.remove(\'miss\')">'+esc(v)+'</textarea>'
    : '<input class="'+(v?'':'miss')+'" value="'+esc(v)+'" oninput="'+c+'[\''+LANG+'\']=this.value;this.classList.remove(\'miss\')">';
- return '<div class="j1"><span class="jl">'+LANG.toUpperCase()+'</span>'+pole+'</div><div class="jn">'+stav+'</div>';
+ var vsetky=L9.map(function(L){var t=(o[L]||'').trim();
+   return '<div class="jall-row"><span class="jall-l'+(L===LANG?' cur':'')+'">'+L.toUpperCase()+'</span><span class="jall-t'+(t?'':' emp')+'">'+(t?esc(t):'—')+'</span></div>';}).join('');
+ var det='<details class="jall"><summary>👁 všetkých 9 jazykov (náhľad, read-only)</summary>'+vsetky+'</details>';
+ return '<div class="j1"><span class="jl">'+LANG.toUpperCase()+'</span>'+pole+'</div><div class="jn">'+stav+'</div>'+det;
 }
 
 function tgl(zoz, aktiv, onclick, viac){
