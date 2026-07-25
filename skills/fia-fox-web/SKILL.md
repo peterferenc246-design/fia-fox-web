@@ -11,7 +11,7 @@ description: |
   "dáta registra", "fia_data.json", "prelož podanie na kartu", "napoj vlajky".
 license: MIT
 metadata:
-  version: "1.2.3"
+  version: "1.2.4"
   updated: "2026-07-25"
 ---
 
@@ -152,6 +152,11 @@ Export #303 získa Peter otvorením
   **Popis tlačidla „(QES)" LEN ak dokument reálne nesie Petrov kvalifikovaný podpis** (jeho odoslané podpísané
   podania). Dokument bez QES (došlá pošta, nepodpísané) → v tlačidle „(PDF)", nikdy „(QES)". Popis tlačidla v klone =
   „Stiahnuť originál (PDF)" (9 jaz., §8a); vedie priamo na jsDelivr PDF (prehliadač vykreslí + natívne stiahne).
+- **Radenie položiek podľa dátumu (systémovo, Peter 25.07.2026).** Odoslané aj došlé sa radia podľa dátumu.
+  Register: generátor vypíše `data-d` (dátumový kľúč) na KAŽDÚ položku `.it`; prepínač `⇅ 📅` (`#itemsort`) preusporiada
+  `.it` v OBOCH `.col` zostupne/vzostupne. Editor: premenná `radDesc` + tlačidlo `↓ najnovšie / ↑ najstaršie`.
+  **Krúžky vlákna 1,2,3** (§7) sa číslujú podľa DÁTUMU nezávisle od zobrazeného poradia a kreslia sa v registri
+  (skript) aj v editore (náhľad položiek, `thrNum`). `data-thread` je len na položkách vo vlákne, `data-d` na všetkých.
 
 ---
 
