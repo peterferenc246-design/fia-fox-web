@@ -58,6 +58,8 @@ UI = {
  "s_our":S("🦊 Unser Az.","🦊 Our ref.","🦊 Naša spis. zn.","🦊 Naš broj","🦊 Nasza sygn.","🦊 Ntra. ref.","🦊 Ns. rif.","🦊 Notre réf.","🦊 Vårt nr"),
  "s_obl":S("🗂 Bereich","🗂 Area","🗂 Oblasť","🗂 Područje","🗂 Obszar","🗂 Ámbito","🗂 Ambito","🗂 Domaine","🗂 Område"),
  "s_new":S("↓ Neueste","↓ Newest","↓ Najnovšie","↓ Najnovije","↓ Najnowsze","↓ Más recientes","↓ Più recenti","↓ Plus récents","↓ Nyaste"),
+ "in_new":S("Neueste","Newest","Najnovšie","Najnovije","Najnowsze","Recientes","Recenti","Récents","Nyaste"),
+ "in_old":S("Älteste","Oldest","Najstaršie","Najstarije","Najstarsze","Antiguos","Vecchi","Anciens","Äldsta"),
  "pw":   S("Passwort","Password","Heslo","Lozinka","Hasło","Contraseña","Password","Mot de passe","Lösenord"),
 }
 STAV = {"laeuft":S("Läuft","Pending","Prebieha","U tijeku","W toku","En curso","In corso","En cours","Pågår"),
@@ -150,7 +152,10 @@ def karta(cid, ps, otvorena=False):
             + f'</div></div><div class="cr">{pin}'
             f'<span class="pill {PILL.get(st,"p-blue")}">{g(k.get("stav") or STAV.get(st, STAV["laeuft"]))}</span>'
             f'<span class="chev">▾</span></div></summary>'
-            f'<div class="cbody"><div class="komu">{g(UI["komu"])}</div>'
+            f'<div class="cbody"><div class="komu"><span class="komu-t">{g(UI["komu"])}</span>'
+            f'<span class="isort"><span class="ic">📅</span>'
+            f'<button class="isb on" data-dir="desc">{g(UI["in_new"])}</button>'
+            f'<button class="isb" data-dir="asc">{g(UI["in_old"])}</button></span></div>'
             f'<div class="cols"><div class="col"><h4>↗ {g(UI["sent"])} <span class="cnt">{len(sent)}</span></h4>{hs}</div>'
             f'<div class="col"><h4>↙ {g(UI["recv"])} <span class="cnt">{len(recv)}</span></h4>{hr}</div></div>'
             f'<div class="cbtns">{beg}<a class="cb" href="{WP_KOMENT}" target="_blank" rel="noopener">↗ {g(UI["share"])}</a></div>'
@@ -217,7 +222,13 @@ body{margin:0;color:#34435A;font:15px/1.55 "Segoe UI",Calibri,Arial,sans-serif;
 .chev{color:var(--muted)}
 .case[open] .chev{transform:rotate(180deg);display:inline-block}
 .cbody{padding:14px 16px 16px;border-top:1px solid var(--bd)}
-.komu{font-size:11.5px;letter-spacing:.09em;color:var(--muted);font-weight:700;margin-bottom:9px}
+.komu{font-size:11.5px;letter-spacing:.09em;color:var(--muted);font-weight:700;margin-bottom:9px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.komu-t{letter-spacing:.09em}
+.isort{display:inline-flex;align-items:center;gap:5px;letter-spacing:0;font-weight:600}
+.isort .ic{font-size:12px}
+.isb{font-size:11px;border:1px solid var(--bd);background:#fff;color:var(--navy);border-radius:5px;padding:2px 9px;cursor:pointer;font-weight:600;font-family:inherit;white-space:nowrap}
+.isb:hover{background:#f2f7fc}
+.isb.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
 .col{min-width:0}
 .it{min-width:0;overflow-wrap:anywhere}
@@ -300,7 +311,6 @@ HTML = f"""<!DOCTYPE html>
 <div class="top"><h1>FIA FOX — Fair Internet Initiative</h1></div>
 <div class="wrap">
  <div class="navbar"><a class="hm" href="index.html">{g(UI["home"])}</a>
-  <button id="itemsort" class="hm" style="cursor:pointer" title="Poradie dokumentov v konaniach podľa dátumu (zostupne/vzostupne)">⇅ 📅 <span id="isarrow">↓</span></button>
   <div class="lang"><span class="lb">LANG</span>{FLAGS}</div></div>
 
  <div class="panel"><h2>{g(UI["reg"])} <span class="cnt2"><span id="pocet">0</span> {g(UI["verf"])}</span></h2>
@@ -369,7 +379,8 @@ document.querySelectorAll('.chip').forEach(function(b){{
   if(OBL) b.classList.add('on'); apply(); }});}});
 document.querySelectorAll('.sb').forEach(function(b){{
  b.addEventListener('click',function(){{ SORT=b.dataset.s;
-  if(SORT==='d') IASC=true; else if(SORT==='new') IASC=false;
+  if(SORT==='d'||SORT==='new'){{ IASC=(SORT==='d');
+    document.querySelectorAll('details.case').forEach(function(c){{c.setAttribute('data-iasc', IASC?'1':'0');}}); }}
   document.querySelectorAll('.sb').forEach(function(x){{x.classList.remove('on');}}); b.classList.add('on'); apply(); }});}});
 document.querySelectorAll('.tab').forEach(function(b){{
  b.addEventListener('click',function(){{ JUR=b.dataset.j; SEL='all';
@@ -402,20 +413,23 @@ apply();
   document.addEventListener('mouseout',function(ev){{var h=ev.target.closest&&ev.target.closest('.thr');if(!h)return;var t=tOf(h);if(t)items(t).forEach(function(e){{e.classList.remove('thr-hl');}});}});
   document.addEventListener('click',function(ev){{var h=ev.target.closest&&ev.target.closest('.thr');if(!h)return;var t=tOf(h);if(!t)return;var all=items(t);if(!all.length)return;all.forEach(function(e){{e.classList.add('thr-hl');}});var self=h.closest('.it'),partner=null;all.forEach(function(e){{if(e!==self)partner=e;}});if(partner)partner.scrollIntoView({{behavior:'smooth',block:'center'}});setTimeout(function(){{all.forEach(function(e){{e.classList.remove('thr-hl');}});}},2600);}});
 }})();
-/* poradie položiek v stĺpcoch podľa dátumu — riadi sortbar (Najstaršie/Najnovšie) aj tlačidlo #itemsort; IASC=true => najstaršie hore */
-function orderItems(){{
-  document.querySelectorAll('details.case .col').forEach(function(col){{
+/* poradie položiek v stĺpcoch podľa dátumu — per-kartu prepínač v hlavičke SPISOVÁ KOMUNIKÁCIA (data-iasc na .case; sortbar Najstaršie/Najnovšie preusporiada všetky karty) */
+function sortCardItems(c){{
+  var asc = c.getAttribute('data-iasc')==='1';
+  c.querySelectorAll('.col').forEach(function(col){{
     var its=[].slice.call(col.querySelectorAll('.it'));
     its.sort(function(a,b){{var x=a.getAttribute('data-d')||'',y=b.getAttribute('data-d')||'';
-      return IASC?(x<y?-1:x>y?1:0):(x<y?1:x>y?-1:0);}});
+      return asc?(x<y?-1:x>y?1:0):(x<y?1:x>y?-1:0);}});
     its.forEach(function(it){{col.appendChild(it);}});
   }});
-  var ar=document.getElementById('isarrow'); if(ar) ar.textContent = IASC?'\u2191':'\u2193';
+  c.querySelectorAll('.isb').forEach(function(b){{b.classList.toggle('on',(b.getAttribute('data-dir')==='asc')===asc);}});
 }}
-(function(){{
-  var btn=document.getElementById('itemsort');
-  if(btn) btn.addEventListener('click',function(){{ IASC=!IASC; orderItems(); }});
-}})();
+function orderItems(){{ document.querySelectorAll('details.case').forEach(sortCardItems); }}
+document.addEventListener('click',function(ev){{
+  var b=ev.target.closest&&ev.target.closest('.isb'); if(!b) return;
+  var c=b.closest('details.case'); if(!c) return;
+  c.setAttribute('data-iasc', b.getAttribute('data-dir')==='asc'?'1':'0'); sortCardItems(c);
+}});
 </script></body></html>"""
 
 open('register.html','w',encoding='utf-8').write(HTML)
