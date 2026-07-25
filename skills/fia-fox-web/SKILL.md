@@ -11,7 +11,7 @@ description: |
   "dáta registra", "fia_data.json", "prelož podanie na kartu", "napoj vlajky".
 license: MIT
 metadata:
-  version: "1.2.0"
+  version: "1.2.1"
   updated: "2026-07-25"
 ---
 
@@ -144,8 +144,14 @@ Export #303 získa Peter otvorením
   farebnú pilulku stavu, SPISOVÁ KOMUNIKÁCIA v dvoch stĺpcoch (Odoslané/Prijaté s počtami), dole
   Sprievodný text a Zdieľať.
 - **Položka obsahuje:** dátum červeno, štítok prístupu 🌐 Verejné / 🔒 Heslo, ❗ a červený pruh pri dôležitých,
-  orgán, názov súboru v prerušovanom rámčeku, tlačidlá **Otvoriť dokument (9 jazykov) · ✍ Podpísaný originál
-  (QES) · 📄 Súhrn · ⚖ predpis · 💬 Komentovať** (§6b).
+  orgán, názov súboru v prerušovanom rámčeku, tlačidlá **Otvoriť dokument (9 jazykov) · 📄 Súhrn · 💬 Komentovať**.
+  **★ ŽELEZNÉ PRAVIDLO (Peter 25.07.2026): „Podpísaný originál" sa NIKDY nekreslí na karte.** Originál je dostupný
+  až PO otvorení dokumentu — tlačidlo naň žije v hlavičke otvoreného klonu (§8a), nie na karte. Generátory
+  `gen_register_full.py` aj `gen_live.py` preto do karty `og`/orig button NEvkladajú (pole `orig` môže v dátach
+  ostať ako kanonický odkaz, karta ho ale nezobrazuje).
+  **Popis tlačidla: „(QES)" LEN ak dokument reálne nesie Petrov kvalifikovaný podpis** (jeho odoslané podpísané
+  podania). Dokument bez QES (došlá pošta, nepodpísané) → v tlačidle „(PDF)", nikdy „(QES)". Napr. došlá odpoveď
+  orgánu = „Signiertes Original (PDF)" / „Podpísaný originál (PDF)".
 
 ---
 
@@ -264,6 +270,8 @@ sum/law/d/page/vw) a nechaj generátor URL poskladať. Reťazce/SHA generuj prog
 - na konci podpisový blok s obrázkom podpisu a poznámkou o QES;
 - obrázky cez **relatívnu cestu `img/…`**, NIE cez jsDelivr (`@main` cachuje až 12 h);
 - vzor hotového riešenia: `dg-comp-kartel-pristup-k-dokumentom/dgcomp-correspondence-full.html` (repo `fia`);
+- **tlačidlo originálu žije v hlavičke klonu (langbar), NIE na karte** (§5). Popis „(QES)" LEN pri Petrovom
+  kvalifikovanom podpise; inak „(PDF)" (napr. došlá pošta = „Signiertes Original (PDF)" / „Podpísaný originál (PDF)").
 - podpísaný originál (PDF/QES) ostáva samostatné tlačidlo na stiahnutie ako dôkaz.
 
 ### 8b. PDF/DOCX klon — pre ODOSIELANÉ/podpisované dokumenty (prevzaté z fia-mk §4.1)
