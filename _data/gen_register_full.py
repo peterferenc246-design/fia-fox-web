@@ -106,7 +106,8 @@ def polozka(p, n):
     subox = f'<div class="sumbox" id="s{n}">{gb(SUHRNY.get(sid, {}))}</div>' if sm else ""
     fn = f'<div class="fn">📎 {html.escape(p.get("fname",""))}</div>' if p.get("fname") else ""
     acc = ("pw" if p.get("access")=="pw" else "pub")
-    return (f'<div class="it{" imp" if p.get("dolezite") else ""}">'
+    thr = f' data-thread="{html.escape(p["thread"])}" data-d="{dkey(p.get("date",""))}"' if p.get("thread") else ""
+    return (f'<div class="it{" imp" if p.get("dolezite") else ""}"{thr}>'
             f'<div class="ih"><span class="idt">{html.escape(p.get("date",""))}</span>'
             f'<span class="acc acc-{acc}">{"🔒" if acc=="pw" else "🌐"} {g(UI["pw"] if acc=="pw" else UI["pub"])}</span></div>'
             f'<div class="isj">{"❗ " if p.get("dolezite") else ""}{g(p.get("subj9") or {})}</div>'
@@ -226,6 +227,9 @@ body{margin:0;color:#34435A;font:15px/1.55 "Segoe UI",Calibri,Arial,sans-serif;
 .it{border-left:3px solid var(--bd);padding:8px 0 8px 11px;margin-bottom:10px}
 .it.imp{border-left-color:var(--red)}
 .ih{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.thr{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;border-radius:11px;background:var(--navy);color:#fff;font-size:12px;font-weight:800;cursor:pointer;flex:0 0 auto}
+.thr:hover{background:#2a4a80}
+.it.thr-hl{background:#fffbe8;border-left-color:var(--gold);box-shadow:0 0 0 2px var(--gold) inset;border-radius:6px}
 .idt{font-size:12.5px;color:var(--red);font-weight:700}
 .acc{font-size:11px;border-radius:999px;padding:1px 9px;white-space:nowrap}
 .acc-pub{background:#e9f7ef;color:#0B7A3B;border:1px solid #b7e2c8}
@@ -371,6 +375,30 @@ document.querySelectorAll('.f').forEach(function(b){{
   document.querySelectorAll('.f').forEach(function(x){{x.classList.remove('on');}}); b.classList.add('on'); }});}});
 if(location.hash){{ var c=document.querySelector(location.hash); if(c&&c.tagName==='DETAILS'){{ c.open=true; c.scrollIntoView(); }} }}
 apply();
+/* vlákna: číslovanie krúžkov (1=pôvodné, 2=reakcia) + zvýraznenie a scroll na partnera */
+(function(){{
+  document.querySelectorAll('details.case').forEach(function(c){{
+    var g={{}};
+    c.querySelectorAll('.it[data-thread]').forEach(function(el){{
+      var t=el.getAttribute('data-thread'); if(!t)return;
+      (g[t]=g[t]||[]).push(el);
+    }});
+    Object.keys(g).forEach(function(t){{
+      g[t].sort(function(a,b){{return (a.getAttribute('data-d')||'').localeCompare(b.getAttribute('data-d')||'');}});
+      g[t].forEach(function(el,i){{
+        var ih=el.querySelector('.ih'); if(!ih)return;
+        var b=ih.querySelector('.thr');
+        if(!b){{b=document.createElement('span');b.className='thr';ih.appendChild(b);}}
+        b.textContent=String(i+1); b.title='Vlákno · '+(i+1)+'. dokument';
+      }});
+    }});
+  }});
+  function items(t){{return document.querySelectorAll('.it[data-thread="'+t+'"]');}}
+  function tOf(el){{var it=el.closest('.it[data-thread]');return it?it.getAttribute('data-thread'):null;}}
+  document.addEventListener('mouseover',function(ev){{var h=ev.target.closest&&ev.target.closest('.thr');if(!h)return;var t=tOf(h);if(t)items(t).forEach(function(e){{e.classList.add('thr-hl');}});}});
+  document.addEventListener('mouseout',function(ev){{var h=ev.target.closest&&ev.target.closest('.thr');if(!h)return;var t=tOf(h);if(t)items(t).forEach(function(e){{e.classList.remove('thr-hl');}});}});
+  document.addEventListener('click',function(ev){{var h=ev.target.closest&&ev.target.closest('.thr');if(!h)return;var t=tOf(h);if(!t)return;var all=items(t);if(!all.length)return;all.forEach(function(e){{e.classList.add('thr-hl');}});var self=h.closest('.it'),partner=null;all.forEach(function(e){{if(e!==self)partner=e;}});if(partner)partner.scrollIntoView({{behavior:'smooth',block:'center'}});setTimeout(function(){{all.forEach(function(e){{e.classList.remove('thr-hl');}});}},2600);}});
+}})();
 </script></body></html>"""
 
 open('register.html','w',encoding='utf-8').write(HTML)
