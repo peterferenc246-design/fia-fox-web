@@ -330,7 +330,7 @@ HTML = f"""<!DOCTYPE html>
 </div>
 <script>
 var KJ = {kj_json};
-var SEL='all', JUR='all', OBL='', SORT='new';
+var SEL='all', JUR='all', OBL='', SORT='new', IASC=false;
 function kauzaOk(kz){{
  if(JUR==='all') return true;
  var j = KJ[kz] || [];
@@ -357,6 +357,7 @@ function apply(){{
   return (b.dataset.d||'').localeCompare(a.dataset.d||'');                    // najnovšie
 
  }}).forEach(function(c){{ z.appendChild(c); }});
+ orderItems();
  var n=[].slice.call(z.querySelectorAll('.case')).filter(function(c){{return c.style.display!=='none';}}).length;
  var pv=document.getElementById('pocet'); if(pv) pv.textContent=n;
 }}
@@ -368,6 +369,7 @@ document.querySelectorAll('.chip').forEach(function(b){{
   if(OBL) b.classList.add('on'); apply(); }});}});
 document.querySelectorAll('.sb').forEach(function(b){{
  b.addEventListener('click',function(){{ SORT=b.dataset.s;
+  if(SORT==='d') IASC=true; else if(SORT==='new') IASC=false;
   document.querySelectorAll('.sb').forEach(function(x){{x.classList.remove('on');}}); b.classList.add('on'); apply(); }});}});
 document.querySelectorAll('.tab').forEach(function(b){{
  b.addEventListener('click',function(){{ JUR=b.dataset.j; SEL='all';
@@ -400,20 +402,19 @@ apply();
   document.addEventListener('mouseout',function(ev){{var h=ev.target.closest&&ev.target.closest('.thr');if(!h)return;var t=tOf(h);if(t)items(t).forEach(function(e){{e.classList.remove('thr-hl');}});}});
   document.addEventListener('click',function(ev){{var h=ev.target.closest&&ev.target.closest('.thr');if(!h)return;var t=tOf(h);if(!t)return;var all=items(t);if(!all.length)return;all.forEach(function(e){{e.classList.add('thr-hl');}});var self=h.closest('.it'),partner=null;all.forEach(function(e){{if(e!==self)partner=e;}});if(partner)partner.scrollIntoView({{behavior:'smooth',block:'center'}});setTimeout(function(){{all.forEach(function(e){{e.classList.remove('thr-hl');}});}},2600);}});
 }})();
-/* prepínač poradia položiek podľa dátumu (oba stĺpce, asc/desc) */
+/* poradie položiek v stĺpcoch podľa dátumu — riadi sortbar (Najstaršie/Najnovšie) aj tlačidlo #itemsort; IASC=true => najstaršie hore */
+function orderItems(){{
+  document.querySelectorAll('details.case .col').forEach(function(col){{
+    var its=[].slice.call(col.querySelectorAll('.it'));
+    its.sort(function(a,b){{var x=a.getAttribute('data-d')||'',y=b.getAttribute('data-d')||'';
+      return IASC?(x<y?-1:x>y?1:0):(x<y?1:x>y?-1:0);}});
+    its.forEach(function(it){{col.appendChild(it);}});
+  }});
+  var ar=document.getElementById('isarrow'); if(ar) ar.textContent = IASC?'\u2191':'\u2193';
+}}
 (function(){{
-  var desc=true, btn=document.getElementById('itemsort'), ar=document.getElementById('isarrow');
-  function ap(){{
-    document.querySelectorAll('details.case .col').forEach(function(col){{
-      var its=[].slice.call(col.querySelectorAll('.it'));
-      its.sort(function(a,b){{var x=a.getAttribute('data-d')||'',y=b.getAttribute('data-d')||'';
-        return desc?(x<y?1:x>y?-1:0):(x<y?-1:x>y?1:0);}});
-      its.forEach(function(it){{col.appendChild(it);}});
-    }});
-    if(ar) ar.textContent = desc?'\u2193':'\u2191';
-  }}
-  if(btn) btn.addEventListener('click',function(){{desc=!desc; ap();}});
-  ap();
+  var btn=document.getElementById('itemsort');
+  if(btn) btn.addEventListener('click',function(){{ IASC=!IASC; orderItems(); }});
 }})();
 </script></body></html>"""
 
