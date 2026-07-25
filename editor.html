@@ -254,7 +254,9 @@ function pripravKauzy(){
 function kauzaKarty(cid){ const z=(D.kauzy_reg||[]).find(z=>(z.ids||[]).indexOf(cid)>=0); return z?z.spis:''; }
 function kauzaPodla(spis){ return (D.kauzy_reg||[]).find(z=>z.spis===spis); }
 function poNacitani(z){ D.karty=D.karty||[];D.polozky=D.polozky||[];D.suhrny=D.suhrny||{}; pripravKauzy();
- selKz=selKa=selPo=null; stat(D.karty.length+' konaní · '+D.polozky.length+' dokumentov · '+z); render(); }
+ selKz=selKa=selPo=null; const obn=obnovUI(); kresliVlajky();
+ stat(D.karty.length+' konaní · '+D.polozky.length+' dokumentov · '+z); render();
+ if(obn) setTimeout(()=>{var e=document.querySelector('.doc.on')||document.querySelector('.card.on')||document.querySelector('.tile.on'); if(e) e.scrollIntoView({block:'nearest'});},80); }
 function aktualizuj(){
  window.__akt=true;
  try{ sessionStorage.removeItem('fia_stav'); }catch(e){}
@@ -264,7 +266,7 @@ function aktualizuj(){
  }
  try{
   if(D) sessionStorage.setItem('fia_stav', JSON.stringify({
-    D:D, selKz:selKz, selKa:selKa, selPo:selPo, LANG:LANG,
+    D:D, selKz:selKz, selKa:selKa, selPo:selPo, LANG:LANG, radDesc:radDesc,
     y:(document.getElementById('hTop')||{}).scrollTop||0,
     y2:(document.getElementById('hBot')||{}).scrollTop||0, t:Date.now()}));
  }catch(e){
@@ -280,6 +282,7 @@ function obnovStav(){
   const st=JSON.parse(raw);
   sessionStorage.removeItem('fia_stav');
   D=st.D; selKz=st.selKz; selKa=st.selKa; selPo=st.selPo; LANG=st.LANG||'sk';
+  if(typeof st.radDesc==='boolean') radDesc=st.radDesc;
   D.karty=D.karty||[]; D.polozky=D.polozky||[]; D.suhrny=D.suhrny||{}; pripravKauzy();
   kresliVlajky(); render();
   stat(D.karty.length+' konaní · '+D.polozky.length+' dokumentov · obnovené po aktualizácii');
@@ -293,9 +296,25 @@ function obnovStav(){
  }catch(e){ try{sessionStorage.removeItem('fia_stav');}catch(x){} return false; }
 }
 
+/* ── trvalý stav (localStorage): výber + triedenie + jazyk pretrvajú cez refresh aj zatvorenie okna ── */
+const UIKEY='fia_ui_v1';
+function ulozUI(){ try{ localStorage.setItem(UIKEY, JSON.stringify({kz:selKz,ka:selKa,po:selPo,rad:radDesc,lang:LANG})); }catch(e){} }
+function obnovUI(){ try{
+  const u=JSON.parse(localStorage.getItem(UIKEY)||'null'); if(!u) return false;
+  if(typeof u.rad==='boolean') radDesc=u.rad;
+  if(u.lang && L9.indexOf(u.lang)>=0) LANG=u.lang;
+  if(u.kz && kauzaPodla(u.kz)) selKz=u.kz;
+  if(u.ka && kartaById(u.ka)){ selKa=u.ka; if(!selKz) selKz=kauzaKarty(u.ka)||null; }
+  if(typeof u.po==='number' && D.polozky[u.po] && (!selKa || D.polozky[u.po].karta===selKa)){
+    selPo=u.po; const p=D.polozky[u.po]; if(!selKa) selKa=p.karta; if(!selKz) selKz=kauzaKarty(p.karta)||null;
+  }
+  return (selKz||selKa||selPo!==null);
+}catch(e){ return false; } }
+
 /* ── vykreslenie ── */
 function render(){ if(!D) return; tiles(); cards(); docs(); editor(); langinfo();
  const b=document.getElementById('radbtn'); if(b) b.textContent = radDesc?'↓ najnovšie':'↑ najstaršie';
+ ulozUI();
 }
 function langinfo(){
  if(!D){document.getElementById('langinfo').textContent='';return;}
