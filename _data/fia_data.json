@@ -1139,9 +1139,9 @@
    "az": "",
    "ourref": "",
    "area": [
-    "kartell",
-    "gdpr",
     "strafrecht",
+    "gdpr",
+    "kartell",
     "majetok"
    ],
    "organ_txt": "",
@@ -3146,16 +3146,16 @@
    "kauza": "TFIA-2026-JV",
    "kauza_nazov": "",
    "dir": "recv",
-   "date": "28.01.2025 ",
+   "date": "25.07.2026",
    "stav": "laeuft",
    "access": "",
-   "az": "430 Js 1330/24 ",
-   "ourref": "TFIA-2026-JV",
+   "az": "",
+   "ourref": "",
    "court": "",
    "cmtid": "",
    "summodId": "summod-telekom-02",
-   "fname": "Strany z Strafanzeige Timotheus Höttges-antwort_DE_original.pdf",
-   "fpath": "cd d:\\OneDrive - Peter Ferenc Foxpro\\Dokumenty\\Bundesbeauftragte\\Prokuratúra-Štátne zastupiteľstvo Kolín\\Pošta\\Prijatá\\Strany z Strafanzeige Timotheus Höttges-antwort_DE_original.pdf",
+   "fname": "",
+   "fpath": "",
    "cats": {},
    "mode": "item",
    "v": 1,
@@ -3163,7 +3163,7 @@
    "subj9": {
     "de": "",
     "en": "",
-    "sk": "Odpoveď od Staatsanwaltschaft Bonn na moje trestné oznámenie zo dňa 11.07.2024",
+    "sk": "",
     "hr": "",
     "pl": "",
     "es": "",
@@ -3174,7 +3174,7 @@
    "urls": {
     "de": "",
     "en": "",
-    "sk": "https://github.com/peterferenc246-design/fia-fox-web/blob/main/kauzy/TFIA-2026-JV_Telekom-kartel-Joint-Venture/Trestne-oznamenie-proti-Telekom-Deutschland-GmbH-a-Schu__case-telekom/prijate/Strany%20z%20Strafanzeige%20Timotheus%20H%C3%B6ttges-antwort_DE_original.pdf",
+    "sk": "",
     "hr": "",
     "pl": "",
     "es": "",
@@ -3185,29 +3185,24 @@
    "subj": "",
    "begleit": "",
    "cardsubj": "",
-   "prikazy": "posielam ti originál odpovede , dokument znač na začiatok názvu 01_..... Každá položka a k nej dokumenty vždy čísluj 01, 02, 03, ...atď aby boli ľahko identifikovateľné! Dokument daj do všetkých jazykov a urob clony 1:1 HTML, a nahraný dokument ako originál ! Napoj na vlakový Home systém a aby pri kliknutí na jazyk, skočil dokument na správny vybraný jazyk! \n\n",
+   "prikazy": "",
    "pwhint": "",
    "extra": {},
    "fallback": "",
-   "orig": "https://github.com/peterferenc246-design/fia-fox-web/blob/main/kauzy/TFIA-2026-JV_Telekom-kartel-Joint-Venture/Trestne-oznamenie-proti-Telekom-Deutschland-GmbH-a-Schu__case-telekom/prijate/Strany%20z%20Strafanzeige%20Timotheus%20H%C3%B6ttges-antwort_DE_original.pdf",
+   "orig": "",
    "law": "",
    "qes": "",
    "thread": "",
    "replyTo": "Trestné oznámenie",
    "bezDatumu": false,
-   "btnQes": false,
+   "btnQes": true,
    "btnSum": true,
    "btnLaw": true,
-   "dolezite": true,
+   "dolezite": false,
    "komentare": true,
-   "important": true,
+   "important": false,
    "comments": true,
-   "oblast": [
-    "kartell",
-    "gdpr",
-    "strafrecht",
-    "majetok"
-   ],
+   "oblast": [],
    "jur": []
   }
  ],
@@ -3400,7 +3395,7 @@
    "sv": "<h3>Sammanfattning av dokumentet</h3><p>Brottsanmälan som lämnades in den 11 juli 2024 till polisinspektionen i Landshut mot Deutsche Telekom AG i samband med agerandet från byrån SCHUFA Holding AG. Telekom beslutade om ansökan om fast internetanslutning helt automatiserat, på grundval av SCHUFA:s „kreditvärdighet\" som behandlats utan informerat samtycke — ett förbjudet automatiserat beslut enligt <a href=\"https://dsgvo-gesetz.de/art-22-dsgvo/\" target=\"_blank\" rel=\"noopener\">art. 22 GDPR</a> och en behandling utan rättslig grund enligt <a href=\"https://dsgvo-gesetz.de/art-6-dsgvo/\" target=\"_blank\" rel=\"noopener\">art. 6 GDPR</a>. Följden blev nekad grundläggande tjänst och påtvingat köp av 5G-data för 108 €/månad.</p><p>Anmälan dokumenterar den mekanism som utgör kärnan i fallet Telekom — kartell / Joint Venture: kreditupplysningsbyrån säljer scoring utan samtycke, operatörerna avvisar med den automatiskt sökande och säljer dem sedan överprissatta abonnemang. Samma anmälan tjänar också som bevis A3 i talan om ogiltigförklaring av beslut M.10815 vid EU:s tribunal (mål T‑61/26).</p><p>Trots konkreta bevis vägrar de tyska myndigheterna att utreda. Åklagarmyndigheten i Landshut (ref. 709 AR 303/24 601, 8 november 2024) vägrade att inleda någon utredning av kartellbedrägeriet, och enligt dess beslut „stödde polisen inte att avslöja det\"; jag har hittills inte fått någon bekräftelse på att ett förfarande inletts. Samma mönster av passivitet sträcker sig från den lokala åklagarmyndigheten upp till de federala myndigheterna, så att staten i praktiken skyddar den olagliga praxisen och förhindrar en ordentlig utredning — en separat, dokumenterad del av detta fall.</p>"
   },
   "summod-telekom-02": {
-   "sk": "<h3>Súhrn dokumentu</h3><p>Súhrn ty vygeneruj na podklade tvojich informácií</p>"
+   "sk": "<h3>Súhrn dokumentu</h3><p>V súhrne vysvetľuj rozpor so zákonom vyšetrovania a snahu prípad nevyšetrovať a že sa tvária, ako keby tu zákony na ktoré sa odvolávam v trestnom oznámení ani ako keby neexistovali!</p>"
   }
  },
  "kauzy": [
