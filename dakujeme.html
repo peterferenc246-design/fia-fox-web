@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ďakujeme! — FIA FOX</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--navy:#1F3864;--green:#0B7A3B;--bd:#c9d8e8;--bg:#eef3f8}
+  body{margin:0;background:var(--bg);color:#22303f;font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:20px}
+  .box{background:#fff;border:1px solid var(--bd);border-radius:14px;max-width:560px;width:100%;padding:36px 30px;text-align:center}
+  .tick{width:66px;height:66px;border-radius:50%;background:var(--green);color:#fff;font-size:38px;line-height:66px;margin:0 auto 16px}
+  h1{color:var(--navy);font-size:26px;margin:0 0 12px}
+  p{margin:0 0 14px;color:#3d4d5e}
+  p strong{color:var(--navy)}
+  .btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:22px}
+  .btns a{text-decoration:none;border-radius:8px;padding:11px 18px;font-weight:700;font-size:15px}
+  .b1{background:var(--navy);color:#fff}
+  .b2{background:#fff;color:var(--navy);border:1px solid var(--navy)}
+  .share{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+  .share a{background:var(--navy);color:#fff;text-decoration:none;border-radius:6px;padding:7px 12px;font-size:13px;font-weight:600}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="tick">&#10003;</div>
+  <h1>Ďakujeme za vašu podporu!</h1>
+  <p>Váš dar bol prijatý. Potvrdenie a doklad vám príde e-mailom od Stripe.</p>
+  <p>Vaša podpora umožňuje viesť konania proti kartelovým praktikám vo verejnom záujme — a približuje férový a dostupný internet v Európe.</p>
+  <p><strong>Najviac nám teraz pomôžete zdieľaním zbierky.</strong> Platená reklama na občianske témy je v EÚ takmer nemožná, preto sa šírime cez vás.</p>
+  <div class="share" id="share"></div>
+  <div class="btns">
+    <a class="b1" href="https://register.foxprof.club/register.html">Pozrieť register káuz</a>
+    <a class="b2" href="https://foxprof.club/">Domovská stránka</a>
+  </div>
+</div>
+<script>
+(function(){
+  var url=encodeURIComponent('https://register.foxprof.club/podporte.html');
+  var t=encodeURIComponent('Podporil som FIA FOX — za férový internet bez kartelov v Európe');
+  document.getElementById('share').innerHTML=
+    '<a href="https://www.facebook.com/sharer/sharer.php?u='+url+'" target="_blank" rel="noopener">Facebook</a>'+
+    '<a href="https://twitter.com/intent/tweet?url='+url+'&text='+t+'" target="_blank" rel="noopener">X</a>'+
+    '<a href="https://www.linkedin.com/sharing/share-offsite/?url='+url+'" target="_blank" rel="noopener">LinkedIn</a>'+
+    '<a href="https://api.whatsapp.com/send?text='+t+'%20'+url+'" target="_blank" rel="noopener">WhatsApp</a>';
+})();
+</script>
+</body>
+</html>
