@@ -88,6 +88,12 @@ button:hover{border-color:var(--navy);color:var(--navy)}
 .hint{font-size:11.5px;color:#8a97a6;font-weight:400;text-transform:none;letter-spacing:0}
 .chk{display:flex;align-items:center;gap:7px;font-size:13px;margin-top:10px}
 .chk input{width:auto}
+#edcmt:not(:empty){background:#f7f9fc;border:1px solid var(--bd);border-radius:7px;padding:12px 14px;margin-bottom:12px}
+.edcmt-h{font-weight:700;color:var(--navy);font-size:14px;margin-bottom:8px}
+.edcmt-h .hint{display:block;margin-top:2px}
+.edcmt-c{border:1px solid var(--bd);border-radius:6px;padding:8px 10px;margin-bottom:8px;background:#fff}
+.edcmt-m{font-size:12px;color:#8a97a6;margin-bottom:3px}
+.edcmt-b{font-size:13px;color:#25303c;white-space:pre-wrap}
 label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#7a8899;margin:11px 0 3px}
 input,select,textarea{width:100%;border:1px solid var(--bd);border-radius:4px;padding:7px 9px;font:inherit;background:#fff}
 textarea{min-height:2cm;height:2cm;resize:vertical;font-size:13px;line-height:1.45}
@@ -193,6 +199,7 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
 
  <div id="hBot">
   <div class="page">
+   <div id="edcmt"></div>
    <div class="ed" id="ed"><h2>Editor</h2><p class="hint">Vyber kauzu, konanie alebo dokument.</p></div>
   </div>
  </div>
@@ -321,8 +328,52 @@ function obnovUI(){ try{
 function render(){ if(!D) return; tiles(); cards(); docs(); editor(); langinfo();
  const b=document.getElementById('radbtn'); if(b) b.textContent = radDesc?'↓ Najnovšie':'↑ Najstaršie';
  const bd=document.getElementById('raddoc'); if(bd) bd.textContent = docDesc?'↓ Najnovšie':'↑ Najstaršie';
+ renderEdComments();
  ulozUI();
 }
+/* Komentáre k dokumentu v editore — page-id vlastným SHA-1 (bez prehliadačového crypto), komentáre cez Cusdis API + zoznam (bez SDK, bez iframe); celé v try/catch, nikdy nerozbije render */
+function edSha1(msg){
+  function rol(n,s){return (n<<s)|(n>>>(32-s));}
+  function hx(v){var s="";for(var i=7;i>=0;i--){s+=((v>>>(i*4))&0x0f).toString(16);}return s;}
+  msg=unescape(encodeURIComponent(msg));
+  var W=new Array(80),H0=0x67452301,H1=0xEFCDAB89,H2=0x98BADCFE,H3=0x10325476,H4=0xC3D2E1F0;
+  var A,B,C,D,E,t,i,bs,ml=msg.length,wa=[];
+  for(i=0;i<ml-3;i+=4){wa.push(msg.charCodeAt(i)<<24|msg.charCodeAt(i+1)<<16|msg.charCodeAt(i+2)<<8|msg.charCodeAt(i+3));}
+  switch(ml%4){case 0:i=0x080000000;break;case 1:i=msg.charCodeAt(ml-1)<<24|0x0800000;break;case 2:i=msg.charCodeAt(ml-2)<<24|msg.charCodeAt(ml-1)<<16|0x08000;break;case 3:i=msg.charCodeAt(ml-3)<<24|msg.charCodeAt(ml-2)<<16|msg.charCodeAt(ml-1)<<8|0x80;break;}
+  wa.push(i);while((wa.length%16)!=14)wa.push(0);wa.push(ml>>>29);wa.push((ml<<3)&0x0ffffffff);
+  for(bs=0;bs<wa.length;bs+=16){
+    for(i=0;i<16;i++)W[i]=wa[bs+i];
+    for(i=16;i<=79;i++)W[i]=rol(W[i-3]^W[i-8]^W[i-14]^W[i-16],1);
+    A=H0;B=H1;C=H2;D=H3;E=H4;
+    for(i=0;i<=19;i++){t=(rol(A,5)+((B&C)|(~B&D))+E+W[i]+0x5A827999)&0x0ffffffff;E=D;D=C;C=rol(B,30);B=A;A=t;}
+    for(i=20;i<=39;i++){t=(rol(A,5)+(B^C^D)+E+W[i]+0x6ED9EBA1)&0x0ffffffff;E=D;D=C;C=rol(B,30);B=A;A=t;}
+    for(i=40;i<=59;i++){t=(rol(A,5)+((B&C)|(B&D)|(C&D))+E+W[i]+0x8F1BBCDC)&0x0ffffffff;E=D;D=C;C=rol(B,30);B=A;A=t;}
+    for(i=60;i<=79;i++){t=(rol(A,5)+(B^C^D)+E+W[i]+0xCA62C1D6)&0x0ffffffff;E=D;D=C;C=rol(B,30);B=A;A=t;}
+    H0=(H0+A)&0x0ffffffff;H1=(H1+B)&0x0ffffffff;H2=(H2+C)&0x0ffffffff;H3=(H3+D)&0x0ffffffff;H4=(H4+E)&0x0ffffffff;
+  }
+  return (hx(H0)+hx(H1)+hx(H2)+hx(H3)+hx(H4)).toLowerCase();
+}
+function edPageId(p){var sj=p.subj9||{};var subj=sj.sk||Object.values(sj).find(function(v){return v;})||"";return "fia-"+edSha1((p.karta||"")+"|"+(p.date||"")+"|"+subj).slice(0,12);}
+var edCmtSel=-2;
+function renderEdComments(){
+  var box=document.getElementById("edcmt"); if(!box) return;
+  if(selPo===null || !D.polozky[selPo]){ if(edCmtSel!==null){box.innerHTML="";edCmtSel=null;} return; }
+  if(selPo===edCmtSel) return;
+  edCmtSel=selPo;
+  var p=D.polozky[selPo], pid;
+  try{ pid=edPageId(p); }catch(e){ box.innerHTML=""; return; }
+  box.innerHTML='<div class="edcmt-h">\ud83d\udcac Komentáre k dokumentu <span class="hint">Iba schválené. Čakajúce schváliš v paneli Cusdis (tlačidlo vyššie).</span></div>';
+  try{
+    var ds={host:"https://cusdis.com",appId:"6fdea40e-6f8a-4877-b2e0-7b83dee8ee45",pageId:pid,pageUrl:"https://register.foxprof.club/register.html",pageTitle:((p.subj9&&p.subj9.sk)||"")+" \u00b7 "+(p.date||""),theme:"light"};
+    var loc={powered_by:"Komentáre poháňa Cusdis",post_comment:"Komentovať",loading:"Načítava sa",email:"E-mail (nepovinné)",nickname:"Prezývka",reply_placeholder:"Odpovedať...",reply_btn:"Odpovedať",sending:"odosiela sa...",mod_badge:"MOD",content_is_required:"Obsah je povinný",nickname_is_required:"Prezývka je povinná",comment_has_been_sent:"Váš komentár bol odoslaný. Počkajte, prosím, na schválenie."};
+    var src='<!DOCTYPE html><html><head><link rel="stylesheet" href="https://cusdis.com/js/style.css"><base target="_parent" /><scr'+'ipt>window.CUSDIS_LOCALE='+JSON.stringify(loc)+';window.__DATA__='+JSON.stringify(ds)+';</scr'+'ipt></head><body><div id="root"></div><scr'+'ipt src="https://cusdis.com/js/iframe.umd.js" type="module"></scr'+'ipt></body></html>';
+    var f=document.createElement("iframe");
+    f.setAttribute("scrolling","no"); f.style.width="100%"; f.style.border="0"; f.style.minHeight="120px";
+    f.srcdoc=src;
+    box.appendChild(f);
+  }catch(e){}
+}
+if(!window.__edCmtMsg){ window.__edCmtMsg=1; window.addEventListener("message",function(ev){ try{ var m=JSON.parse(ev.data); if(m&&m.from==="cusdis"&&m.event==="resize"){ var fr=document.querySelector("#edcmt iframe"); if(fr) fr.style.height=m.data+"px"; } }catch(e){} }); }
 function langinfo(){
  if(!D){document.getElementById('langinfo').textContent='';return;}
  const kz=(D.kauzy_reg||[]).filter(z=>!((z.nazov||{})[LANG]||'').trim()).length;
