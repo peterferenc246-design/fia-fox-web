@@ -172,6 +172,7 @@ body{margin:0;color:#34435A;font:15px/1.55 "Segoe UI",Calibri,Arial,sans-serif;
 .top h1{margin:0;font-size:21px;color:var(--navy);font-weight:800}
 .wrap{max-width:1020px;margin:0 auto;padding:0 16px 50px}
 .navbar{background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(31,56,100,.10);padding:9px 14px;
+ position:sticky;top:0;z-index:50;
  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
 .hm{border:1px solid var(--bd);border-radius:6px;padding:5px 14px;text-decoration:none;color:var(--navy);font-size:13px}
 .lang{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
