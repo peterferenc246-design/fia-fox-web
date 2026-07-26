@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Register FIA FOX — dlazdice kauz + rozbalovacie karty konani so vsetkymi poliami.
    Rozlozenie kopiruje zabehnuty system z #303."""
-import json, os, html, urllib.parse
+import json, os, html, urllib.parse, hashlib
 
 L9 = ["de","en","sk","hr","pl","es","it","fr","sv"]
 FLAG = {"de":"de","en":"gb","sk":"sk","hr":"hr","pl":"pl","es":"es","it":"it","fr":"fr","sv":"se"}
@@ -104,11 +104,14 @@ def polozka(p, n):
     if sid and sid in SUHRNY:
         sm = (f'<button class="ib" onclick="document.getElementById(\'s{n}\').classList.toggle(\'on\')">'
               f'📄 {g(UI["sum"])}</button>')
-    kom = f'<a class="ib kom" href="{WP_KOMENT}" target="_blank" rel="noopener">💬 {g(UI["kom"])} ( {0} )</a>'
+    kom = f'<button class="ib kom" onclick="toggleCmt(this)">💬 {g(UI["kom"])}</button>'
     subox = f'<div class="sumbox" id="s{n}">{gb(SUHRNY.get(sid, {}))}</div>' if sm else ""
     fn = f'<div class="fn">📎 {html.escape(p.get("fname",""))}</div>' if p.get("fname") else ""
     acc = ("pw" if p.get("access")=="pw" else "pub")
-    thr = f' data-d="{dkey(p.get("date",""))}"'
+    subj_sk = (p.get("subj9") or {}).get("sk") or next((v for v in (p.get("subj9") or {}).values() if v), "")
+    cid = "fia-" + hashlib.sha1((str(p.get("karta",""))+"|"+str(p.get("date",""))+"|"+subj_sk).encode("utf-8")).hexdigest()[:12]
+    ctitle = (subj_sk + " · " + p.get("date","")).strip(" ·")
+    thr = f' data-d="{dkey(p.get("date",""))}" data-cid="{cid}" data-ctitle="{html.escape(ctitle)}"'
     if p.get("thread"): thr += f' data-thread="{html.escape(p["thread"])}"'
     return (f'<div class="it{" imp" if p.get("dolezite") else ""}"{thr}>'
             f'<div class="ih"><span class="idt">{html.escape(p.get("date",""))}</span>'
@@ -116,7 +119,7 @@ def polozka(p, n):
             f'<div class="isj">{"❗ " if p.get("dolezite") else ""}{g(p.get("subj9") or {})}</div>'
             + (f'<div class="iorg">⚖ <b>{g(UI["org"])}:</b> {html.escape(p.get("court",""))}</div>' if p.get("court") else "")
             + fn +
-            f'<div class="ibt">{doc}{sm}{kom}</div>{subox}</div>')
+            f'<div class="ibt">{doc}{sm}{kom}</div>{subox}<div class="cmt-wrap"></div></div>')
 
 # ───────────── KARTA ─────────────
 def karta(cid, ps, otvorena=False):
@@ -228,6 +231,9 @@ body{margin:0;color:#34435A;font:15px/1.55 "Segoe UI",Calibri,Arial,sans-serif;
 .isb .lb-old{display:none}
 details.case[data-iasc="1"] .isb .lb-new{display:none}
 details.case[data-iasc="1"] .isb .lb-old{display:inline}
+.cmt-wrap{width:100%;flex-basis:100%;margin-top:10px}
+.cmt-wrap:empty{margin-top:0}
+.kom.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
 .col{min-width:0}
 .it{min-width:0;overflow-wrap:anywhere}
@@ -428,7 +434,24 @@ document.addEventListener('click',function(ev){{
   var c=b.closest('details.case'); if(!c) return;
   c.setAttribute('data-iasc', c.getAttribute('data-iasc')==='1'?'0':'1'); sortCardItems(c);
 }});
-</script></body></html>"""
+/* Cusdis komentáre — per dokument, načíta sa až po kliknutí na Komentovať (jedno vlákno naraz) */
+var CUS_APP='6fdea40e-6f8a-4877-b2e0-7b83dee8ee45';
+function toggleCmt(btn){{
+  var it=btn.closest('.it'), box=it&&it.querySelector('.cmt-wrap'); if(!box) return;
+  if(box.getAttribute('data-open')==='1'){{ box.innerHTML=''; box.removeAttribute('data-open'); btn.classList.remove('on'); return; }}
+  document.querySelectorAll('.cmt-wrap[data-open="1"]').forEach(function(o){{o.innerHTML=''; o.removeAttribute('data-open');}});
+  document.querySelectorAll('.kom.on').forEach(function(b){{b.classList.remove('on');}});
+  var t=document.createElement('div');
+  t.setAttribute('data-host','https://cusdis.com');
+  t.setAttribute('data-app-id',CUS_APP);
+  t.setAttribute('data-page-id', it.getAttribute('data-cid'));
+  t.setAttribute('data-page-url', location.origin+location.pathname);
+  t.setAttribute('data-page-title', it.getAttribute('data-ctitle')||document.title);
+  t.setAttribute('data-theme','light');
+  box.appendChild(t); box.setAttribute('data-open','1'); btn.classList.add('on');
+  (function go(){{ if(window.CUSDIS&&window.CUSDIS.renderTo){{ window.CUSDIS.renderTo(t); }} else {{ setTimeout(go,150); }} }})();
+}}
+</script><script>window.CUSDIS_PREVENT_INITIAL_RENDER=true;</script><script async defer src="https://cusdis.com/js/cusdis.es.js"></script></body></html>"""
 
 open('register.html','w',encoding='utf-8').write(HTML)
 print(f"register.html: {len(HTML)//1024} kB")
