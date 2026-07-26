@@ -208,6 +208,19 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
  </div>
 </div>
 
+<div id="tokdlg" style="display:none;position:fixed;inset:0;background:rgba(15,25,40,.45);z-index:99999;align-items:center;justify-content:center">
+ <form id="tokform" style="background:#fff;padding:20px 22px;border-radius:11px;max-width:430px;width:92%;box-shadow:0 14px 50px rgba(0,0,0,.35)">
+  <h3 style="margin:0 0 4px;color:#1F3864;font-size:16px">🔑 GitHub token</h3>
+  <div style="font-size:12px;color:#8a97a6;margin:0 0 14px;line-height:1.4">Zadaj token raz — prehliadač ti ponúkne uložiť ho medzi heslá a nabudúce ho vyplní sám. Ukladá sa len do tejto relácie a do tvojho správcu hesiel, nikam inam.</div>
+  <input type="text" name="username" value="FIA GitHub — peterferenc246-design/fia-fox-web" autocomplete="username" readonly style="width:100%;box-sizing:border-box;margin-bottom:8px;padding:8px 10px;border:1px solid #d7dde5;border-radius:7px;background:#f4f7fa;color:#8a97a6;font-size:12px">
+  <input type="password" name="password" id="tokinput" autocomplete="current-password" placeholder="github_pat_… alebo ghp_…" style="width:100%;box-sizing:border-box;margin-bottom:14px;padding:10px;border:1px solid #d7dde5;border-radius:7px;font-size:14px">
+  <div style="display:flex;gap:8px;justify-content:flex-end">
+   <button type="button" id="tokcancel" style="padding:8px 14px;border:1px solid #d7dde5;background:#fff;border-radius:7px;cursor:pointer;font-size:13px">Zrušiť</button>
+   <button type="submit" style="padding:8px 16px;border:0;background:#1F3864;color:#fff;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600">Uložiť a commitnúť</button>
+  </div>
+ </form>
+</div>
+
 <script>
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
@@ -732,22 +745,22 @@ window.addEventListener('beforeunload',e=>{ if(zmenene && !window.__akt){ e.prev
 const REPO="peterferenc246-design/fia-fox-web";
 const CESTA="_data/fia_data.json";
 function token(){
- var t=null;
- try{ t=sessionStorage.getItem('gh_tok'); }catch(e){}
- if(!t){
-  t=prompt('Vlož GitHub token (fine-grained, Contents: read+write).\n\n'
-    +'Uloží sa LEN do tejto relácie prehliadača, nikam sa neposiela okrem GitHubu\n'
-    +'a po zatvorení karty zmizne.');
-  if(!t) return null;
-  t=t.trim();
-  try{ sessionStorage.setItem('gh_tok',t); }catch(e){}
- }
- return t;
+ return new Promise(function(resolve){
+  var t=null; try{ t=sessionStorage.getItem('gh_tok'); }catch(e){}
+  if(t){ resolve(t); return; }
+  var dlg=document.getElementById('tokdlg'), inp=document.getElementById('tokinput'), form=document.getElementById('tokform'), cancel=document.getElementById('tokcancel');
+  if(!dlg||!inp||!form){ var p=prompt('Vlož GitHub token'); if(p){p=p.trim(); try{sessionStorage.setItem('gh_tok',p);}catch(e){}} resolve(p||null); return; }
+  dlg.style.display='flex';
+  setTimeout(function(){ try{inp.focus();}catch(e){} },60);
+  function done(v){ dlg.style.display='none'; form.onsubmit=null; cancel.onclick=null; resolve(v); }
+  form.onsubmit=function(ev){ ev.preventDefault(); var v=(inp.value||'').trim(); if(!v) return; try{ sessionStorage.setItem('gh_tok',v); }catch(e){} done(v); };
+  cancel.onclick=function(){ inp.value=''; done(null); };
+ });
 }
 function zabudniToken(){ try{ sessionStorage.removeItem('gh_tok'); }catch(e){} stat('token zabudnutý'); }
 async function ulozDoRepa(){
  if(!D){ alert('Najprv načítaj dáta.'); return; }
- var t=token(); if(!t) return;
+ var t=await token(); if(!t) return;
  pripravExport();
  var telo=JSON.stringify(D,null,1);
  stat('ukladám do repa…');
