@@ -784,7 +784,7 @@ async function ulozDoRepa(){
   stat('uložené · commit '+out.commit.sha.slice(0,8));
   document.getElementById('ed').insertAdjacentHTML('afterbegin',
    '<div class="msg ok"><b>Dáta uložené do repozitára.</b><br>commit '+out.commit.sha.slice(0,8)
-   +'<br>Napíš Claudovi <b>pregeneruj</b> a register sa prestaví.</div>');
+   +'<br>Verejný register sa prestaví <b>sám</b> do minúty (automaticky, cez GitHub Action).</div>');
  }catch(err){
   stat('uloženie zlyhalo');
   alert('❌ Uloženie zlyhalo:\n\n'+String(err.message||err));
