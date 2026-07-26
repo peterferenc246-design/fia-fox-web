@@ -106,7 +106,7 @@ def polozka(p, n):
               f'📄 {g(UI["sum"])}</button>')
     kom = f'<button class="ib kom" onclick="toggleCmt(this)">💬 {g(UI["kom"])}</button>'
     subox = f'<div class="sumbox" id="s{n}">{gb(SUHRNY.get(sid, {}))}</div>' if sm else ""
-    fn = f'<div class="fn">📎 {html.escape(p.get("fname",""))}</div>' if p.get("fname") else ""
+    fn = ""  # nazov suboru sa na verejnom registri nezobrazuje (admin ho vidi v editore)
     acc = ("pw" if p.get("access")=="pw" else "pub")
     subj_sk = (p.get("subj9") or {}).get("sk") or next((v for v in (p.get("subj9") or {}).values() if v), "")
     cid = "fia-" + hashlib.sha1((str(p.get("karta",""))+"|"+str(p.get("date",""))+"|"+subj_sk).encode("utf-8")).hexdigest()[:12]
