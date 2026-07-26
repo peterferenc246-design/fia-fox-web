@@ -202,6 +202,7 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
 const L9=["de","en","sk","hr","pl","es","it","fr","sv"];
 const RAW="https://raw.githubusercontent.com/peterferenc246-design/fia-fox-web/main/_data/fia_data.json";
 const VIEWER="https://peterferenc246-design.github.io/fia/viewer.html";
+const CUSDIS_DASH="https://cusdis.com/dashboard/project/6fdea40e-6f8a-4877-b2e0-7b83dee8ee45";
 const VERZIA="2026-07-25 · 9-jaz náhľad (prototyp)";
 let D=null, selKz=null, selKa=null, selPo=null, zmenene=false, AKCIA='edit';
 let LANG='sk';
@@ -531,6 +532,7 @@ function editor(){
   +pole('🔒 Pokyn k heslu <span class="hint">(zobrazí sa návštevníkovi; heslo drží SharePoint — sem píš LEN ako ho získať)</span>',p.pwhint||'',P+'.pwhint=this.value')
   +chk('❗ Označiť ako dôležité (červený výkričník + ľavý okraj)',p.dolezite,P+'.dolezite=this.checked;'+P+'.important=this.checked;docs()')
   +chk('💬 Povoliť komentáre k tomuto dokumentu (kcmt + cmt-wrap placeholder)',p.komentare,P+'.komentare=this.checked;'+P+'.comments=this.checked')
+  +'<div style="margin:8px 0 4px"><button type="button" onclick="window.open(CUSDIS_DASH,\'_blank\')">💬 Otvoriť a moderovať komentáre (panel Cusdis)</button> <span class="hint">všetky komentáre projektu — schvaľuješ ich tu; kým neschváliš, nikomu sa nezobrazia</span></div>'
   +'<label>Tlačidlá vo VLAJKA-VIEWERI (odoslané podania) — pridajú sa do všetkých 9 URL</label>'
   +'<div class="ramik">'
   +chk('✍ QES — skok na podpisový blok v origináli',p.btnQes!==false,P+'.btnQes=this.checked')
