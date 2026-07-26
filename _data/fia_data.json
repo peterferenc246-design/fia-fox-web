@@ -2882,7 +2882,7 @@
    "mode": "item",
    "date": "11.12.2025",
    "access": "pub",
-   "important": false,
+   "important": true,
    "fname": "01_Request for Access to Documents under Regulation M.10815_clone.pdf",
    "fallback": "",
    "urls": {
@@ -2923,7 +2923,7 @@
     "fr": "Demande initiale d'accès aux documents (règl. 1049/2001) — affaire M.10815",
     "sv": "Ursprunglig begäran om tillgång till handlingar (förord. 1049/2001) — ärende M.10815"
    },
-   "dolezite": false,
+   "dolezite": true,
    "komentare": true,
    "oblast": [
     "kartell",
