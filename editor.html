@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex,nofollow">
 <title>FIA FOX — editor registra</title>
 <style>
-:root{--navy:#1F3864;--red:#C00000;--bd:#c9d8e8;--bg:#eef3f8;--gold:#f0c040}
+:root{--navy:#1F3864;--red:#C00000;--bd:#c9d8e8;--bg:#eef3f8;--gold:#f0c040;--itembg:#D9E6F4}
 *{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:#22303f;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;display:flex;flex-direction:column;overflow:hidden}
@@ -44,7 +44,7 @@ button:hover{border-color:var(--navy);color:var(--navy)}
 
 /* ── dlaždice kauz ── */
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:10px}
-.tile{background:#D9E6F4;border:1px solid var(--bd);border-left:4px solid var(--navy);border-radius:6px;
+.tile{background:var(--itembg);border:1px solid var(--bd);border-left:4px solid var(--navy);border-radius:6px;
  padding:10px 12px;cursor:pointer;text-align:left;font:inherit;color:inherit}
 .tile:hover{background:#f5f9fd}
 .tile.on{background:#fff8e6;box-shadow:0 0 0 2px var(--gold);border-left-color:var(--gold)}
@@ -54,7 +54,7 @@ button:hover{border-color:var(--navy);color:var(--navy)}
 
 /* ── konania ── */
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
-.card{background:#D9E6F4;border:1px solid var(--bd);border-radius:6px;padding:11px 13px;cursor:pointer}
+.card{background:var(--itembg);border:1px solid var(--bd);border-radius:6px;padding:11px 13px;cursor:pointer}
 .card:hover{background:#f5f9fd}
 .card.on{background:#fff8e6;box-shadow:0 0 0 2px var(--gold)}
 .card .cn{font-size:14px;font-weight:600;color:var(--navy);line-height:1.35}
@@ -69,7 +69,7 @@ button:hover{border-color:var(--navy);color:var(--navy)}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media(max-width:760px){.cols{grid-template-columns:1fr}}
 .col h3{margin:0 0 7px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#7a8899}
-.doc{background:#D9E6F4;border:1px solid var(--bd);border-radius:6px;padding:9px 11px;margin-bottom:7px;cursor:pointer;position:relative}
+.doc{background:var(--itembg);border:1px solid var(--bd);border-radius:6px;padding:9px 11px;margin-bottom:7px;cursor:pointer;position:relative}
 .doc:hover{background:#f5f9fd}
 .doc.on{background:#fff8e6;box-shadow:0 0 0 2px var(--gold)}
 .doc .dt{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:#8a97a6;font-weight:700}
@@ -171,6 +171,7 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
     <span class="lb">Jazyk zobrazenia</span>
     <span id="flags"></span>
     <span class="info" id="langinfo"></span>
+    <label style="margin-left:auto;font-size:12px;color:#5a6b7d;display:flex;align-items:center;gap:6px;white-space:nowrap">🎨 Farba položiek <input type="color" id="itembgpick" value="#D9E6F4" oninput="setItemBg(this.value)" style="width:34px;height:22px;border:1px solid var(--bd);border-radius:4px;padding:0;cursor:pointer;background:none"><button type="button" onclick="resetItemBg()" title="Späť na predvolenú belasú" style="border:1px solid var(--bd);background:#fff;border-radius:4px;font-size:11px;padding:2px 7px;cursor:pointer">↺</button></label>
    </div>
 
    <div class="sect">
@@ -720,7 +721,10 @@ function kontrola(){ if(!D){alert('Najprv načítaj dáta.');return;}
   ?'<div class="msg err"><b>'+ch.length+' nedostatkov:</b><br>'+ch.slice(0,50).map(esc).join('<br>')+(ch.length>50?'<br>…':'')+'</div>'
   :'<div class="msg ok">Kontrola prešla — 9 jazykov, dátumy aj väzby v poriadku.</div>');
 }
-window.addEventListener('DOMContentLoaded',()=>{kresliVlajky(); if(!obnovStav()) loadWeb();});
+function setItemBg(v){ try{ document.documentElement.style.setProperty('--itembg', v); localStorage.setItem('fia_itembg', v); }catch(e){} }
+function resetItemBg(){ try{ document.documentElement.style.removeProperty('--itembg'); localStorage.removeItem('fia_itembg'); var el=document.getElementById('itembgpick'); if(el) el.value='#D9E6F4'; }catch(e){} }
+function obnovItemBg(){ try{ var v=localStorage.getItem('fia_itembg'); if(v){ document.documentElement.style.setProperty('--itembg', v); var el=document.getElementById('itembgpick'); if(el) el.value=v; } }catch(e){} }
+window.addEventListener('DOMContentLoaded',()=>{obnovItemBg(); kresliVlajky(); if(!obnovStav()) loadWeb();});
 
 document.addEventListener('input',()=>{zmenene=true;},true);
 window.addEventListener('beforeunload',e=>{ if(zmenene && !window.__akt){ e.preventDefault(); e.returnValue=''; }});
