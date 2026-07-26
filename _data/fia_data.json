@@ -25,7 +25,15 @@
     "sv": "Telekom — kartell / Joint Venture"
    },
    "warn": {
-    "sk": "Porušenie DGPR a nezákonné zneužívanie našich chránených osobných údajov pre účely podvodnej Schufa BONITY!"
+    "sk": "Porušenie GDPR a nezákonné zneužívanie našich chránených osobných údajov pre účely podvodnej Schufa BONITY!",
+    "de": "Verstoß gegen die DSGVO und rechtswidriger Missbrauch unserer geschützten personenbezogenen Daten für eine betrügerische Schufa-Bonität!",
+    "en": "GDPR violation and unlawful misuse of our protected personal data for fraudulent Schufa credit-scoring!",
+    "hr": "Povreda GDPR-a i nezakonita zlouporaba naših zaštićenih osobnih podataka za prijevarnu Schufa procjenu kreditne sposobnosti!",
+    "pl": "Naruszenie RODO i bezprawne wykorzystanie naszych chronionych danych osobowych do oszukańczej oceny zdolności kredytowej Schufa!",
+    "es": "Vulneración del RGPD y uso ilícito de nuestros datos personales protegidos para una calificación crediticia fraudulenta de Schufa!",
+    "it": "Violazione del GDPR e uso illecito dei nostri dati personali protetti per una valutazione creditizia fraudolenta di Schufa!",
+    "fr": "Violation du RGPD et usage illicite de nos données personnelles protégées à des fins de notation de crédit frauduleuse de Schufa!",
+    "sv": "Överträdelse av GDPR och olaglig användning av våra skyddade personuppgifter för bedräglig Schufa-kreditbedömning!"
    }
   },
   {
@@ -1160,15 +1168,15 @@
     "sv": "Brottsanmälan mot Telekom Deutschland GmbH och Schufa Holding AG - Landshut"
    },
    "podtitul": {
-    "de": "Strafanzeige, Verstoß gegen die DSGVO und Eingriff in meine Vermögensrechte",
-    "en": "Criminal complaint, GDPR violation and interference with my property rights",
+    "de": "Strafanzeige, Verstoß gegen die DSGVO und Eingriff in unsere Vermögensrechte!",
+    "en": "Criminal complaint, GDPR violation and interference with our property rights!",
     "sk": "Trestné oznámenie, porušenie GDPR a zasahovanie do našich majetkových práv!",
-    "hr": "Kaznena prijava, povreda GDPR-a i zadiranje u moja imovinska prava",
-    "pl": "Zawiadomienie o przestępstwie, naruszenie RODO i ingerencja w moje prawa majątkowe",
-    "es": "Denuncia penal, infracción del RGPD e injerencia en mis derechos patrimoniales",
-    "it": "Denuncia penale, violazione del GDPR e ingerenza nei miei diritti patrimoniali",
-    "fr": "Plainte pénale, violation du RGPD et atteinte à mes droits patrimoniaux",
-    "sv": "Brottsanmälan, GDPR-överträdelse och ingrepp i mina egendomsrättigheter"
+    "hr": "Kaznena prijava, povreda GDPR-a i zadiranje u naša imovinska prava!",
+    "pl": "Zawiadomienie o przestępstwie, naruszenie RODO i ingerencja w nasze prawa majątkowe!",
+    "es": "Denuncia penal, infracción del RGPD e injerencia en nuestros derechos patrimoniales!",
+    "it": "Denuncia penale, violazione del GDPR e ingerenza nei nostri diritti patrimoniali!",
+    "fr": "Plainte pénale, violation du RGPD et atteinte à nos droits patrimoniaux!",
+    "sv": "Brottsanmälan, GDPR-överträdelse och ingrepp i våra egendomsrättigheter!"
    },
    "meta": {
     "de": "Stelle: Polizeiinspektion Landshut · Bereich: Strafanzeige · Unser Az.:",
