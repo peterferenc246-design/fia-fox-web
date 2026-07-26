@@ -362,22 +362,18 @@ function renderEdComments(){
   edCmtSel=selPo;
   var p=D.polozky[selPo], pid;
   try{ pid=edPageId(p); }catch(e){ box.innerHTML=""; return; }
-  box.innerHTML='<div class="edcmt-h">\ud83d\udcac Komentáre k dokumentu <span class="hint">Načítavam schválené…</span></div>';
-  var mySel=selPo;
+  box.innerHTML='<div class="edcmt-h">\ud83d\udcac Komentáre k dokumentu <span class="hint">Iba schválené. Čakajúce schváliš v paneli Cusdis (tlačidlo vyššie).</span></div>';
   try{
-    fetch("https://cusdis.com/api/open/comments?page=1&appId=6fdea40e-6f8a-4877-b2e0-7b83dee8ee45&pageId="+encodeURIComponent(pid))
-    .then(function(r){return r.json();})
-    .then(function(j){
-      if(mySel!==edCmtSel) return;
-      var d=(j&&j.data)||{}, arr=(d.data)||[];
-      var h='<div class="edcmt-h">\ud83d\udcac Komentáre k dokumentu ('+((d.commentCount!=null)?d.commentCount:arr.length)+') <span class="hint">Iba schválené. Čakajúce nájdeš v paneli Cusdis (tlačidlo vyššie).</span></div>';
-      if(!arr.length){ h+='<div class="hint" style="padding:4px 0">Zatiaľ žiadne schválené komentáre.</div>'; }
-      else { arr.forEach(function(c){ h+='<div class="edcmt-c"><div class="edcmt-m"><b>'+esc(c.by_nickname||"—")+'</b> · '+esc(String(c.createdAt||"").slice(0,16).replace("T"," "))+'</div><div class="edcmt-b">'+esc(c.content||"")+'</div></div>'; }); }
-      box.innerHTML=h;
-    })
-    .catch(function(e){ if(mySel!==edCmtSel) return; box.innerHTML='<div class="edcmt-h">\ud83d\udcac Komentáre k dokumentu</div><div class="hint" style="padding:4px 0">Komentáre sa nepodarilo načítať priamo (obmedzenie prehliadača). Otvor ich v paneli Cusdis tlačidlom vyššie.</div>'; });
-  }catch(e){ box.innerHTML='<div class="edcmt-h">\ud83d\udcac Komentáre k dokumentu</div>'; }
+    var ds={host:"https://cusdis.com",appId:"6fdea40e-6f8a-4877-b2e0-7b83dee8ee45",pageId:pid,pageUrl:"https://register.foxprof.club/register.html",pageTitle:((p.subj9&&p.subj9.sk)||"")+" \u00b7 "+(p.date||""),theme:"light"};
+    var loc={powered_by:"Komentáre poháňa Cusdis",post_comment:"Komentovať",loading:"Načítava sa",email:"E-mail (nepovinné)",nickname:"Prezývka",reply_placeholder:"Odpovedať...",reply_btn:"Odpovedať",sending:"odosiela sa...",mod_badge:"MOD",content_is_required:"Obsah je povinný",nickname_is_required:"Prezývka je povinná",comment_has_been_sent:"Váš komentár bol odoslaný. Počkajte, prosím, na schválenie."};
+    var src='<!DOCTYPE html><html><head><link rel="stylesheet" href="https://cusdis.com/js/style.css"><base target="_parent" /><scr'+'ipt>window.CUSDIS_LOCALE='+JSON.stringify(loc)+';window.__DATA__='+JSON.stringify(ds)+';</scr'+'ipt></head><body><div id="root"></div><scr'+'ipt src="https://cusdis.com/js/iframe.umd.js" type="module"></scr'+'ipt></body></html>';
+    var f=document.createElement("iframe");
+    f.setAttribute("scrolling","no"); f.style.width="100%"; f.style.border="0"; f.style.minHeight="120px";
+    f.srcdoc=src;
+    box.appendChild(f);
+  }catch(e){}
 }
+if(!window.__edCmtMsg){ window.__edCmtMsg=1; window.addEventListener("message",function(ev){ try{ var m=JSON.parse(ev.data); if(m&&m.from==="cusdis"&&m.event==="resize"){ var fr=document.querySelector("#edcmt iframe"); if(fr) fr.style.height=m.data+"px"; } }catch(e){} }); }
 function langinfo(){
  if(!D){document.getElementById('langinfo').textContent='';return;}
  const kz=(D.kauzy_reg||[]).filter(z=>!((z.nazov||{})[LANG]||'').trim()).length;
