@@ -1,0 +1,49 @@
+name: Build register
+
+# Pri commite dát alebo generátora automaticky pregeneruje register.html.
+# Nepotrebuje žiadny token v chate — beží na infra GitHubu so vstavaným GITHUB_TOKEN.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '_data/fia_data.json'
+      - '_data/gen_register_full.py'
+  workflow_dispatch: {}   # ručné spustenie z karty Actions
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-register
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Generovanie register.html
+        working-directory: _data
+        run: python gen_register_full.py
+
+      - name: Presun do rootu
+        run: mv -f _data/register.html register.html
+
+      - name: Commit ak sa zmenil
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- register.html; then
+            echo "register.html nezmenené — nič sa necommituje."
+          else
+            git add register.html
+            git commit -m "auto: pregenerovaný register.html z fia_data.json [skip ci]"
+            git push
+          fi
