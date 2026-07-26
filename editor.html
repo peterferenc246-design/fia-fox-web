@@ -94,6 +94,9 @@ button:hover{border-color:var(--navy);color:var(--navy)}
 .edcmt-c{border:1px solid var(--bd);border-radius:6px;padding:8px 10px;margin-bottom:8px;background:#fff}
 .edcmt-m{font-size:12px;color:#8a97a6;margin-bottom:3px}
 .edcmt-b{font-size:13px;color:#25303c;white-space:pre-wrap}
+.cmtbadge:empty{display:none}
+.cmtbadge{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:10px;background:#e9eef4;color:#5a6b7d;margin-left:4px;white-space:nowrap}
+.cmtbadge.un{background:#c0392b;color:#fff}
 label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#7a8899;margin:11px 0 3px}
 input,select,textarea{width:100%;border:1px solid var(--bd);border-radius:4px;padding:7px 9px;font:inherit;background:#fff}
 textarea{min-height:2cm;height:2cm;resize:vertical;font-size:13px;line-height:1.45}
@@ -266,7 +269,7 @@ function kauzaKarty(cid){ const z=(D.kauzy_reg||[]).find(z=>(z.ids||[]).indexOf(
 function kauzaPodla(spis){ return (D.kauzy_reg||[]).find(z=>z.spis===spis); }
 function poNacitani(z){ D.karty=D.karty||[];D.polozky=D.polozky||[];D.suhrny=D.suhrny||{}; pripravKauzy();
  selKz=selKa=selPo=null; const obn=obnovUI(); kresliVlajky();
- stat(D.karty.length+' konaní · '+D.polozky.length+' dokumentov · '+z); render();
+ stat(D.karty.length+' konaní · '+D.polozky.length+' dokumentov · '+z); render(); cmtLoadCounts();
  if(obn) setTimeout(()=>{var e=document.querySelector('.doc.on')||document.querySelector('.card.on')||document.querySelector('.tile.on'); if(e) e.scrollIntoView({block:'nearest'});},80); }
 function aktualizuj(){
  window.__akt=true;
@@ -354,6 +357,14 @@ function edSha1(msg){
   return (hx(H0)+hx(H1)+hx(H2)+hx(H3)+hx(H4)).toLowerCase();
 }
 function edPageId(p){var sj=p.subj9||{};var subj=sj.sk||Object.values(sj).find(function(v){return v;})||"";return "fia-"+edSha1((p.karta||"")+"|"+(p.date||"")+"|"+subj).slice(0,12);}
+/* Počet komentárov na dokument + neprečítané (značka "💬 neprečítané/celkom") — počet z Cusdis API, prečítané v localStorage; celé v try/catch */
+var CMT_TOTAL={}, CMT_SEEN={};
+try{ CMT_SEEN=JSON.parse(localStorage.getItem("fia_cmt_seen")||"{}")||{}; }catch(e){ CMT_SEEN={}; }
+function cmtSaveSeen(){ try{ localStorage.setItem("fia_cmt_seen", JSON.stringify(CMT_SEEN)); }catch(e){} }
+function cmtRefreshBadges(){ try{ document.querySelectorAll(".cmtbadge").forEach(function(el){ var pid=el.getAttribute("data-pid"); if(!pid) return; var tot=CMT_TOTAL[pid]; if(tot==null||tot===0){ el.textContent=""; el.className="cmtbadge"; return; } var seen=CMT_SEEN[pid]||0; var un=tot-seen; if(un<0)un=0; el.textContent="\ud83d\udcac "+un+"/"+tot; el.className="cmtbadge"+(un>0?" un":""); }); }catch(e){} }
+var __cmtLoaded=false;
+function cmtLoadCounts(){ if(__cmtLoaded||!D) return; __cmtLoaded=true; try{ (D.polozky||[]).forEach(function(p,i){ var pid; try{ pid=edPageId(p); }catch(e){ return; } if(CMT_TOTAL[pid]!=null) return; setTimeout(function(){ try{ fetch("https://cusdis.com/api/open/comments?page=1&appId=6fdea40e-6f8a-4877-b2e0-7b83dee8ee45&pageId="+encodeURIComponent(pid)).then(function(r){return r.json();}).then(function(j){ var d=(j&&j.data)||{}; CMT_TOTAL[pid]=(d.commentCount!=null)?d.commentCount:((d.data||[]).length); cmtRefreshBadges(); }).catch(function(e){}); }catch(e){} }, i*25); }); }catch(e){} }
+function cmtMarkRead(pid){ try{ if(pid&&CMT_TOTAL[pid]!=null){ CMT_SEEN[pid]=CMT_TOTAL[pid]; cmtSaveSeen(); cmtRefreshBadges(); } }catch(e){} }
 var edCmtSel=-2;
 function renderEdComments(){
   var box=document.getElementById("edcmt"); if(!box) return;
@@ -372,6 +383,7 @@ function renderEdComments(){
     f.srcdoc=src;
     box.appendChild(f);
   }catch(e){}
+  cmtMarkRead(pid);
 }
 if(!window.__edCmtMsg){ window.__edCmtMsg=1; window.addEventListener("message",function(ev){ try{ var m=JSON.parse(ev.data); if(m&&m.from==="cusdis"&&m.event==="resize"){ var fr=document.querySelector("#edcmt iframe"); if(fr) fr.style.height=m.data+"px"; } }catch(e){} }); }
 function langinfo(){
@@ -431,7 +443,7 @@ function docs(){
   zoz.forEach(p=>{if(p.thread){(gr[p.thread]=gr[p.thread]||[]).push(p);}});
   Object.keys(gr).forEach(t=>{gr[t].slice().sort((a,b)=>dkey(a.date).localeCompare(dkey(b.date)))
     .forEach((p,idx)=>{thrNum[D.polozky.indexOf(p)]=idx+1;});});}
- const kresli=arr=>arr.map(p=>{const i=D.polozky.indexOf(p);
+ const kresli=arr=>arr.map(p=>{const i=D.polozky.indexOf(p); let _cpid=""; try{_cpid=edPageId(p);}catch(e){}
   const cs=chyba9(p.subj9), cu=chyba9(p.urls);
   const csL=!((p.subj9||{})[LANG]||'').trim(), cuL=!((p.urls||{})[LANG]||'').trim();
   return '<div class="doc'+(selPo===i?' on':'')+'" onclick="pickPo('+i+')">'
@@ -449,6 +461,7 @@ function docs(){
    +(cuL?'<span class="pill warn">odkaz '+LANG.toUpperCase()+'</span>':'')
    +(cs&&!csL?'<span class="pill">predmet bez '+cs+'</span>':'')
    +(cu&&!cuL?'<span class="pill">odkaz bez '+cu+'</span>':'')
+   +'<span class="cmtbadge" data-pid="'+_cpid+'"></span>'
    +'</div>'
    +'<div class="dw" style="margin-top:6px">'
    +(((p.urls||{})[LANG])?'<a class="ob" href="'+esc(p.urls[LANG])+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">📄 Otvoriť ('+LANG.toUpperCase()+')</a>':'<span class="pill warn">bez odkazu v '+LANG.toUpperCase()+'</span>')
@@ -456,6 +469,7 @@ function docs(){
  const s=zoz.filter(p=>p.dir==='sent'), r=zoz.filter(p=>p.dir!=='sent');
  document.getElementById('dsent').innerHTML=kresli(s)||'<div class="empty">—</div>';
  document.getElementById('drecv').innerHTML=kresli(r)||'<div class="empty">—</div>';
+ cmtRefreshBadges();
 }
 function pickKz(k){selKz=(selKz===k?null:k); selKa=null; selPo=null; render();}
 function pickKa(c){selKa=(selKa===c?null:c); selPo=null; selKz=selKa?kauzaKarty(c):selKz; render();}
