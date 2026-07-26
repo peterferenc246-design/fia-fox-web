@@ -88,6 +88,9 @@ button:hover{border-color:var(--navy);color:var(--navy)}
 .hint{font-size:11.5px;color:#8a97a6;font-weight:400;text-transform:none;letter-spacing:0}
 .chk{display:flex;align-items:center;gap:7px;font-size:13px;margin-top:10px}
 .chk input{width:auto}
+#edcmt{margin-top:14px}
+.edcmt-h{font-weight:700;color:var(--navy);font-size:14px;margin-bottom:8px}
+.edcmt-h .hint{display:block;margin-top:2px}
 label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:#7a8899;margin:11px 0 3px}
 input,select,textarea{width:100%;border:1px solid var(--bd);border-radius:4px;padding:7px 9px;font:inherit;background:#fff}
 textarea{min-height:2cm;height:2cm;resize:vertical;font-size:13px;line-height:1.45}
@@ -194,6 +197,7 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
  <div id="hBot">
   <div class="page">
    <div class="ed" id="ed"><h2>Editor</h2><p class="hint">Vyber kauzu, konanie alebo dokument.</p></div>
+   <div id="edcmt"></div>
   </div>
  </div>
 </div>
@@ -321,6 +325,7 @@ function obnovUI(){ try{
 function render(){ if(!D) return; tiles(); cards(); docs(); editor(); langinfo();
  const b=document.getElementById('radbtn'); if(b) b.textContent = radDesc?'↓ Najnovšie':'↑ Najstaršie';
  const bd=document.getElementById('raddoc'); if(bd) bd.textContent = docDesc?'↓ Najnovšie':'↑ Najstaršie';
+ renderEdComments();
  ulozUI();
 }
 function langinfo(){
@@ -766,5 +771,37 @@ function stiahni(){ if(!D){alert('Najprv načítaj dáta.');return;}
  });
  init();
 })();
+/* Komentáre k dokumentu priamo v editore — rovnaké page-id ako register (SHA-1 v prehliadači) */
+var CUS_SK={powered_by:"Komentáre poháňa Cusdis",post_comment:"Komentovať",loading:"Načítava sa",email:"E-mail (nepovinné)",nickname:"Prezývka",reply_placeholder:"Odpovedať...",reply_btn:"Odpovedať",sending:"odosiela sa...",mod_badge:"MOD",content_is_required:"Obsah je povinný",nickname_is_required:"Prezývka je povinná",comment_has_been_sent:"Váš komentár bol odoslaný. Počkajte, prosím, na schválenie."};
+async function cusPageId(p){
+  var sj=p.subj9||{};
+  var subj=sj.sk || Object.values(sj).find(function(v){return v;}) || '';
+  var s=(p.karta||'')+"|"+(p.date||'')+"|"+subj;
+  var buf=await crypto.subtle.digest('SHA-1', new TextEncoder().encode(s));
+  var hex=Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+  return 'fia-'+hex.slice(0,12);
+}
+var edCmtSel=-2;
+function renderEdComments(){
+  var box=document.getElementById('edcmt'); if(!box) return;
+  if(selPo===null || !D.polozky[selPo]){ if(edCmtSel!==null){ box.innerHTML=''; edCmtSel=null; } return; }
+  if(selPo===edCmtSel) return;
+  edCmtSel=selPo;
+  var p=D.polozky[selPo];
+  box.innerHTML='<div class="edcmt-h">\ud83d\udcac Komentáre k tomuto dokumentu <span class="hint">Zobrazujú sa iba schválené. Čakajúce schváliš v paneli Cusdis (tlačidlo vyššie).</span></div><div id="edcmt-thread"></div>';
+  cusPageId(p).then(function(pid){
+    if(selPo!==edCmtSel) return;
+    var t=document.getElementById('edcmt-thread'); if(!t) return;
+    t.setAttribute('data-host','https://cusdis.com');
+    t.setAttribute('data-app-id','6fdea40e-6f8a-4877-b2e0-7b83dee8ee45');
+    t.setAttribute('data-page-id',pid);
+    t.setAttribute('data-page-url','https://register.foxprof.club/register.html');
+    t.setAttribute('data-page-title',((p.subj9&&p.subj9.sk)||'')+' · '+(p.date||''));
+    t.setAttribute('data-theme','light');
+    (function go(){ if(window.CUSDIS&&window.CUSDIS.renderTo){ window.CUSDIS_LOCALE=CUS_SK; window.CUSDIS.renderTo(t); } else setTimeout(go,150); })();
+  });
+}
 </script>
+<script>window.CUSDIS_PREVENT_INITIAL_RENDER=true;</script>
+<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 </body></html>
