@@ -754,7 +754,7 @@ async function ulozDoRepa(){
  try{
   var api='https://api.github.com/repos/'+REPO+'/contents/'+CESTA;
   var r=await fetch(api+'?ref=main',{headers:{Authorization:'Bearer '+t,Accept:'application/vnd.github+json'}});
-  if(r.status===401||r.status===403){ zabudniToken(); throw new Error('GitHub odmietol token (HTTP '+r.status+'). 401 = neplatný alebo zle poslaný token, 403 = platný token bez práva zápisu na fia-fox-web.'); }
+  if(r.status===401||r.status===403){ var gm=''; try{ gm=(await r.json()).message||''; }catch(e){} zabudniToken(); throw new Error('HTTP '+r.status+' pri čítaní z GitHubu.\n\nToken, ktorý editor poslal: '+t.length+' znakov, začína na github_pat_: '+(t.slice(0,11)==='github_pat_')+'.\n\nGitHub odpovedal: "'+String(gm).slice(0,160)+'"'); }
   if(!r.ok) throw new Error('čítanie zlyhalo ('+r.status+')');
   var meta=await r.json();
   var bytes=new TextEncoder().encode(telo), bin='', KUS=0x8000;
