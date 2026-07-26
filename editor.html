@@ -754,7 +754,7 @@ async function ulozDoRepa(){
  try{
   var api='https://api.github.com/repos/'+REPO+'/contents/'+CESTA;
   var r=await fetch(api+'?ref=main',{headers:{Authorization:'Bearer '+t,Accept:'application/vnd.github+json'}});
-  if(r.status===401||r.status===403){ zabudniToken(); throw new Error('token neplatí alebo nemá práva'); }
+  if(r.status===401||r.status===403){ zabudniToken(); throw new Error('GitHub odmietol token (HTTP '+r.status+'). 401 = neplatný alebo zle poslaný token, 403 = platný token bez práva zápisu na fia-fox-web.'); }
   if(!r.ok) throw new Error('čítanie zlyhalo ('+r.status+')');
   var meta=await r.json();
   var bytes=new TextEncoder().encode(telo), bin='', KUS=0x8000;
@@ -776,6 +776,7 @@ async function ulozDoRepa(){
    +'<br>Napíš Claudovi <b>pregeneruj</b> a register sa prestaví.</div>');
  }catch(err){
   stat('uloženie zlyhalo');
+  alert('❌ Uloženie zlyhalo:\n\n'+String(err.message||err));
   document.getElementById('ed').insertAdjacentHTML('afterbegin',
    '<div class="msg err"><b>Uloženie zlyhalo:</b> '+esc(String(err.message||err))
    +'<br>Použi ⬇ JSON a pošli súbor Claudovi.'
