@@ -435,7 +435,7 @@ function cards(){
   return '<div class="card'+(selKa===k.id?' on':'')+'" onclick="pickKa(\''+k.id.replace(/'/g,"\\'")+'\')">'
    +'<div class="cn">'+esc(nazovKarty(k))+'</div>'
    +(txtFb(k.podtitul)?'<div style="font-size:12.5px;color:#3d4d5e;margin:2px 0 3px;line-height:1.3">'+esc(txtFb(k.podtitul))+'</div>':'')
-   +'<div class="co">'+esc(txtFb(k.organ))+'</div>'
+   +((txtFb(k.meta)||txtFb(k.organ))?'<div class="co">'+esc(txtFb(k.meta)||txtFb(k.organ))+'</div>':'')
    +'<div class="cb"><span class="pill">'+esc(k.date||'bez dátumu')+'</span>'
    +'<span class="pill az">'+esc(k.az||'bez značky')+'</span>'
    +'<span class="pill">'+n+' dok.</span>'
