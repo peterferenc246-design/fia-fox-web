@@ -309,6 +309,20 @@ karty_html = "".join(karta(cid, ps) for cid, ps in
 import json as _j
 kj_json = _j.dumps({z["spis"]: (z.get("jur") or []) for z in KAUZY}, ensure_ascii=False)
 
+# Cusdis lokalizácia komentárového okna — oficiálne de/en/es/fr + vlastné sk/hr/pl/it/sv
+CUS_LOCALES = {
+ "de":{"powered_by":"Kommentare powered by Cusdis","post_comment":"Kommentieren","loading":"Lädt","email":"Email (optional)","nickname":"Spitzname","reply_placeholder":"Antworten...","reply_btn":"Antworten","sending":"senden...","mod_badge":"MOD","content_is_required":"Inhalt ist erforderlich","nickname_is_required":"Spitzname ist erforderlich","comment_has_been_sent":"Ihr Kommentar wurde abgeschickt. Bitte warten Sie auf die Bestätigung."},
+ "en":{"powered_by":"Comments powered by Cusdis","post_comment":"Comment","loading":"Loading","email":"Email (optional)","nickname":"Nickname","reply_placeholder":"Reply...","reply_btn":"Reply","sending":"sending...","mod_badge":"MOD","content_is_required":"Content is required","nickname_is_required":"Nickname is required","comment_has_been_sent":"Your comment has been sent. Please wait for approval."},
+ "sk":{"powered_by":"Komentáre poháňa Cusdis","post_comment":"Komentovať","loading":"Načítava sa","email":"E-mail (nepovinné)","nickname":"Prezývka","reply_placeholder":"Odpovedať...","reply_btn":"Odpovedať","sending":"odosiela sa...","mod_badge":"MOD","content_is_required":"Obsah je povinný","nickname_is_required":"Prezývka je povinná","comment_has_been_sent":"Váš komentár bol odoslaný. Počkajte, prosím, na schválenie."},
+ "hr":{"powered_by":"Komentare pokreće Cusdis","post_comment":"Komentiraj","loading":"Učitavanje","email":"E-mail (neobavezno)","nickname":"Nadimak","reply_placeholder":"Odgovori...","reply_btn":"Odgovori","sending":"slanje...","mod_badge":"MOD","content_is_required":"Sadržaj je obavezan","nickname_is_required":"Nadimak je obavezan","comment_has_been_sent":"Vaš komentar je poslan. Pričekajte odobrenje."},
+ "pl":{"powered_by":"Komentarze obsługiwane przez Cusdis","post_comment":"Skomentuj","loading":"Ładowanie","email":"E-mail (opcjonalnie)","nickname":"Pseudonim","reply_placeholder":"Odpowiedz...","reply_btn":"Odpowiedz","sending":"wysyłanie...","mod_badge":"MOD","content_is_required":"Treść jest wymagana","nickname_is_required":"Pseudonim jest wymagany","comment_has_been_sent":"Twój komentarz został wysłany. Poczekaj na zatwierdzenie."},
+ "es":{"powered_by":"Desarrollado por Cusdis","post_comment":"Comentar","loading":"Cargando","email":"Correo electrónico (opcional)","nickname":"Nombre","reply_placeholder":"Responder...","reply_btn":"Responder","sending":"Enviando...","mod_badge":"MOD","content_is_required":"El contenido es obligatorio","nickname_is_required":"El nombre es obligatorio","comment_has_been_sent":"Tu comentario ha sido enviado. Por favor, espera su aprobación."},
+ "it":{"powered_by":"Commenti offerti da Cusdis","post_comment":"Commenta","loading":"Caricamento","email":"Email (facoltativa)","nickname":"Nickname","reply_placeholder":"Rispondi...","reply_btn":"Rispondi","sending":"invio...","mod_badge":"MOD","content_is_required":"Il contenuto è obbligatorio","nickname_is_required":"Il nickname è obbligatorio","comment_has_been_sent":"Il tuo commento è stato inviato. Attendi l'approvazione."},
+ "fr":{"powered_by":"Commentaires propulsés par Cusdis","post_comment":"Publier un commentaire","loading":"Chargement","email":"Email (optionnel)","nickname":"Pseudonyme","reply_placeholder":"Commentaire...","reply_btn":"Répondre","sending":"Publication...","mod_badge":"MOD","content_is_required":"Commentaire requis","nickname_is_required":"Pseudonyme requis","comment_has_been_sent":"Votre commentaire a été publié. Attendez son approbation."},
+ "sv":{"powered_by":"Kommentarer drivs av Cusdis","post_comment":"Kommentera","loading":"Laddar","email":"E-post (valfritt)","nickname":"Smeknamn","reply_placeholder":"Svara...","reply_btn":"Svara","sending":"skickar...","mod_badge":"MOD","content_is_required":"Innehåll krävs","nickname_is_required":"Smeknamn krävs","comment_has_been_sent":"Din kommentar har skickats. Vänta på godkännande."},
+}
+cus_locales_json = _j.dumps(CUS_LOCALES, ensure_ascii=False)
+
 HTML = f"""<!DOCTYPE html>
 <html lang="sk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>Register káuz — FIA FOX</title>
@@ -345,6 +359,7 @@ HTML = f"""<!DOCTYPE html>
 </div>
 <script>
 var KJ = {kj_json};
+var CUS_L = {cus_locales_json};
 var SEL='all', JUR='all', OBL='', SORT='new', IASC=false;
 function kauzaOk(kz){{
  if(JUR==='all') return true;
@@ -449,7 +464,7 @@ function toggleCmt(btn){{
   t.setAttribute('data-page-title', it.getAttribute('data-ctitle')||document.title);
   t.setAttribute('data-theme','light');
   box.appendChild(t); box.setAttribute('data-open','1'); btn.classList.add('on');
-  (function go(){{ if(window.CUSDIS&&window.CUSDIS.renderTo){{ window.CUSDIS.renderTo(t); }} else {{ setTimeout(go,150); }} }})();
+  (function go(){{ if(window.CUSDIS&&window.CUSDIS.renderTo){{ try{{window.CUSDIS_LOCALE=CUS_L[document.body.dataset.l]||CUS_L.en;}}catch(e){{}} window.CUSDIS.renderTo(t); }} else {{ setTimeout(go,150); }} }})();
 }}
 </script><script>window.CUSDIS_PREVENT_INITIAL_RENDER=true;</script><script async defer src="https://cusdis.com/js/cusdis.es.js"></script></body></html>"""
 
