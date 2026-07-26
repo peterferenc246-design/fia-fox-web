@@ -725,7 +725,7 @@ function stiahni(){ if(!D){alert('Najprv načítaj dáta.');return;}
  const a=document.createElement('a');
  a.href=URL.createObjectURL(new Blob([JSON.stringify(D,null,1)],{type:'application/json'}));
  a.download='fia_data.json'; a.click();
- zmenene=false; stat('JSON stiahnutý — pošli ho na nasadenie.');
+ zmenene=false; stat('JSON stiahnutý. Nahraj ho do _data/ na GitHube — register.html sa prestaví sám.');
 }
 
 /* ── vodorovný rozdeľovač: ťahaj hore/dole, dvojklik = 50/50 ── */
