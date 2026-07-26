@@ -3197,7 +3197,7 @@
    "bezDatumu": false,
    "btnQes": false,
    "btnSum": true,
-   "btnLaw": false,
+   "btnLaw": true,
    "dolezite": true,
    "komentare": true,
    "important": true,
