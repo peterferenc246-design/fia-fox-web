@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex,nofollow">
 <title>FIA FOX — editor registra</title>
 <style>
-:root{--navy:#1F3864;--red:#C00000;--bd:#c9d8e8;--bg:#eef3f8;--gold:#f0c040;--itembg:#D9E6F4}
+:root{--navy:#1F3864;--red:#C00000;--bd:#c9d8e8;--bg:#eef3f8;--gold:#f0c040;--itembg:#D9E6F4;--edbg:#fff}
 *{box-sizing:border-box}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:#22303f;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;display:flex;flex-direction:column;overflow:hidden}
@@ -80,7 +80,7 @@ button:hover{border-color:var(--navy);color:var(--navy)}
 .ob:hover{border-color:var(--navy);color:var(--navy);background:#f2f7fc}
 .ob.og{background:#fff8e6;border-color:var(--gold);color:#8a5a00}
 .warn{background:#fdeaea;color:#8a1c1c;border:1px solid #f0b8b8}
-.ed{background:#fff;border:1px solid var(--bd);border-top:4px solid var(--navy);border-radius:7px;
+.ed{background:var(--edbg);border:1px solid var(--bd);border-top:4px solid var(--navy);border-radius:7px;
  padding:14px 16px}
 .ed h2{margin:0 0 4px;font-size:15px;color:var(--navy)}
 .ed .sub{font-size:12px;color:#8a97a6;margin-bottom:6px}
@@ -173,6 +173,7 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
     <span class="info" id="langinfo"></span>
     <label style="margin-left:auto;font-size:12px;color:#5a6b7d;display:flex;align-items:center;gap:6px;white-space:nowrap">🎨 Farba položiek <input type="color" id="itembgpick" value="#D9E6F4" oninput="setItemBg(this.value)" style="width:34px;height:22px;border:1px solid var(--bd);border-radius:4px;padding:0;cursor:pointer;background:none"><button type="button" onclick="resetItemBg()" title="Späť na predvolenú belasú" style="border:1px solid var(--bd);background:#fff;border-radius:4px;font-size:11px;padding:2px 7px;cursor:pointer">↺</button></label>
     <label style="font-size:12px;color:#5a6b7d;display:flex;align-items:center;gap:6px;white-space:nowrap">🖼️ Pozadie stránky <input type="color" id="pagebgpick" value="#EEF3F8" oninput="setPageBg(this.value)" style="width:34px;height:22px;border:1px solid var(--bd);border-radius:4px;padding:0;cursor:pointer;background:none"><button type="button" onclick="resetPageBg()" title="Späť na predvolené pozadie" style="border:1px solid var(--bd);background:#fff;border-radius:4px;font-size:11px;padding:2px 7px;cursor:pointer">↺</button></label>
+    <label style="font-size:12px;color:#5a6b7d;display:flex;align-items:center;gap:6px;white-space:nowrap">📝 Pozadie formulára <input type="color" id="edbgpick" value="#FFFFFF" oninput="setEdBg(this.value)" style="width:34px;height:22px;border:1px solid var(--bd);border-radius:4px;padding:0;cursor:pointer;background:none"><button type="button" onclick="resetEdBg()" title="Späť na bielu" style="border:1px solid var(--bd);background:#fff;border-radius:4px;font-size:11px;padding:2px 7px;cursor:pointer">↺</button></label>
    </div>
 
    <div class="sect">
@@ -728,7 +729,10 @@ function obnovItemBg(){ try{ var v=localStorage.getItem('fia_itembg'); if(v){ do
 function setPageBg(v){ try{ document.documentElement.style.setProperty('--bg', v); localStorage.setItem('fia_pagebg', v); }catch(e){} }
 function resetPageBg(){ try{ document.documentElement.style.removeProperty('--bg'); localStorage.removeItem('fia_pagebg'); var el=document.getElementById('pagebgpick'); if(el) el.value='#EEF3F8'; }catch(e){} }
 function obnovPageBg(){ try{ var v=localStorage.getItem('fia_pagebg'); if(v){ document.documentElement.style.setProperty('--bg', v); var el=document.getElementById('pagebgpick'); if(el) el.value=v; } }catch(e){} }
-window.addEventListener('DOMContentLoaded',()=>{obnovItemBg(); obnovPageBg(); kresliVlajky(); if(!obnovStav()) loadWeb();});
+function setEdBg(v){ try{ document.documentElement.style.setProperty('--edbg', v); localStorage.setItem('fia_edbg', v); }catch(e){} }
+function resetEdBg(){ try{ document.documentElement.style.removeProperty('--edbg'); localStorage.removeItem('fia_edbg'); var el=document.getElementById('edbgpick'); if(el) el.value='#FFFFFF'; }catch(e){} }
+function obnovEdBg(){ try{ var v=localStorage.getItem('fia_edbg'); if(v){ document.documentElement.style.setProperty('--edbg', v); var el=document.getElementById('edbgpick'); if(el) el.value=v; } }catch(e){} }
+window.addEventListener('DOMContentLoaded',()=>{obnovItemBg(); obnovPageBg(); obnovEdBg(); kresliVlajky(); if(!obnovStav()) loadWeb();});
 
 document.addEventListener('input',()=>{zmenene=true;},true);
 window.addEventListener('beforeunload',e=>{ if(zmenene && !window.__akt){ e.preventDefault(); e.returnValue=''; }});
