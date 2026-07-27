@@ -20,6 +20,9 @@
   .top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
   .btn-home{background:#fff;color:var(--navy);border:1px solid var(--navy);border-radius:6px;padding:6px 14px;font-weight:700;text-decoration:none;font-size:14px}
   .flags{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .topbar{position:sticky;top:0;z-index:600;background:#fff;margin:0 -16px 16px;padding:10px 16px 8px;box-shadow:0 3px 12px rgba(20,40,80,.10);border-bottom:1px solid #e1e9f3}
+  .topbar .top{margin-bottom:8px}
+  .topbar .flags{margin-bottom:0}
   .flags .f{padding:0;border:2px solid transparent;background:none;border-radius:4px;cursor:pointer;line-height:0}
   .flags .f img{width:30px;height:20px;display:block;border-radius:2px;box-shadow:0 0 0 1px #cdd8e6}
   .flags .f.on{border-color:var(--navy)}
@@ -118,13 +121,14 @@ body[data-l="de"] .gtl.de{display:inline}body[data-l="en"] .gtl.en{display:inlin
 </head>
 <body data-l="sk">
 <div class="wrap">
+  <div class="topbar">
   <div class="top">
     <a class="btn-home" id="lk-home" href="index.html"><span class="gtl de">← Startseite</span><span class="gtl en">← Home</span><span class="gtl sk">← Domov</span><span class="gtl hr">← Početna</span><span class="gtl pl">← Strona główna</span><span class="gtl es">← Inicio</span><span class="gtl it">← Home</span><span class="gtl fr">← Accueil</span><span class="gtl sv">← Hem</span></a>
     <a class="btn-home" id="lk-reg" href="https://register.foxprof.club/register.html"><span class="gtl de">Fallregister</span><span class="gtl en">Case register</span><span class="gtl sk">Register káuz</span><span class="gtl hr">Registar predmeta</span><span class="gtl pl">Rejestr spraw</span><span class="gtl es">Registro de casos</span><span class="gtl it">Registro dei casi</span><span class="gtl fr">Registre des affaires</span><span class="gtl sv">Ärenderegister</span></a>
     <a class="btn-home mapbtn" href="#mapa">🗺 <span class="gtl de">Beteiligte Länder</span><span class="gtl en">Contributing countries</span><span class="gtl sk">Prispievajúce krajiny</span><span class="gtl hr">Zemlje koje doprinose</span><span class="gtl pl">Kraje wspierające</span><span class="gtl es">Países que contribuyen</span><span class="gtl it">Paesi che contribuiscono</span><span class="gtl fr">Pays contributeurs</span><span class="gtl sv">Bidragande länder</span></a>
     <a class="btn-home fbbtn" href="javascript:void(0)" onclick="openFb()">💬 FEEDBACK</a>
   </div>
-  <div class="flags" role="group" aria-label="Language"><button class="f" data-l="de" title="DE"><img src="https://flagcdn.com/de.svg" alt="DE"></button><button class="f" data-l="en" title="EN"><img src="https://flagcdn.com/gb.svg" alt="EN"></button><button class="f on" data-l="sk" title="SK"><img src="https://flagcdn.com/sk.svg" alt="SK"></button><button class="f" data-l="hr" title="HR"><img src="https://flagcdn.com/hr.svg" alt="HR"></button><button class="f" data-l="pl" title="PL"><img src="https://flagcdn.com/pl.svg" alt="PL"></button><button class="f" data-l="es" title="ES"><img src="https://flagcdn.com/es.svg" alt="ES"></button><button class="f" data-l="it" title="IT"><img src="https://flagcdn.com/it.svg" alt="IT"></button><button class="f" data-l="fr" title="FR"><img src="https://flagcdn.com/fr.svg" alt="FR"></button><button class="f" data-l="sv" title="SV"><img src="https://flagcdn.com/se.svg" alt="SV"></button></div>
+  <div class="flags" role="group" aria-label="Language"><button class="f" data-l="de" title="DE"><img src="https://flagcdn.com/de.svg" alt="DE"></button><button class="f" data-l="en" title="EN"><img src="https://flagcdn.com/gb.svg" alt="EN"></button><button class="f on" data-l="sk" title="SK"><img src="https://flagcdn.com/sk.svg" alt="SK"></button><button class="f" data-l="hr" title="HR"><img src="https://flagcdn.com/hr.svg" alt="HR"></button><button class="f" data-l="pl" title="PL"><img src="https://flagcdn.com/pl.svg" alt="PL"></button><button class="f" data-l="es" title="ES"><img src="https://flagcdn.com/es.svg" alt="ES"></button><button class="f" data-l="it" title="IT"><img src="https://flagcdn.com/it.svg" alt="IT"></button><button class="f" data-l="fr" title="FR"><img src="https://flagcdn.com/fr.svg" alt="FR"></button><button class="f" data-l="sv" title="SV"><img src="https://flagcdn.com/se.svg" alt="SV"></button></div></div>
   <div class="hero">
     <img id="hbanner" src="obrazky/baner_DONATE/03.jpg" alt="FIA FOX">
     <div class="hero-r">
