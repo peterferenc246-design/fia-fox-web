@@ -74,6 +74,33 @@
   .shhead{text-align:center;color:var(--navy);font-size:16px;margin:0 0 10px}
   .foot{text-align:center;margin-top:26px}
   .foot a{background:var(--red);color:#fff;text-decoration:none;border-radius:6px;padding:8px 16px;font-weight:700;font-size:14px}
+  .mapbtn{background:linear-gradient(#eaf3ea,#d7ecdd);border-color:var(--green);color:#0a5c2e}
+  .mapsec h2{color:var(--navy);font-size:20px;margin:0 0 4px}
+  .mapsec .msub{color:#5a6b7d;font-size:13.5px;margin:0 0 14px}
+  .mapgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+  @media(max-width:720px){.mapgrid{grid-template-columns:1fr}}
+  svg.map{width:100%;height:auto;display:block;background:#dce8f4;border-radius:8px}
+  .cty{stroke:#fff;stroke-width:.35;transition:fill .2s}
+  .cty.nb{fill:#cfd8e2;pointer-events:none;opacity:.65}
+  .cty.eu{fill:#e9eff5;cursor:pointer}
+  .cty.eu:hover{stroke:var(--navy);stroke-width:.8}
+  .cty.sel{stroke:var(--navy);stroke-width:1}
+  .scale{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:11px;color:#5a6b7d}
+  .scale .sbar{flex:1;height:8px;border-radius:99px;background:linear-gradient(90deg,#e9eff5,#bfe3cd,#0B7A3B)}
+  .panel{background:#f6f9fc;border:1px solid var(--bd);border-radius:10px;padding:14px;min-height:92px}
+  .panel .cn{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--navy);font-size:17px}
+  .panel .cn img{width:24px;height:16px;border-radius:2px;box-shadow:0 0 0 1px #cdd8e6}
+  .panel .pct{font-size:28px;font-weight:800;color:var(--green);margin:5px 0 2px}
+  .panel .det{font-size:13px;color:#5a6b7d}
+  .panel .first{color:#b5651d;font-weight:700;font-size:13.5px;margin-top:6px}
+  .lead h3{color:var(--navy);font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin:14px 0 8px}
+  .lrow{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:12.5px}
+  .lrow .rk{width:20px;color:#8a97a6;font-weight:700;text-align:right}
+  .lrow img{width:20px;height:14px;border-radius:2px;box-shadow:0 0 0 1px #cdd8e6}
+  .lrow .nm{flex:0 0 110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .lrow .lb{flex:1;height:8px;background:#eef2f7;border-radius:99px;overflow:hidden}
+  .lrow .lb>i{display:block;height:100%;background:linear-gradient(90deg,#0b72d9,var(--green))}
+  .lrow .pc{width:40px;text-align:right;font-weight:700;color:var(--navy)}
   .gtl{display:none}
 body[data-l="de"] .gtl.de{display:inline}body[data-l="en"] .gtl.en{display:inline}body[data-l="sk"] .gtl.sk{display:inline}body[data-l="hr"] .gtl.hr{display:inline}body[data-l="pl"] .gtl.pl{display:inline}body[data-l="es"] .gtl.es{display:inline}body[data-l="it"] .gtl.it{display:inline}body[data-l="fr"] .gtl.fr{display:inline}body[data-l="sv"] .gtl.sv{display:inline}</style>
 </head>
@@ -82,6 +109,7 @@ body[data-l="de"] .gtl.de{display:inline}body[data-l="en"] .gtl.en{display:inlin
   <div class="top">
     <a class="btn-home" id="lk-home" href="index.html"><span class="gtl de">← Startseite</span><span class="gtl en">← Home</span><span class="gtl sk">← Domov</span><span class="gtl hr">← Početna</span><span class="gtl pl">← Strona główna</span><span class="gtl es">← Inicio</span><span class="gtl it">← Home</span><span class="gtl fr">← Accueil</span><span class="gtl sv">← Hem</span></a>
     <a class="btn-home" id="lk-reg" href="https://register.foxprof.club/register.html"><span class="gtl de">Fallregister</span><span class="gtl en">Case register</span><span class="gtl sk">Register káuz</span><span class="gtl hr">Registar predmeta</span><span class="gtl pl">Rejestr spraw</span><span class="gtl es">Registro de casos</span><span class="gtl it">Registro dei casi</span><span class="gtl fr">Registre des affaires</span><span class="gtl sv">Ärenderegister</span></a>
+    <a class="btn-home mapbtn" href="#mapa">🗺 <span class="gtl de">Beteiligte Länder</span><span class="gtl en">Contributing countries</span><span class="gtl sk">Prispievajúce krajiny</span><span class="gtl hr">Zemlje koje doprinose</span><span class="gtl pl">Kraje wspierające</span><span class="gtl es">Países que contribuyen</span><span class="gtl it">Paesi che contribuiscono</span><span class="gtl fr">Pays contributeurs</span><span class="gtl sv">Bidragande länder</span></a>
   </div>
   <div class="flags" role="group" aria-label="Language"><button class="f" data-l="de" title="DE"><img src="https://flagcdn.com/de.svg" alt="DE"></button><button class="f" data-l="en" title="EN"><img src="https://flagcdn.com/gb.svg" alt="EN"></button><button class="f on" data-l="sk" title="SK"><img src="https://flagcdn.com/sk.svg" alt="SK"></button><button class="f" data-l="hr" title="HR"><img src="https://flagcdn.com/hr.svg" alt="HR"></button><button class="f" data-l="pl" title="PL"><img src="https://flagcdn.com/pl.svg" alt="PL"></button><button class="f" data-l="es" title="ES"><img src="https://flagcdn.com/es.svg" alt="ES"></button><button class="f" data-l="it" title="IT"><img src="https://flagcdn.com/it.svg" alt="IT"></button><button class="f" data-l="fr" title="FR"><img src="https://flagcdn.com/fr.svg" alt="FR"></button><button class="f" data-l="sv" title="SV"><img src="https://flagcdn.com/se.svg" alt="SV"></button></div>
   <div class="hero">
@@ -147,6 +175,63 @@ body[data-l="de"] .gtl.de{display:inline}body[data-l="en"] .gtl.en{display:inlin
   </div>
 
   <div class="foot"><a id="lk-foot" href="index.html"><span class="gtl de">← Zurück zur Startseite</span><span class="gtl en">← Back to home</span><span class="gtl sk">← Späť na domovskú stránku</span><span class="gtl hr">← Natrag na početnu</span><span class="gtl pl">← Powrót do strony głównej</span><span class="gtl es">← Volver al inicio</span><span class="gtl it">← Torna alla home</span><span class="gtl fr">← Retour à l'accueil</span><span class="gtl sv">← Tillbaka till startsidan</span></a></div>
+
+  <div class="card mapsec" id="mapa">
+    <h2><span class="gtl de">Welche Länder unterstützen FIA FOX?</span><span class="gtl en">Which countries support FIA FOX?</span><span class="gtl sk">Ktoré krajiny podporujú FIA FOX?</span><span class="gtl hr">Koje zemlje podupiru FIA FOX?</span><span class="gtl pl">Które kraje wspierają FIA FOX?</span><span class="gtl es">¿Qué países apoyan a FIA FOX?</span><span class="gtl it">Quali paesi sostengono FIA FOX?</span><span class="gtl fr">Quels pays soutiennent FIA FOX ?</span><span class="gtl sv">Vilka länder stöder FIA FOX?</span></h2>
+    <p class="msub"><span class="gtl de">Auf ein Land klicken → sein Anteil an den Spenden.</span><span class="gtl en">Click a country → its share of donations.</span><span class="gtl sk">Klikni na krajinu → jej podiel na daroch.</span><span class="gtl hr">Klikni na zemlju → njezin udio u donacijama.</span><span class="gtl pl">Kliknij kraj → jego udział w darowiznach.</span><span class="gtl es">Haz clic en un país → su porcentaje de donaciones.</span><span class="gtl it">Clicca su un paese → la sua quota di donazioni.</span><span class="gtl fr">Cliquez sur un pays → sa part des dons.</span><span class="gtl sv">Klicka på ett land → dess andel av gåvorna.</span></p>
+    <div class="mapgrid">
+      <div>
+        <svg class="map" viewBox="381.16 314.15 113.96 133.60" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="EU">
+<path class="cty eu" data-cc="be" d="M414.019,391.704l-0.554,1.383l5.947,3.925l0.4,0.051l0.375-1.094l0.837-0.588l-1.336-1.499h-0.916l-1.255-1.426L414.019,391.704L414.019,391.704z"></path>
+<path class="cty eu" data-cc="de" d="M422.257,384.234l3.086-0.5v-2.178l2.584-0.425l1.418,1.427l1.495,0.164l2.334-1.012l2.083,0.588l1.832,1.592l0.251,5.955l1.832,2.438l-2.411,0.337l-4.003,2.515l0.338,0.839l3.579,3.354l-0.251,1.677l-3.328,1.677l-3.085,0.086l-0.753,1.59h-1.581l-0.752-1.676l-2.749-0.675l-0.088-2.767l-1.39-0.77l0.114-1.861l-0.406-1.328l-1.982-1.824l0.414-2.854l2.161-1.011L422.257,384.234L422.257,384.234z"></path>
+<path class="cty eu" data-cc="fi" d="M453.072,340.202l1.79,0.786l1.104,2.074l-1.104,1.436l-5.55,6.068l-0.952,3.199l1.271,4.633l4.278,3.199l5.706-2.715l4.598-0.64l4.279-6.872l-3.173-7.512l-3.018-7.192l0.477-4.633l-1.901-0.32l-0.492-3.38l-2.559-4.175l-2.836,1.962l-1.114,4.556l-3.008-1.807l-4.185-1.021l-0.934,1.09l1.607,1.453l2.931-0.053l2.359,3.812L453.072,340.202L453.072,340.202z"></path>
+<path class="cty eu" data-cc="gb" d="M400.629,367.984l-1.582,2.395l0.631,0.959h3.648v1.6l-0.952,1.278l0.632,3.354l2.058,3.994l1.581,3.672l2.533,0.959l1.105,1.92l-0.155,1.755l-1.582,0.959l-0.156,0.795l1.106,0.64l-0.951,1.279l-2.221,0.959l-4.279-0.477l-6.664,3.035l-2.221-1.115l6.345-3.674l-0.796-0.477l-3.328-0.32l2.058-3.033l0.319-2.56l2.696-0.319l-0.475-4.953l-3.174-0.155l-0.95-1.115l0.155-3.674l-1.901,0.156l1.901-6.388l3.492-2.56L400.629,367.984L400.629,367.984z"></path>
+<path class="cty eu" data-cc="bg" d="M457.092,414.066l0.139,4.305l1.452,3.025l5.454,0.095l2.455-1.737l2.412-0.959l-0.588-2.75l0.545-1.469l-1.228-0.641l-1.687,0.139l-1.323,1.332l-5.549,0.043L457.092,414.066L457.092,414.066z"></path>
+<path class="cty eu" data-cc="se" d="M445.232,329.52l1.693,1.563h3.173l1.746,3.354l0.477,5.748l-4.278,3.035v3.033l-3.017,4.158l-1.746,0.154l-2.378,3.994l0.155,3.838l4.124,3.035l-0.319,1.754l-1.582,2.396l-2.377,2.074l0.155,6.872l-3.647,1.279l-1.271,2.713h-1.747l-0.949-4.789l-3.969-6.084l3.26-5.455l0.225-13.477l2.248-1.236l0.545-7.709l6.405-9.172L445.232,329.52L445.232,329.52z"></path>
+<path class="cty eu" data-cc="gr" d="M453.004,427.213l-0.096,1.15l4.003,2.014l1.911,0.734l-1.003,1.055l-2.23,0.227l-0.319,1.01l0.771,1.738l2.498,1.33l1.09,0.096l0.138-2.981l1.635-1.972l-4.46-5.272l0.589-1.789l1.046-0.043l1.591,1.279l1.002-0.501l0.319-1.79l3.732,0.534l1.134-3.239l-1.953,1.375l-5.731-0.14l-3.726,1.929L453.004,427.213L453.004,427.213z"></path>
+<path class="cty eu" data-cc="sk" d="M443.607,400.875l0.597,0.527l0.077,0.898l6.596-0.146l4.875-2.102l-0.077-2.135l-0.934,0.415l-1.34-0.718l-0.821-0.035l-2.161,0.865l-2.938-0.709L443.607,400.875L443.607,400.875z"></path>
+<path class="cty nb" data-cc="by" d="M456.418,382.861l1.297,2.135l-0.519,1.703l0.086,1.349l0.476,1.616l2.68-1.521l3.329,0.086l2.334,0.959h5.922l1.729-4.141l1.037-1.564v-1.045l-3.717-5.23l-3.285-1.305l-2.68-0.303l-2.335,0.743l0.088,2.351l-3.241,4.098L456.418,382.861L456.418,382.861z"></path>
+<path class="cty eu" data-cc="hr" d="M443.417,407.816l-3.051,2.515h-3.095l-0.372,2.178l1.418,0.372l0.709-1.055l1.114,0.977l0.891,3.112l6.109,2.853l0.605-0.691l-6.197-6.396l0.631-1.166l5.888-0.226l0.596-1.876l-3.838,0.111L443.417,407.816L443.417,407.816z"></path>
+<path class="cty eu" data-cc="dk" d="M427.123,370.076l-3.586,3.968l-0.13,2.584l1.635,4.263l2.559-0.484l-0.319-3.483l1.764-1.971l-0.034-1.548l-1.245-3.223L427.123,370.076L427.123,370.076z"></path>
+<path class="cty eu" data-cc="dk" d="M428.979,377.354l-1.062,0.229v1.583l1.128,0.875l0.997-0.25l-0.243-1.503L428.979,377.354z"></path>
+<path class="cty eu" data-cc="dk" d="M432.306,375.848l-0.949,0.23l-1.056,0.968l0.448,1.954l1.292,0.507l-1.334,0.535l-0.255,0.685h2.005l0.602-1.099l-0.768-0.378l0.25-0.962l0.916-1.205l-0.25-1.042L432.306,375.848z"></path>
+<path class="cty eu" data-cc="hu" d="M444.386,403.01l-1.003,1.573l0.078,2.403l1.599,0.82l4.919,0.147l6.854-5.774l0.034-1.279l-0.742-0.371l-4.953,2.248L444.386,403.01L444.386,403.01z"></path>
+<path class="cty eu" data-cc="it" d="M423.233,409.391l-0.535,1.356l0.146,1.478l2.065,2.412l3.25-0.113l7.175,8.334l4.479,1.297l2.646,2.498l0.631,5.695l1.417-0.828l1.229-3.104l-0.303-2.229l2.101-0.19l0.304-1.263l-5.922-2.834l-5.619-5.523l-2.238-3.303l-0.545-3.137l2.861-0.684l-0.734-2.066l-1.755-1.478l-1.513-0.069l-2.108,0.58l-1.99,2.781l-1.201,0.795l-1.858-1.141L423.233,409.391L423.233,409.391z"></path>
+<path class="cty eu" data-cc="at" d="M430.46,403.459l-0.562,1.167l0.483,0.83l2.015-0.415h1.711l1.857,1.572l3.95-0.717l2.904-1.729l0.743-1.167l-0.112-1.504l-2.611-1.954l-3.501,0.035l-0.294,1.988l-3.683,1.797L430.46,403.459L430.46,403.459z"></path>
+<path class="cty eu" data-cc="nl" d="M421.349,384.572l-3.915,1.928l0.829,0.752l0.088,1.928l-0.829-0.164l-0.917-1.426l-2.188,3.467l3.363,0.699l1.253,1.323l0.666,0.017l0.44-2.99l2.117-0.891L421.349,384.572L421.349,384.572z"></path>
+<path class="cty nb" data-cc="me" d="M449.68,416.677l-1.266,1.789l0.362,1.099l1.504,0.275l1.184-1.607L449.68,416.677z"></path>
+<path class="cty nb" data-cc="ba" d="M442.708,411.084l-0.319,0.527l5.801,5.981l2.127-3.13l-0.078-1.234l-1.857-2.256L442.708,411.084L442.708,411.084z"></path>
+<path class="cty nb" data-cc="al" d="M450.679,420.438v3.984l1.142,2.152l0.82-0.096l1.409-2.566l-0.821-1.15l-0.319-2.844l-1.089-1.012L450.679,420.438L450.679,420.438z"></path>
+<path class="cty eu" data-cc="lu" d="M420.424,397.582l0.76,0.679l0.88,0.083l0.194-1.734l-0.253-0.974l-1.224,0.583L420.424,397.582z"></path>
+<path class="cty eu" data-cc="ee" d="M462.562,363.299l-4.84-0.173l-3.068,1.875l-0.043,1.392l1.987,1.875l6.182,1.047L462.562,363.299L462.562,363.299z"></path>
+<path class="cty nb" data-cc="is" d="M366.261,340.521l-1.693-0.959l-2.283,1.443l-1.962,1.814l0.052,1.013l2.541,0.319l-0.156,1.815l-0.898,0.908l0.217,0.588l2.541,0.164v2.938l3.656,0.641l2.17,1.229l2.437,0.104l4.186-2.083l3.231-4.271l0.053-2.887l-1.963-1.66l-1.642-1.392l-0.743,0.536l-1.115,1.443l-1.271-0.164l-1.271-1.393l-1.642,0.156l-2.386,1.979l-1.437,1.547l-0.795-0.69l-0.053-1.712l0.795-0.536L366.261,340.521L366.261,340.521z"></path>
+<path class="cty eu" data-cc="pl" d="M457.109,390.184l0.733,1.348l0.174,1.435l-0.604,1.392l-1.383,2.664l-1.167,0.526l-1.514-0.657l-0.908,0.043l-2.204,0.83l-2.506-0.742l-4.062-2.879l-3.978-2.135l-1.6-2.438l-0.303-5.75l3.112-2.705l4.062-1.35l1.328-0.138l0.315,1.007l1.725,0.692l4.766,0.09l1.47-0.043l2.421,3.708l-0.604,1.521l0.259,1.789L457.109,390.184L457.109,390.184z"></path>
+<path class="cty eu" data-cc="fr" d="M412.973,393.588l-1.91,0.467l-3.82,4.158l-1.149,0.078l-1.53-1.081l-0.993,0.233l-0.762,2.386l-5.584,0.155l0.156,1.236l3.82,2.543l4.435,3.543l-0.077,4.236l-2.368,4.157l5.126,2.464l5.204,0.154l1.606-1.85l3.286,0.078l0.916,0.848l3.285-0.233l1.686-2.162l-2.145-2.541l-0.155-1.616l0.458-1.771l-1.071-1.539l-1.833,0.535l-0.232-1.383l4.054-4.469v-2.697l-2.348-0.767l-1.432-0.987L412.973,393.588L412.973,393.588z"></path>
+<path class="cty eu" data-cc="ch" d="M423.787,402.82l-3.771,4.011l0.078,0.405l1.547-0.483l1.393,1.937l2.352-0.83l1.625,1.263l0.667-0.38l2.005-3.146l-0.511-0.484l-1.979-0.051l-0.959-1.963L423.787,402.82L423.787,402.82z"></path>
+<path class="cty eu" data-cc="cz" d="M437.202,398.921h2.567h1.263l2.049,1.461l3.795-3.155l-3.683-2.627l-3.648-1.765l-2.498,0.45l-3.389,2.178L437.202,398.921L437.202,398.921z"></path>
+<path class="cty eu" data-cc="es" d="M402.565,416.322h-11.014l-2.222-1.004l-1.071,0.078l-1.297,2.696l0.458,2.775l4.21,0.389l0.536,1.771l-1.833,10.33l0.078,1.851l2.981,1.617l3.439,0.232l6.881-1.694l3.363-4.233l0.077-4.313l5.965-5.395l0.302-2.386l-5.428-0.078L402.565,416.322L402.565,416.322z"></path>
+<path class="cty eu" data-cc="si" d="M442.708,405.076l-2.195,1.314l-4.097,0.898l0.82,2.368l2.87,0.034l2.646-2.213L442.708,405.076L442.708,405.076z"></path>
+<path class="cty nb" data-cc="md" d="M465.14,401.376l2.681,4.123l-0.226,2.334l0.96,0.043l2.272-3.847l-2.731-3.389L466.549,400L465.14,401.376L465.14,401.376z"></path>
+<path class="cty eu" data-cc="ua" d="M460.662,388.791l-2.507,1.409l0.622,2.663l-2.316,4.884l0.02,2.151l1.089,0.691l6.983,0.346l1.954-1.615l2.092,0.699l2.999,4.002l-2.194,3.942l2.61,0.761l3.414-3.933l1.954,0.354l1.815,1.262l-1.601,2.109l2.161,3.371h2.299l1.185-2.248l2.438-0.494l0.069-1.823l-4.529-0.7l0.14-1.963h4.391l4.737-3.794l2.092-1.824l0.345-5.757l-9.336-0.838l-3.829-5.402l-2.646-0.908l-3.207,0.139l-1.443,3.569l-6.57,0.087l-2.135-0.986L460.662,388.791L460.662,388.791z"></path>
+<path class="cty eu" data-cc="cy" d="M484.555,437.794l1.062,0.771l-3.294,3.119l-1.573-0.052l-1.167-0.821l0.156-1.529l2.386-0.155L484.555,437.794L484.555,437.794z"></path>
+<path class="cty eu" data-cc="mt" d="M440.815,438.339l-1.443,0.294l0.052,1.6l1.297,0.433l0.579-0.484L440.815,438.339L440.815,438.339z"></path>
+<path class="cty nb" data-cc="rs" d="M452.001,407.279l-1.772,1.332h-0.863l-0.588,1.832l2.092,2.43l0.139,1.928l-0.882,1.246l3.068,3.197l3.317-1.012l-0.274-4.721L452.001,407.279L452.001,407.279z"></path>
+<path class="cty eu" data-cc="lt" d="M452.14,375.236l-2.146,0.363l0.173,2.025l3.355,0.25l1.27,1.042l0.333,1.81l1.034,1.443l3.069-0.13l2.938-3.743l-0.172-2.222l-5.533-0.867L452.14,375.236z"></path>
+<path class="cty eu" data-cc="ro" d="M457.731,401.281l-0.226,1.279l-5.005,4.166l4.184,6.137l2.682,1.877h4.823l1.591-1.331l2.135-0.276l1.591,0.959l2.818-3.207l-0.545-1.607l-2.861-0.734l-1.953-0.095l0.094-2.749l-2.593-4.08L457.731,401.281L457.731,401.281z"></path>
+<path class="cty eu" data-cc="lv" d="M462.823,369.964l-6.362-1.037l-1.086,2.823l-1.833,0.548l-0.959-1.173l-0.962-1.811l-1.038,0.762l-0.589,3.132v1.708l2.242-0.375l4.665,0.083l5.617,1.044l2.249-0.657l-0.13-2.524L462.823,369.964L462.823,369.964z"></path>
+<path class="cty eu" data-cc="pt" d="M387.499,421.716l-0.536,7.478l-1.53,1.384l0.156,0.846l1.071,1.772l-0.691,2.16l1.149,0.39l2.68-0.312l-0.155-2.16l1.756-10.02l-0.382-1.383L387.499,421.716L387.499,421.716z"></path>
+<path class="cty nb" data-cc="mk" d="M456.643,418.924l-2.912,0.959l0.139,2.473l0.683,0.873l3.458-1.606L456.643,418.924L456.643,418.924z"></path>
+<path class="cty eu" data-cc="ie" d="M394.915,383.085l-0.786,5.187l-6.975,2.56h-2.223l-1.582-1.115v-0.96l3.492-2.238l-0.951-1.92l0.156-2.714l3.018,0.155l1.383-3.25l-0.183,2.887l2.344,1.858L394.915,383.085L394.915,383.085z"></path>
+<path class="cty nb" data-cc="no" d="M460.567,327.409l1.747-1.279l-0.157-1.435l-1.106-0.641l0.157-1.754h0.95v-0.96l-4.123-1.114l-6.181,0.64l-0.631,2.714l-1.428-0.477l-0.951-1.599l-3.017,0.155l-0.32,3.033l-1.426,0.641l-0.795-1.6l-6.345,5.109l1.271,1.436l-2.378,1.115l-5.393,10.701l-1.901,1.279l0.155,0.959l1.9,0.959l-0.475,2.074l-3.173-0.164l-0.952-1.115l-2.057,2.395l-1.271,0.959l-0.32,2.24l-1.105,0.64l-2.854,0.64l-1.426,4.479l0.951,7.348l1.106,3.354l1.271,1.279l2.853-0.156l4.124-3.994l1.581-2.713l0.478,3.992l2.697-4.789l0.154-13.424l2.195-1.383l0.657-7.408l6.655-9.586l3.173-1.115l1.427-1.755l4.754,1.115l2.377,1.435l0.796-3.992l3.968-2.396L460.567,327.409L460.567,327.409z"></path>
+        </svg>
+        <div class="scale"><span>0 %</span><span class="sbar"></span><span><span class="gtl de">am meisten</span><span class="gtl en">most</span><span class="gtl sk">najviac</span><span class="gtl hr">najviše</span><span class="gtl pl">najwięcej</span><span class="gtl es">más</span><span class="gtl it">di più</span><span class="gtl fr">le plus</span><span class="gtl sv">mest</span></span></div>
+      </div>
+      <div>
+        <div class="panel" id="panel"></div>
+        <div class="lead"><h3><span class="gtl de">Länder-Rangliste</span><span class="gtl en">Country ranking</span><span class="gtl sk">Rebríček krajín</span><span class="gtl hr">Poredak zemalja</span><span class="gtl pl">Ranking krajów</span><span class="gtl es">Clasificación de países</span><span class="gtl it">Classifica dei paesi</span><span class="gtl fr">Classement des pays</span><span class="gtl sv">Landsranking</span></h3><div id="lead"></div></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -196,6 +281,7 @@ function setL(l){
   document.getElementById('lk-foot').href='index.html?lang='+l;
   document.getElementById('lk-reg').href='https://register.foxprof.club/register.html?lang='+l;
   renderImpact(); renderStats(); buildShare(); refreshBtn();
+  if(!selCC){ var pp=document.getElementById('panel'); if(pp) pp.innerHTML='<div class="det">'+(PHINT[L()]||'')+'</div>'; }
 }
 function setMonthly(m){ monthly=m;
   document.getElementById('t-once').classList.toggle('on',!m);
@@ -270,12 +356,52 @@ function renderStats(){
       document.getElementById('s-last').textContent=eur(s.last.amount||0)+' \u00B7 '+dt.toLocaleDateString(L()); }
     else document.getElementById('s-last').textContent='\u2014';
   }
-  renderCountries();
+  renderCountries(); paintMap(); buildLead(); if(selCC) showCountry(selCC);
 }
 async function loadStats(){
   try{ var r=await fetch(WORKER,{method:'GET'}); var d=await r.json(); if(d && typeof d.raised==='number') STATS=d; }catch(e){}
   renderStats();
 }
+var PRANK={"de":"Rang", "en":"rank", "sk":"poradie", "hr":"poredak", "pl":"pozycja", "es":"posición", "it":"posizione", "fr":"rang", "sv":"placering"};
+var PNONE={"de":"noch keine Spende", "en":"no donation yet", "sk":"zatiaľ bez daru", "hr":"još bez donacije", "pl":"brak wpłat", "es":"aún sin donaciones", "it":"ancora nessuna donazione", "fr":"aucun don pour l'instant", "sv":"ingen gåva ännu"};
+var PHINT={"de":"Klicken Sie auf ein Land auf der Karte oder in der Rangliste.", "en":"Click a country on the map or in the ranking.", "sk":"Klikni na krajinu na mape alebo v rebríčku.", "hr":"Klikni na zemlju na karti ili u poretku.", "pl":"Kliknij kraj na mapie lub w rankingu.", "es":"Haz clic en un país en el mapa o en la clasificación.", "it":"Clicca su un paese sulla mappa o nella classifica.", "fr":"Cliquez sur un pays sur la carte ou dans le classement.", "sv":"Klicka på ett land på kartan eller i rankingen."};
+var PFIRST={"de":"Seien Sie die Ersten für %s!", "en":"Be the first for %s!", "sk":"Buďte prví za %s!", "hr":"Budite prvi za %s!", "pl":"Bądź pierwszy dla %s!", "es":"¡Sé el primero por %s!", "it":"Sii il primo per %s!", "fr":"Soyez le premier pour %s !", "sv":"Var först för %s!"};
+var ROSTER=["DE","GB","SK","HR","PL","ES","IT","FR","SE","FI","DK","CH","NL","HU","MC","UA"];
+var selCC=null;
+function hx(h){h=h.replace('#','');return [0,2,4].map(function(i){return parseInt(h.substr(i,2),16);});}
+function mixc(a,b,t){a=hx(a);b=hx(b);return '#'+[0,1,2].map(function(i){var v=Math.round(a[i]+(b[i]-a[i])*t);return ('0'+v.toString(16)).slice(-2);}).join('');}
+function cname(cc){ try{ return new Intl.DisplayNames([L()],{type:'region'}).of(cc.toUpperCase())||cc.toUpperCase(); }catch(e){ return cc.toUpperCase(); } }
+function cflag(cc){ return 'https://flagcdn.com/'+cc.toLowerCase()+'.svg'; }
+function ccData(){ var C=(STATS&&STATS.countries)||{}, t=0,mx=0; Object.keys(C).forEach(function(k){t+=C[k]; if(C[k]>mx)mx=C[k];}); return {C:C,total:t,max:mx}; }
+function cShare(cc){ var d=ccData(); cc=cc.toUpperCase(); return d.total>0? (d.C[cc]||0)/d.total*100 : 0; }
+function cRank(cc){ var d=ccData(); var r=Object.keys(d.C).map(function(k){return [k.toUpperCase(),d.C[k]];}).sort(function(a,b){return b[1]-a[1];}); cc=cc.toUpperCase(); for(var i=0;i<r.length;i++) if(r[i][0]===cc) return i+1; return null; }
+function paintMap(){ var d=ccData();
+  document.querySelectorAll('.cty.eu').forEach(function(p){ var cc=(p.getAttribute('data-cc')||'').toUpperCase(); var v=d.C[cc]||0;
+    p.style.fill = v>0 ? mixc('#bfe3cd','#0B7A3B', d.max>0? v/d.max:0) : '#e9eff5'; });
+}
+function showCountry(cc){ cc=cc.toUpperCase(); selCC=cc; var d=ccData(); var v=d.C[cc]||0, s=cShare(cc), r=cRank(cc);
+  document.querySelectorAll('.cty.sel').forEach(function(x){x.classList.remove('sel');});
+  document.querySelectorAll('.cty[data-cc="'+cc.toLowerCase()+'"]').forEach(function(x){x.classList.add('sel');});
+  var p=document.getElementById('panel'); if(!p) return;
+  var h='<div class="cn"><img src="'+cflag(cc)+'" alt="">'+cname(cc)+'</div>';
+  h+='<div class="pct">'+(s>0? s.toFixed(1).replace('.',',')+' %':'0 %')+'</div>';
+  if(v>0){ h+='<div class="det">'+eur(v)+' · '+(PRANK[L()]||'')+' '+r+'.</div>'; }
+  else { h+='<div class="det">'+(PNONE[L()]||'')+'</div><div class="first">'+(PFIRST[L()]||'%s').replace('%s',cname(cc))+' '+String.fromCodePoint(128293)+'</div>'; }
+  p.innerHTML=h;
+}
+function buildLead(){ var d=ccData(); var box=document.getElementById('lead'); if(!box) return; box.innerHTML='';
+  var set={}; ROSTER.forEach(function(c){set[c]=1;}); Object.keys(d.C).forEach(function(k){set[k.toUpperCase()]=1;});
+  var list=Object.keys(set).map(function(cc){return [cc, cShare(cc), d.C[cc]||0];});
+  list.sort(function(a,b){ return b[1]-a[1] || b[2]-a[2] || cname(a[0]).localeCompare(cname(b[0])); });
+  list.forEach(function(s,i){ var cc=s[0], pct=s[1];
+    var row=document.createElement('div'); row.className='lrow'; row.style.cursor='pointer';
+    row.innerHTML='<span class="rk">'+(i+1)+'.</span><img src="'+cflag(cc)+'" alt=""><span class="nm">'+cname(cc)+'</span>'+
+      '<span class="lb"><i style="width:'+pct.toFixed(1)+'%"></i></span><span class="pc">'+(pct>0? pct.toFixed(1).replace('.',',')+'%':'0 %')+'</span>';
+    row.addEventListener('click',function(){showCountry(cc);});
+    box.appendChild(row);
+  });
+}
+document.querySelectorAll('.cty.eu').forEach(function(p){ p.addEventListener('click',function(){ showCountry(p.getAttribute('data-cc')); }); });
 document.querySelectorAll('.flags .f').forEach(function(b){ b.addEventListener('click',function(){ setL(b.dataset.l); }); });
 (function(){ var p=new URLSearchParams(location.search).get('lang'); setL(LANGS.indexOf(p)>=0?p:'sk'); fetchImpact(); loadStats(); })();
 </script>
