@@ -6,7 +6,7 @@
 <title>Podporte FIA FOX — Za férový internet bez kartelov v Európe</title>
 <meta name="description" content="Občianska iniciatíva za férový internet a spravodlivú hospodársku súťaž v EÚ. Vaša donácia umožňuje právne presadzovanie vo verejnom záujme.">
 <meta property="og:title" content="Podporte FIA FOX — Za férový internet bez kartelov v Európe">
-<meta property="og:description" content="Občianska iniciatíva za férový internet a spravodlivú hospodársku súťaž v EÚ. Vaša donácia umožňuje právne presadzovanie vo verejnom záujme.">
+<meta property="og:description" content="Občianska iniciatíva za férový internet a spravodlivú hospodársku súťaž v EÚ.">
 <meta property="og:image" content="https://register.foxprof.club/obrazky/03_og_1200x630.jpg">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://register.foxprof.club/podporte.html">
@@ -16,18 +16,38 @@
   body{margin:0;background:var(--bg);color:#22303f;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
   .wrap{max-width:960px;margin:0 auto;padding:18px 16px 60px}
   a{color:var(--navy)}
-  .top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+  .top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
   .btn-home{background:#fff;color:var(--navy);border:1px solid var(--navy);border-radius:6px;padding:6px 14px;font-weight:700;text-decoration:none;font-size:14px}
+  .flags{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .flags .f{padding:0;border:2px solid transparent;background:none;border-radius:4px;cursor:pointer;line-height:0}
+  .flags .f img{width:30px;height:20px;display:block;border-radius:2px;box-shadow:0 0 0 1px #cdd8e6}
+  .flags .f.on{border-color:var(--navy)}
   .hero{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:stretch;margin-bottom:26px}
   @media(max-width:720px){.hero{grid-template-columns:1fr}}
   .hero img{width:100%;height:100%;object-fit:cover;border-radius:10px;aspect-ratio:1/1;background:#dbe5f1}
   .hero-r{display:flex;flex-direction:column;justify-content:center}
   h1{color:var(--navy);font-size:26px;line-height:1.25;margin:0 0 14px}
-  .goal{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:16px 18px}
-  .goal .lbl{font-size:13px;color:#5a6b7d;text-transform:uppercase;letter-spacing:.05em}
-  .goal .amt{font-size:26px;font-weight:800;color:var(--navy);margin:2px 0 10px}
-  .bar{height:12px;background:#e6edf5;border-radius:99px;overflow:hidden}
-  .bar>i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#0b72d9,var(--green))}
+  .stats{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:16px 18px}
+  .srow{display:flex;justify-content:space-between;gap:14px;align-items:flex-end}
+  .stats .lbl{font-size:12px;color:#5a6b7d;text-transform:uppercase;letter-spacing:.05em}
+  .stats .amt{font-weight:800;color:var(--navy)}
+  .stats .amt.big{font-size:26px}.stats .amt.mid{font-size:20px}.stats .amt.sm{font-size:16px}
+  .bar{height:12px;background:#e6edf5;border-radius:99px;overflow:hidden;margin:12px 0 4px}
+  .bar>i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#0b72d9,var(--green));transition:width .6s}
+  .remain{font-size:12.5px;color:#5a6b7d;margin:0 0 4px}.remain b{color:var(--navy)}
+  .srow2{display:flex;justify-content:space-between;gap:14px;border-top:1px solid #eef2f7;padding-top:10px;margin-top:8px}
+  .srow2 .s{flex:1}.srow2 .s.r{text-align:right}
+  .more2{font-size:12px;color:#5a6b7d;margin-top:8px}.more2 b{color:var(--navy)}
+  .cc{margin-top:12px;border-top:1px solid #eef2f7;padding-top:10px}
+  .cc .lbl{font-size:12px;color:#5a6b7d;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+  .ccbar{display:flex;height:14px;border-radius:99px;overflow:hidden;background:#e6edf5}
+  .ccbar .seg{height:100%}
+  .cc-legend{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:8px;font-size:12px;color:#3d4d5e}
+  .cc-legend .cl{display:inline-flex;align-items:center;gap:5px}
+  .cc-legend .cl img{width:18px;height:12px;border-radius:2px;box-shadow:0 0 0 1px #cdd8e6}
+  .cc-legend .cl .sw{width:14px;height:12px;border-radius:2px;display:inline-block}
+  .impact{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:12px}
+  .impact span{background:#eef4fb;border:1px solid #dbe7f5;border-radius:99px;padding:3px 10px;font-size:12.5px;font-weight:700;color:var(--navy)}
   .card{background:#fff;border:1px solid var(--bd);border-radius:12px;padding:22px;margin-bottom:22px}
   .card h2{color:var(--navy);font-size:20px;margin:0 0 14px}
   .toggle{display:flex;gap:8px;margin-bottom:16px}
@@ -43,47 +63,59 @@
   .anon{display:flex;align-items:flex-start;gap:9px;margin-bottom:18px;font-size:14px;color:#3d4d5e;cursor:pointer}
   .anon input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}
   .give{width:100%;padding:16px;border:0;border-radius:10px;background:var(--green);color:#fff;font-size:19px;font-weight:800;cursor:pointer}
-  .give:hover{background:#0a6a34}
-  .give:disabled{opacity:.6;cursor:default}
-  .msg{margin-top:12px;font-size:14px;min-height:18px}
-  .msg.err{color:var(--red);font-weight:600}
+  .give:hover{background:#0a6a34}.give:disabled{opacity:.6;cursor:default}
+  .msg{margin-top:12px;font-size:14px;min-height:18px}.msg.err{color:var(--red);font-weight:600}
   .note{font-size:12.5px;color:#7a8899;margin-top:10px;text-align:center}
-  .txt p{margin:0 0 12px}
-  .txt strong{color:var(--navy)}
-  .txt ul{margin:0 0 14px;padding-left:22px}
-  .txt li{margin:3px 0}
+  .txt p{margin:0 0 12px}.txt h3{color:var(--navy);font-size:17px;margin:16px 0 8px}
+  .txt ul{margin:0 0 14px;padding-left:22px}.txt li{margin:3px 0}
   .share{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:8px 0 0}
   .share a{background:var(--navy);color:#fff;text-decoration:none;border-radius:6px;padding:8px 13px;font-size:13px;font-weight:600}
   .share a.copy{background:var(--green)}
+  .shhead{text-align:center;color:var(--navy);font-size:16px;margin:0 0 10px}
   .foot{text-align:center;margin-top:26px}
   .foot a{background:var(--red);color:#fff;text-decoration:none;border-radius:6px;padding:8px 16px;font-weight:700;font-size:14px}
-</style>
+  .gtl{display:none}
+body[data-l="de"] .gtl.de{display:inline}body[data-l="en"] .gtl.en{display:inline}body[data-l="sk"] .gtl.sk{display:inline}body[data-l="hr"] .gtl.hr{display:inline}body[data-l="pl"] .gtl.pl{display:inline}body[data-l="es"] .gtl.es{display:inline}body[data-l="it"] .gtl.it{display:inline}body[data-l="fr"] .gtl.fr{display:inline}body[data-l="sv"] .gtl.sv{display:inline}</style>
 </head>
-<body>
+<body data-l="sk">
 <div class="wrap">
-
   <div class="top">
-    <a class="btn-home" href="index.html">← Domov</a>
-    <a class="btn-home" href="https://register.foxprof.club/register.html">Register káuz</a>
+    <a class="btn-home" id="lk-home" href="index.html"><span class="gtl de">← Startseite</span><span class="gtl en">← Home</span><span class="gtl sk">← Domov</span><span class="gtl hr">← Početna</span><span class="gtl pl">← Strona główna</span><span class="gtl es">← Inicio</span><span class="gtl it">← Home</span><span class="gtl fr">← Accueil</span><span class="gtl sv">← Hem</span></a>
+    <a class="btn-home" id="lk-reg" href="https://register.foxprof.club/register.html"><span class="gtl de">Fallregister</span><span class="gtl en">Case register</span><span class="gtl sk">Register káuz</span><span class="gtl hr">Registar predmeta</span><span class="gtl pl">Rejestr spraw</span><span class="gtl es">Registro de casos</span><span class="gtl it">Registro dei casi</span><span class="gtl fr">Registre des affaires</span><span class="gtl sv">Ärenderegister</span></a>
   </div>
-
+  <div class="flags" role="group" aria-label="Language"><button class="f" data-l="de" title="DE"><img src="https://flagcdn.com/de.svg" alt="DE"></button><button class="f" data-l="en" title="EN"><img src="https://flagcdn.com/gb.svg" alt="EN"></button><button class="f on" data-l="sk" title="SK"><img src="https://flagcdn.com/sk.svg" alt="SK"></button><button class="f" data-l="hr" title="HR"><img src="https://flagcdn.com/hr.svg" alt="HR"></button><button class="f" data-l="pl" title="PL"><img src="https://flagcdn.com/pl.svg" alt="PL"></button><button class="f" data-l="es" title="ES"><img src="https://flagcdn.com/es.svg" alt="ES"></button><button class="f" data-l="it" title="IT"><img src="https://flagcdn.com/it.svg" alt="IT"></button><button class="f" data-l="fr" title="FR"><img src="https://flagcdn.com/fr.svg" alt="FR"></button><button class="f" data-l="sv" title="SV"><img src="https://flagcdn.com/se.svg" alt="SV"></button></div>
   <div class="hero">
-    <img src="obrazky/03_02-Verzia-Wordpress-cower-page.jpg" alt="FIA FOX — za férový internet bez kartelov v Európe">
+    <img src="obrazky/03_02-Verzia-Wordpress-cower-page.jpg" alt="FIA FOX">
     <div class="hero-r">
-      <h1>Za férový internet bez kartelov v Európe</h1>
-      <div class="goal">
-        <div class="lbl">Cieľ zbierky</div>
-        <div class="amt">3 900 €</div>
-        <div class="bar"><i style="width:0%"></i></div>
+      <h1><span class="gtl de">Für ein faires Internet ohne Kartelle in Europa</span><span class="gtl en">For a fair internet without cartels in Europe</span><span class="gtl sk">Za férový internet bez kartelov v Európe</span><span class="gtl hr">Za pošten internet bez kartela u Europi</span><span class="gtl pl">Za uczciwy internet bez karteli w Europie</span><span class="gtl es">Por un internet justo sin cárteles en Europa</span><span class="gtl it">Per un internet equo senza cartelli in Europa</span><span class="gtl fr">Pour un internet équitable sans ententes en Europe</span><span class="gtl sv">För ett rättvist internet utan karteller i Europa</span></h1>
+      <div class="stats">
+        <div class="srow">
+          <div class="s"><div class="lbl"><span class="gtl de">Gesammelt</span><span class="gtl en">Amount raised</span><span class="gtl sk">Vyzbierané</span><span class="gtl hr">Prikupljeno</span><span class="gtl pl">Zebrano</span><span class="gtl es">Recaudado</span><span class="gtl it">Raccolti</span><span class="gtl fr">Montant collecté</span><span class="gtl sv">Insamlat</span></div><div class="amt big" id="s-raised">0,00 €</div></div>
+          <div class="s r"><div class="lbl"><span class="gtl de">Unser Ziel</span><span class="gtl en">Our goal</span><span class="gtl sk">Náš cieľ</span><span class="gtl hr">Naš cilj</span><span class="gtl pl">Nasz cel</span><span class="gtl es">Nuestra meta</span><span class="gtl it">Il nostro obiettivo</span><span class="gtl fr">Notre objectif</span><span class="gtl sv">Vårt mål</span></div><div class="amt mid" id="s-goal">3 900,00 €</div></div>
+        </div>
+        <div class="bar"><i id="s-bar" style="width:0%"></i></div>
+        <div class="remain"><span><span class="gtl de">Bis zum Ziel fehlen</span><span class="gtl en">Remaining to goal</span><span class="gtl sk">Do cieľa zostáva</span><span class="gtl hr">Do cilja nedostaje</span><span class="gtl pl">Do celu brakuje</span><span class="gtl es">Para la meta faltan</span><span class="gtl it">Al traguardo mancano</span><span class="gtl fr">Reste à collecter</span><span class="gtl sv">Kvar till målet</span></span>: <b id="s-remain">3 900,00 €</b></div>
+        <div class="srow2" id="grp-more" hidden>
+          <div class="s"><div class="lbl"><span class="gtl de">Höchste Spende</span><span class="gtl en">Top donation</span><span class="gtl sk">Najvyšší dar</span><span class="gtl hr">Najveća donacija</span><span class="gtl pl">Najwyższa darowizna</span><span class="gtl es">Donación más alta</span><span class="gtl it">Donazione più alta</span><span class="gtl fr">Don le plus élevé</span><span class="gtl sv">Största gåvan</span></div><div class="amt sm" id="s-top">—</div></div>
+          <div class="s"><div class="lbl"><span class="gtl de">Unterstützer</span><span class="gtl en">Supporters</span><span class="gtl sk">Podporovatelia</span><span class="gtl hr">Podupiratelji</span><span class="gtl pl">Wspierający</span><span class="gtl es">Donantes</span><span class="gtl it">Sostenitori</span><span class="gtl fr">Donateurs</span><span class="gtl sv">Supportrar</span></div><div class="amt sm" id="s-count">—</div></div>
+          <div class="s r"><div class="lbl"><span class="gtl de">Durchschnittliche Spende</span><span class="gtl en">Average donation</span><span class="gtl sk">Priemerný dar</span><span class="gtl hr">Prosječna donacija</span><span class="gtl pl">Średnia darowizna</span><span class="gtl es">Donación media</span><span class="gtl it">Donazione media</span><span class="gtl fr">Don moyen</span><span class="gtl sv">Genomsnittlig gåva</span></div><div class="amt sm" id="s-avg">—</div></div>
+        </div>
+        <div class="more2" id="grp-more2" hidden><span><span class="gtl de">Monatliche Unterstützer</span><span class="gtl en">Monthly supporters</span><span class="gtl sk">Mesační podporovatelia</span><span class="gtl hr">Mjesečni podupiratelji</span><span class="gtl pl">Wspierający miesięcznie</span><span class="gtl es">Donantes mensuales</span><span class="gtl it">Sostenitori mensili</span><span class="gtl fr">Donateurs mensuels</span><span class="gtl sv">Månatliga supportrar</span></span>: <b id="s-monthly">0</b> · <span><span class="gtl de">Letzte Spende</span><span class="gtl en">Latest donation</span><span class="gtl sk">Posledný dar</span><span class="gtl hr">Zadnja donacija</span><span class="gtl pl">Ostatnia wpłata</span><span class="gtl es">Última donación</span><span class="gtl it">Ultima donazione</span><span class="gtl fr">Dernier don</span><span class="gtl sv">Senaste gåvan</span></span>: <b id="s-last">—</b></div>
+        <div class="cc" id="cc" hidden>
+          <div class="lbl"><span class="gtl de">Unterstützung nach Ländern</span><span class="gtl en">Support by country</span><span class="gtl sk">Podpora podľa krajín</span><span class="gtl hr">Podrška po zemljama</span><span class="gtl pl">Wsparcie według krajów</span><span class="gtl es">Apoyo por país</span><span class="gtl it">Sostegno per paese</span><span class="gtl fr">Soutien par pays</span><span class="gtl sv">Stöd per land</span></div>
+          <div class="ccbar" id="cc-bar"></div>
+          <div class="cc-legend" id="cc-legend"></div>
+        </div>
       </div>
+      <div class="impact" id="impact"></div>
     </div>
   </div>
 
   <div class="card">
-    <h2>Podporte iniciatívu</h2>
+    <h2><span class="gtl de">Unterstützen Sie die Initiative</span><span class="gtl en">Support the initiative</span><span class="gtl sk">Podporte iniciatívu</span><span class="gtl hr">Podržite inicijativu</span><span class="gtl pl">Wesprzyj inicjatywę</span><span class="gtl es">Apoye la iniciativa</span><span class="gtl it">Sostieni l'iniziativa</span><span class="gtl fr">Soutenez l'initiative</span><span class="gtl sv">Stöd initiativet</span></h2>
     <div class="toggle">
-      <button id="t-once" class="on" onclick="setMonthly(false)">Jednorazovo</button>
-      <button id="t-month" onclick="setMonthly(true)">Mesačne</button>
+      <button id="t-once" class="on" onclick="setMonthly(false)"><span class="gtl de">Einmalig</span><span class="gtl en">One-time</span><span class="gtl sk">Jednorazovo</span><span class="gtl hr">Jednokratno</span><span class="gtl pl">Jednorazowo</span><span class="gtl es">Una vez</span><span class="gtl it">Una tantum</span><span class="gtl fr">Ponctuel</span><span class="gtl sv">Engång</span></button>
+      <button id="t-month" onclick="setMonthly(true)"><span class="gtl de">Monatlich</span><span class="gtl en">Monthly</span><span class="gtl sk">Mesačne</span><span class="gtl hr">Mjesečno</span><span class="gtl pl">Miesięcznie</span><span class="gtl es">Mensual</span><span class="gtl it">Mensile</span><span class="gtl fr">Mensuel</span><span class="gtl sv">Månadsvis</span></button>
     </div>
     <div class="amts" id="amts">
       <button data-a="10" onclick="pickAmt(this,10)">10 €</button>
@@ -92,90 +124,160 @@
       <button data-a="150" onclick="pickAmt(this,150)">150 €</button>
       <button data-a="250" onclick="pickAmt(this,250)">250 €</button>
     </div>
-    <div class="custom">
-      <span>€</span>
-      <input id="custom" type="number" min="2" step="1" placeholder="Vlastná suma" oninput="pickCustom()">
-    </div>
-    <label class="anon"><input type="checkbox" id="anon"> <span>Meno nezverejniť! (darujem anonymne — moje meno sa nezobrazí ani nezverejní)</span></label>
-    <button class="give" id="give" onclick="darovat()">Darovať <span id="give-amt"></span></button>
+    <div class="custom"><span>€</span><input id="custom" type="number" min="2" step="1" oninput="pickCustom()"></div>
+    <label class="anon"><input type="checkbox" id="anon"> <span><span class="gtl de">Namen nicht veröffentlichen! (Ich spende anonym – mein Name wird weder angezeigt noch veröffentlicht.)</span><span class="gtl en">Don't publish my name! (I donate anonymously — my name will not be shown or published.)</span><span class="gtl sk">Meno nezverejniť! (darujem anonymne — moje meno sa nezobrazí ani nezverejní)</span><span class="gtl hr">Ne objavljuj ime! (doniram anonimno — moje ime neće biti prikazano ni objavljeno)</span><span class="gtl pl">Nie ujawniaj imienia! (wpłacam anonimowo — moje imię nie zostanie pokazane ani opublikowane)</span><span class="gtl es">¡No publicar mi nombre! (dono de forma anónima — mi nombre no se mostrará ni publicará)</span><span class="gtl it">Non pubblicare il nome! (dono in modo anonimo — il mio nome non sarà mostrato né pubblicato)</span><span class="gtl fr">Ne pas publier mon nom ! (je fais un don anonyme — mon nom ne sera ni affiché ni publié)</span><span class="gtl sv">Publicera inte mitt namn! (jag ger anonymt — mitt namn visas eller publiceras inte)</span></span></label>
+    <button class="give" id="give" onclick="darovat()"><span class="giv-lbl"><span class="gtl de">Spenden</span><span class="gtl en">Donate</span><span class="gtl sk">Darovať</span><span class="gtl hr">Doniraj</span><span class="gtl pl">Wpłać</span><span class="gtl es">Donar</span><span class="gtl it">Dona</span><span class="gtl fr">Faire un don</span><span class="gtl sv">Ge en gåva</span></span> <span id="give-amt"></span></button>
     <div class="msg" id="msg"></div>
-    <div class="note">Platba prebieha bezpečne cez Stripe. Kartu, potvrdenie aj doklad vybaví Stripe. Mesačný dar môžete kedykoľvek zrušiť.</div>
+    <div class="note"><span class="gtl de">Die Zahlung erfolgt sicher über Stripe. Karte, Bestätigung und Beleg wickelt Stripe ab. Die monatliche Spende können Sie jederzeit kündigen.</span><span class="gtl en">Payment is processed securely via Stripe. Card, confirmation and receipt are handled by Stripe. You can cancel a monthly donation at any time.</span><span class="gtl sk">Platba prebieha bezpečne cez Stripe. Kartu, potvrdenie aj doklad vybaví Stripe. Mesačný dar môžete kedykoľvek zrušiť.</span><span class="gtl hr">Plaćanje se odvija sigurno putem Stripea. Karticu, potvrdu i račun obrađuje Stripe. Mjesečnu donaciju možete otkazati u bilo kojem trenutku.</span><span class="gtl pl">Płatność odbywa się bezpiecznie przez Stripe. Kartę, potwierdzenie i rachunek obsługuje Stripe. Miesięczną wpłatę możesz anulować w dowolnym momencie.</span><span class="gtl es">El pago se realiza de forma segura a través de Stripe. La tarjeta, la confirmación y el recibo los gestiona Stripe. Puede cancelar la donación mensual en cualquier momento.</span><span class="gtl it">Il pagamento avviene in modo sicuro tramite Stripe. Carta, conferma e ricevuta sono gestite da Stripe. Puoi annullare la donazione mensile in qualsiasi momento.</span><span class="gtl fr">Le paiement s'effectue en toute sécurité via Stripe. La carte, la confirmation et le reçu sont gérés par Stripe. Vous pouvez annuler un don mensuel à tout moment.</span><span class="gtl sv">Betalningen sker säkert via Stripe. Kort, bekräftelse och kvitto hanteras av Stripe. Du kan avbryta en månadsgåva när som helst.</span></div>
   </div>
 
   <div class="card txt">
-    <p>FIA FOX je občianska iniciatíva za férový internet a spravodlivú hospodársku súťaž v Európskej únii.</p>
-    <p>Vystupujeme proti protisúťažným kartelovým a monopolistickým praktikám korporácií s dominantným postavením na trhu, ktoré podľa názoru iniciatívy vedú k ich neoprávnenému obohacovaniu, k neprimerane vysokým cenám, k obmedzovaniu spravodlivej hospodárskej súťaže a k zásahom do majetkových práv občanov Európskej únie.</p>
-    <p><strong>Prečo potrebujeme vašu podporu</strong></p>
-    <p>Iniciatíva pracuje nezávisle a bez externého financovania od firiem či inštitúcií. Vaša donácia umožňuje právne presadzovanie vo verejnom záujme.</p>
-    <p>Vaša donácia pokrýva:</p>
-    <ul>
-      <li>súdne a procesné náklady</li>
-      <li>znalecké posudky a právnu rešerš</li>
-      <li>poštovné, preklady a IT-infraštruktúru</li>
-      <li>internet a telefón, softvérové aplikácie a licencie</li>
-      <li>cestovné</li>
-      <li>poplatky a náklady spojené so založením a registráciou občianskeho združenia</li>
-      <li>bežnú réžiu chodu kancelárie</li>
-    </ul>
-    <p><strong>Transparentnosť</strong></p>
-    <p>Zverejňujeme, že dary pokrývajú nielen náklady na konania, ale aj bežnú réžiu chodu kancelárie a plnohodnotnú koordináciu našej iniciatívy. Každý príspevok posilňuje našu schopnosť dokumentovať podozrenia z nezákonných antitrustových praktík, právne ich napádať a uplatňovať pred príslušnými európskymi orgánmi — s cieľom zákonnou cestou priviesť dotknutých aktérov do konkurenčného postavenia a dosiahnuť spravodlivý súdny proces.</p>
-    <p>Každá donácia — jednorazová či mesačná — nás približuje k férovému a dostupnému internetu v Európe.</p>
-    <p><strong>Zdieľajte túto zbierku — je to zadarmo a je to to najúčinnejšie, čo môžete urobiť popri finančnej podpore!</strong> Platená reklama na občianske témy je v EÚ takmer nemožná, preto sa naše posolstvo šíri takmer výlučne cez vás. Každé zdieľanie privedie k FIA FOX ďalších občanov v celej EÚ.</p>
+    <p><span class="gtl de">FIA FOX ist eine Bürgerinitiative für ein faires Internet und fairen Wettbewerb in der Europäischen Union.</span><span class="gtl en">FIA FOX is a citizens' initiative for a fair internet and fair competition in the European Union.</span><span class="gtl sk">FIA FOX je občianska iniciatíva za férový internet a spravodlivú hospodársku súťaž v Európskej únii.</span><span class="gtl hr">FIA FOX je građanska inicijativa za pošten internet i pošteno tržišno natjecanje u Europskoj uniji.</span><span class="gtl pl">FIA FOX to inicjatywa obywatelska na rzecz uczciwego internetu i uczciwej konkurencji w Unii Europejskiej.</span><span class="gtl es">FIA FOX es una iniciativa ciudadana por un internet justo y una competencia leal en la Unión Europea.</span><span class="gtl it">FIA FOX è un'iniziativa dei cittadini per un internet equo e una concorrenza leale nell'Unione europea.</span><span class="gtl fr">FIA FOX est une initiative citoyenne pour un internet équitable et une concurrence loyale dans l'Union européenne.</span><span class="gtl sv">FIA FOX är ett medborgarinitiativ för ett rättvist internet och sund konkurrens i Europeiska unionen.</span></p>
+    <p><span class="gtl de">Wir wenden uns gegen wettbewerbswidrige Kartell- und Monopolpraktiken marktbeherrschender Konzerne, die nach Auffassung der Initiative zu deren ungerechtfertigter Bereicherung, zu überhöhten Preisen, zur Einschränkung des fairen Wettbewerbs und zu Eingriffen in die Vermögensrechte der Bürgerinnen und Bürger der Europäischen Union führen.</span><span class="gtl en">We oppose the anti-competitive cartel and monopoly practices of dominant corporations which, in the initiative's view, lead to their unjustified enrichment, to excessive prices, to the restriction of fair competition and to interference with the property rights of the citizens of the European Union.</span><span class="gtl sk">Vystupujeme proti protisúťažným kartelovým a monopolistickým praktikám korporácií s dominantným postavením na trhu, ktoré podľa názoru iniciatívy vedú k ich neoprávnenému obohacovaniu, k neprimerane vysokým cenám, k obmedzovaniu spravodlivej hospodárskej súťaže a k zásahom do majetkových práv občanov Európskej únie.</span><span class="gtl hr">Suprotstavljamo se protutržišnim kartelnim i monopolnim praksama vladajućih korporacija koje, prema inicijativi, vode njihovu neopravdanom bogaćenju, previsokim cijenama, ograničenju poštenog tržišnog natjecanja i zadiranju u imovinska prava građana Europske unije.</span><span class="gtl pl">Sprzeciwiamy się antykonkurencyjnym praktykom kartelowym i monopolowym dominujących koncernów, które zdaniem inicjatywy prowadzą do ich nieuzasadnionego wzbogacenia, do zawyżonych cen, do ograniczenia uczciwej konkurencji i do ingerencji w prawa majątkowe obywateli Unii Europejskiej.</span><span class="gtl es">Nos oponemos a las prácticas anticompetitivas de cártel y monopolio de las grandes empresas dominantes que, a juicio de la iniciativa, conducen a su enriquecimiento injustificado, a precios excesivos, a la restricción de la competencia leal y a injerencias en los derechos patrimoniales de los ciudadanos de la Unión Europea.</span><span class="gtl it">Ci opponiamo alle pratiche anticoncorrenziali di cartello e monopolio dei gruppi dominanti che, secondo l'iniziativa, portano al loro ingiustificato arricchimento, a prezzi eccessivi, alla restrizione della concorrenza leale e a interferenze nei diritti patrimoniali dei cittadini dell'Unione europea.</span><span class="gtl fr">Nous nous opposons aux pratiques anticoncurrentielles d'entente et de monopole des groupes dominants qui, selon l'initiative, conduisent à leur enrichissement injustifié, à des prix excessifs, à la restriction d'une concurrence loyale et à des atteintes aux droits patrimoniaux des citoyens de l'Union européenne.</span><span class="gtl sv">Vi motsätter oss konkurrensbegränsande kartell- och monopolmetoder hos dominerande koncerner som enligt initiativet leder till deras oberättigade berikning, till överpriser, till inskränkt sund konkurrens och till ingrepp i EU-medborgarnas egendomsrätt.</span></p>
+    <h3><span class="gtl de">Warum wir Ihre Unterstützung brauchen</span><span class="gtl en">Why we need your support</span><span class="gtl sk">Prečo potrebujeme vašu podporu</span><span class="gtl hr">Zašto trebamo vašu podršku</span><span class="gtl pl">Dlaczego potrzebujemy Twojego wsparcia</span><span class="gtl es">Por qué necesitamos su apoyo</span><span class="gtl it">Perché abbiamo bisogno del vostro sostegno</span><span class="gtl fr">Pourquoi nous avons besoin de votre soutien</span><span class="gtl sv">Varför vi behöver ditt stöd</span></h3>
+    <p><span class="gtl de">FIA FOX arbeitet unabhängig und ohne externe Finanzierung durch Unternehmen oder Institutionen. Ihre Spende ermöglicht die Rechtsdurchsetzung im öffentlichen Interesse.</span><span class="gtl en">FIA FOX works independently and without external funding from companies or institutions. Your donation makes legal enforcement in the public interest possible.</span><span class="gtl sk">FIA FOX pracuje nezávisle a bez externého financovania od firiem či inštitúcií. Vaša donácia umožňuje právne presadzovanie vo verejnom záujme.</span><span class="gtl hr">FIA FOX djeluje neovisno i bez vanjskog financiranja od tvrtki ili institucija. Vaša donacija omogućuje pravno provođenje u javnom interesu.</span><span class="gtl pl">FIA FOX działa niezależnie i bez zewnętrznego finansowania od firm czy instytucji. Twoja darowizna umożliwia egzekwowanie prawa w interesie publicznym.</span><span class="gtl es">FIA FOX trabaja de forma independiente y sin financiación externa de empresas o instituciones. Su donación hace posible la aplicación del Derecho en interés público.</span><span class="gtl it">FIA FOX opera in modo indipendente e senza finanziamenti esterni da imprese o istituzioni. La vostra donazione rende possibile l'applicazione del diritto nell'interesse pubblico.</span><span class="gtl fr">FIA FOX agit de manière indépendante et sans financement externe d'entreprises ou d'institutions. Votre don permet l'application du droit dans l'intérêt public.</span><span class="gtl sv">FIA FOX arbetar oberoende och utan extern finansiering från företag eller institutioner. Din gåva möjliggör rättslig efterlevnad i allmänhetens intresse.</span></p>
+    <p><span class="gtl de">Ihre Spende deckt:</span><span class="gtl en">Your donation covers:</span><span class="gtl sk">Vaša donácia pokrýva:</span><span class="gtl hr">Vaša donacija pokriva:</span><span class="gtl pl">Twoja darowizna pokrywa:</span><span class="gtl es">Su donación cubre:</span><span class="gtl it">La vostra donazione copre:</span><span class="gtl fr">Votre don couvre :</span><span class="gtl sv">Din gåva täcker:</span></p>
+    <ul><li><span class="gtl de">Gerichts- und Verfahrenskosten</span><span class="gtl en">court and procedural costs</span><span class="gtl sk">súdne a procesné náklady</span><span class="gtl hr">sudske i postupovne troškove</span><span class="gtl pl">koszty sądowe i procesowe</span><span class="gtl es">costes judiciales y procesales</span><span class="gtl it">spese giudiziarie e procedurali</span><span class="gtl fr">frais de justice et de procédure</span><span class="gtl sv">rättegångs- och processkostnader</span></li><li><span class="gtl de">Gutachten und Rechtsrecherche</span><span class="gtl en">expert opinions and legal research</span><span class="gtl sk">znalecké posudky a právnu rešerš</span><span class="gtl hr">vještačenja i pravna istraživanja</span><span class="gtl pl">opinie biegłych i badania prawne</span><span class="gtl es">dictámenes periciales e investigación jurídica</span><span class="gtl it">perizie e ricerca giuridica</span><span class="gtl fr">expertises et recherche juridique</span><span class="gtl sv">sakkunnigutlåtanden och juridisk research</span></li><li><span class="gtl de">Porto, Übersetzungen und IT-Infrastruktur</span><span class="gtl en">postage, translations and IT infrastructure</span><span class="gtl sk">poštovné, preklady a IT-infraštruktúru</span><span class="gtl hr">poštarinu, prijevode i IT infrastrukturu</span><span class="gtl pl">przesyłki pocztowe, tłumaczenia i infrastrukturę IT</span><span class="gtl es">franqueo, traducciones e infraestructura informática</span><span class="gtl it">spese postali, traduzioni e infrastruttura IT</span><span class="gtl fr">affranchissement, traductions et infrastructure informatique</span><span class="gtl sv">porto, översättningar och IT-infrastruktur</span></li><li><span class="gtl de">Internet und Telefon, Software-Anwendungen und Lizenzen</span><span class="gtl en">internet and phone, software applications and licences</span><span class="gtl sk">internet a telefón, softvérové aplikácie a licencie</span><span class="gtl hr">internet i telefon, softverske aplikacije i licencije</span><span class="gtl pl">internet i telefon, aplikacje i licencje</span><span class="gtl es">internet y teléfono, aplicaciones de software y licencias</span><span class="gtl it">internet e telefono, applicazioni software e licenze</span><span class="gtl fr">internet et téléphone, logiciels et licences</span><span class="gtl sv">internet och telefon, programvaror och licenser</span></li><li><span class="gtl de">Reisekosten</span><span class="gtl en">travel expenses</span><span class="gtl sk">cestovné</span><span class="gtl hr">putne troškove</span><span class="gtl pl">koszty podróży</span><span class="gtl es">gastos de viaje</span><span class="gtl it">spese di viaggio</span><span class="gtl fr">frais de déplacement</span><span class="gtl sv">resekostnader</span></li><li><span class="gtl de">Gebühren und Kosten für Gründung und Registrierung eines eingetragenen Vereins</span><span class="gtl en">fees and costs for founding and registering a civic association</span><span class="gtl sk">poplatky a náklady spojené so založením a registráciou občianskeho združenia</span><span class="gtl hr">naknade i troškove osnivanja i registracije građanske udruge</span><span class="gtl pl">opłaty i koszty założenia i rejestracji stowarzyszenia</span><span class="gtl es">tasas y costes de constitución y registro de una asociación civil</span><span class="gtl it">tasse e costi per la fondazione e registrazione di un'associazione</span><span class="gtl fr">frais de constitution et d'enregistrement d'une association</span><span class="gtl sv">avgifter och kostnader för att bilda och registrera en förening</span></li><li><span class="gtl de">laufende Bürokosten</span><span class="gtl en">day-to-day office running costs</span><span class="gtl sk">bežnú réžiu chodu kancelárie</span><span class="gtl hr">tekuće troškove ureda</span><span class="gtl pl">bieżące koszty biura</span><span class="gtl es">gastos corrientes de oficina</span><span class="gtl it">spese correnti d'ufficio</span><span class="gtl fr">frais courants de bureau</span><span class="gtl sv">löpande kontorskostnader</span></li></ul>
+    <h3><span class="gtl de">Transparenz</span><span class="gtl en">Transparency</span><span class="gtl sk">Transparentnosť</span><span class="gtl hr">Transparentnost</span><span class="gtl pl">Przejrzystość</span><span class="gtl es">Transparencia</span><span class="gtl it">Trasparenza</span><span class="gtl fr">Transparence</span><span class="gtl sv">Transparens</span></h3>
+    <p><span class="gtl de">Wir legen offen, dass die Spenden nicht nur die Verfahrenskosten decken, sondern auch die laufenden Bürokosten und die vollwertige Koordination unserer Initiative. Jeder Beitrag stärkt unsere Fähigkeit, Verdachtsfälle rechtswidriger Kartellpraktiken zu dokumentieren, rechtlich anzufechten und vor den zuständigen europäischen Stellen geltend zu machen — mit dem Ziel, die betroffenen Akteure auf rechtmäßigem Weg in den Wettbewerb zurückzuführen und ein faires Gerichtsverfahren zu erreichen.</span><span class="gtl en">We disclose that donations cover not only the costs of proceedings but also the day-to-day running of the office and the full coordination of our initiative. Every contribution strengthens our ability to document suspected unlawful antitrust practices, to challenge them legally and to assert them before the competent European authorities — with the aim of lawfully returning the actors concerned to competition and achieving a fair trial.</span><span class="gtl sk">Zverejňujeme, že dary pokrývajú nielen náklady na konania, ale aj bežnú réžiu chodu kancelárie a plnohodnotnú koordináciu našej iniciatívy. Každý príspevok posilňuje našu schopnosť dokumentovať podozrenia z nezákonných antitrustových praktík, právne ich napádať a uplatňovať pred príslušnými európskymi orgánmi — s cieľom zákonnou cestou priviesť dotknutých aktérov do konkurenčného postavenia a dosiahnuť spravodlivý súdny proces.</span><span class="gtl hr">Otkrivamo da donacije pokrivaju ne samo troškove postupaka, nego i tekuće troškove ureda te punu koordinaciju naše inicijative. Svaki prilog jača našu sposobnost dokumentiranja sumnji na nezakonite protutržišne prakse, njihova pravnog osporavanja i isticanja pred nadležnim europskim tijelima — s ciljem da se zakonitim putem dotični akteri vrate u tržišno natjecanje i postigne pravedno suđenje.</span><span class="gtl pl">Ujawniamy, że darowizny pokrywają nie tylko koszty postępowań, lecz także bieżące koszty biura i pełną koordynację naszej inicjatywy. Każda wpłata wzmacnia naszą zdolność do dokumentowania podejrzeń bezprawnych praktyk antymonopolowych, ich prawnego kwestionowania i dochodzenia przed właściwymi organami europejskimi — w celu zgodnego z prawem przywrócenia danych podmiotów do konkurencji i uzyskania sprawiedliwego procesu.</span><span class="gtl es">Divulgamos que las donaciones cubren no solo los costes de los procedimientos, sino también los gastos corrientes de la oficina y la plena coordinación de nuestra iniciativa. Cada aportación refuerza nuestra capacidad de documentar sospechas de prácticas antimonopolio ilícitas, de impugnarlas jurídicamente y de hacerlas valer ante las autoridades europeas competentes — con el fin de devolver por vía legal a los actores implicados a la competencia y lograr un juicio justo.</span><span class="gtl it">Rendiamo noto che le donazioni coprono non solo le spese dei procedimenti, ma anche le spese correnti dell'ufficio e il pieno coordinamento della nostra iniziativa. Ogni contributo rafforza la nostra capacità di documentare sospette pratiche antitrust illecite, di contestarle legalmente e di farle valere dinanzi alle autorità europee competenti — con l'obiettivo di riportare per vie legali gli attori coinvolti alla concorrenza e di ottenere un processo equo.</span><span class="gtl fr">Nous indiquons clairement que les dons couvrent non seulement les frais de procédure, mais aussi les frais courants de bureau et la pleine coordination de notre initiative. Chaque contribution renforce notre capacité à documenter des soupçons de pratiques anticoncurrentielles illicites, à les contester en justice et à les faire valoir devant les autorités européennes compétentes — dans le but de ramener légalement les acteurs concernés à la concurrence et d'obtenir un procès équitable.</span><span class="gtl sv">Vi redovisar öppet att gåvorna täcker inte bara kostnaderna för förfarandena utan även den löpande kontorsdriften och den fullständiga samordningen av vårt initiativ. Varje bidrag stärker vår förmåga att dokumentera misstänkta olagliga konkurrensmetoder, att bestrida dem rättsligt och att göra dem gällande inför behöriga europeiska myndigheter — i syfte att på laglig väg återföra de berörda aktörerna till konkurrens och uppnå en rättvis rättegång.</span></p>
+    <p><span class="gtl de">Jede Spende – ob einmalig oder monatlich – bringt uns einem fairen und erschwinglichen Internet in Europa näher.</span><span class="gtl en">Every donation — one-time or monthly — brings us closer to a fair and affordable internet in Europe.</span><span class="gtl sk">Každá donácia — jednorazová či mesačná — nás približuje k férovému a dostupnému internetu v Európe.</span><span class="gtl hr">Svaka donacija — jednokratna ili mjesečna — približava nas poštenom i pristupačnom internetu u Europi.</span><span class="gtl pl">Każda darowizna — jednorazowa czy miesięczna — przybliża nas do uczciwego i przystępnego internetu w Europie.</span><span class="gtl es">Cada donación — única o mensual — nos acerca a un internet justo y asequible en Europa.</span><span class="gtl it">Ogni donazione — una tantum o mensile — ci avvicina a un internet equo e accessibile in Europa.</span><span class="gtl fr">Chaque don — ponctuel ou mensuel — nous rapproche d'un internet équitable et abordable en Europe.</span><span class="gtl sv">Varje gåva — engångs eller månatlig — för oss närmare ett rättvist och prisvärt internet i Europa.</span></p>
+    <p><strong><span class="gtl de">Teilen Sie diese Spendenaktion — es ist kostenlos und das Wirksamste, was Sie neben der finanziellen Unterstützung tun können! Bezahlte Werbung für gesellschaftliche Themen ist in der EU nahezu unmöglich, deshalb verbreitet sich unsere Botschaft fast ausschließlich über Sie. Jedes Teilen bringt weitere Bürgerinnen und Bürger in der gesamten EU zu FIA FOX.</span><span class="gtl en">Share this fundraiser — it's free and it's the most effective thing you can do alongside financial support! Paid advertising for civic causes is almost impossible in the EU, so our message spreads almost entirely through you. Every share brings more citizens across the EU to FIA FOX.</span><span class="gtl sk">Zdieľajte túto zbierku — je to zadarmo a je to to najúčinnejšie, čo môžete urobiť popri finančnej podpore! Platená reklama na občianske témy je v EÚ takmer nemožná, preto sa naše posolstvo šíri takmer výlučne cez vás. Každé zdieľanie privedie k FIA FOX ďalších občanov v celej EÚ.</span><span class="gtl hr">Podijelite ovu akciju — besplatno je i najučinkovitije što možete učiniti uz financijsku podršku! Plaćeno oglašavanje za građanske teme u EU-u gotovo je nemoguće, pa se naša poruka širi gotovo isključivo preko vas. Svako dijeljenje dovodi FIA FOX-u nove građane diljem EU-a.</span><span class="gtl pl">Udostępnij tę zbiórkę — to nic nie kosztuje i jest najskuteczniejszą rzeczą, jaką możesz zrobić obok wsparcia finansowego! Płatna reklama tematów obywatelskich jest w UE niemal niemożliwa, dlatego nasze przesłanie rozprzestrzenia się niemal wyłącznie dzięki Tobie. Każde udostępnienie przyprowadza do FIA FOX kolejnych obywateli w całej UE.</span><span class="gtl es">¡Comparta esta recaudación — es gratis y es lo más eficaz que puede hacer junto con el apoyo económico! La publicidad pagada para causas cívicas es casi imposible en la UE, por lo que nuestro mensaje se difunde casi exclusivamente a través de usted. Cada vez que comparte, llegan más ciudadanos de toda la UE a FIA FOX.</span><span class="gtl it">Condividi questa raccolta — è gratis ed è la cosa più efficace che puoi fare oltre al sostegno economico! La pubblicità a pagamento per temi civici è quasi impossibile nell'UE, perciò il nostro messaggio si diffonde quasi esclusivamente grazie a te. Ogni condivisione porta a FIA FOX altri cittadini in tutta l'UE.</span><span class="gtl fr">Partagez cette collecte — c'est gratuit et c'est la chose la plus efficace que vous puissiez faire en plus du soutien financier ! La publicité payante pour des causes citoyennes est quasi impossible dans l'UE, c'est pourquoi notre message se diffuse presque exclusivement grâce à vous. Chaque partage amène à FIA FOX de nouveaux citoyens dans toute l'UE.</span><span class="gtl sv">Dela den här insamlingen — det är gratis och det mest effektiva du kan göra vid sidan av ekonomiskt stöd! Betald annonsering för samhällsfrågor är nästan omöjlig i EU, så vårt budskap sprids nästan enbart genom dig. Varje delning för fler medborgare i hela EU till FIA FOX.</span></strong></p>
+    <h3 class="shhead"><span class="gtl de">Diese Seite teilen</span><span class="gtl en">Share this page</span><span class="gtl sk">Zdieľať túto stránku</span><span class="gtl hr">Podijeli ovu stranicu</span><span class="gtl pl">Udostępnij tę stronę</span><span class="gtl es">Compartir esta página</span><span class="gtl it">Condividi questa pagina</span><span class="gtl fr">Partager cette page</span><span class="gtl sv">Dela denna sida</span></h3>
     <div class="share" id="share"></div>
   </div>
 
-  <div class="foot"><a href="index.html">← Späť na domovskú stránku</a></div>
-
+  <div class="foot"><a id="lk-foot" href="index.html"><span class="gtl de">← Zurück zur Startseite</span><span class="gtl en">← Back to home</span><span class="gtl sk">← Späť na domovskú stránku</span><span class="gtl hr">← Natrag na početnu</span><span class="gtl pl">← Powrót do strony głównej</span><span class="gtl es">← Volver al inicio</span><span class="gtl it">← Torna alla home</span><span class="gtl fr">← Retour à l'accueil</span><span class="gtl sv">← Tillbaka till startsidan</span></a></div>
 </div>
 
 <script>
-const WORKER="https://fia-fox-web-stripe.peter-ferenc246.workers.dev";
-let monthly=false, amount=0;
+var WORKER="https://fia-fox-web-stripe.peter-ferenc246.workers.dev";
+var GOAL=3900;
+var LANGS=["de", "en", "sk", "hr", "pl", "es", "it", "fr", "sv"];
+var PERMONTH={"de":"/ Monat", "en":"/ month", "sk":"/ mesiac", "hr":"/ mjesečno", "pl":"/ miesiąc", "es":"/ mes", "it":"/ mese", "fr":"/ mois", "sv":"/ månad"};
+var CUSTOM={"de":"Eigener Betrag", "en":"Custom amount", "sk":"Vlastná suma", "hr":"Vlastiti iznos", "pl":"Własna kwota", "es":"Importe personalizado", "it":"Importo personalizzato", "fr":"Montant libre", "sv":"Eget belopp"};
+var MSGMIN={"de":"Bitte wählen Sie mindestens 2 €.", "en":"Please choose at least €2.", "sk":"Zvoľte sumu aspoň 2 €.", "hr":"Odaberite najmanje 2 €.", "pl":"Wybierz co najmniej 2 €.", "es":"Elija al menos 2 €.", "it":"Scegli almeno 2 €.", "fr":"Choisissez au moins 2 €.", "sv":"Välj minst 2 €."};
+var MSGREDIR={"de":"Weiterleitung zur Zahlung…", "en":"Redirecting to payment…", "sk":"Presmerúvam na platbu…", "hr":"Preusmjeravam na plaćanje…", "pl":"Przekierowuję do płatności…", "es":"Redirigiendo al pago…", "it":"Reindirizzamento al pagamento…", "fr":"Redirection vers le paiement…", "sv":"Omdirigerar till betalning…"};
+var MSGFAIL={"de":"Zahlung konnte nicht gestartet werden: ", "en":"Could not start payment: ", "sk":"Platbu sa nepodarilo spustiť: ", "hr":"Plaćanje nije moguće pokrenuti: ", "pl":"Nie udało się rozpocząć płatności: ", "es":"No se pudo iniciar el pago: ", "it":"Impossibile avviare il pagamento: ", "fr":"Impossible de démarrer le paiement : ", "sv":"Det gick inte att starta betalningen: "};
+var COPY={"de":"Link kopieren", "en":"Copy link", "sk":"Kopírovať odkaz", "hr":"Kopiraj poveznicu", "pl":"Kopiuj link", "es":"Copiar enlace", "it":"Copia link", "fr":"Copier le lien", "sv":"Kopiera länk"};
+var COPIED={"de":"Kopiert \u2713", "en":"Copied \u2713", "sk":"Skopírované \u2713", "hr":"Kopirano \u2713", "pl":"Skopiowano \u2713", "es":"Copiado \u2713", "it":"Copiato \u2713", "fr":"Copié \u2713", "sv":"Kopierat \u2713"};
+var OTHER={"de":"Sonstige", "en":"Other", "sk":"Ostatné", "hr":"Ostalo", "pl":"Pozostałe", "es":"Otros", "it":"Altri", "fr":"Autres", "sv":"Övriga"};
+var IMP={"de":["Verfahren","Eingaben","Behörden","Jurisdiktionen","Sprachen"], "en":["proceedings","filings","authorities","jurisdictions","languages"], "sk":["konaní","podaní","orgánov","jurisdikcie","jazykov"], "hr":["postupaka","podnesaka","tijela","jurisdikcije","jezika"], "pl":["postępowań","pism","organów","jurysdykcje","języków"], "es":["procedimientos","escritos","organismos","jurisdicciones","idiomas"], "it":["procedimenti","istanze","autorità","giurisdizioni","lingue"], "fr":["procédures","actes déposés","autorités","juridictions","langues"], "sv":["förfaranden","inlagor","myndigheter","jurisdiktioner","språk"]};
+var NINE={"DE":["de","#1F3864"],"GB":["gb","#C00000"],"SK":["sk","#0B7A3B"],"HR":["hr","#e08600"],"PL":["pl","#7a3ea0"],"ES":["es","#e8b400"],"IT":["it","#2e8b57"],"FR":["fr","#0563C1"],"SE":["se","#22a0c8"]};
+var IMPACT={c:13,f:16,b:10,j:3,lang:9};
+var STATS=null, monthly=false, amount=0;
+function L(){return document.body.dataset.l||'sk';}
+function eur(c){var v=(Math.round(c)/100).toFixed(2).split('.');var i=v[0].replace(/\B(?=(\d{3})+(?!\d))/g,' ');return i+','+v[1]+' \u20AC';}
 
+function renderImpact(){
+  var w=IMP[L()]||IMP.sk, c=IMPACT;
+  var parts=[c.c+' '+w[0], c.f+' '+w[1], c.b+' '+w[2], c.j+' '+w[3], c.lang+' '+w[4]];
+  document.getElementById('impact').innerHTML=parts.map(function(p){return '<span>'+p+'</span>';}).join('');
+}
+async function fetchImpact(){
+  try{
+    var r=await fetch('_data/fia_data.json'); var d=await r.json(); var rx=/test/i;
+    var karty=(d.karty||[]).filter(function(k){return !rx.test(k.id||'');});
+    IMPACT.c=karty.length;
+    IMPACT.f=(d.polozky||[]).filter(function(p){return p.dir==='sent' && !rx.test(p.karta||'');}).length;
+    var org={},jur={};
+    karty.forEach(function(k){ var o=(k.organ_txt||'').trim(); if(o)org[o]=1; (k.jur||[]).forEach(function(j){jur[j]=1;}); });
+    IMPACT.b=Object.keys(org).length; IMPACT.j=Object.keys(jur).length; IMPACT.lang=9;
+  }catch(e){}
+  renderImpact();
+}
+
+function setL(l){
+  if(LANGS.indexOf(l)<0) l='sk';
+  document.body.dataset.l=l; document.documentElement.lang=l;
+  document.querySelectorAll('.flags .f').forEach(function(x){x.classList.remove('on');});
+  var b=document.querySelector('.flags .f[data-l="'+l+'"]'); if(b) b.classList.add('on');
+  document.getElementById('custom').placeholder=CUSTOM[l]||'';
+  document.getElementById('lk-home').href='index.html?lang='+l;
+  document.getElementById('lk-foot').href='index.html?lang='+l;
+  document.getElementById('lk-reg').href='https://register.foxprof.club/register.html?lang='+l;
+  renderImpact(); renderStats(); buildShare(); refreshBtn();
+}
 function setMonthly(m){ monthly=m;
   document.getElementById('t-once').classList.toggle('on',!m);
-  document.getElementById('t-month').classList.toggle('on',m);
-  refreshBtn();
+  document.getElementById('t-month').classList.toggle('on',m); refreshBtn();
 }
 function pickAmt(el,a){ amount=a; document.getElementById('custom').value='';
-  document.querySelectorAll('#amts button').forEach(function(b){b.classList.remove('on');});
-  el.classList.add('on'); refreshBtn();
+  document.querySelectorAll('#amts button').forEach(function(b){b.classList.remove('on');}); el.classList.add('on'); refreshBtn();
 }
 function pickCustom(){ var v=parseFloat(document.getElementById('custom').value);
-  document.querySelectorAll('#amts button').forEach(function(b){b.classList.remove('on');});
-  amount=(v>0)?v:0; refreshBtn();
+  document.querySelectorAll('#amts button').forEach(function(b){b.classList.remove('on');}); amount=(v>0)?v:0; refreshBtn();
 }
-function refreshBtn(){
-  var s=document.getElementById('give-amt');
-  s.textContent = amount>0 ? ('· '+amount+' €'+(monthly?' / mesiac':'')) : '';
+function refreshBtn(){ var s=document.getElementById('give-amt');
+  s.textContent = amount>0 ? ('· '+amount+' \u20AC'+(monthly?(' '+(PERMONTH[L()]||'')):'')) : '';
 }
 async function darovat(){
   var msg=document.getElementById('msg'); msg.textContent=''; msg.className='msg';
-  if(!(amount>=2)){ msg.textContent='Zvoľte sumu aspoň 2 € (tlačidlom alebo do poľa vlastná suma).'; msg.className='msg err'; return; }
-  var give=document.getElementById('give'); var old=give.innerHTML; give.disabled=true; give.textContent='Presmerúvam na platbu…';
+  if(!(amount>=2)){ msg.textContent=MSGMIN[L()]; msg.className='msg err'; return; }
+  var give=document.getElementById('give'); var old=give.innerHTML; give.disabled=true; give.textContent=MSGREDIR[L()];
   try{
     var r=await fetch(WORKER,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({amount:Math.round(amount*100),monthly:monthly,anonymous:document.getElementById('anon').checked})});
-    var d=await r.json();
-    if(d && d.url){ location.href=d.url; return; }
-    throw new Error((d&&d.error)||'Neznáma chyba');
-  }catch(e){
-    msg.textContent='Platbu sa nepodarilo spustiť: '+e.message; msg.className='msg err';
-    give.disabled=false; give.innerHTML=old;
-  }
+      body:JSON.stringify({amount:Math.round(amount*100),monthly:monthly,anonymous:document.getElementById('anon').checked,lang:L()})});
+    var d=await r.json(); if(d && d.url){ location.href=d.url; return; } throw new Error((d&&d.error)||'error');
+  }catch(e){ msg.textContent=MSGFAIL[L()]+e.message; msg.className='msg err'; give.disabled=false; give.innerHTML=old; }
 }
-(function(){
-  var url=encodeURIComponent('https://register.foxprof.club/podporte.html');
-  var t=encodeURIComponent('FIA FOX — za férový internet bez kartelov v Európe');
+function buildShare(){
+  var url=encodeURIComponent('https://register.foxprof.club/podporte.html?lang='+L()); var t=encodeURIComponent('FIA FOX');
   document.getElementById('share').innerHTML=
     '<a href="https://www.facebook.com/sharer/sharer.php?u='+url+'" target="_blank" rel="noopener">Facebook</a>'+
     '<a href="https://twitter.com/intent/tweet?url='+url+'&text='+t+'" target="_blank" rel="noopener">X</a>'+
     '<a href="https://www.linkedin.com/sharing/share-offsite/?url='+url+'" target="_blank" rel="noopener">LinkedIn</a>'+
     '<a href="https://t.me/share/url?url='+url+'&text='+t+'" target="_blank" rel="noopener">Telegram</a>'+
     '<a href="https://api.whatsapp.com/send?text='+t+'%20'+url+'" target="_blank" rel="noopener">WhatsApp</a>'+
-    '<a href="mailto:?subject='+t+'&body='+url+'">E-mail</a>'+
-    '<a class="copy" href="#" onclick="navigator.clipboard.writeText(\'https://register.foxprof.club/podporte.html\');this.textContent=\'Skopírované \\u2713\';return false;">Kopírovať odkaz</a>';
-})();
+    '<a class="copy" href="#" onclick="navigator.clipboard.writeText(decodeURIComponent(\''+url+'\'));this.textContent=COPIED[L()];return false;">'+(COPY[L()]||'')+'</a>';
+}
+function renderCountries(){
+  var cc=document.getElementById('cc'), bar=document.getElementById('cc-bar'), leg=document.getElementById('cc-legend');
+  var C=(STATS&&STATS.countries)||{}, total=0, named={}, other=0;
+  Object.keys(C).forEach(function(k){ total+=C[k]; });
+  if(total<=0){ cc.hidden=true; return; }
+  Object.keys(C).forEach(function(k){ var u=k.toUpperCase(); if(NINE[u]) named[u]=(named[u]||0)+C[k]; else other+=C[k]; });
+  var segs=Object.keys(named).map(function(k){return [k,named[k]];}).sort(function(a,b){return b[1]-a[1];});
+  if(other>0) segs.push(["_OTHER",other]);
+  bar.innerHTML=''; leg.innerHTML='';
+  segs.forEach(function(s){
+    var pct=s[1]/total*100, code=s[0], color = code==="_OTHER" ? "#9aa7b5" : NINE[code][1];
+    var seg=document.createElement('span'); seg.className='seg'; seg.style.width=pct.toFixed(2)+'%'; seg.style.background=color;
+    seg.title=(code==="_OTHER"?(OTHER[L()]):code)+' '+Math.round(pct)+'%'; bar.appendChild(seg);
+    var li=document.createElement('span'); li.className='cl';
+    if(code==="_OTHER"){ li.innerHTML='<i class="sw" style="background:#9aa7b5"></i>'+(OTHER[L()]||'Other')+' '+Math.round(pct)+'%'; }
+    else { li.innerHTML='<img src="https://flagcdn.com/'+NINE[code][0]+'.svg" alt="">'+code+' '+Math.round(pct)+'%'; }
+    leg.appendChild(li);
+  });
+  cc.hidden=false;
+}
+function renderStats(){
+  var s=STATS;
+  document.getElementById('s-raised').textContent=eur((s&&s.raised)||0);
+  var rem=Math.max(0, GOAL - (((s&&s.raised)||0)/100));
+  document.getElementById('s-remain').textContent=eur(Math.round(rem*100));
+  var pct=(s&&s.raised)? Math.min(100,Math.round((s.raised/100)/GOAL*100)) : 0;
+  document.getElementById('s-bar').style.width=pct+'%';
+  var cnt=(s&&s.count)||0, show=cnt>=5;
+  document.getElementById('grp-more').hidden=!show;
+  if(show){
+    document.getElementById('s-top').textContent=eur(s.top||0);
+    document.getElementById('s-avg').textContent=eur(s.average||0);
+    document.getElementById('s-count').textContent=String(cnt);
+    var hasM=((s.monthly||0)>0)||(s.last);
+    document.getElementById('grp-more2').hidden=!hasM;
+    document.getElementById('s-monthly').textContent=String(s.monthly||0);
+    if(s.last && s.last.created){ var dt=new Date(s.last.created*1000);
+      document.getElementById('s-last').textContent=eur(s.last.amount||0)+' \u00B7 '+dt.toLocaleDateString(L()); }
+    else document.getElementById('s-last').textContent='\u2014';
+  }
+  renderCountries();
+}
+async function loadStats(){
+  try{ var r=await fetch(WORKER,{method:'GET'}); var d=await r.json(); if(d && typeof d.raised==='number') STATS=d; }catch(e){}
+  renderStats();
+}
+document.querySelectorAll('.flags .f').forEach(function(b){ b.addEventListener('click',function(){ setL(b.dataset.l); }); });
+(function(){ var p=new URLSearchParams(location.search).get('lang'); setL(LANGS.indexOf(p)>=0?p:'sk'); fetchImpact(); loadStats(); })();
 </script>
 </body>
 </html>
