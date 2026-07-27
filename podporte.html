@@ -104,7 +104,17 @@
   .lrow .lb>i{display:block;height:100%;background:linear-gradient(90deg,#0b72d9,var(--green))}
   .lrow .pc{width:40px;text-align:right;font-weight:700;color:var(--navy)}
   .gtl{display:none}
-body[data-l="de"] .gtl.de{display:inline}body[data-l="en"] .gtl.en{display:inline}body[data-l="sk"] .gtl.sk{display:inline}body[data-l="hr"] .gtl.hr{display:inline}body[data-l="pl"] .gtl.pl{display:inline}body[data-l="es"] .gtl.es{display:inline}body[data-l="it"] .gtl.it{display:inline}body[data-l="fr"] .gtl.fr{display:inline}body[data-l="sv"] .gtl.sv{display:inline}</style>
+body[data-l="de"] .gtl.de{display:inline}body[data-l="en"] .gtl.en{display:inline}body[data-l="sk"] .gtl.sk{display:inline}body[data-l="hr"] .gtl.hr{display:inline}body[data-l="pl"] .gtl.pl{display:inline}body[data-l="es"] .gtl.es{display:inline}body[data-l="it"] .gtl.it{display:inline}body[data-l="fr"] .gtl.fr{display:inline}body[data-l="sv"] .gtl.sv{display:inline}
+.fbov{display:none;position:fixed;inset:0;background:rgba(10,20,40,.55);z-index:9999;align-items:center;justify-content:center;padding:16px}
+.fbov.on{display:flex}
+.fbbox{background:#fff;border-radius:12px;max-width:460px;width:100%;padding:22px;position:relative;box-shadow:0 16px 50px rgba(0,0,0,.35)}
+.fbbox h3{margin:0 0 8px;color:var(--navy);font-size:18px}
+.fbnote{font-size:13px;color:#6a7a8c;margin:0 0 12px}
+.fbbox textarea{width:100%;border:1px solid var(--bd);border-radius:8px;padding:11px;font:inherit;font-size:15px;resize:vertical;box-sizing:border-box}
+.fbsend{margin-top:12px;background:#1877F2;color:#fff;border:none;border-radius:8px;padding:12px 20px;font-weight:800;font-size:15px;cursor:pointer}
+.fbsend:disabled{opacity:.55;cursor:default}
+.fbmsg{margin-top:10px;font-size:14px;font-weight:700;min-height:18px}
+.fbx{position:absolute;top:8px;right:12px;background:none;border:none;font-size:26px;line-height:1;color:#8ea1b8;cursor:pointer}</style>
 </head>
 <body data-l="sk">
 <div class="wrap">
@@ -112,7 +122,7 @@ body[data-l="de"] .gtl.de{display:inline}body[data-l="en"] .gtl.en{display:inlin
     <a class="btn-home" id="lk-home" href="index.html"><span class="gtl de">← Startseite</span><span class="gtl en">← Home</span><span class="gtl sk">← Domov</span><span class="gtl hr">← Početna</span><span class="gtl pl">← Strona główna</span><span class="gtl es">← Inicio</span><span class="gtl it">← Home</span><span class="gtl fr">← Accueil</span><span class="gtl sv">← Hem</span></a>
     <a class="btn-home" id="lk-reg" href="https://register.foxprof.club/register.html"><span class="gtl de">Fallregister</span><span class="gtl en">Case register</span><span class="gtl sk">Register káuz</span><span class="gtl hr">Registar predmeta</span><span class="gtl pl">Rejestr spraw</span><span class="gtl es">Registro de casos</span><span class="gtl it">Registro dei casi</span><span class="gtl fr">Registre des affaires</span><span class="gtl sv">Ärenderegister</span></a>
     <a class="btn-home mapbtn" href="#mapa">🗺 <span class="gtl de">Beteiligte Länder</span><span class="gtl en">Contributing countries</span><span class="gtl sk">Prispievajúce krajiny</span><span class="gtl hr">Zemlje koje doprinose</span><span class="gtl pl">Kraje wspierające</span><span class="gtl es">Países que contribuyen</span><span class="gtl it">Paesi che contribuiscono</span><span class="gtl fr">Pays contributeurs</span><span class="gtl sv">Bidragande länder</span></a>
-    <a class="btn-home fbbtn" href="mailto:info@foxprof.club?subject=FIA%20FOX%20Feedback">💬 FEEDBACK</a>
+    <a class="btn-home fbbtn" href="javascript:void(0)" onclick="openFb()">💬 FEEDBACK</a>
   </div>
   <div class="flags" role="group" aria-label="Language"><button class="f" data-l="de" title="DE"><img src="https://flagcdn.com/de.svg" alt="DE"></button><button class="f" data-l="en" title="EN"><img src="https://flagcdn.com/gb.svg" alt="EN"></button><button class="f on" data-l="sk" title="SK"><img src="https://flagcdn.com/sk.svg" alt="SK"></button><button class="f" data-l="hr" title="HR"><img src="https://flagcdn.com/hr.svg" alt="HR"></button><button class="f" data-l="pl" title="PL"><img src="https://flagcdn.com/pl.svg" alt="PL"></button><button class="f" data-l="es" title="ES"><img src="https://flagcdn.com/es.svg" alt="ES"></button><button class="f" data-l="it" title="IT"><img src="https://flagcdn.com/it.svg" alt="IT"></button><button class="f" data-l="fr" title="FR"><img src="https://flagcdn.com/fr.svg" alt="FR"></button><button class="f" data-l="sv" title="SV"><img src="https://flagcdn.com/se.svg" alt="SV"></button></div>
   <div class="hero">
@@ -240,6 +250,20 @@ body[data-l="de"] .gtl.de{display:inline}body[data-l="en"] .gtl.en{display:inlin
 
 <script>
 var WORKER="https://fia-fox-web-stripe.peter-ferenc246.workers.dev";
+var FBTXT={
+de:{ph:"Schreiben Sie Ihr Feedback oder Ihre Kritik…",note:"Anonym – Name oder Kontakt sind nicht nötig.",send:"Senden",ok:"Danke für Ihr Feedback.",err:"Senden fehlgeschlagen, bitte später erneut versuchen."},
+en:{ph:"Write your feedback or criticism…",note:"Anonymous – no name or contact needed.",send:"Send",ok:"Thank you for your feedback.",err:"Sending failed, please try again later."},
+sk:{ph:"Napíšte svoju spätnú väzbu alebo kritiku…",note:"Anonymné – meno ani kontakt netreba.",send:"Odoslať",ok:"Ďakujeme za spätnú väzbu.",err:"Odoslanie zlyhalo, skúste neskôr."},
+hr:{ph:"Napišite svoje mišljenje ili kritiku…",note:"Anonimno – ime ili kontakt nisu potrebni.",send:"Pošalji",ok:"Hvala na povratnoj informaciji.",err:"Slanje nije uspjelo, pokušajte kasnije."},
+pl:{ph:"Napisz swoją opinię lub krytykę…",note:"Anonimowo – imię ani kontakt nie są wymagane.",send:"Wyślij",ok:"Dziękujemy za opinię.",err:"Wysłanie nie powiodło się, spróbuj później."},
+es:{ph:"Escriba su opinión o crítica…",note:"Anónimo – no se necesita nombre ni contacto.",send:"Enviar",ok:"Gracias por su comentario.",err:"Error al enviar, inténtelo más tarde."},
+it:{ph:"Scrivi il tuo feedback o la tua critica…",note:"Anonimo – nessun nome o contatto richiesto.",send:"Invia",ok:"Grazie per il feedback.",err:"Invio non riuscito, riprova più tardi."},
+fr:{ph:"Écrivez votre avis ou votre critique…",note:"Anonyme – ni nom ni contact requis.",send:"Envoyer",ok:"Merci pour votre retour.",err:"Échec de l'envoi, réessayez plus tard."},
+sv:{ph:"Skriv din feedback eller kritik…",note:"Anonymt – inget namn eller kontakt behövs.",send:"Skicka",ok:"Tack för din feedback.",err:"Det gick inte att skicka, försök igen senare."}
+};
+function openFb(){var t=FBTXT[L()]||FBTXT.en;document.getElementById('fbnote').textContent=t.note;document.getElementById('fbtext').placeholder=t.ph;document.getElementById('fbsend').textContent=t.send;var m=document.getElementById('fbmsg');m.textContent='';m.style.color='';document.getElementById('fbModal').classList.add('on');try{document.getElementById('fbtext').focus();}catch(e){}}
+function closeFb(){document.getElementById('fbModal').classList.remove('on');}
+async function sendFb(){var el=document.getElementById('fbtext');var t=(el.value||'').trim();var tx=FBTXT[L()]||FBTXT.en;var msg=document.getElementById('fbmsg');if(t.length<2){el.focus();return;}var b=document.getElementById('fbsend');b.disabled=true;try{var r=await fetch(WORKER+'/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:t.slice(0,4000),lang:L(),ts:Date.now()})});if(!r.ok)throw 0;msg.style.color='#0B7A3B';msg.textContent=tx.ok;el.value='';setTimeout(closeFb,1800);}catch(e){msg.style.color='#c0392b';msg.textContent=tx.err;}b.disabled=false;}
 var GOAL=3900;
 var LANGS=["de", "en", "sk", "hr", "pl", "es", "it", "fr", "sv"];
 var PERMONTH={"de":"/ Monat", "en":"/ month", "sk":"/ mesiac", "hr":"/ mjesečno", "pl":"/ miesiąc", "es":"/ mes", "it":"/ mese", "fr":"/ mois", "sv":"/ månad"};
@@ -410,5 +434,13 @@ document.querySelectorAll('.cty.eu').forEach(function(p){ p.addEventListener('cl
 document.querySelectorAll('.flags .f').forEach(function(b){ b.addEventListener('click',function(){ setL(b.dataset.l); }); });
 (function(){ var p=new URLSearchParams(location.search).get('lang'); setL(LANGS.indexOf(p)>=0?p:'sk'); fetchImpact(); loadStats(); })();
 </script>
+<div id="fbModal" class="fbov" role="dialog" aria-modal="true" onclick="if(event.target===this)closeFb()"><div class="fbbox">
+  <button class="fbx" type="button" onclick="closeFb()" aria-label="X">×</button>
+  <h3>💬 FEEDBACK</h3>
+  <p id="fbnote" class="fbnote"></p>
+  <textarea id="fbtext" rows="6"></textarea>
+  <button id="fbsend" class="fbsend" type="button" onclick="sendFb()">Send</button>
+  <div id="fbmsg" class="fbmsg"></div>
+</div></div>
 </body>
 </html>
