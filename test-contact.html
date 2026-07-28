@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<title>Test kontaktného formulára</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:500px;margin:40px auto;padding:0 20px}
+input,textarea{width:100%;padding:8px;margin:6px 0 14px;box-sizing:border-box}
+button{padding:10px 20px;font-size:16px}
+#log{background:#f0f0f0;padding:12px;margin-top:20px;white-space:pre-wrap;font-family:monospace;font-size:13px;border-radius:6px}
+</style>
+</head>
+<body>
+<h2>Test formulára (izolovaný, bez zvyšku stránky)</h2>
+<form id="cf">
+  <label>Meno</label><input id="cf-n" value="Test Peter">
+  <label>E-Mail</label><input id="cf-e" type="email" value="test@example.com">
+  <label>Správa</label><textarea id="cf-m">Toto je testovacia sprava z izolovanej stranky</textarea>
+  <button type="submit">Odoslať test</button>
+</form>
+<div id="log">Log sa zobrazí tu...</div>
+<script>
+var CF_WORKER='https://fia-fox-web-stripe.peter-ferenc246.workers.dev';
+var logEl=document.getElementById('log');
+function log(msg){ logEl.textContent += "\n" + msg; console.log(msg); }
+log("Skript načítaný, čas: "+new Date().toLocaleTimeString());
+document.getElementById('cf').addEventListener('submit',function(e){
+  e.preventDefault();
+  log("1) Submit event zachytený, preventDefault zavolaný.");
+  var name=document.getElementById('cf-n').value, email=document.getElementById('cf-e').value, message=document.getElementById('cf-m').value;
+  log("2) Hodnoty: name="+name+" email="+email+" message="+message);
+  log("3) Volám fetch na: "+CF_WORKER+"/contact");
+  fetch(CF_WORKER+'/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,message:message,lang:'sk',ts:Date.now()})})
+    .then(function(r){ log("4) Odpoveď prišla, HTTP status: "+r.status); return r.json().then(function(d){return {status:r.status,body:d};}); })
+    .then(function(res){ log("5) Telo odpovede: "+JSON.stringify(res.body)); })
+    .catch(function(err){ log("CHYBA (catch): "+err.message); });
+});
+</script>
+</body>
+</html>
