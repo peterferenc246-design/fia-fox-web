@@ -203,7 +203,7 @@ body[data-l="de"] .gtl.de{display:inline}body[data-l="de"] .gtl-b.de{display:blo
 <form class="cf" id="cf">
  <label><span class="gtl de">Name</span><span class="gtl en">Name</span><span class="gtl sk">Meno</span><span class="gtl hr">Ime</span><span class="gtl pl">Imię</span><span class="gtl es">Nombre</span><span class="gtl it">Nome</span><span class="gtl fr">Nom</span><span class="gtl sv">Namn</span> <span class="req">*</span></label><input id="cf-n" required>
  <label>E-Mail <span class="req">*</span></label><input id="cf-e" type="email" required>
- <label><span class="gtl de">Nachricht</span><span class="gtl en">Message</span><span class="gtl sk">Správa</span><span class="gtl hr">Poruka</span><span class="gtl pl">Wiadomość</span><span class="gtl es">Mensaje</span><span class="gtl it">Messaggio</span><span class="gtl fr">Message</span><span class="gtl sv">Meddelande</span> <span class="req">*</span></label><textarea id="cf-m" required></textarea>
+ <label><span class="gtl de">Nachricht</span><span class="gtl en">Message</span><span class="gtl sk">Správa</span><span class="gtl hr">Poruka</span><span class="gtl pl">Wiadomość</span><span class="gtl es">Mensaje</span><span class="gtl it">Messaggio</span><span class="gtl fr">Message</span><span class="gtl sv">Meddelande</span> <span class="req">*</span></label><textarea id="cf-m" required minlength="5"></textarea>
  <button type="submit"><span class="gtl de">Absenden</span><span class="gtl en">Send</span><span class="gtl sk">Odoslať</span><span class="gtl hr">Pošalji</span><span class="gtl pl">Wyślij</span><span class="gtl es">Enviar</span><span class="gtl it">Invia</span><span class="gtl fr">Envoyer</span><span class="gtl sv">Skicka</span></button></form>
 
 <h4 class="c" style="margin-top:1.5em"><span class="gtl de">Folgen Sie uns</span><span class="gtl en">Follow us</span><span class="gtl sk">Sledujte nás</span><span class="gtl hr">Pratite nas</span><span class="gtl pl">Obserwuj nas</span><span class="gtl es">Síganos</span><span class="gtl it">Seguici</span><span class="gtl fr">Suivez-nous</span><span class="gtl sv">Följ oss</span></h4>
@@ -238,6 +238,7 @@ document.querySelectorAll('.f').forEach(function(b){
 var CF_WORKER='https://fia-fox-web-stripe.peter-ferenc246.workers.dev';
 var CF_OK={de:'Danke! Ihre Nachricht wurde gesendet.',en:'Thank you! Your message has been sent.',sk:'Ďakujeme! Správa bola odoslaná.',hr:'Hvala! Poruka je poslana.',pl:'Dziękujemy! Wiadomość została wysłana.',es:'¡Gracias! Su mensaje ha sido enviado.',it:'Grazie! Il messaggio è stato inviato.',fr:'Merci ! Votre message a été envoyé.',sv:'Tack! Ditt meddelande har skickats.'};
 var CF_ERR={de:'Fehler beim Senden. Bitte später erneut versuchen.',en:'Error sending. Please try again later.',sk:'Chyba pri odosielaní. Skúste to prosím neskôr.',hr:'Pogreška pri slanju. Pokušajte kasnije.',pl:'Błąd wysyłania. Spróbuj ponownie później.',es:'Error al enviar. Inténtelo de nuevo más tarde.',it:'Errore di invio. Riprova più tardi.',fr:'Erreur d\'envoi. Veuillez réessayer plus tard.',sv:'Fel vid sändning. Försök igen senare.'};
+var CF_SHORT={de:'Bitte geben Sie einen gültigen Namen, eine gültige E-Mail und eine längere Nachricht ein.',en:'Please enter a valid name, email and a longer message.',sk:'Zadajte prosím platné meno, e-mail a dlhšiu správu (min. 5 znakov).',hr:'Unesite valjano ime, e-poštu i dulju poruku.',pl:'Podaj prawidłowe imię, e-mail i dłuższą wiadomość.',es:'Introduzca un nombre, correo y un mensaje más largo válidos.',it:'Inserisci un nome, un\'email e un messaggio più lungo validi.',fr:'Veuillez saisir un nom, un e-mail et un message plus long valides.',sv:'Ange ett giltigt namn, e-post och ett längre meddelande.'};
 document.getElementById('cf').addEventListener('submit',function(e){
  e.preventDefault();
  var btn=e.target.querySelector('button[type=submit]');
@@ -245,10 +246,12 @@ document.getElementById('cf').addEventListener('submit',function(e){
  var lang=(document.body.getAttribute('data-l')||'sk');
  if(btn){btn.disabled=true;}
  fetch(CF_WORKER+'/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,message:message,lang:lang,ts:Date.now()})})
-  .then(function(r){return r.json();})
-  .then(function(d){
-    if(d&&d.ok){
+  .then(function(r){return r.json().then(function(d){return {status:r.status,body:d};});})
+  .then(function(res){
+    if(res.body&&res.body.ok){
       document.getElementById('cf').outerHTML='<p style="font-weight:600;color:#1F3864">'+(CF_OK[lang]||CF_OK.sk)+'</p>';
+    } else if(res.status===400){
+      alert(CF_SHORT[lang]||CF_SHORT.sk); if(btn){btn.disabled=false;}
     } else {
       alert(CF_ERR[lang]||CF_ERR.sk); if(btn){btn.disabled=false;}
     }
