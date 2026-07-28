@@ -235,11 +235,25 @@ function setL(L){
 document.querySelectorAll('.f').forEach(function(b){
   b.addEventListener('click',function(){ setL(b.dataset.l); });
 });
+var CF_WORKER='https://fia-fox-web-stripe.peter-ferenc246.workers.dev';
+var CF_OK={de:'Danke! Ihre Nachricht wurde gesendet.',en:'Thank you! Your message has been sent.',sk:'Ďakujeme! Správa bola odoslaná.',hr:'Hvala! Poruka je poslana.',pl:'Dziękujemy! Wiadomość została wysłana.',es:'¡Gracias! Su mensaje ha sido enviado.',it:'Grazie! Il messaggio è stato inviato.',fr:'Merci ! Votre message a été envoyé.',sv:'Tack! Ditt meddelande har skickats.'};
+var CF_ERR={de:'Fehler beim Senden. Bitte später erneut versuchen.',en:'Error sending. Please try again later.',sk:'Chyba pri odosielaní. Skúste to prosím neskôr.',hr:'Pogreška pri slanju. Pokušajte kasnije.',pl:'Błąd wysyłania. Spróbuj ponownie później.',es:'Error al enviar. Inténtelo de nuevo más tarde.',it:'Errore di invio. Riprova più tardi.',fr:'Erreur d\'envoi. Veuillez réessayer plus tard.',sv:'Fel vid sändning. Försök igen senare.'};
 document.getElementById('cf').addEventListener('submit',function(e){
  e.preventDefault();
- var b=encodeURIComponent(document.getElementById('cf-n').value+' <'+document.getElementById('cf-e').value+'>'
-   +String.fromCharCode(10,10)+document.getElementById('cf-m').value);
- window.location.href='mailto:info@foxprof.club?subject=FIA%20FOX&body='+b;
+ var btn=e.target.querySelector('button[type=submit]');
+ var name=document.getElementById('cf-n').value, email=document.getElementById('cf-e').value, message=document.getElementById('cf-m').value;
+ var lang=(document.body.getAttribute('data-l')||'sk');
+ if(btn){btn.disabled=true;}
+ fetch(CF_WORKER+'/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,message:message,lang:lang,ts:Date.now()})})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(d&&d.ok){
+      document.getElementById('cf').outerHTML='<p style="font-weight:600;color:#1F3864">'+(CF_OK[lang]||CF_OK.sk)+'</p>';
+    } else {
+      alert(CF_ERR[lang]||CF_ERR.sk); if(btn){btn.disabled=false;}
+    }
+  })
+  .catch(function(){ alert(CF_ERR[lang]||CF_ERR.sk); if(btn){btn.disabled=false;} });
 });
 setL('sk');
 </script>
