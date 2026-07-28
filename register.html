@@ -5,7 +5,7 @@
 :root{--navy:#1F3864;--red:#C00000;--gold:#f0c040;--bd:#c9d8e8;--muted:#6B7C91}
 *{box-sizing:border-box}
 body{margin:0;color:#34435A;font:15px/1.55 "Segoe UI",Calibri,Arial,sans-serif;
- background:linear-gradient(#8ec5ea 0,#b9dcf3 30%,#dcecf8 58%,#f3e9d6 100%);background-attachment:fixed;min-height:100vh}
+ background:transparent;min-height:100vh}
 .top{text-align:center;padding:18px 16px 2px}
 .top h1{margin:0;font-size:21px;color:var(--navy);font-weight:800}
 .wrap{max-width:1020px;margin:0 auto;padding:0 16px 50px}
@@ -120,7 +120,45 @@ details.case[data-iasc="1"] .isb .lb-old{display:inline}
  cursor:pointer;color:#3d4d5e;font-family:inherit}
 .sb.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 .gtl,.gtl-b{display:none}
-body[data-l="de"] .gtl.de{display:inline}body[data-l="de"] .gtl-b.de{display:block}body[data-l="en"] .gtl.en{display:inline}body[data-l="en"] .gtl-b.en{display:block}body[data-l="sk"] .gtl.sk{display:inline}body[data-l="sk"] .gtl-b.sk{display:block}body[data-l="hr"] .gtl.hr{display:inline}body[data-l="hr"] .gtl-b.hr{display:block}body[data-l="pl"] .gtl.pl{display:inline}body[data-l="pl"] .gtl-b.pl{display:block}body[data-l="es"] .gtl.es{display:inline}body[data-l="es"] .gtl-b.es{display:block}body[data-l="it"] .gtl.it{display:inline}body[data-l="it"] .gtl-b.it{display:block}body[data-l="fr"] .gtl.fr{display:inline}body[data-l="fr"] .gtl-b.fr{display:block}body[data-l="sv"] .gtl.sv{display:inline}body[data-l="sv"] .gtl-b.sv{display:block}</style></head><body data-l="sk">
+body[data-l="de"] .gtl.de{display:inline}body[data-l="de"] .gtl-b.de{display:block}body[data-l="en"] .gtl.en{display:inline}body[data-l="en"] .gtl-b.en{display:block}body[data-l="sk"] .gtl.sk{display:inline}body[data-l="sk"] .gtl-b.sk{display:block}body[data-l="hr"] .gtl.hr{display:inline}body[data-l="hr"] .gtl-b.hr{display:block}body[data-l="pl"] .gtl.pl{display:inline}body[data-l="pl"] .gtl-b.pl{display:block}body[data-l="es"] .gtl.es{display:inline}body[data-l="es"] .gtl-b.es{display:block}body[data-l="it"] .gtl.it{display:inline}body[data-l="it"] .gtl-b.it{display:block}body[data-l="fr"] .gtl.fr{display:inline}body[data-l="fr"] .gtl-b.fr{display:block}body[data-l="sv"] .gtl.sv{display:inline}body[data-l="sv"] .gtl-b.sv{display:block}
+html{background:#2F86D6}
+/* FIA FOX — obloha + slnko + oblaciky (sky tuner v7 – slnko vyssie) */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background-color:#2F86D6;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20520%20200'%3E%3Cdefs%3E%3Cfilter%20id%3D'soft'%20x%3D'-45%25'%20y%3D'-45%25'%20width%3D'190%25'%20height%3D'190%25'%3E%3CfeGaussianBlur%20stdDeviation%3D'4.9'%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Cg%20fill%3D'%23ffffff'%20fill-opacity%3D'0.92'%20filter%3D'url(%23soft)'%3E%3Cellipse%20cx%3D'110'%20cy%3D'120'%20rx%3D'70'%20ry%3D'26'%2F%3E%3Ccircle%20cx%3D'80'%20cy%3D'104'%20r%3D'30'%2F%3E%3Ccircle%20cx%3D'120'%20cy%3D'92'%20r%3D'40'%2F%3E%3Ccircle%20cx%3D'165'%20cy%3D'106'%20r%3D'28'%2F%3E%3Cellipse%20cx%3D'360'%20cy%3D'70'%20rx%3D'60'%20ry%3D'22'%2F%3E%3Ccircle%20cx%3D'335'%20cy%3D'58'%20r%3D'26'%2F%3E%3Ccircle%20cx%3D'370'%20cy%3D'48'%20r%3D'34'%2F%3E%3Ccircle%20cx%3D'405'%20cy%3D'60'%20r%3D'24'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"),
+    linear-gradient(180deg,#2F86D6 0%,#CFEBFF 100%);
+  background-repeat:repeat-x, no-repeat;
+  background-position:0px 12%, center;
+  background-size:520px auto, cover;
+  animation:fiafox-drift 21.7s linear infinite;
+}
+@keyframes fiafox-drift{
+  from{background-position:0px 12%, center;}
+  to{background-position:520px 12%, center;}
+}
+body::after{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  pointer-events:none;
+  width:130px; height:130px;
+  right:78%; top:9%;
+  background:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Cdefs%3E%3CradialGradient%20id%3D'sg'%20cx%3D'0.5'%20cy%3D'0.5'%20r%3D'0.5'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'%23FFFCEC'%2F%3E%3Cstop%20offset%3D'0.212'%20stop-color%3D'%23ffd24a'%2F%3E%3Cstop%20offset%3D'0.467'%20stop-color%3D'%23ffd24a'%20stop-opacity%3D'0.56'%2F%3E%3Cstop%20offset%3D'0.836'%20stop-color%3D'%23ffd24a'%20stop-opacity%3D'0'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'%23ffd24a'%20stop-opacity%3D'0'%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Ccircle%20cx%3D'50'%20cy%3D'50'%20r%3D'50'%20fill%3D'url(%23sg)'%2F%3E%3Cg%20stroke%3D'%23ffd24a'%20stroke-width%3D'3.2'%20stroke-linecap%3D'round'%20opacity%3D'0.76'%3E%3Cline%20x1%3D'50'%20y1%3D'5'%20x2%3D'50'%20y2%3D'18'%20transform%3D'rotate(0%2050%2050)'%2F%3E%3Cline%20x1%3D'50'%20y1%3D'5'%20x2%3D'50'%20y2%3D'18'%20transform%3D'rotate(30%2050%2050)'%2F%3E%3Cline%20x1%3D'50'%20y1%3D'5'%20x2%3D'50'%20y2%3D'18'%20transform%3D'rotate(60%2050%2050)'%2F%3E%3Cline%20x1%3D'50'%20y1%3D'5'%20x2%3D'50'%20y2%3D'18'%20transform%3D'rotate(90%2050%2050)'%2F%3E%3Cline%20x1%3D'50'%20y1%3D'5'%20x2%3D'50'%20y2%3D'18'%20transform%3D'rotate(120%2050%2050)'%2F%3E%3Cline%20x1%3D'50'%20y1%3D'5'%20x2%3D'50'%20y2%3D'18'%20transform%3D'rotate(150%2050%2050)'%2F%3E%3Cline%20x1%3D'50'%20y1%3D'5'%20x2%3D'50'%20y2%3D'18'%20transform%3D'rotate(180%2050%2050)'%2F%3E%3Cline%20x1%3D'50'%20y1%3D'5'%20x2%3D'50'%20y2%3D'18'%20transform%3D'rotate(210%2050%2050)'%2F%3E%3Cline%20x1%3D'50'%20y1%3D'5'%20x2%3D'50'%20y2%3D'18'%20transform%3D'rotate(240%2050%2050)'%2F%3E%3Cline%20x1%3D'50'%20y1%3D'5'%20x2%3D'50'%20y2%3D'18'%20transform%3D'rotate(270%2050%2050)'%2F%3E%3Cline%20x1%3D'50'%20y1%3D'5'%20x2%3D'50'%20y2%3D'18'%20transform%3D'rotate(300%2050%2050)'%2F%3E%3Cline%20x1%3D'50'%20y1%3D'5'%20x2%3D'50'%20y2%3D'18'%20transform%3D'rotate(330%2050%2050)'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center / contain no-repeat;
+  animation:fiafox-sun-spin 18.0s linear infinite, fiafox-sun-arc 40.0s ease-in-out infinite alternate;
+}
+@keyframes fiafox-sun-spin{to{transform:rotate(360deg);}}
+@keyframes fiafox-sun-arc{0%{right:78%;top:9%}50%{right:42%;top:0%}100%{right:6%;top:9%}}
+@media (prefers-reduced-motion:reduce){body::before,body::after{animation:none;}}
+.side{position:fixed;left:0;top:360px;z-index:5;display:flex;flex-direction:column;gap:8px}.nv{display:flex;align-items:center;gap:8px;background:var(--navy,#1F3864);color:#fff;text-decoration:none;font-size:13px;font-weight:600;padding:9px 16px 9px 12px;border-radius:0 7px 7px 0;box-shadow:0 2px 6px rgba(0,0,0,.18);white-space:nowrap;max-width:210px}.nv:hover{filter:brightness(1.12)}.nv i{font-style:normal;font-size:13px}.nv.gold{background:linear-gradient(#ffd34d,#f5b722);color:#3a2c00}@media(max-width:900px){.side{position:static;flex-direction:row;flex-wrap:wrap;justify-content:center;padding:8px}.nv{border-radius:6px}}
+</style></head><body data-l="sk">
+<div class="side"><a class="nv gold" href="podporte.html"><i>♥</i><span class="gtl de">Spenden</span><span class="gtl en">Donate</span><span class="gtl sk">Prispieť</span><span class="gtl hr">Doniraj</span><span class="gtl pl">Wesprzyj</span><span class="gtl es">Donar</span><span class="gtl it">Dona</span><span class="gtl fr">Faire un don</span><span class="gtl sv">Ge en gåva</span></a><a class="nv" href="register.html"><i>⚖</i><span class="gtl de">Fallregister</span><span class="gtl en">Case register</span><span class="gtl sk">Register káuz</span><span class="gtl hr">Registar predmeta</span><span class="gtl pl">Rejestr spraw</span><span class="gtl es">Registro de casos</span><span class="gtl it">Registro dei casi</span><span class="gtl fr">Registre des affaires</span><span class="gtl sv">Ärenderegister</span></a><a class="nv" href="socialne.html"><i>◆</i><span class="gtl de">Soziale Medien</span><span class="gtl en">Social media</span><span class="gtl sk">Sociálne siete</span><span class="gtl hr">Društvene mreže</span><span class="gtl pl">Media społecznościowe</span><span class="gtl es">Redes sociales</span><span class="gtl it">Social media</span><span class="gtl fr">Réseaux sociaux</span><span class="gtl sv">Sociala medier</span></a><a class="nv" href="galerie.html"><i>▣</i><span class="gtl de">Galerie</span><span class="gtl en">Gallery</span><span class="gtl sk">Galéria</span><span class="gtl hr">Galerija</span><span class="gtl pl">Galeria</span><span class="gtl es">Galería</span><span class="gtl it">Galleria</span><span class="gtl fr">Galerie</span><span class="gtl sv">Galleri</span></a><a class="nv" href="presse.html"><i>▤</i><span class="gtl de">Presse</span><span class="gtl en">Press</span><span class="gtl sk">Tlač</span><span class="gtl hr">Tisak</span><span class="gtl pl">Prasa</span><span class="gtl es">Prensa</span><span class="gtl it">Stampa</span><span class="gtl fr">Presse</span><span class="gtl sv">Press</span></a><a class="nv" href="https://register.foxprof.club/"><i>≡</i><span class="gtl de">Mehr</span><span class="gtl en">More</span><span class="gtl sk">Viac</span><span class="gtl hr">Više</span><span class="gtl pl">Więcej</span><span class="gtl es">Más</span><span class="gtl it">Altro</span><span class="gtl fr">Plus</span><span class="gtl sv">Mer</span></a></div>
+
 <div class="top"><h1>FIA FOX — Fair Internet Initiative</h1></div>
 <div class="wrap">
  <div class="navbar"><a class="hm" href="index.html"><span class="gtl de">← Zur Startseite</span><span class="gtl en">← Home</span><span class="gtl sk">← Späť na úvod</span><span class="gtl hr">← Naslovnica</span><span class="gtl pl">← Strona główna</span><span class="gtl es">← Inicio</span><span class="gtl it">← Home</span><span class="gtl fr">← Accueil</span><span class="gtl sv">← Startsidan</span></a>
