@@ -199,6 +199,7 @@
    "area": [
     "kartell",
     "gdpr",
+    "strafrecht",
     "majetok"
    ],
    "organ_txt": "Landgericht Landshut Abteilung für Zivilsachen",
@@ -1338,7 +1339,7 @@
     "fr": "Demande d'aide juridictionnelle",
     "sv": "Ansökan om rättshjälp"
    },
-   "summodId": "",
+   "summodId": "summod-zaloba-proti-d-02",
    "dolezite": false,
    "komentare": true,
    "oblast": [],
@@ -3289,6 +3290,74 @@
     "majetok"
    ],
    "jur": []
+  },
+  {
+   "kauza": "TFIA-2026-JV",
+   "kauza_nazov": "",
+   "dir": "sent",
+   "date": "02.10.2024",
+   "stav": "laeuft",
+   "access": "",
+   "az": "",
+   "ourref": "TFIA-2026-JV",
+   "court": "LAndgericht Landshut",
+   "cmtid": "",
+   "summodId": "summod-zaloba-proti-d-06",
+   "fname": "01_Aktion_Telekom AG_sharp_SK_EN_DE2_For signature_With_FES.pdf",
+   "fpath": "cd d:\\OneDrive - Peter Ferenc Foxpro\\Dokumenty\\Bundesbeauftragte\\Súd Landshut Telekom žaloba\\Pošta\\Odoslaná pošta\\Odoslané\\01_Aktion_Telekom AG_sharp_SK_EN_DE2_For signature_With_FES.pdf",
+   "cats": {},
+   "mode": "item",
+   "v": 1,
+   "karta": "case-zaloba-proti-deutsche-telekom-ag-porusov",
+   "subj9": {
+    "de": "",
+    "en": "",
+    "sk": "Žaloba proti Deutsche Telekom AG a Schufa Holding AG,",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "urls": {
+    "de": "",
+    "en": "",
+    "sk": "https://github.com/peterferenc246-design/fia-fox-web/blob/main/kauzy/TFIA-2026-JV_Telekom-kartel-Joint-Venture/Zaloba-proti-Deutsche-Telekom-AG-za-porusovanie-ludskyc__case-zaloba-proti-deutsche-telekom-ag-porusov/odoslane/01_Aktion_Telekom%20AG_sharp_SK_EN_DE2_For%20signature_With_FES.pdf",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "subj": "",
+   "begleit": "Všetky dokumenty k tejto položke máš vo fia-fox-web pod číslom 01. MD použi na čítanie pre preklady do jazykov a z wordu potiahni formáty dokumentu 1:1: Daj do viewera metoda 6 a preklady do zvyšných jazykov! DE, EN, a SK už sú  vorgináli! \nOriginál zverejňuj tiež z repa a je označený ako originál",
+   "cardsubj": "",
+   "prikazy": "",
+   "pwhint": "",
+   "extra": {},
+   "fallback": "",
+   "orig": "https://github.com/peterferenc246-design/fia-fox-web/blob/main/kauzy/TFIA-2026-JV_Telekom-kartel-Joint-Venture/Zaloba-proti-Deutsche-Telekom-AG-za-porusovanie-ludskyc__case-zaloba-proti-deutsche-telekom-ag-porusov/odoslane/01_Aktion_Telekom%20AG_sharp_SK_EN_DE2_For%20signature_With_FES.pdf",
+   "law": "",
+   "qes": "",
+   "thread": "",
+   "replyTo": "",
+   "bezDatumu": false,
+   "btnQes": false,
+   "btnSum": true,
+   "btnLaw": true,
+   "dolezite": false,
+   "komentare": true,
+   "important": false,
+   "comments": true,
+   "oblast": [
+    "kartell",
+    "gdpr",
+    "strafrecht",
+    "majetok"
+   ],
+   "jur": []
   }
  ],
  "suhrny": {
@@ -3500,6 +3569,10 @@
    "it": "<h3>Riepilogo del documento</h3><p>La Procura di Landshut (Dr. Steiger) comunica che il procedimento contro Schufa Holding AG — avviato sulla base della denuncia dell'11.07.2024 — è stato trasmesso alla Procura di Wiesbaden (Mainzer Str. 124, 65189 Wiesbaden); il relativo numero di fascicolo non è ancora noto. La lettera è stata prodotta elettronicamente e non reca firma. Documenta un trasferimento di competenza, non una decisione di merito.</p>",
    "fr": "<h3>Résumé du document</h3><p>Le parquet de Landshut (Dr Steiger) indique que la procédure contre Schufa Holding AG — ouverte sur la base de la plainte du 11.07.2024 — a été transmise au parquet de Wiesbaden (Mainzer Str. 124, 65189 Wiesbaden) ; le numéro de dossier n'y est pas encore connu. Le courrier a été produit électroniquement et ne comporte pas de signature. Il constate un transfert de compétence, non une décision au fond.</p>",
    "sv": "<h3>Sammanfattning av dokumentet</h3><p>Åklagarmyndigheten i Landshut (Dr Steiger) meddelar att förundersökningen mot Schufa Holding AG — inledd med anledning av anmälan av den 2024-07-11 — har överlämnats till åklagarmyndigheten i Wiesbaden (Mainzer Str. 124, 65189 Wiesbaden); ärendenumret där är ännu inte känt. Skrivelsen upprättades elektroniskt och saknar underskrift. Den dokumenterar en behörighetsöverföring, inte ett avgörande i sak.</p>"
+  },
+  "summod-zaloba-proti-d-02": {},
+  "summod-zaloba-proti-d-06": {
+   "sk": "<h3>Súhrn dokumentu</h3><p>Vygeneruj súhrn k dokumentu!</p>"
   }
  },
  "kauzy": [
@@ -3516,7 +3589,7 @@
     "case-v-sirsom-zmysle-kauzy-kartelove-prepojen",
     "case-zaloba-proti-deutsche-telekom-ag-porusov"
    ],
-   "n": 20
+   "n": 21
   },
   {
    "spis": "TCFIA-2026-FON",
@@ -3590,5 +3663,6 @@
    ],
    "n": 1
   }
- ]
+ ],
+ "claudePrikaz": "PRÍKAZ PRE CLAUDE — po každom mojom uložení skontroluj, ktoré polia som zmenil oproti predošlej verzii; ak je oprava len v jednom jazyku, prelož ju a doplň do všetkých 9 jazykov (de, en, sk, hr, pl, es, it, fr, sv)."
 }
