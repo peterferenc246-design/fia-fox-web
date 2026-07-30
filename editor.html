@@ -485,13 +485,17 @@ function docs(){
  const thrNum={};
  {const gr={};
   zoz.forEach(p=>{if(p.thread){(gr[p.thread]=gr[p.thread]||[]).push(p);}});
-  Object.keys(gr).forEach(t=>{gr[t].slice().sort((a,b)=>dkey(a.date).localeCompare(dkey(b.date)))
-    .forEach((p,idx)=>{thrNum[D.polozky.indexOf(p)]=idx+1;});});}
+  Object.keys(gr).forEach(t=>{
+    const arr=gr[t], taken={};
+    arr.forEach(p=>{const n=parseInt(p.thrNo,10); if(!isNaN(n)){thrNum[D.polozky.indexOf(p)]=n;taken[n]=true;}});
+    const autos=arr.filter(p=>isNaN(parseInt(p.thrNo,10))).slice().sort((a,b)=>dkey(a.date).localeCompare(dkey(b.date)));
+    let next=1; autos.forEach(p=>{while(taken[next])next++; thrNum[D.polozky.indexOf(p)]=next; taken[next]=true;});
+  });}
  const kresli=arr=>arr.map(p=>{const i=D.polozky.indexOf(p); let _cpid=""; try{_cpid=edPageId(p);}catch(e){}
   const cs=chyba9(p.subj9), cu=chyba9(p.urls);
   const csL=!((p.subj9||{})[LANG]||'').trim(), cuL=!((p.urls||{})[LANG]||'').trim();
   return '<div class="doc'+(selPo===i?' on':'')+'" onclick="pickPo('+i+')">'
-   +'<div class="dt"><span>'+(thrNum[i]?'<span class="thr" title="Vlákno · '+thrNum[i]+'. dokument (podľa dátumu)">'+thrNum[i]+'</span> ':'')+esc(p.date||'—')+'</span><span>'+esc(p.az||'')+'</span></div>'
+   +'<div class="dt"><span>'+(thrNum[i]?'<span class="thr" title="Vlákno · '+thrNum[i]+'. dokument'+(p.thrNo?' (ručne)':' (podľa dátumu)')+'">'+thrNum[i]+'</span> ':'')+esc(p.date||'—')+'</span><span>'+esc(p.az||'')+'</span></div>'
    +'<div class="ds">'+esc(predmet(p))+'</div>'
    +'<div class="dw">'
    +(p.dolezite?'<span class="pill warn">❗ dôležité</span>':'')
@@ -653,6 +657,10 @@ function editor(){
   +(D.polozky||[]).filter(x=>x!==p&&x.karta===p.karta).map(x=>{const t=(x.dir==='sent'?'↗ ':'↙ ')+(x.date||'')+' · '+predmet(x);
      return '<option value="'+esc(predmet(x))+'"'+(predmet(x)===p.replyTo?' selected':'')+'>'+esc(t)+'</option>';}).join('')
   +'</select>'
+  +'<div class="ramik" style="border-color:#C55A11">'
+  +'<label>🔢 Poradové číslo vo vlákne <span class="hint">(ručné — prepíše automatiku podľa dátumu; prázdne = počíta sa samo)</span></label>'
+  +'<input type="number" min="1" step="1" style="max-width:120px" value="'+esc(p.thrNo||'')+'" oninput="'+P+'.thrNo=this.value.trim();docs()">'
+  +'</div>'
   +'<label>Odkaz na dokument</label>'+jaz(p.urls=p.urls||{},P+'.urls')
   +pole('Fallback URL <span class="hint">(pre každý prázdny jazyk)</span>',p.fallback||'',P+'.fallback=this.value')
   +pole('✍ Podpísaný originál (QES) — URL',p.orig||'',P+'.orig=this.value;docs()')
@@ -728,7 +736,7 @@ function novaPolozka(){ if(!D){alert('Najprv načítaj dáta.');return;}
   date:('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear(),
   stav:'laeuft',access:'',az:'',ourref:'',court:'',cmtid:'',summodId:'',fname:'',fpath:'',
   cats:{},mode:'item',v:1,karta:cid,subj9:p9(),urls:p9(),subj:'',
-  begleit:'',cardsubj:'',prikazy:'',pwhint:'',extra:{},fallback:'',orig:'',law:'',qes:'',thread:'',replyTo:'',bezDatumu:false,btnQes:true,btnSum:true,btnLaw:true,dolezite:false,komentare:true,
+  begleit:'',cardsubj:'',prikazy:'',pwhint:'',extra:{},fallback:'',orig:'',law:'',qes:'',thread:'',replyTo:'',thrNo:'',bezDatumu:false,btnQes:true,btnSum:true,btnLaw:true,dolezite:false,komentare:true,
   important:false,comments:true,oblast:[],jur:[]});
  selPo=D.polozky.length-1; selKa=cid; render();}
 function klonPo(){const p=JSON.parse(JSON.stringify(D.polozky[selPo]));p.summodId='';

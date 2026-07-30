@@ -113,6 +113,7 @@ def polozka(p, n):
     ctitle = (subj_sk + " · " + p.get("date","")).strip(" ·")
     thr = f' data-d="{dkey(p.get("date",""))}" data-cid="{cid}" data-ctitle="{html.escape(ctitle)}"'
     if p.get("thread"): thr += f' data-thread="{html.escape(p["thread"])}"'
+    if str(p.get("thrNo","")).strip(): thr += f' data-thrno="{html.escape(str(p["thrNo"]).strip())}"'
     return (f'<div class="it{" imp" if p.get("dolezite") else ""}"{thr}>'
             f'<div class="ih"><span class="idt">{html.escape(p.get("date",""))}</span>'
             f'<span class="acc acc-{acc}">{"🔒" if acc=="pw" else "🌐"} {g(UI["pw"] if acc=="pw" else UI["pub"])}</span></div>'
@@ -420,12 +421,19 @@ apply();
       (g[t]=g[t]||[]).push(el);
     }});
     Object.keys(g).forEach(function(t){{
-      g[t].sort(function(a,b){{return (a.getAttribute('data-d')||'').localeCompare(b.getAttribute('data-d')||'');}});
-      g[t].forEach(function(el,i){{
+      var arr=g[t];
+      var taken={{}}, res=new Map();
+      arr.forEach(function(el){{var n=parseInt(el.getAttribute('data-thrno'),10); if(!isNaN(n)){{res.set(el,n);taken[n]=true;}}}});
+      var autos=arr.filter(function(el){{return isNaN(parseInt(el.getAttribute('data-thrno'),10));}})
+                   .sort(function(a,b){{return (a.getAttribute('data-d')||'').localeCompare(b.getAttribute('data-d')||'');}});
+      var next=1; autos.forEach(function(el){{while(taken[next])next++; res.set(el,next); taken[next]=true;}});
+      arr.forEach(function(el){{
         var ih=el.querySelector('.ih'); if(!ih)return;
         var b=ih.querySelector('.thr');
         if(!b){{b=document.createElement('span');b.className='thr';ih.appendChild(b);}}
-        b.textContent=String(i+1); b.title='Vlákno · '+(i+1)+'. dokument';
+        var manual=!isNaN(parseInt(el.getAttribute('data-thrno'),10));
+        var num=res.get(el);
+        b.textContent=String(num); b.title='Vlákno · '+num+'. dokument'+(manual?' (ručne)':'');
       }});
     }});
   }});
