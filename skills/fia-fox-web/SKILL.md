@@ -11,8 +11,8 @@ description: |
   "dáta registra", "fia_data.json", "prelož podanie na kartu", "napoj vlajky".
 license: MIT
 metadata:
-  version: "1.2.4"
-  updated: "2026-07-25"
+  version: "1.3.1"
+  updated: "2026-07-30"
 ---
 
 # FIA FOX — statický web a register (`fia-fox-web`)
@@ -58,13 +58,30 @@ Peter píše po slovensky, terse, jednoslovné príkazy. Odpovedaj po slovensky,
 
 ## 1. Dva repozitáre — čo kam patrí
 
+**ZMENA 30.07.2026: dokumenty káuz sa presunuli do `fia-fox-web`.** Peter založil adresárovú štruktúru
+`fia-fox-web/kauzy/<KOD-KAUZY>_<slug>/odoslane|prijate/` (potvrdené na `TFIA-2026-JV_Telekom-kartel-Joint-Venture`
+a ďalších 7 kauzách, s `README.md` v koreni `kauzy/` aj v každej kauze). Odtiaľto sa berú zdroje pre HTML klony
+(Word, Markdown) aj podpísané originály. **Repo `fia` už NIE JE cieľ pre nové dokumenty** — necháva sa len ako
+legacy/archív pre staršie veci a pre `viewer.html` / `kauzy.js`, kým sa nepresunú tiež (pozri nižšie).
+
 | Repo | Úloha | Obsah |
 |---|---|---|
-| `peterferenc246-design/fia` | **archív a dielňa** | dokumenty káuz (PDF originály + klony), obrázky, `viewer.html`, `kauzy.js`, bannery, jazykové zdroje, `tools/`, `PAMATAJ.md` káuz |
-| `peterferenc246-design/fia-fox-web` | **výkladná skriňa** | `index.html`, `register.html`, `editor.html`, `karta-*.html`, `_data/` (dáta + generátory), `kauzy/`, `skills/` (verzia tohto skillu + `.zip`) |
+| `peterferenc246-design/fia-fox-web` | **výkladná skriňa AJ archív dokumentov** | `index.html`, `register.html`, `editor.html`, `karta-*.html`, `_data/` (dáta + generátory), `kauzy/` (dokumenty káuz — PDF originály + klony, `odoslane/prijate` na kauzu, `README.md`), `skills/` (verzia tohto skillu + `.zip`) |
+| `peterferenc246-design/fia` | **legacy archív** | `viewer.html`, `kauzy.js`, bannery, jazykové zdroje, `tools/` — dokumenty tu už NEPRIBÚDAJÚ, staré zostávajú kým sa nepresunú |
 
 Doména `register.foxprof.club` je nastavená na **fia-fox-web** (CNAME v koreni).
 Na `fia` doménu NIKDY nenastavuj — presmerovala by adresy, ktoré používa ostrý register #303 a viewer.
+
+**Nové dokumenty (originál aj klon) commituj do `fia-fox-web/kauzy/<KOD-KAUZY>_<slug>/odoslane|prijate/`.**
+Pred prvým dokumentom v kauze over, či priečinok `kauzy/<kauza>/` už existuje (má ho 8 z 8 kauz v registri);
+ak nie, založ ho podľa vzoru existujúcich (`odoslane/`, `prijate/`, vlastné `README.md` ak ho majú ostatné).
+
+**PRAVIDLO (potvrdené 30.07.2026): staré ostáva, nové ide do `fia-fox-web`.** Existujúcich 217+ odkazov vo
+`fia_data.json` ukazuje na jsDelivr `@SHA` do repa `fia` (SHA-pinned na konkrétny commit) — tie sa NEPRESÚVAJÚ,
+fungujú ďalej aj po zmazaní súboru z aktuálnej vetvy `fia`, pokiaľ história repa `fia` ostane zachovaná
+(nikdy force-push/rewrite/zmazanie repa `fia`). Fyzický presun starých dokumentov by si vyžiadal prepočítanie
+všetkých dotknutých polí (`doc1/doc2/orig/qes/langs`) pre každú položku + úpravu `gen_home.py`/`gen_karta.py`
+(majú `fia` napevno v kóde) — robí sa LEN na výslovný pokyn, kauzu po kauze, nikdy hromadne naraz.
 
 Commity cez **Contents API** (jednosúborové) alebo **Git Data API** (blob→tree→commit→ref, viacsúborové).
 Detail v §13.
@@ -144,19 +161,8 @@ Export #303 získa Peter otvorením
   farebnú pilulku stavu, SPISOVÁ KOMUNIKÁCIA v dvoch stĺpcoch (Odoslané/Prijaté s počtami), dole
   Sprievodný text a Zdieľať.
 - **Položka obsahuje:** dátum červeno, štítok prístupu 🌐 Verejné / 🔒 Heslo, ❗ a červený pruh pri dôležitých,
-  orgán, názov súboru v prerušovanom rámčeku, tlačidlá **Otvoriť dokument (9 jazykov) · 📄 Súhrn · 💬 Komentovať**.
-  **★ ŽELEZNÉ PRAVIDLO (Peter 25.07.2026): „Podpísaný originál" sa NIKDY nekreslí na karte.** Originál je dostupný
-  až PO otvorení dokumentu — tlačidlo naň žije v hlavičke otvoreného klonu (§8a), nie na karte. Generátory
-  `gen_register_full.py` aj `gen_live.py` preto do karty `og`/orig button NEvkladajú (pole `orig` môže v dátach
-  ostať ako kanonický odkaz, karta ho ale nezobrazuje).
-  **Popis tlačidla „(QES)" LEN ak dokument reálne nesie Petrov kvalifikovaný podpis** (jeho odoslané podpísané
-  podania). Dokument bez QES (došlá pošta, nepodpísané) → v tlačidle „(PDF)", nikdy „(QES)". Popis tlačidla v klone =
-  „Stiahnuť originál (PDF)" (9 jaz., §8a); vedie priamo na jsDelivr PDF (prehliadač vykreslí + natívne stiahne).
-- **Radenie položiek podľa dátumu (systémovo, Peter 25.07.2026).** Odoslané aj došlé sa radia podľa dátumu.
-  Register: generátor vypíše `data-d` (dátumový kľúč) na KAŽDÚ položku `.it`; prepínač `⇅ 📅` (`#itemsort`) preusporiada
-  `.it` v OBOCH `.col` zostupne/vzostupne. Editor: premenná `radDesc` + tlačidlo `↓ najnovšie / ↑ najstaršie`.
-  **Krúžky vlákna 1,2,3** (§7) sa číslujú podľa DÁTUMU nezávisle od zobrazeného poradia a kreslia sa v registri
-  (skript) aj v editore (náhľad položiek, `thrNum`). `data-thread` je len na položkách vo vlákne, `data-d` na všetkých.
+  orgán, názov súboru v prerušovanom rámčeku, tlačidlá **Otvoriť dokument (9 jazykov) · ✍ Podpísaný originál
+  (QES) · 📄 Súhrn · ⚖ predpis · 💬 Komentovať** (§6b).
 
 ---
 
@@ -252,18 +258,14 @@ sum/law/d/page/vw) a nechaj generátor URL poskladať. Reťazce/SHA generuj prog
 
 ---
 
-## 7. Vlákna odpovedí (thread) — párovanie [FUNGUJE v statickom registri od 25.07.2026]
+## 7. Vlákna odpovedí (thread) — párovanie
 
-- **Dáta:** obom partnerským položkám nastav rovnaký `thread` (`thr-<slug predmetu pôvodného podania>`);
-  odpovedi navyše `replyTo` = predmet pôvodného podania. Partnera dohľadaj podľa `replyTo`. Bez rovnakého
-  `thread` na OBOCH položkách vlákno neexistuje.
-- **Renderuje sa automaticky — čísla ani krúžky NEPÍŠ do dát ani markupu.** `gen_register_full.py` vypíše na
-  položku (`.it`) `data-thread` + `data-d` (dátumový kľúč). Skript registra v rámci každej karty zoskupí položky
-  podľa `data-thread`, zoradí podľa dátumu a nakreslí do hlavičky (`.ih`) číslovaný krúžok `.thr`
-  (1 = pôvodné podanie, 2 = reakcia …). Klik/hover na krúžok zvýrazní celé vlákno (`.thr-hl`) a odscrolluje
-  na partnera.
-- Vlákno spája položky NAPRIEČ stĺpcami Odoslané/Došlé v tej istej karte (odoslané podanie ↔ došlá odpoveď).
-- Karta-stránky `karta-*.html` z `gen_live.py` — rovnaké číslovanie doplniť analogicky (TODO, ak treba samostatné stránky).
+- Ak má položka `replyTo`, **NESTAČÍ vložiť ju samu.** Partnerskú položku dohľadaj podľa predmetu z `replyTo`
+  a v tom istom kroku jej doplň rovnaký `thread` (`thr-<slug predmetu pôvodného podania>`) — na oboch položkách.
+  Bez toho vlákno neexistuje.
+- **Čísla v krúžkoch NEPÍŠ do markupu.** Krúžok `.thr` kreslí `kauzy.js` (`renderThreadNumbers()`): krúžok dostanú
+  LEN položky s `thread`; číslo = poradie dokumentu v jeho vlákne chronologicky (1 = pôvodné podanie, 2 = prvá
+  reakcia …), prepočíta sa samo pri načítaní. Klik na krúžok/„Odpoveď na" zvýrazní celé vlákno.
 
 ---
 
@@ -278,28 +280,17 @@ sum/law/d/page/vw) a nechaj generátor URL poskladať. Reťazce/SHA generuj prog
 - hlavička dvojstĺpcová: vľavo oznamovateľ, vpravo adresát; ikony 📍📧📞📠 patria **PRED text na jeden riadok**;
 - na konci podpisový blok s obrázkom podpisu a poznámkou o QES;
 - obrázky cez **relatívnu cestu `img/…`**, NIE cez jsDelivr (`@main` cachuje až 12 h);
-- vzor hotového riešenia: `dg-comp-kartel-pristup-k-dokumentom/dgcomp-correspondence-full.html` (repo `fia`);
-- **tlačidlo originálu žije v hlavičke klonu (langbar), NIE na karte** (§5).
-- **★ ŽELEZNÉ PRAVIDLO — ZOBRAZENIE + STIAHNUTIE ORIGINÁLU (Peter 25.07.2026, TOTO SA UŽ NERIEŠI ZNOVA):**
-  tlačidlo v langbare vedie **PRIAMO na jsDelivr PDF**
-  `https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/<cesta>.pdf` — NIE cez `viewer.html`,
-  NIE cez `raw.githubusercontent.com` (ten posiela `application/octet-stream` + nosniff → slepé stiahnutie bez
-  náhľadu). Priamy jsDelivr = prehliadač PDF **vykreslí inline** (1. klik zobrazí originál) a v jeho vlastnej lište je
-  **natívne stiahnutie do PC** (2. klik). Toto je jediný správny a Petrom overený spôsob; žiadny viewer/blob medzikrok.
-- **Popis tlačidla = „Stiahnuť originál (PDF)"** vo všetkých 9 jaz.: Download original / Original herunterladen /
-  Télécharger l'original / Scarica originale / Descargar original / Pobierz oryginał / Preuzmi izvornik /
-  Ladda ner originalet. Prípona „(QES)" LEN ak dokument nesie Petrov kvalifikovaný podpis; došlá pošta a
-  nepodpísané → vždy „(PDF)".
-- **Obrázky klonu (erb, podpis) vkladaj ako base64 data-URI** raz cez CSS triedu (self-contained, súbor nenarastie
-  9×) — NIE cez jsDelivr (`@main` cachuje 12 h) ani `img/` (relatívna cesta zlyhá pri priamom otvorení súboru).
-- **Disclaimer** v každom preklade odkazuje na tlačidlo „Stiahnuť originál (PDF)", NIE na vlajku DE (DE vlajka je tiež
-  len HTML klon; záväzný je podpísaný PDF originál).
+- vzor hotového riešenia: `dg-comp-kartel-pristup-k-dokumentom/dgcomp-correspondence-full.html` (repo `fia`,
+  legacy vzor — nové klony ukladaj do `fia-fox-web/kauzy/<kauza>/odoslane|prijate/`);
+- podpísaný originál (PDF/QES) ostáva samostatné tlačidlo na stiahnutie ako dôkaz.
 
 ### 8b. PDF/DOCX klon — pre ODOSIELANÉ/podpisované dokumenty (prevzaté z fia-mk §4.1)
 Keď treba viacjazyčný PDF klon do jedného súboru (nie HTML) alebo keď sa dokument reálne odosiela:
-1. **Klon sa stavia z Petrovho WORDU, nie z vlastného layoutu.** `tools/build_docx_clone.py` (repo `fia`):
-   naklonuje DOCX, vymení LEN text (zachová Calibri/okraje/štýly/zarovnania/tučné úseky/hypertextové e-maily/
-   zalomenie sekcií), vloží jazykový banner ako **plávajúci ukotvený objekt** a čistý podpis; prevod cez LibreOffice.
+1. **Klon sa stavia z Petrovho WORDU, nie z vlastného layoutu.** `tools/build_docx_clone.py` (nástroj zostáva
+   v legacy repe `fia`, kým sa nepresunie): naklonuje DOCX, vymení LEN text (zachová Calibri/okraje/štýly/
+   zarovnania/tučné úseky/hypertextové e-maily/zalomenie sekcií), vloží jazykový banner ako **plávajúci
+   ukotvený objekt** a čistý podpis; prevod cez LibreOffice. **Výsledný klon commituj do
+   `fia-fox-web/kauzy/<kauza>/odoslane|prijate/`, nie do `fia`.**
    - Pri výmene textu odstraňuj LEN behy s `w:t`; beh s `w:drawing`/`w:pict`/`mc:AlternateContent` nechaj
      (inak zmizne podpisový blok). Prázdne odseky nemajú behy — výšku určuje `w:pPr/w:rPr/w:sz`.
    - **FIT-PASS:** FR/ES/IT sú dlhšie než SK; klon musí mať toľko strán ako originál. Stláčaj LEN prázdne medzery,
@@ -376,7 +367,8 @@ Nikdy holým odkazom na PDF (prehliadač ho odovzdá Acrobatu), nikdy cez `githu
   **NIKDY base64 cez argv** (Argument list too long) a **NIKDY nepresmeruj python stdout do toho istého payload súboru**.
 - **Git Data API** (viacsúborové): blob → tree → commit → PATCH ref. Nový HEAD SHA cez `git ls-remote`.
 - **Po commite over cez `raw.githubusercontent.com`** (nie `github.io` — Pages prestavuje 1–2 min).
-- CDN dokumentov: `https://cdn.jsdelivr.net/gh/peterferenc246-design/fia@{SHA}/docs/{FILE}.pdf` (SHA-pin, hneď čerstvé).
+- CDN dokumentov (nové, od 30.07.2026): `https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@{SHA}/kauzy/<kauza>/odoslane|prijate/{FILE}.pdf` (SHA-pin, hneď čerstvé).
+- Staršie dokumenty (legacy, repo `fia`): `https://cdn.jsdelivr.net/gh/peterferenc246-design/fia@{SHA}/docs/{FILE}.pdf` — zostávajú kým sa nepresunú.
 
 ---
 
@@ -412,6 +404,20 @@ Nikdy holým odkazom na PDF (prehliadač ho odovzdá Acrobatu), nikdy cez `githu
 - Založil som druhú kópiu textu súhrnu → pri zmene sa rozišli. Jediný zdroj = `suhrny{}` vo `fia_data.json`.
 - Patch skript spadol na chybe, ale commit sa aj tak vykonal a nasadil nezmenený súbor.
   **Po každej úprave over, že sa súbor naozaj zmenil, a až potom commituj.**
+- (30.07.) HTML klon som staval z textu vytiahnutého z PDF (pypdf) → stratené riadkovanie, hlavička,
+  obrázky, tučné písmo. **Jediný správny zdroj klonu = Petrov DOCX** (mammoth → HTML), preklad
+  odsek-po-odseku cez indexovaný slovník (175 položiek), nikdy regex-rekonštrukcia z PDF.
+- (30.07.) CSS pre HTML klon (`.hdr-grid`, `.hdr-right-box`, `.langbanner`) som mal len v testovacích
+  súboroch, nie v produkčnom `viewer.html` → hlavička sa nerozpadla u mňa, ale u Petra áno.
+  **Testuj VŽDY cez produkčný viewer.html (playwright), nie cez vlastnú testovaciu stránku.**
+- (30.07.) Pri výmene `doc1` som prepočítal zdieľané `langs=`, ale zabudol na individuálne `&page=`/`&d=`
+  v každom z 9 jazykových URL → PL vlajka otvárala HR obsah. **Pri zmene stránkovania prepočítaj VŠETKY
+  URL polia položky, nie len langs.**
+- (30.07.) Mammoth zlučuje po sebe idúce číslované odseky do jedného `<ol>` a moja logika brala len prvé
+  `<li>` → orezaný zoznam 6 súborov na 1. **Nadpisy značkuj neviditeľným markerom (U+2063) priamo
+  v preklade; viacpoložkové `<ol>`/`<ul>` renderuj celé.**
+- (30.07.) Playwright v sandboxe: jsDelivr padá na `ERR_CERT_AUTHORITY_INVALID` →
+  `chromium.launch(args=["--ignore-certificate-errors"])`; PDF.js sa načítava dlho → čakať 6-8 s.
 
 ---
 
@@ -424,8 +430,13 @@ Nikdy holým odkazom na PDF (prehliadač ho odovzdá Acrobatu), nikdy cez `githu
 
 ---
 
-## 17. Otvorené (k 25.07.2026)
+## 17. Otvorené (k 30.07.2026)
 
+- **HOTOVÉ 30.07.:** viewer.html podporuje HTML klony (`doc=` môže byť .html s `.pagewrap` stranami),
+  scroll-lock v rámci jazyka + relatívne číslovanie `str. X/Y`; položka 01 (Žaloba proti DT/Schufa)
+  má FR/HR/PL/IT/ES/SV ako HTML klon z DOCX (nadpisy 1-6 podľa DE, jazykový banner, obrázky base64).
+  DOCX klony per jazyk + prekladové slovníky sú v `/tmp/translations/` — **pri ďalšom dokumente
+  zopakuj rovnaký postup** (marker U+2063 pre nadpisy, mammoth, hdr-grid, banner, base64 obrázky).
 - **Dorobiť v generátore stavbu viewer URL podľa §6b** (qes/sum/law/langs pre 9 vlajok + fallback zo stavebných
   blokov). Vyriešiť zdroj súhrnu pre `sum=` (viewer čítajúci z registra) — dovtedy súhrn inline z `suhrny{}`.
 - doplniť `orig=` ostatným položkám;
