@@ -1325,10 +1325,10 @@
    "pwhint": "",
    "begleit": "Indície: Deutsche Telekom AG pri mojej žiadosti o pevné internetové pripojenie prijala výlučne automatizované individuálne rozhodnutie založené na „bonite\" spoločnosti Schufa Holding AG — bez môjho informovaného súhlasu — a odmietla mi poskytnúť službu. Bol som tak nútený kupovať mobilné dáta cez 5G predplatenú kartu za približne 108 €/mesiac, čo je v dôsledku kartelového predraženia výrazne nad bežnou cenou DSL. Ide o porušenie GDPR, práva na prístup k internetu a o neoprávnené obohacovanie.\n\nPrávny základ: Opieram sa najmä o čl. 6 a čl. 22 GDPR (zákaz rozhodnutia založeného výlučne na automatizovanom spracúvaní bez súhlasu), § 78 TKG (univerzálna služba; po reforme TKG 2021 dnes §§ 156 a nasl.) a zákaz kartelových dohôd podľa čl. 101 ZFEÚ. Žalujem Deutsche Telekom AG a Schufa Holding AG o náhradu škody 500 000 € od každého.",
    "court": "Landgericht Landshut Abteilung für Zivilsachen",
-   "thread": "",
+   "thread": "thr-zaloba-proti-deutsche-telekom-ag-a-schufa-holding-ag",
    "stav": "laeuft",
    "extra": null,
-   "replyTo": "",
+   "replyTo": "VYÚČTOVANIE TROV · ČÍSLO PLATBY 629243561605",
    "summary": "Odvolanie (Erinnerung) voči faktúre Landesjustizkasse Bamberg zo 06.11.2024 na 17 643 €. Poplatok vzišiel z hodnoty sporu 1 000 000 €, ktorú súd predbežne určil 07.10.2024. Peter namieta, že úhradu súdnych nákladov nemožno žiadať pred rozhodnutím o jeho žiadosti o právnu pomoc (odloženom na 20.11.2024), a s poukazom na svoju insolventnosť žiada odklad splatnosti faktúry (Stundung) až do právoplatného rozhodnutia o právnej pomoci. Súd pritom v ten istý deň (06.11.2024) sám píše o „návrhu žaloby\" a „potenciálnych žalovaných\" a beží konanie o právnej pomoci, ktoré je bez poplatku.",
    "summodId": "summod-zaloba-p03",
    "karta": "case-zaloba-proti-deutsche-telekom-ag-porusov",
@@ -1352,7 +1352,8 @@
    ],
    "jur": [
     "de"
-   ]
+   ],
+   "thrNo": "4"
   },
   {
    "v": 1,
