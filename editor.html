@@ -240,6 +240,34 @@ function esc(s){return (s||"").replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>'
 function kartaById(id){return (D.karty||[]).find(k=>k.id===id);}
 function nazovKarty(k){return txtFb(k.nazov)||k.id;}
 function predmet(p){return txtFb(p.subj9)||p.subj||'(bez predmetu)';}
+/* ── VLÁKNO: kľúč vlákna zo subjektu koreňového dokumentu ── */
+function slug(s){return (s||'').toString().toLowerCase()
+  .normalize('NFD').replace(/[\u0300-\u036f]/g,'')      // diakritika preč
+  .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,60);}
+/* nájdi koreň vlákna: nasleduj replyTo, kým existuje predchodca v tej istej karte */
+function threadRoot(p){
+  var guard=0, cur=p;
+  while(cur && cur.replyTo && guard++<50){
+    var parent=(D.polozky||[]).find(x=>x.karta===cur.karta && x!==cur && predmet(x)===cur.replyTo);
+    if(!parent) break; cur=parent;
+  }
+  return cur;
+}
+/* po zmene replyTo prepočítaj thread pre celú kartu (koreň + všetky odpovede zdieľajú kľúč koreňa) */
+function rewireThreads(karta){
+  var list=(D.polozky||[]).filter(x=>x.karta===karta);
+  list.forEach(function(p){
+    if(p.replyTo){                       // je to odpoveď → thread = kľúč koreňa
+      var r=threadRoot(p);
+      var key='thr-'+slug(predmet(r));
+      p.thread=key; r.thread=key;         // koreň dostane ten istý kľúč
+    } else {
+      // koreň bez replyTo: thread nastav LEN ak naň niekto odpovedá
+      var hasChild=list.some(x=>x.replyTo===predmet(p));
+      p.thread = hasChild ? ('thr-'+slug(predmet(p))) : '';
+    }
+  });
+}
 
 function dkey(v){
  v=(v||'').trim();
@@ -620,7 +648,7 @@ function editor(){
   +pole('Predpis — URL/CELEX ~ popis <span class="hint">(voliteľné; prázdne = Claude vyberie nosný predpis)</span>',p.law||'',P+'.law=this.value;docs()')
   +pole('Strana podpisu (qes = STRANA:DOK:ZAROVNANIE)',p.qes||'',P+'.qes=this.value')
   +'</div>'
-  +'<label>↩ Odpoveď na (vlákno)</label><select onchange="'+P+'.replyTo=this.value">'
+  +'<label>↩ Odpoveď na (vlákno)</label><select onchange="'+P+'.replyTo=this.value;rewireThreads('+P+'.karta);docs()">'
   +'<option value="">— bez väzby —</option>'
   +(D.polozky||[]).filter(x=>x!==p&&x.karta===p.karta).map(x=>{const t=(x.dir==='sent'?'↗ ':'↙ ')+(x.date||'')+' · '+predmet(x);
      return '<option value="'+esc(predmet(x))+'"'+(predmet(x)===p.replyTo?' selected':'')+'>'+esc(t)+'</option>';}).join('')
