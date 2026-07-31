@@ -82,6 +82,9 @@ def jflag(j):
 
 pol_karty = {}
 for p in POLOZKY: pol_karty.setdefault(p.get("karta",""), []).append(p)
+# Pridaj aj karty bez položiek (aby sa zobrazili v registri)
+for k in KARTY:
+    if k.get("id") and k["id"] not in pol_karty: pol_karty[k["id"]] = []
 karta_by_id = {k["id"]: k for k in KARTY}
 def kauza_karty(cid):
     for z in KAUZY:

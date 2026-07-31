@@ -142,6 +142,8 @@ def page(title, body, script=""):
 pol_karty = {}
 for p in POLOZKY:
     pol_karty.setdefault(p.get("karta",""), []).append(p)
+for k in KARTY:
+    if k.get("id") and k["id"] not in pol_karty: pol_karty[k["id"]] = []
 karta_by_id = {k["id"]: k for k in KARTY}
 kauza_karty = {}
 for p in POLOZKY:
