@@ -3359,6 +3359,75 @@
    "jur": [
     "de"
    ]
+  },
+  {
+   "kauza": "TFIA-2026-JV",
+   "kauza_nazov": "",
+   "dir": "sent",
+   "date": "10.12.2024",
+   "stav": "laeuft",
+   "access": "",
+   "az": "",
+   "ourref": "",
+   "court": "Landgericht Landshut",
+   "cmtid": "",
+   "summodId": "summod-zaloba-proti-d-07",
+   "fname": "10_Antrag auf Erlass einer einstweiligen Verfügung _sharp_DE_EN_SK_with_QES.pdf",
+   "fpath": "cd d:\\OneDrive - Peter Ferenc Foxpro\\Dokumenty\\Bundesbeauftragte\\Súd Landshut Telekom žaloba\\Pošta\\Odoslaná pošta\\Odoslané\\10_Antrag auf Erlass einer einstweiligen Verfügung _sharp_DE_EN_SK_with_QES.pdf",
+   "cats": {},
+   "mode": "item",
+   "v": 1,
+   "karta": "case-zaloba-proti-deutsche-telekom-ag-porusov",
+   "subj9": {
+    "de": "",
+    "en": "",
+    "sk": "Žiadosť o vydanie súdneho príkazu pre agentúru Schufa Holding AG",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "urls": {
+    "de": "",
+    "en": "",
+    "sk": "https://peterferencfoxpro-my.sharepoint.com/:b:/g/personal/info_foxprof_club/IQBPMAOTKs5URatEenyfQt07ATa7fwGpUh6EtsgZRiLzGLE?e=Z37rBF",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "subj": "",
+   "begleit": "",
+   "cardsubj": "",
+   "prikazy": "Dokument práve prekláš do 6 jazykov v repe! Po preklade tento dokument pripoj k tejto karte konania! Priraď do skupiny Nemecko!",
+   "pwhint": "",
+   "extra": {},
+   "fallback": "",
+   "orig": "",
+   "law": "",
+   "qes": "",
+   "thread": "",
+   "replyTo": "",
+   "thrNo": "",
+   "bezDatumu": false,
+   "btnQes": false,
+   "btnSum": true,
+   "btnLaw": true,
+   "dolezite": false,
+   "komentare": true,
+   "important": false,
+   "comments": true,
+   "oblast": [
+    "kartell",
+    "gdpr",
+    "strafrecht",
+    "majetok"
+   ],
+   "jur": []
   }
  ],
  "suhrny": {
@@ -3592,6 +3661,9 @@
    "it": "<h3>Riepilogo del documento</h3><p>Azione legale di Peter Ferenc del 02.10.2024 contro Deutsche Telekom AG (Bonn) e Schufa Holding AG (Wiesbaden) dinanzi al Tribunale regionale di Landshut (Landgericht Landshut). Oggetto della causa è la violazione del GDPR e del diritto di accesso a internet tramite una decisione automatizzata basata sul punteggio di affidabilità creditizia Schufa, adottata senza consenso informato. L'attore chiede un risarcimento di 500.000 € da ciascuna delle due società convenute.</p>",
    "fr": "<h3>Résumé du document</h3><p>Plainte de Peter Ferenc du 02.10.2024 contre Deutsche Telekom AG (Bonn) et Schufa Holding AG (Wiesbaden) devant le tribunal régional de Landshut (Landgericht Landshut). L'affaire porte sur une violation du RGPD et du droit d'accès à internet par une décision automatisée fondée sur le score de solvabilité Schufa, prise sans consentement éclairé. Le demandeur réclame des dommages-intérêts de 500 000 € à chacune des deux sociétés défenderesses.</p>",
    "sv": "<h3>Sammanfattning av dokumentet</h3><p>Stämning från Peter Ferenc daterad 2024-10-02 mot Deutsche Telekom AG (Bonn) och Schufa Holding AG (Wiesbaden) vid Landgericht Landshut. Saken gäller ett brott mot GDPR och rätten till internetåtkomst genom ett automatiserat beslut baserat på Schufas kreditvärdighetsbedömning, fattat utan informerat samtycke. Käranden yrkar skadestånd om 500 000 € från vart och ett av de två svarandebolagen.</p>"
+  },
+  "summod-zaloba-proti-d-07": {
+   "sk": "<h3>Súhrn dokumentu</h3><p>Vygeneruj súhrn dokumentu a doplň, v mojom mene, že som sa pokúsil vyžiadať od súdu súdny príkaz na to, aby som súdu prijmel k tomu, aby protistrana poskytla súdu môj informovaný súhlas na manipulovanie s nezákonným Automatizovaným rozhodnutím, pre účely \"BONITY\" ktorá je nezákonná a ktorú poskytuje Schufa Telekomunikačným spoločnostiam pre účely odmietnutia žiadosti o internetové pripojenie DSL za dostupné ceny čo sa rovná nezákonnému podvodu! A aby nám Telekomunikačné spoločnosti nanútili ich predražený variant s neobmedzeným internetom za 108€/mesiac!</p>"
   }
  },
  "kauzy": [
@@ -3608,7 +3680,7 @@
     "case-v-sirsom-zmysle-kauzy-kartelove-prepojen",
     "case-zaloba-proti-deutsche-telekom-ag-porusov"
    ],
-   "n": 21
+   "n": 22
   },
   {
    "spis": "TCFIA-2026-FON",
