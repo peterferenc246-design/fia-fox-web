@@ -3829,6 +3829,74 @@
    "jur": [
     "de"
    ]
+  },
+  {
+   "kauza": "TFIA-2026-JV",
+   "kauza_nazov": "",
+   "dir": "sent",
+   "date": "26.01.2025",
+   "stav": "laeuft",
+   "access": "",
+   "az": "",
+   "ourref": "",
+   "court": "Vyšší krajský súd Mníchov",
+   "cmtid": "",
+   "summodId": "summod-zmena-sudu-olg-03",
+   "fname": "05_KLAGE AUF SCHADENSERSATZ_signed with_QES.pdf",
+   "fpath": "cd d:\\OneDrive - Peter Ferenc Foxpro\\Dokumenty\\Bundesbeauftragte\\Súd Mníchov nadriadený Telekom žaloba\\Pošta\\Odoslaná\\04_Ablehnung des Internetanschlusses Telekom_DE_EN_SK_signed with_QES.pdf",
+   "cats": {},
+   "mode": "item",
+   "v": 1,
+   "karta": "case-zmena-sudu-olg-munchen-obstukcie-landgerichtu",
+   "subj9": {
+    "de": "",
+    "en": "",
+    "sk": "Odmietnutie pripojenia na internet Telekomom Deutschland GmbH",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "urls": {
+    "de": "",
+    "en": "",
+    "sk": "https://github.com/peterferenc246-design/fia-fox-web/blob/main/kauzy/TFIA-2026-JV_Telekom-kartel-Joint-Venture/Zmena-sudu-na-Oberlandesgericht-Munchen__case-zmena-sudu-olg-munchen-obstukcie-landgerichtu/odoslane/04_Ablehnung%20des%20Internetanschlusses%20Telekom_DE_EN_SK_signed%20with_QES.pdf",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "subj": "",
+   "begleit": "",
+   "cardsubj": "",
+   "prikazy": "pridaj položku ku konaniu!",
+   "pwhint": "",
+   "extra": {},
+   "fallback": "",
+   "orig": "https://peterferencfoxpro-my.sharepoint.com/:b:/g/personal/info_foxprof_club/IQClJ0K9vUbURb3X7dy3_015Aa3ReKBLVtPQcPlB6fWZeLE?e=0VK89b",
+   "law": "",
+   "qes": "",
+   "thread": "",
+   "replyTo": "",
+   "thrNo": "",
+   "bezDatumu": false,
+   "btnQes": true,
+   "btnSum": true,
+   "btnLaw": true,
+   "dolezite": false,
+   "komentare": true,
+   "important": false,
+   "comments": true,
+   "oblast": [
+    "kartell",
+    "gdpr",
+    "majetok"
+   ],
+   "jur": []
   }
  ],
  "suhrny": {
@@ -4117,7 +4185,8 @@
    "it": "<h3>Risposta OLG Monaco</h3><p>03.02.2024 · OLG München · TFIA-2026-JV. L'Oberlandesgericht München risponde all'istanza di Peter Ferenc riguardante la competenza e la trasmissione elettronica. 6 pagine: DE · EN · SK.</p>",
    "fr": "<h3>Réponse OLG Munich</h3><p>03.02.2024 · OLG München · TFIA-2026-JV. L'Oberlandesgericht München répond à la requête de Peter Ferenc concernant la compétence et la transmission électronique. 6 pages : DE · EN · SK.</p>",
    "sv": "<h3>Svar från OLG München</h3><p>03.02.2024 · OLG München · TFIA-2026-JV. Oberlandesgericht München svarar på Peter Ferencs inlaga om behörighet och elektronisk delgivning. 6 sidor: DE · EN · SK.</p>"
-  }
+  },
+  "summod-zmena-sudu-olg-03": {}
  },
  "kauzy": [
   {
@@ -4134,7 +4203,7 @@
     "case-zaloba-proti-deutsche-telekom-ag-porusov",
     "case-zmena-sudu-olg-munchen-obstukcie-landgerichtu"
    ],
-   "n": 26
+   "n": 27
   },
   {
    "spis": "TCFIA-2026-FON",
