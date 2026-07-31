@@ -120,7 +120,7 @@ def polozka(p, n):
             f'<div class="isj">{"❗ " if p.get("dolezite") else ""}{g(p.get("subj9") or {})}</div>'
             + (f'<div class="iorg">⚖ <b>{g(UI["org"])}:</b> {html.escape(p.get("court",""))}</div>' if p.get("court") else "")
             + fn +
-            f'<div class="ibt">{doc}{sm}{kom}</div>{subox}<div class="cmt-wrap"></div></div>')
+            f'<div class="ibt">{doc}{og}{sm}{kom}</div>{subox}<div class="cmt-wrap"></div></div>')
 
 # ───────────── KARTA ─────────────
 def karta(cid, ps, otvorena=False):
