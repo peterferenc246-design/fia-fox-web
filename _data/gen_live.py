@@ -180,7 +180,7 @@ rows = ""
 for cid, ps in sorted(pol_karty.items(), key=lambda x: -len(x[1])):
     k = karta_by_id.get(cid, {})
     _z = kauza_karty(cid); kz = _z["spis"] if _z else "?"
-    st = ps[0].get("stav") or "laeuft"
+    st = ps[0].get("stav") if ps else "laeuft"; st = st or "laeuft"
     rows += (f'<div class="kon" data-k="{kz}" data-d="{k.get("date","")}" data-az="{html.escape(k.get("az","") or "")}">'
              f'<div><div class="knaz">{g(k.get("nazov")) or html.escape(cid)}</div>'
              f'<div class="korg">{g(k.get("organ"))} &nbsp;·&nbsp; <b>{html.escape(k.get("az","") or "—")}</b>'
