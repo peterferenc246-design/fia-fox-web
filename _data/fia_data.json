@@ -1263,7 +1263,7 @@
     "gdpr",
     "majetok"
    ],
-   "pin": "",
+   "pin": "1",
    "datum_txt": "",
    "nazov": {
     "de": "Gerichtswechsel zum Oberlandesgericht München wegen Obstruktionen des Landgerichts Landshut",
@@ -3691,6 +3691,74 @@
    "jur": [
     "de"
    ]
+  },
+  {
+   "kauza": "TFIA-2026-JV",
+   "kauza_nazov": "",
+   "dir": "sent",
+   "date": "21.01.2025",
+   "stav": "laeuft",
+   "access": "",
+   "az": "",
+   "ourref": "",
+   "court": "Oberlandesgericht München",
+   "cmtid": "",
+   "summodId": "summod-zmena-sudu-olg-01",
+   "fname": "01_Mitteilung an das Oberlandesgericht über die Zustellung von Post_signed with_FES.pdf",
+   "fpath": "cd d:\\OneDrive - Peter Ferenc Foxpro\\Dokumenty\\Bundesbeauftragte\\Súd Mníchov nadriadený Telekom žaloba\\Pošta\\Odoslaná\\01_Mitteilung an das Oberlandesgericht über die Zustellung von Post_signed with_FES.pdf",
+   "cats": {},
+   "mode": "item",
+   "v": 1,
+   "karta": "case-zmena-sudu-olg-munchen-obstukcie-landgerichtu",
+   "subj9": {
+    "de": "",
+    "en": "",
+    "sk": "týmto Vás informujem, že odteraz nebudem zasielať svoje právne dokumenty a podania na Landgericht Landshut.",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "urls": {
+    "de": "",
+    "en": "",
+    "sk": "https://github.com/peterferenc246-design/fia-fox-web/blob/main/kauzy/TFIA-2026-JV_Telekom-kartel-Joint-Venture/Zmena-sudu-na-Oberlandesgericht-Munchen__case-zmena-sudu-olg-munchen-obstukcie-landgerichtu/odoslane/01_Mitteilung%20an%20das%20Oberlandesgericht%20%C3%BCber%20die%20Zustellung%20von%20Post_signed%20with_FES.pdf",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "subj": "",
+   "begleit": "sprievodný text urobíme po nahratí všetkých dokumentov 8",
+   "cardsubj": "",
+   "prikazy": "vygeneruj položku!",
+   "pwhint": "",
+   "extra": {},
+   "fallback": "",
+   "orig": "https://peterferencfoxpro-my.sharepoint.com/:b:/g/personal/info_foxprof_club/IQAbUUJWbtt9QIZcmd6SA8xoAW-Q0KJ8jOYEEeaczmh7UuI?e=OITQfZ",
+   "law": "",
+   "qes": "",
+   "thread": "",
+   "replyTo": "",
+   "thrNo": "1",
+   "bezDatumu": false,
+   "btnQes": true,
+   "btnSum": true,
+   "btnLaw": true,
+   "dolezite": true,
+   "komentare": true,
+   "important": true,
+   "comments": true,
+   "oblast": [
+    "kartell",
+    "gdpr",
+    "majetok"
+   ],
+   "jur": []
   }
  ],
  "suhrny": {
@@ -3957,7 +4025,8 @@
    "it": "<h3>Obiezione al rifiuto della firma FES</h3><p>14.01.2025 · Fascicolo 91 O 2699/24 · LG Landshut. Peter Ferenc presenta obiezione contro il rifiuto della firma elettronica avanzata (FES). Base giuridica: Regolamento eIDAS art. 25(2), § 130a ZPO. 14 pagine: DE + SK.</p>",
    "fr": "<h3>Objection au rejet de la signature FES</h3><p>14.01.2025 · Affaire 91 O 2699/24 · LG Landshut. Peter Ferenc dépose une objection contre le rejet de la signature électronique avancée (FES). Base légale : Règlement eIDAS art. 25(2), § 130a ZPO. 14 pages : DE + SK.</p>",
    "sv": "<h3>Invändning mot avvisning av FES-signatur</h3><p>14.01.2025 · Mål 91 O 2699/24 · LG Landshut. Peter Ferenc invänder mot domstolens avvisning av avancerad elektronisk signatur (FES). Rättslig grund: eIDAS-förordningen art. 25(2), § 130a ZPO. 14 sidor: DE + SK.</p>"
-  }
+  },
+  "summod-zmena-sudu-olg-01": {}
  },
  "kauzy": [
   {
@@ -3971,9 +4040,10 @@
     "case-dgcomp",
     "case-telekom",
     "case-v-sirsom-zmysle-kauzy-kartelove-prepojen",
-    "case-zaloba-proti-deutsche-telekom-ag-porusov"
+    "case-zaloba-proti-deutsche-telekom-ag-porusov",
+    "case-zmena-sudu-olg-munchen-obstukcie-landgerichtu"
    ],
-   "n": 24
+   "n": 25
   },
   {
    "spis": "TCFIA-2026-FON",
