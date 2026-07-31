@@ -1210,6 +1210,93 @@
     "it": "<h3>Informazioni su questa memoria</h3><p>L'11 luglio 2024 ho presentato all'Ispettorato di Polizia di Landshut una denuncia penale contro Telekom Deutschland GmbH in relazione alla condotta dell'agenzia SCHUFA Holding AG. Oggetto è il sospetto di un meccanismo fraudolento nel rifiuto dell'accesso a internet: Telekom ha deciso sulla mia richiesta di una connessione fissa esclusivamente in modo automatizzato — sulla base di una «affidabilità creditizia» di SCHUFA, che trattava e commerciava i miei dati personali senza il mio consenso informato.</p><p>Si tratta di un processo decisionale automatizzato individuale vietato ai sensi dell'art. 22 del GDPR e di un trattamento privo di base giuridica ai sensi dell'art. 6 del GDPR. La conseguenza per me è stata concreta e misurabile: invece di una connessione fissa al prezzo normale, sono stato costretto ad acquistare dati 5G prepagati per 108 € al mese — un aggravio mensile di 68 € rispetto alla DSL, circa 4 380 € in cinque anni compreso il router. Con il rifiuto del servizio di base sono stati violati anche l'obbligo di servizio universale (§ 78 TKG) e il mio diritto a un'internet aperta ai sensi del regolamento (UE) 2015/2120 — l'accesso a internet è oggi condizione fondamentale per il lavoro, la comunicazione con le autorità e l'istruzione.</p><p>La denuncia documenta il meccanismo che considero il cuore dell'intera vicenda Telekom — cartello / impresa comune: un'agenzia di credito vende i punteggi dei consumatori senza il loro consenso, gli operatori li usano per respingere in modo automatizzato i richiedenti e poi vendono loro tariffe sovrapprezzate. La stessa denuncia funge perciò anche da prova A3 nel ricorso di annullamento della decisione M.10815 dinanzi al Tribunale dell'UE (causa T‑61/26). A oggi non ho ricevuto dalle autorità alcuna conferma dell'avvio di un'indagine — anche questa inerzia è parte documentata della vicenda.</p><p>L'iniziativa FIA FOX pubblica la questione esclusivamente per informare il pubblico sull'operato delle autorità in una questione di interesse pubblico. Il testo completo della memoria e delle prove è accessibile tramite i documenti di questo caso sopra.</p>",
     "fr": "<h3>À propos de ce mémoire</h3><p>Le 11 juillet 2024, j'ai déposé auprès de l'Inspection de police de Landshut une plainte pénale contre Telekom Deutschland GmbH en lien avec le comportement de l'agence SCHUFA Holding AG. Elle porte sur le soupçon d'un mécanisme frauduleux dans le refus de l'accès à internet : Telekom a statué sur ma demande de connexion fixe exclusivement de manière automatisée — sur la base d'une « solvabilité » de la SCHUFA, qui traitait et commercialisait mes données personnelles sans mon consentement éclairé.</p><p>Il s'agit d'une décision individuelle automatisée interdite au sens de l'art. 22 du RGPD et d'un traitement sans base juridique au sens de l'art. 6 du RGPD. La conséquence a été pour moi concrète et mesurable : au lieu d'une connexion fixe au prix habituel, j'ai été contraint d'acheter des données 5G prépayées pour 108 € par mois — un surcoût mensuel de 68 € par rapport au DSL, environ 4 380 € sur cinq ans, routeur compris. Le refus du service de base a également violé l'obligation de service universel (§ 78 TKG) et mon droit à un internet ouvert au titre du règlement (UE) 2015/2120 — l'accès à internet est aujourd'hui une condition de base du travail, de la communication avec les administrations et de l'éducation.</p><p>La plainte documente le mécanisme que je considère comme le cœur de toute l'affaire Telekom — entente / entreprise commune : une agence de crédit vend des scores de consommateurs sans leur consentement, les opérateurs s'en servent pour rejeter les demandeurs de manière automatisée, puis leur vendent des tarifs surévalués. La même plainte sert donc aussi de preuve A3 dans le recours en annulation de la décision M.10815 devant le Tribunal de l'UE (affaire T‑61/26). À ce jour, je n'ai reçu des autorités aucune confirmation de l'ouverture d'une enquête — cette inaction fait elle aussi partie documentée de l'affaire.</p><p>L'initiative FIA FOX publie l'affaire uniquement pour informer le public de la conduite des autorités dans une question d'intérêt public. Le texte intégral du mémoire et des preuves est accessible via les documents de cette affaire ci-dessus.</p>"
    }
+  },
+  {
+   "id": "case-",
+   "jur": [
+    "de"
+   ],
+   "date": "2026-07-31",
+   "az": "",
+   "ourref": "",
+   "area": [],
+   "pin": "",
+   "datum_txt": "",
+   "nazov": {
+    "de": "",
+    "en": "",
+    "sk": "",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "organ": {
+    "de": "",
+    "en": "",
+    "sk": "",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "stav": {},
+   "podtitul": {},
+   "meta": {},
+   "sprievodny": {}
+  },
+  {
+   "id": "case-6",
+   "jur": [
+    "de"
+   ],
+   "date": "2026-07-31",
+   "az": "TFIA-2026-JV",
+   "ourref": "TFIA-2026-JV",
+   "area": [
+    "kartell gdpr majetok"
+   ],
+   "pin": "",
+   "datum_txt": "",
+   "nazov": {
+    "de": "",
+    "en": "",
+    "sk": "Zmena súdu na Oberlandesgericht München z dôvodu obštrucií Landgerichtu Landshut",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "organ": {
+    "de": "",
+    "en": "",
+    "sk": "",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "stav": {
+    "sk": "prebieha"
+   },
+   "podtitul": {
+    "sk": "týmto Vás informujem, že odteraz nebudem zasielať svoje právne dokumenty a podania na Landgericht Landshut."
+   },
+   "meta": {
+    "sk": "Oberlandesgericht München"
+   },
+   "sprievodny": {
+    "sk": "<h3>O tomto podaní</h3><p>vygeneruj!</p>"
+   },
+   "organ_txt": "Oberlandesgericht München"
   }
  ],
  "polozky": [
