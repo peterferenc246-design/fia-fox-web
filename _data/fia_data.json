@@ -3430,6 +3430,75 @@
    "jur": [
     "de"
    ]
+  },
+  {
+   "kauza": "TFIA-2026-JV",
+   "kauza_nazov": "",
+   "dir": "sent",
+   "date": "12.12.2026",
+   "stav": "laeuft",
+   "access": "",
+   "az": "",
+   "ourref": "TFIA-2026-JV",
+   "court": "Landgericht Landshut",
+   "cmtid": "",
+   "summodId": "summod-zaloba-proti-d-08",
+   "fname": "13_Antrag auf Erlass einer einstweiligen Verfügung _sharp_DE_SK_with_QES.pdf",
+   "fpath": "cd d:\\OneDrive - Peter Ferenc Foxpro\\Dokumenty\\Bundesbeauftragte\\Súd Landshut Telekom žaloba\\Pošta\\Odoslaná pošta\\Odoslané\\13_Antrag auf Erlass einer einstweiligen Verfügung _sharp_DE_SK_with_QES.pdf",
+   "cats": {},
+   "mode": "item",
+   "v": 1,
+   "karta": "case-zaloba-proti-deutsche-telekom-ag-porusov",
+   "subj9": {
+    "de": "",
+    "en": "",
+    "sk": "Žiadosť o okamžité rozhodnutie v naliehavej veci",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "urls": {
+    "de": "",
+    "en": "",
+    "sk": "https://github.com/peterferenc246-design/fia-fox-web/blob/main/kauzy/TFIA-2026-JV_Telekom-kartel-Joint-Venture/Zaloba-proti-Deutsche-Telekom-AG-za-porusovanie-ludskyc__case-zaloba-proti-deutsche-telekom-ag-porusov/odoslane/13_12.12.2024_Antrag_auf_Erlass_einer_einstweiligen_Verfugung_sharp_DE_SK_with_QES.pdf",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "subj": "",
+   "begleit": "",
+   "cardsubj": "",
+   "prikazy": "Neprekladaj, iba založ položku!",
+   "pwhint": "",
+   "extra": {},
+   "fallback": "",
+   "orig": "https://peterferencfoxpro-my.sharepoint.com/:b:/g/personal/info_foxprof_club/IQD_P9tphmVAR4OtXeSk-H8AAfy1Wr8ABxiaNhnudtsh0XA?e=M4awZt",
+   "law": "",
+   "qes": "",
+   "thread": "",
+   "replyTo": "",
+   "thrNo": "",
+   "bezDatumu": false,
+   "btnQes": true,
+   "btnSum": true,
+   "btnLaw": true,
+   "dolezite": true,
+   "komentare": true,
+   "important": true,
+   "comments": true,
+   "oblast": [
+    "kartell",
+    "gdpr",
+    "strafrecht",
+    "majetok"
+   ],
+   "jur": []
   }
  ],
  "suhrny": {
@@ -3666,6 +3735,9 @@
   },
   "summod-zaloba-proti-d-07": {
    "sk": "<h3>Súhrn dokumentu</h3><p>Vygeneruj súhrn dokumentu a doplň, v mojom mene, že som sa pokúsil vyžiadať od súdu súdny príkaz na to, aby som súdu prijmel k tomu, aby protistrana poskytla súdu môj informovaný súhlas na manipulovanie s nezákonným Automatizovaným rozhodnutím, pre účely \"BONITY\" ktorá je nezákonná a ktorú poskytuje Schufa Telekomunikačným spoločnostiam pre účely odmietnutia žiadosti o internetové pripojenie DSL za dostupné ceny čo sa rovná nezákonnému podvodu! A aby nám Telekomunikačné spoločnosti nanútili ich predražený variant s neobmedzeným internetom za 108€/mesiac!</p>"
+  },
+  "summod-zaloba-proti-d-08": {
+   "sk": "<h3>Súhrn dokumentu</h3><p>Daj k tomuto dokumentu tvoj súhrn vyplývajú ci z dokumentu a kontextu!</p>"
   }
  },
  "kauzy": [
@@ -3682,7 +3754,7 @@
     "case-v-sirsom-zmysle-kauzy-kartelove-prepojen",
     "case-zaloba-proti-deutsche-telekom-ag-porusov"
    ],
-   "n": 22
+   "n": 23
   },
   {
    "spis": "TCFIA-2026-FON",
