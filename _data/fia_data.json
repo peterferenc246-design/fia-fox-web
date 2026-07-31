@@ -198,9 +198,7 @@
    "ourref": "Case No.: TFIA-2026-JV",
    "area": [
     "kartell",
-    "gdpr",
-    "strafrecht",
-    "majetok"
+    "gdpr"
    ],
    "organ_txt": "Landgericht Landshut Abteilung für Zivilsachen",
    "datum_txt": "02.10.2024",
@@ -3506,16 +3504,16 @@
    "kauza": "TFIA-2026-JV",
    "kauza_nazov": "",
    "dir": "sent",
-   "date": "31.07.2026",
+   "date": "14.01.2025",
    "stav": "laeuft",
    "access": "",
    "az": "",
-   "ourref": "",
-   "court": "",
+   "ourref": "TFIA-2026-JV",
+   "court": "Landgericht Landshut",
    "cmtid": "",
    "summodId": "summod-zaloba-proti-d-09",
-   "fname": "",
-   "fpath": "",
+   "fname": "23_Einspruch und Beschwerde zur Begründung der Ablehnung der FES_signed_with FES.pdf",
+   "fpath": "cd d:\\OneDrive - Peter Ferenc Foxpro\\Dokumenty\\Bundesbeauftragte\\Súd Landshut Telekom žaloba\\Pošta\\Odoslaná pošta\\Odoslané\\23_Einspruch und Beschwerde zur Begründung der Ablehnung der FES_signed_with FES.pdf",
    "cats": {},
    "mode": "item",
    "v": 1,
@@ -3523,7 +3521,7 @@
    "subj9": {
     "de": "",
     "en": "",
-    "sk": "",
+    "sk": "Námietka a sťažnosť o zdôvodnenie zamietnutia FES podpisu – Okresný súd Landshut",
     "hr": "",
     "pl": "",
     "es": "",
@@ -3534,7 +3532,7 @@
    "urls": {
     "de": "",
     "en": "",
-    "sk": "",
+    "sk": "https://github.com/peterferenc246-design/fia-fox-web/blob/main/kauzy/TFIA-2026-JV_Telekom-kartel-Joint-Venture/Zaloba-proti-Deutsche-Telekom-AG-za-porusovanie-ludskyc__case-zaloba-proti-deutsche-telekom-ag-porusov/odoslane/23_14.01.2025_Einspruch_und_Beschwerde_zur_Begrundung_der_Ablehnung_der_FES_signed_with_FES.pdf",
     "hr": "",
     "pl": "",
     "es": "",
@@ -3545,7 +3543,7 @@
    "subj": "",
    "begleit": "",
    "cardsubj": "",
-   "prikazy": "",
+   "prikazy": "založ novú položku a pridaj viewer",
    "pwhint": "",
    "extra": {},
    "fallback": "",
@@ -3556,14 +3554,17 @@
    "replyTo": "",
    "thrNo": "",
    "bezDatumu": false,
-   "btnQes": true,
+   "btnQes": false,
    "btnSum": true,
    "btnLaw": true,
-   "dolezite": false,
+   "dolezite": true,
    "komentare": true,
-   "important": false,
+   "important": true,
    "comments": true,
-   "oblast": [],
+   "oblast": [
+    "kartell",
+    "gdpr"
+   ],
    "jur": []
   }
  ],
@@ -3813,7 +3814,9 @@
    "fr": "<h3>Demande de décision définitive</h3><p>Affaire 23 O 2699/24 · LG Landshut · 12.12.2024. Peter Ferenc demande une décision judiciaire définitive et contraignante contre Schufa Holding AG et Deutsche Telekom AG pour violations du RGPD et discrimination lors du refus d'accès à internet. Délai : 24–72 heures (§ 940 ZPO). Dommages réclamés : 1 000 000 €.</p>",
    "sv": "<h3>Begäran om slutligt beslut</h3><p>Mål 23 O 2699/24 · LG Landshut · 12.12.2024. Peter Ferenc begär ett slutligt och bindande domstolsbeslut mot Schufa Holding AG och Deutsche Telekom AG för GDPR-brott och diskriminering vid nekad internetanslutning. Tidsgräns: 24–72 timmar (§ 940 ZPO). Skadestånd: 1 000 000 €.</p>"
   },
-  "summod-zaloba-proti-d-09": {}
+  "summod-zaloba-proti-d-09": {
+   "sk": "<h3>Súhrn dokumentu</h3><p>pridaj súhrn a vygeneruj ho z kontextu dokumentu!</p>"
+  }
  },
  "kauzy": [
   {
