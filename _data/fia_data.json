@@ -3735,7 +3735,7 @@
    "subj": "",
    "begleit": "sprievodný text urobíme po nahratí všetkých dokumentov 8",
    "cardsubj": "",
-   "prikazy": "vygeneruj položku!",
+   "prikazy": "",
    "pwhint": "",
    "extra": {},
    "fallback": "",
@@ -3764,7 +3764,7 @@
    "kauza": "TFIA-2026-JV",
    "kauza_nazov": "",
    "dir": "recv",
-   "date": "31.07.2026",
+   "date": "03.02.2024",
    "stav": "laeuft",
    "access": "",
    "az": "",
@@ -3779,35 +3779,35 @@
    "v": 1,
    "karta": "case-zmena-sudu-olg-munchen-obstukcie-landgerichtu",
    "subj9": {
-    "de": "",
-    "en": "",
-    "sk": "Odpoveď na moju sťažnosti kvôli neuznávaniu QES podpisu",
-    "hr": "",
-    "pl": "",
-    "es": "",
-    "it": "",
-    "fr": "",
-    "sv": ""
+    "de": "Antwort des OLG München auf meine Beschwerde wegen Nichtanerkennung der QES-Signatur",
+    "en": "Response of OLG München to my complaint regarding non-recognition of QES signature",
+    "sk": "Odpoveď OLG Mníchov na moju sťažnosť kvôli neuznávaniu QES podpisu",
+    "hr": "Odgovor OLG München na moju pritužbu zbog nepriznavanja QES potpisa",
+    "pl": "Odpowiedź OLG Monachium na moją skargę w sprawie nieuznania podpisu QES",
+    "es": "Respuesta del OLG Múnich a mi queja por el no reconocimiento de la firma QES",
+    "it": "Risposta dell'OLG Monaco al mio reclamo per il mancato riconoscimento della firma QES",
+    "fr": "Réponse de l'OLG Munich à ma plainte concernant le non-reconnaissance de la signature QES",
+    "sv": "Svar från OLG München på mitt klagomål angående icke-erkännande av QES-signatur"
    },
    "urls": {
-    "de": "",
-    "en": "",
-    "sk": "https://github.com/peterferenc246-design/fia-fox-web/blob/main/kauzy/TFIA-2026-JV_Telekom-kartel-Joint-Venture/Zmena-sudu-na-Oberlandesgericht-Munchen__case-zmena-sudu-olg-munchen-obstukcie-landgerichtu/prijate/01_03.02.2024%20odpove%C4%8F%20OLG%20Mn%C3%ADchov.pdf",
-    "hr": "",
-    "pl": "",
-    "es": "",
-    "it": "",
-    "fr": "",
-    "sv": ""
+    "de": "https://peterferenc246-design.github.io/fia/viewer.html?doc2=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&orig=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&langs=DE:1:2,EN:3:2,SK:5:2&d=2&page=1",
+    "en": "https://peterferenc246-design.github.io/fia/viewer.html?doc2=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&orig=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&langs=DE:1:2,EN:3:2,SK:5:2&d=2&page=3",
+    "sk": "https://peterferenc246-design.github.io/fia/viewer.html?doc2=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&orig=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&langs=DE:1:2,EN:3:2,SK:5:2&d=2&page=5",
+    "hr": "https://peterferenc246-design.github.io/fia/viewer.html?doc2=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&orig=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&langs=DE:1:2,EN:3:2,SK:5:2&d=2&page=3",
+    "pl": "https://peterferenc246-design.github.io/fia/viewer.html?doc2=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&orig=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&langs=DE:1:2,EN:3:2,SK:5:2&d=2&page=3",
+    "es": "https://peterferenc246-design.github.io/fia/viewer.html?doc2=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&orig=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&langs=DE:1:2,EN:3:2,SK:5:2&d=2&page=3",
+    "it": "https://peterferenc246-design.github.io/fia/viewer.html?doc2=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&orig=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&langs=DE:1:2,EN:3:2,SK:5:2&d=2&page=3",
+    "fr": "https://peterferenc246-design.github.io/fia/viewer.html?doc2=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&orig=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&langs=DE:1:2,EN:3:2,SK:5:2&d=2&page=3",
+    "sv": "https://peterferenc246-design.github.io/fia/viewer.html?doc2=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&orig=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&langs=DE:1:2,EN:3:2,SK:5:2&d=2&page=3"
    },
    "subj": "",
    "begleit": "vygeneruj podľa kontextu!",
    "cardsubj": "",
-   "prikazy": "pridaj položku ku konaniu",
+   "prikazy": "",
    "pwhint": "",
    "extra": {},
-   "fallback": "",
-   "orig": "",
+   "fallback": "https://peterferenc246-design.github.io/fia/viewer.html?doc2=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&orig=https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf&langs=DE:1:2,EN:3:2,SK:5:2&d=2&page=1",
+   "orig": "https://cdn.jsdelivr.net/gh/peterferenc246-design/fia-fox-web@main/docs/01_OLG-Munchen-odpoved-2024-02-03.pdf",
    "law": "",
    "qes": "",
    "thread": "thr-tymto-vas-informujem-ze-odteraz-nebudem-zasielat-svoje-pravn",
@@ -3826,7 +3826,9 @@
     "gdpr",
     "majetok"
    ],
-   "jur": []
+   "jur": [
+    "de"
+   ]
   }
  ],
  "suhrny": {
@@ -4095,7 +4097,17 @@
    "sv": "<h3>Invändning mot avvisning av FES-signatur</h3><p>14.01.2025 · Mål 91 O 2699/24 · LG Landshut. Peter Ferenc invänder mot domstolens avvisning av avancerad elektronisk signatur (FES). Rättslig grund: eIDAS-förordningen art. 25(2), § 130a ZPO. 14 sidor: DE + SK.</p>"
   },
   "summod-zmena-sudu-olg-01": {},
-  "summod-zmena-sudu-olg-02": {}
+  "summod-zmena-sudu-olg-02": {
+   "de": "<h3>Antwort OLG München</h3><p>03.02.2024 · OLG München · TFIA-2026-JV. Das Oberlandesgericht München antwortet auf die Eingabe von Peter Ferenc bezüglich der Zuständigkeit und der elektronischen Übermittlung. Das Schreiben enthält Hinweise zu weiteren Eingaben und Zuständigkeiten. 6 Seiten: DE · EN · SK.</p>",
+   "en": "<h3>Response from OLG München</h3><p>03.02.2024 · OLG München · TFIA-2026-JV. The Oberlandesgericht München responds to Peter Ferenc's submission regarding jurisdiction and electronic transmission. The letter contains guidance on further submissions and responsibilities. 6 pages: DE · EN · SK.</p>",
+   "sk": "<h3>Odpoveď OLG Mníchov</h3><p>03.02.2024 · OLG Mníchov · TFIA-2026-JV. Oberlandesgericht Mníchov odpovedá na podanie Petra Ferenca ohľadom príslušnosti súdu a elektronického doručovania. List obsahuje pokyny k ďalším podaniam a zodpovednostiam. 6 strán: DE · EN · SK.</p>",
+   "hr": "<h3>Odgovor OLG Münchena</h3><p>03.02.2024 · OLG München · TFIA-2026-JV. Oberlandesgericht München odgovara na podnesak Petra Ferenca o nadležnosti i elektroničkoj dostavi. 6 stranica: DE · EN · SK.</p>",
+   "pl": "<h3>Odpowiedź OLG Monachium</h3><p>03.02.2024 · OLG München · TFIA-2026-JV. Oberlandesgericht München odpowiada na pismo Petera Ferenca dotyczące właściwości sądu i doręczenia elektronicznego. 6 stron: DE · EN · SK.</p>",
+   "es": "<h3>Respuesta OLG Múnich</h3><p>03.02.2024 · OLG München · TFIA-2026-JV. El Oberlandesgericht München responde al escrito de Peter Ferenc sobre competencia y transmisión electrónica. 6 páginas: DE · EN · SK.</p>",
+   "it": "<h3>Risposta OLG Monaco</h3><p>03.02.2024 · OLG München · TFIA-2026-JV. L'Oberlandesgericht München risponde all'istanza di Peter Ferenc riguardante la competenza e la trasmissione elettronica. 6 pagine: DE · EN · SK.</p>",
+   "fr": "<h3>Réponse OLG Munich</h3><p>03.02.2024 · OLG München · TFIA-2026-JV. L'Oberlandesgericht München répond à la requête de Peter Ferenc concernant la compétence et la transmission électronique. 6 pages : DE · EN · SK.</p>",
+   "sv": "<h3>Svar från OLG München</h3><p>03.02.2024 · OLG München · TFIA-2026-JV. Oberlandesgericht München svarar på Peter Ferencs inlaga om behörighet och elektronisk delgivning. 6 sidor: DE · EN · SK.</p>"
+  }
  },
  "kauzy": [
   {
