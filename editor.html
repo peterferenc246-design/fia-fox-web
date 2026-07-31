@@ -199,8 +199,8 @@ textarea.suh{min-height:2cm;height:2cm;line-height:1.45;font-size:13px}
      <button onclick="prepniRadenieDoc()" id="raddoc" style="margin-left:auto">↓ Najnovšie</button>
      <button onclick="novaPolozka()">+ Nový dokument</button></h2>
     <div class="cols">
-     <div class="col"><h3>▲ Odoslané</h3><div id="dsent"><div class="empty">—</div></div></div>
-     <div class="col"><h3>▼ Došlé</h3><div id="drecv"><div class="empty">—</div></div></div>
+     <div class="col"><h3>▲ Odoslané <button onclick="novaPolozka('sent')" style="font-size:11px;padding:2px 8px;margin-left:6px">+ Pridať</button></h3><div id="dsent"><div class="empty">—</div></div></div>
+     <div class="col"><h3>▼ Došlé <button onclick="novaPolozka('recv')" style="font-size:11px;padding:2px 8px;margin-left:6px">+ Pridať</button></h3><div id="drecv"><div class="empty">—</div></div></div>
     </div>
    </div>
   </div>
@@ -513,8 +513,9 @@ function docs(){
    +(((p.urls||{})[LANG])?'<a class="ob" href="'+esc(p.urls[LANG])+'" target="_blank" rel="noopener" onclick="event.stopPropagation()">📄 Otvoriť dokument</a>':'<span class="pill warn">bez odkazu v '+LANG.toUpperCase()+'</span>')
    +'</div></div>';}).join('');
  const s=zoz.filter(p=>p.dir==='sent'), r=zoz.filter(p=>p.dir!=='sent');
- document.getElementById('dsent').innerHTML=kresli(s)||'<div class="empty">—</div>';
- document.getElementById('drecv').innerHTML=kresli(r)||'<div class="empty">—</div>';
+ const emptyBtn='<div class="empty" style="padding:12px"><button onclick="novaPolozka()" style="font-size:13px;padding:6px 14px;border:1px dashed #7a8899;border-radius:6px;background:#f5f8fb;cursor:pointer;color:var(--navy)">➕ Pridať dokument</button></div>';
+ document.getElementById('dsent').innerHTML=kresli(s)||(selKa?emptyBtn:'<div class="empty">—</div>');
+ document.getElementById('drecv').innerHTML=kresli(r)||(selKa?emptyBtn:'<div class="empty">—</div>');
  cmtRefreshBadges();
 }
 function pickKz(k){selKz=(selKz===k?null:k); selKa=null; selPo=null; render();}
@@ -730,10 +731,10 @@ function novaKarta(){ if(!D){alert('Najprv načítaj dáta.');return;}
  D.karty.push({id:id,jur:['de'],date:new Date().toISOString().slice(0,10),az:'',ourref:'',area:[],pin:'',
   datum_txt:'',nazov:p9(),organ:p9(),stav:{}});
  selKa=id; selPo=null; render();}
-function novaPolozka(){ if(!D){alert('Najprv načítaj dáta.');return;}
+function novaPolozka(dir){ if(!D){alert('Najprv načítaj dáta.');return;}
  if(!(D.karty||[]).length){alert('Najprv vytvor konanie.');return;}
  const cid=selKa||D.karty[0].id, kz=kauzaKarty(cid), d=new Date();
- D.polozky.push({kauza:(kz==='(bez kauzy)'?'':kz),kauza_nazov:'',dir:'sent',
+ D.polozky.push({kauza:(kz==='(bez kauzy)'?'':kz),kauza_nazov:'',dir:(dir||'sent'),
   date:('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear(),
   stav:'laeuft',access:'',az:'',ourref:'',court:'',cmtid:'',summodId:'',fname:'',fpath:'',
   cats:{},mode:'item',v:1,karta:cid,subj9:p9(),urls:p9(),subj:'',
