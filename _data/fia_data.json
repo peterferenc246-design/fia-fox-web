@@ -11,7 +11,8 @@
     "case-dgcomp",
     "case-telekom",
     "case-v-sirsom-zmysle-kauzy-kartelove-prepojen",
-    "case-zaloba-proti-deutsche-telekom-ag-porusov"
+    "case-zaloba-proti-deutsche-telekom-ag-porusov",
+    "case-zmena-sudu-olg-munchen-obstukcie-landgerichtu"
    ],
    "nazov": {
     "de": "Telekom — Kartell / Joint Venture",
@@ -1250,7 +1251,7 @@
    "sprievodny": {}
   },
   {
-   "id": "case-6",
+   "id": "case-zmena-sudu-olg-munchen-obstukcie-landgerichtu",
    "jur": [
     "de"
    ],
@@ -1258,45 +1259,80 @@
    "az": "TFIA-2026-JV",
    "ourref": "TFIA-2026-JV",
    "area": [
-    "kartell gdpr majetok"
+    "kartell",
+    "gdpr",
+    "majetok"
    ],
    "pin": "",
    "datum_txt": "",
    "nazov": {
-    "de": "",
-    "en": "",
+    "de": "Gerichtswechsel zum Oberlandesgericht München wegen Obstruktionen des Landgerichts Landshut",
+    "en": "Change of Court to Oberlandesgericht München due to Obstructions by Landgericht Landshut",
     "sk": "Zmena súdu na Oberlandesgericht München z dôvodu obštrucií Landgerichtu Landshut",
-    "hr": "",
-    "pl": "",
-    "es": "",
-    "it": "",
-    "fr": "",
-    "sv": ""
+    "hr": "Promjena suda na Oberlandesgericht München zbog opstrukcija Landgerichta Landshut",
+    "pl": "Zmiana sądu na Oberlandesgericht München z powodu obstrukcji Landgerichtu Landshut",
+    "es": "Cambio de tribunal al Oberlandesgericht München por obstrucciones del Landgericht Landshut",
+    "it": "Cambio di tribunale all'Oberlandesgericht München per le ostruzioni del Landgericht Landshut",
+    "fr": "Changement de tribunal vers l'Oberlandesgericht München en raison des obstructions du Landgericht Landshut",
+    "sv": "Byte av domstol till Oberlandesgericht München på grund av obstruktioner från Landgericht Landshut"
    },
    "organ": {
-    "de": "",
-    "en": "",
-    "sk": "",
-    "hr": "",
-    "pl": "",
-    "es": "",
-    "it": "",
-    "fr": "",
-    "sv": ""
+    "de": "Oberlandesgericht München",
+    "en": "Oberlandesgericht München",
+    "sk": "Oberlandesgericht München",
+    "hr": "Oberlandesgericht München",
+    "pl": "Oberlandesgericht München",
+    "es": "Oberlandesgericht München",
+    "it": "Oberlandesgericht München",
+    "fr": "Oberlandesgericht München",
+    "sv": "Oberlandesgericht München"
    },
    "stav": {
-    "sk": "prebieha"
+    "de": "läuft",
+    "en": "pending",
+    "sk": "prebieha",
+    "hr": "u tijeku",
+    "pl": "w toku",
+    "es": "en curso",
+    "it": "in corso",
+    "fr": "en cours",
+    "sv": "pågår"
    },
    "podtitul": {
-    "sk": "týmto Vás informujem, že odteraz nebudem zasielať svoje právne dokumenty a podania na Landgericht Landshut."
+    "de": "Peter Ferenc informiert das Gericht, dass er seine Rechtsschriften fortan nicht mehr an das Landgericht Landshut, sondern an das Oberlandesgericht München richten wird.",
+    "en": "Peter Ferenc informs the court that he will henceforth submit his legal documents to the Oberlandesgericht München, not the Landgericht Landshut.",
+    "sk": "týmto Vás informujem, že odteraz nebudem zasielať svoje právne dokumenty a podania na Landgericht Landshut.",
+    "hr": "Peter Ferenc obavještava sud da će ubuduće slati svoje pravne dokumente Oberlandesgerichtu München, a ne Landgerichtu Landshut.",
+    "pl": "Peter Ferenc informuje sąd, że odtąd będzie składał swoje pisma prawne do Oberlandesgericht München, a nie do Landgericht Landshut.",
+    "es": "Peter Ferenc informa al tribunal que en adelante presentará sus documentos legales ante el Oberlandesgericht München, no ante el Landgericht Landshut.",
+    "it": "Peter Ferenc informa il tribunale che d'ora in poi presenterà i suoi documenti legali all'Oberlandesgericht München, non al Landgericht Landshut.",
+    "fr": "Peter Ferenc informe le tribunal qu'il soumettra désormais ses documents juridiques à l'Oberlandesgericht München, et non au Landgericht Landshut.",
+    "sv": "Peter Ferenc informerar domstolen om att han hädanefter kommer att skicka sina rättsliga handlingar till Oberlandesgericht München, inte till Landgericht Landshut."
    },
    "meta": {
-    "sk": "Oberlandesgericht München"
+    "de": "Oberlandesgericht München · Az. TFIA-2026-JV",
+    "en": "Oberlandesgericht München · Ref. TFIA-2026-JV",
+    "sk": "Oberlandesgericht München · Sp. č. TFIA-2026-JV",
+    "hr": "Oberlandesgericht München · Predmet TFIA-2026-JV",
+    "pl": "Oberlandesgericht München · Sygn. TFIA-2026-JV",
+    "es": "Oberlandesgericht München · Asunto TFIA-2026-JV",
+    "it": "Oberlandesgericht München · Fascicolo TFIA-2026-JV",
+    "fr": "Oberlandesgericht München · Affaire TFIA-2026-JV",
+    "sv": "Oberlandesgericht München · Mål TFIA-2026-JV"
    },
    "sprievodny": {
-    "sk": "<h3>O tomto podaní</h3><p>vygeneruj!</p>"
+    "de": "<h3>Über dieses Verfahren</h3><p>Peter Ferenc wechselt das zuständige Gericht von Landgericht Landshut zum Oberlandesgericht München. Grund: systematische Obstruktionen des Landgerichts Landshut im Verfahren Az. 91 O 2699/24 (Verweigerung elektronischer Einreichungen, widersprüchliche Formvorschriften, Ablehnung der FES-Signatur trotz eIDAS-Konformität).</p>",
+    "en": "<h3>About this proceeding</h3><p>Peter Ferenc changes the competent court from Landgericht Landshut to Oberlandesgericht München. Reason: systematic obstructions by Landgericht Landshut in case 91 O 2699/24 (refusal of electronic submissions, contradictory formal requirements, rejection of FES signature despite eIDAS compliance).</p>",
+    "sk": "<h3>O tomto konaní</h3><p>Peter Ferenc mení príslušný súd z Landgerichtu Landshut na Oberlandesgericht München. Dôvod: systematické obštrukcie Landgerichtu Landshut v konaní sp. č. 91 O 2699/24 (odmietanie elektronických podaní, protichodné formálne požiadavky, zamietnutie FES podpisu napriek súladu s eIDAS).</p>",
+    "hr": "<h3>O ovom postupku</h3><p>Peter Ferenc mijenja nadležni sud s Landgerichta Landshut na Oberlandesgericht München. Razlog: sustavne opstrukcije Landgerichta Landshut u predmetu 91 O 2699/24.</p>",
+    "pl": "<h3>O tym postępowaniu</h3><p>Peter Ferenc zmienia właściwy sąd z Landgericht Landshut na Oberlandesgericht München. Powód: systematyczne obstrukcje Landgerichtu Landshut w sprawie 91 O 2699/24.</p>",
+    "es": "<h3>Sobre este procedimiento</h3><p>Peter Ferenc cambia el tribunal competente del Landgericht Landshut al Oberlandesgericht München. Motivo: obstrucciones sistemáticas del Landgericht Landshut en el asunto 91 O 2699/24.</p>",
+    "it": "<h3>Su questo procedimento</h3><p>Peter Ferenc cambia il tribunale competente dal Landgericht Landshut all'Oberlandesgericht München. Motivo: ostruzioni sistematiche del Landgericht Landshut nel fascicolo 91 O 2699/24.</p>",
+    "fr": "<h3>Sur cette procédure</h3><p>Peter Ferenc change le tribunal compétent du Landgericht Landshut à l'Oberlandesgericht München. Motif : obstructions systématiques du Landgericht Landshut dans l'affaire 91 O 2699/24.</p>",
+    "sv": "<h3>Om detta förfarande</h3><p>Peter Ferenc byter behörig domstol från Landgericht Landshut till Oberlandesgericht München. Anledning: systematiska obstruktioner från Landgericht Landshut i mål 91 O 2699/24.</p>"
    },
-   "organ_txt": "Oberlandesgericht München"
+   "organ_txt": "Oberlandesgericht München",
+   "stav_trieda": "laeuft"
   }
  ],
  "polozky": [
