@@ -604,8 +604,9 @@ function suhrnPole(sid){
  var stav = ine===8 ? '<span style="color:#0B7A3B">✔ ostatných 8 jazykov vyplnených</span>'
           : ine===0 ? '<span style="color:#8a5a00">ostatné jazyky doplní Claude</span>'
           : '<span style="color:#8a5a00">vyplnených ďalších '+ine+' z 8 — zvyšok doplní Claude</span>';
+ var ph = v ? '' : ' placeholder="pridaj súhrn a vygeneruj ho z kontextu dokumentu!"';
  return '<div class="j1"><span class="jl">'+LANG.toUpperCase()+'</span>'
-  +'<textarea class="suh'+(v?'':' miss')+'" oninput="D.suhrny[\''+sid+'\'][LANG]=txt2html(this.value,LANG,NADPIS);this.classList.remove(\'miss\')">'
+  +'<textarea class="suh'+(v?'':' miss')+'"'+ph+' oninput="D.suhrny[\''+sid+'\'][LANG]=txt2html(this.value,LANG,NADPIS);this.classList.remove(\'miss\')">'
   +esc(v)+'</textarea></div><div class="jn">'+stav+'</div>';
 }
 function editor(){
