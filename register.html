@@ -202,6 +202,7 @@ document.querySelectorAll('.tab').forEach(function(b){
 document.querySelectorAll('.f').forEach(function(b){
  b.addEventListener('click',function(){ document.body.dataset.l=b.dataset.l; document.documentElement.lang=b.dataset.l;
   document.querySelectorAll('.f').forEach(function(x){x.classList.remove('on');}); b.classList.add('on'); });});
+(function(){var p=new URLSearchParams(location.search).get('lang');var LS=['de','en','sk','hr','pl','es','it','fr','sv'];if(p&&LS.indexOf(p)>=0){document.body.dataset.l=p;document.documentElement.lang=p;document.querySelectorAll('.f').forEach(function(x){x.classList.toggle('on',x.dataset.l===p);});}})();
 if(location.hash){ var c=document.querySelector(location.hash); if(c&&c.tagName==='DETAILS'){ c.open=true; c.scrollIntoView(); } }
 apply();
 /* vlákna: číslovanie krúžkov (1=pôvodné, 2=reakcia) + zvýraznenie a scroll na partnera */
