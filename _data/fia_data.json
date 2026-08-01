@@ -401,40 +401,6 @@
       }
     },
     {
-      "id": "case-test-lra",
-      "pin": "",
-      "jur": [],
-      "date": "",
-      "az": "",
-      "ourref": "",
-      "area": [],
-      "organ_txt": "",
-      "datum_txt": "",
-      "nazov": {},
-      "podtitul": {},
-      "meta": {},
-      "stav": {},
-      "stav_trieda": "",
-      "sprievodny": {}
-    },
-    {
-      "id": "case-test-ins",
-      "pin": "",
-      "jur": [],
-      "date": "",
-      "az": "",
-      "ourref": "",
-      "area": [],
-      "organ_txt": "",
-      "datum_txt": "",
-      "nazov": {},
-      "podtitul": {},
-      "meta": {},
-      "stav": {},
-      "stav_trieda": "",
-      "sprievodny": {}
-    },
-    {
       "id": "case-trestne-oznamenie-na-gpsr-proti-prokurat",
       "pin": "",
       "jur": [
@@ -858,23 +824,6 @@
       }
     },
     {
-      "id": "case-test-vszp",
-      "pin": "",
-      "jur": [],
-      "date": "",
-      "az": "",
-      "ourref": "",
-      "area": [],
-      "organ_txt": "",
-      "datum_txt": "",
-      "nazov": {},
-      "podtitul": {},
-      "meta": {},
-      "stav": {},
-      "stav_trieda": "",
-      "sprievodny": {}
-    },
-    {
       "id": "case-mstest",
       "pin": "",
       "jur": [
@@ -1007,23 +956,6 @@
         "it": "<h3>Su questa istanza</h3><p>Questo caso mostra come una multinazionale trasformi il diritto fondamentale di accesso ai propri dati in un servizio a pagamento. Dopo la perdita del dispositivo 2FA, Microsoft ha rifiutato di ripristinare gratuitamente l'accesso (art. 12, par. 5 GDPR — gratuità dell'esercizio dei diritti) e ha indirizzato l'utente a un partner CSP a pagamento (≥ 50 €/mese). Il cliente paga così un abbonamento Microsoft, ma può raggiungere i propri dati solo pagando in più un terzo.</p><p>Non si tratta di un errore tecnico, ma di un sistema istituzionalizzato: l'e-mail di un dipendente (Akshay, 12/11/2025) che rimanda a un CSP a pagamento, l'escalation «AIUTO IT» a 50 €/h e l'emissione di un link di pagamento formano una catena causale chiusa. Microsoft ha disattivato il tenant originale, sebbene la Graph API (HTTP 200 OK) confermi che i dati esistono fisicamente — in diretta contraddizione con l'affermazione «permanently deleted».</p><p>La struttura transfrontaliera (Microsoft Ireland → CSP offshore → cliente nell'UE) fonda il sospetto di una frode IVA lesiva degli interessi finanziari dell'UE, con un danno cumulativo superiore a 10 milioni di EUR. La questione rientra pertanto nella competenza materiale esclusiva della Procura europea (art. 22 + art. 2, par. 2 Reg. (UE) 2017/1939; direttiva PIF art. 3, par. 2, lett. d).</p><p>L'iniziativa FIA FOX pubblica la vicenda al solo scopo di informare il pubblico sulla condotta della società e delle autorità in una questione di interesse pubblico — la frode riguarda milioni di clienti nell'UE. Il testo integrale della denuncia e delle prove è accessibile tramite i documenti di questo caso.</p>",
         "fr": "<h3>À propos de cette soumission</h3><p>Cette affaire montre comment une multinationale transforme le droit fondamental d'accès à ses propres données en un service payant. Après la perte de l'appareil 2FA, Microsoft a refusé de rétablir gratuitement l'accès (art. 12, § 5 RGPD — gratuité de l'exercice des droits) et a renvoyé l'utilisateur vers un partenaire CSP payant (≥ 50 €/mois). Le client paie ainsi un abonnement Microsoft, mais n'accède à ses propres données qu'en payant en plus un tiers.</p><p>Il ne s'agit pas d'une erreur technique mais d'un système institutionnalisé : le courriel d'un employé (Akshay, 12/11/2025) renvoyant vers un CSP payant, l'escalade « AIDE IT » à 50 €/h et l'émission d'un lien de paiement forment une chaîne causale fermée. Microsoft a désactivé le locataire d'origine, bien que la Graph API (HTTP 200 OK) confirme que les données existent physiquement — en contradiction directe avec l'affirmation « permanently deleted ».</p><p>La structure transfrontalière (Microsoft Ireland → CSP offshore → client dans l'UE) fonde le soupçon d'une fraude à la TVA portant atteinte aux intérêts financiers de l'UE, avec un préjudice cumulé supérieur à 10 millions d'EUR. L'affaire relève donc de la compétence matérielle exclusive du Parquet européen (art. 22 + art. 2, § 2 règl. (UE) 2017/1939 ; directive PIF art. 3, § 2, d).</p><p>L'initiative FIA FOX publie l'affaire dans le seul but d'informer le public sur le comportement de l'entreprise et des autorités dans une affaire d'intérêt public — la fraude concerne des millions de clients dans l'UE. Le texte intégral de la plainte et des preuves est accessible via les documents de cette affaire.</p>"
       }
-    },
-    {
-      "id": "case-test-dak",
-      "pin": "",
-      "jur": [],
-      "date": "",
-      "az": "",
-      "ourref": "",
-      "area": [],
-      "organ_txt": "",
-      "datum_txt": "",
-      "nazov": {},
-      "podtitul": {},
-      "meta": {},
-      "stav": {},
-      "stav_trieda": "",
-      "sprievodny": {}
     },
     {
       "id": "case-m10815",
@@ -1212,44 +1144,6 @@
         "fr": "<h3>À propos de ce mémoire</h3><p>Le 11 juillet 2024, j'ai déposé auprès de l'Inspection de police de Landshut une plainte pénale contre Telekom Deutschland GmbH en lien avec le comportement de l'agence SCHUFA Holding AG. Elle porte sur le soupçon d'un mécanisme frauduleux dans le refus de l'accès à internet : Telekom a statué sur ma demande de connexion fixe exclusivement de manière automatisée — sur la base d'une « solvabilité » de la SCHUFA, qui traitait et commercialisait mes données personnelles sans mon consentement éclairé.</p><p>Il s'agit d'une décision individuelle automatisée interdite au sens de l'art. 22 du RGPD et d'un traitement sans base juridique au sens de l'art. 6 du RGPD. La conséquence a été pour moi concrète et mesurable : au lieu d'une connexion fixe au prix habituel, j'ai été contraint d'acheter des données 5G prépayées pour 108 € par mois — un surcoût mensuel de 68 € par rapport au DSL, environ 4 380 € sur cinq ans, routeur compris. Le refus du service de base a également violé l'obligation de service universel (§ 78 TKG) et mon droit à un internet ouvert au titre du règlement (UE) 2015/2120 — l'accès à internet est aujourd'hui une condition de base du travail, de la communication avec les administrations et de l'éducation.</p><p>La plainte pénale documente le mécanisme que je considère comme le cœur de toute l'affaire Telekom — entente / Joint Venture : une agence de crédit vend des scores de consommateurs sans leur consentement ; les opérateurs rejettent par décision automatisée les demandeurs insolvables d'internet DSL (48 €) à des prix abordables et leur vendent ensuite des forfaits surfacturés à 108 €/mois. La même plainte sert donc aussi de preuve A3 dans le recours en annulation de la décision M.10815 devant le Tribunal de l'UE (affaire T…61/26). À ce jour, je n'ai reçu des autorités aucune confirmation de l'ouverture d'une enquête — cette inaction fait elle aussi partie documentée de l'affaire.</p><p>L'initiative FIA FOX publie l'affaire uniquement pour informer le public de la conduite des autorités dans une question d'intérêt public. Le texte intégral du mémoire et des preuves est accessible via les documents de cette affaire ci-dessus.</p>",
         "sv": "<h3>About this submission</h3><p>On 11 July 2024 I filed a criminal complaint with the Landshut Police Inspectorate against Telekom Deutschland GmbH in connection with the conduct of the credit agency SCHUFA Holding AG. Its subject is the suspicion of a fraudulent mechanism in refusing internet access: Telekom decided on my application for a fixed internet connection solely by automated means — on the basis of a SCHUFA \"creditworthiness\" score processing and trading my personal data without my informed consent.</p><p>This constitutes prohibited automated individual decision-making under Article 22 GDPR and processing without a legal basis under Article 6 GDPR. The consequence for me was concrete and measurable: instead of a fixed connection at the normal price, I was forced to buy 5G prepaid data for €108 per month — a monthly surcharge of €68 compared with DSL, roughly €4,380 over five years including the router. Refusing the basic service also breached the universal service obligation (§ 78 TKG) and my right to an open internet under Regulation (EU) 2015/2120 — internet access is today a basic precondition for work, communication with authorities and education.</p><p>The criminal complaint documents the mechanism I consider to be the core of the entire Telekom — cartel / Joint Venture case: a credit agency sells consumer scores without their consent; operators use automated decision-making to reject insolvent applicants for DSL internet (€48) at affordable prices and then sell them overpriced tariffs at €108/month. The same complaint therefore also serves as evidence A3 in the action for annulment of decision M.10815 before the General Court of the EU (Case T…61/26). To date I have received no confirmation from the authorities that an investigation has been opened — that inaction too is a documented part of the case.</p><p>The FIA FOX initiative publishes the matter solely to inform the public about the authorities' conduct in a matter of public interest. The full text of the submission and the evidence is accessible via the case documents above.</p>"
       }
-    },
-    {
-      "id": "case-",
-      "jur": [
-        "de"
-      ],
-      "date": "2026-07-31",
-      "az": "",
-      "ourref": "",
-      "area": [],
-      "pin": "",
-      "datum_txt": "",
-      "nazov": {
-        "de": "",
-        "en": "",
-        "sk": "",
-        "hr": "",
-        "pl": "",
-        "es": "",
-        "it": "",
-        "fr": "",
-        "sv": ""
-      },
-      "organ": {
-        "de": "",
-        "en": "",
-        "sk": "",
-        "hr": "",
-        "pl": "",
-        "es": "",
-        "it": "",
-        "fr": "",
-        "sv": ""
-      },
-      "stav": {},
-      "podtitul": {},
-      "meta": {},
-      "sprievodny": {}
     },
     {
       "id": "case-zmena-sudu-olg-munchen-obstukcie-landgerichtu",
