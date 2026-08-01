@@ -3952,7 +3952,7 @@
    "replyTo": "",
    "thrNo": "",
    "bezDatumu": false,
-   "btnQes": true,
+   "btnQes": false,
    "btnSum": true,
    "btnLaw": true,
    "dolezite": false,
@@ -4256,7 +4256,9 @@
    "sv": "<h3>Svar från OLG München</h3><p>03.02.2024 · OLG München · TFIA-2026-JV. Oberlandesgericht München svarar på Peter Ferencs inlaga om behörighet och elektronisk delgivning. 6 sidor: DE · EN · SK.</p>"
   },
   "summod-zmena-sudu-olg-03": {},
-  "summod-telekom-04": {}
+  "summod-telekom-04": {
+   "sk": "<h3>Súhrn dokumentu</h3><p>Pridaj súhrn a vygeneruj z kontextu dokumentu!</p>"
+  }
  },
  "kauzy": [
   {
