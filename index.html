@@ -224,13 +224,22 @@ body[data-l="de"] .gtl.de{display:inline}body[data-l="de"] .gtl-b.de{display:blo
 
 <script>
 var DAR = {'de': 'fia-fox-fur-gunstigeres-kartellfreies-internet-in-europa/', 'en': 'fia-fox-for-a-fairer-cartel-free-internet-in-europe/', 'sk': 'fia-fox-za-ferovejsi-internet-bez-kartelov-v-europe/', 'hr': 'fia-fox-za-jeftiniji-internet-bez-kartela-u-europi/', 'pl': 'fia-fox-za-tanszy-internet-bez-karteli-w-europie/', 'es': 'fia-fox-por-un-internet-mas-barato-sin-carteles-en-europa/', 'it': 'fia-fox-per-un-internet-piu-economico-senza-cartelli-in-europa/', 'fr': 'fia-fox-pour-un-internet-moins-cher-sans-cartels-en-europe/', 'sv': 'fia-fox-for-ett-billigare-internet-utan-karteller-i-europa/'}, UVOD = {'de': 'willkommen/', 'en': 'welcome/', 'sk': '164-2/', 'hr': 'dobrodosli/', 'pl': 'witamy/', 'es': 'bienvenidos/', 'it': 'benvenuti/', 'fr': 'bienvenue/', 'sv': '209-2/'}, WP = "https://foxprof.club/";
+function withLang(href, L){
+  if(/^https?:\/\//i.test(href)) return href; // externe odkazy nechavame netknute
+  var base = href.split('?')[0].split('#')[0];
+  return base + '?lang=' + L;
+}
 function setL(L){
   document.body.dataset.l=L; document.documentElement.lang=L;
   document.querySelectorAll('.f').forEach(function(x){x.classList.remove('on');});
   var b=document.querySelector('.f[data-l="'+L+'"]'); if(b) b.classList.add('on');
   document.getElementById('dar').href  = 'podporte.html?lang='+L;
-  document.getElementById('uvod').href = WP + UVOD[L];
-  document.querySelectorAll('.nv[data-k="DAR"]').forEach(function(a){ a.href = 'podporte.html?lang='+L; });
+  document.getElementById('uvod').href = withLang('o_iniciative/', L);
+  document.querySelectorAll('.nv').forEach(function(a){
+    var h = a.getAttribute('href');
+    if(!h) return;
+    a.href = withLang(h, L);
+  });
 }
 document.querySelectorAll('.f').forEach(function(b){
   b.addEventListener('click',function(){ setL(b.dataset.l); });
