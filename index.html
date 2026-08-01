@@ -235,9 +235,10 @@ function setL(L){
   var b=document.querySelector('.f[data-l="'+L+'"]'); if(b) b.classList.add('on');
   document.getElementById('dar').href  = 'podporte.html?lang='+L;
   document.getElementById('uvod').href = withLang('o_iniciative/', L);
+  document.querySelectorAll('.nv[data-k="DAR"]').forEach(function(a){ a.href = 'podporte.html?lang='+L; });
   document.querySelectorAll('.nv').forEach(function(a){
     var h = a.getAttribute('href');
-    if(!h || h==='#') return; // # spravuju specificke handlery vyssie (napr. DAR)
+    if(!h || h==='#') return;
     a.href = withLang(h, L);
   });
 }
