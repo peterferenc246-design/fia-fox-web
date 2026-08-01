@@ -165,7 +165,7 @@ body::after{
   </div>
   <div class="flags" role="group" aria-label="Language"><button class="f" data-l="de" title="DE"><img src="https://flagcdn.com/de.svg" alt="DE"></button><button class="f" data-l="en" title="EN"><img src="https://flagcdn.com/gb.svg" alt="EN"></button><button class="f on" data-l="sk" title="SK"><img src="https://flagcdn.com/sk.svg" alt="SK"></button><button class="f" data-l="hr" title="HR"><img src="https://flagcdn.com/hr.svg" alt="HR"></button><button class="f" data-l="pl" title="PL"><img src="https://flagcdn.com/pl.svg" alt="PL"></button><button class="f" data-l="es" title="ES"><img src="https://flagcdn.com/es.svg" alt="ES"></button><button class="f" data-l="it" title="IT"><img src="https://flagcdn.com/it.svg" alt="IT"></button><button class="f" data-l="fr" title="FR"><img src="https://flagcdn.com/fr.svg" alt="FR"></button><button class="f" data-l="sv" title="SV"><img src="https://flagcdn.com/se.svg" alt="SV"></button></div></div>
   <div class="hero">
-    <img id="hbanner" src="obrazky/baner_DONATE/03.jpg?v=20260728" alt="FIA FOX">
+    <img id="hbanner" src="obrazky/hero/03.jpg?v=20260728" alt="FIA FOX">
     <div class="hero-r">
       <h1><span class="gtl de">Für ein faires Internet ohne Kartelle in Europa</span><span class="gtl en">For a fair internet without cartels in Europe</span><span class="gtl sk">Za férový internet bez kartelov v Európe</span><span class="gtl hr">Za pošten internet bez kartela u Europi</span><span class="gtl pl">Za uczciwy internet bez karteli w Europie</span><span class="gtl es">Por un internet justo sin cárteles en Europa</span><span class="gtl it">Per un internet equo senza cartelli in Europa</span><span class="gtl fr">Pour un internet équitable sans ententes en Europe</span><span class="gtl sv">För ett rättvist internet utan karteller i Europa</span></h1>
       <div class="stats">
@@ -347,7 +347,7 @@ function setL(l){
   document.getElementById('lk-home').href='index.html?lang='+l;
   document.getElementById('lk-foot').href='index.html?lang='+l;
   document.getElementById('lk-reg').href='https://register.foxprof.club/register.html?lang='+l;
-  var HB={de:"01",en:"02",sk:"03",hr:"04",pl:"05",es:"06",it:"07",fr:"08",sv:"09"}; var hb=document.getElementById('hbanner'); if(hb) hb.src='obrazky/baner_DONATE/'+HB[l]+'.jpg?v=20260728';
+  var HB={de:"01",en:"02",sk:"03",hr:"04",pl:"05",es:"06",it:"07",fr:"08",sv:"09"}; var hb=document.getElementById('hbanner'); if(hb) hb.src='obrazky/hero/'+HB[l]+'.jpg?v=20260728';
   renderImpact(); renderStats(); buildShare(); refreshBtn();
   if(!selCC){ var pp=document.getElementById('panel'); if(pp) pp.innerHTML='<div class="det">'+(PHINT[L()]||'')+'</div>'; }
 }
