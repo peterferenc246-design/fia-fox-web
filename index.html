@@ -237,7 +237,7 @@ function setL(L){
   document.getElementById('uvod').href = withLang('o_iniciative/', L);
   document.querySelectorAll('.nv').forEach(function(a){
     var h = a.getAttribute('href');
-    if(!h) return;
+    if(!h || h==='#') return; // # spravuju specificke handlery vyssie (napr. DAR)
     a.href = withLang(h, L);
   });
 }
