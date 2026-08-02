@@ -231,6 +231,10 @@ function withLang(href, L){
 }
 function setL(L){
   document.body.dataset.l=L; document.documentElement.lang=L;
+  try{
+    var u=new URL(location.href); u.searchParams.set('lang', L);
+    history.replaceState(null, '', u.pathname + '?' + u.searchParams.toString());
+  }catch(e){}
   try{ localStorage.setItem('fiaLang', L); }catch(e){}
   document.querySelectorAll('.f').forEach(function(x){x.classList.remove('on');});
   var b=document.querySelector('.f[data-l="'+L+'"]'); if(b) b.classList.add('on');
@@ -248,6 +252,10 @@ document.querySelectorAll('.f').forEach(function(b){
 });
 var SUPPORTED_LANGS=['de','en','sk','hr','pl','es','it','fr','sv'];
 function detectLang(){
+  try{
+    var qp=new URLSearchParams(location.search).get('lang');
+    if(qp && SUPPORTED_LANGS.indexOf(qp)>=0) return qp;
+  }catch(e){}
   try{
     var saved=localStorage.getItem('fiaLang');
     if(saved && SUPPORTED_LANGS.indexOf(saved)>=0) return saved;
