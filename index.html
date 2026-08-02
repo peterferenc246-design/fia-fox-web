@@ -7,8 +7,8 @@
 <link rel="canonical" href="https://register.foxprof.club/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://register.foxprof.club/">
-<meta property="og:title" content="FIA FOX — Verejný register podvodov">
-<meta property="og:description" content="7 káuz, 13 konaní, 29 dokumentov. Občianska iniciatíva za férový internet bez kartelov v Európskej únii.">
+<meta property="og:title" content="FIA FOX — Öffentliches Betrugsregister">
+<meta property="og:description" content="7 Fälle, 13 Verfahren, 29 Dokumente. Bürgerinitiative für ein faires Internet ohne Kartelle in der Europäischen Union.">
 <style>
 :root{--navy:#1F3864;--hero:#2E5BA6;--red:#C00000;--gold:#FFD966;--soft:#D6E6F2;--bd:#c9d8e8}
 *{box-sizing:border-box}
@@ -231,6 +231,7 @@ function withLang(href, L){
 }
 function setL(L){
   document.body.dataset.l=L; document.documentElement.lang=L;
+  try{ localStorage.setItem('fiaLang', L); }catch(e){}
   document.querySelectorAll('.f').forEach(function(x){x.classList.remove('on');});
   var b=document.querySelector('.f[data-l="'+L+'"]'); if(b) b.classList.add('on');
   document.getElementById('dar').href  = 'podporte.html?lang='+L;
@@ -245,6 +246,19 @@ function setL(L){
 document.querySelectorAll('.f').forEach(function(b){
   b.addEventListener('click',function(){ setL(b.dataset.l); });
 });
+var SUPPORTED_LANGS=['de','en','sk','hr','pl','es','it','fr','sv'];
+function detectLang(){
+  try{
+    var saved=localStorage.getItem('fiaLang');
+    if(saved && SUPPORTED_LANGS.indexOf(saved)>=0) return saved;
+  }catch(e){}
+  try{
+    var nav=((navigator.language||navigator.userLanguage||'de')+'').toLowerCase().slice(0,2);
+    if(SUPPORTED_LANGS.indexOf(nav)>=0) return nav;
+  }catch(e){}
+  return 'de';
+}
+setL(detectLang());
 var CF_WORKER='https://fia-fox-web-stripe.peter-ferenc246.workers.dev';
 var CF_OK={de:'Danke! Ihre Nachricht wurde gesendet.',en:'Thank you! Your message has been sent.',sk:'Ďakujeme! Správa bola odoslaná.',hr:'Hvala! Poruka je poslana.',pl:'Dziękujemy! Wiadomość została wysłana.',es:'¡Gracias! Su mensaje ha sido enviado.',it:'Grazie! Il messaggio è stato inviato.',fr:'Merci ! Votre message a été envoyé.',sv:'Tack! Ditt meddelande har skickats.'};
 var CF_ERR={de:'Fehler beim Senden. Bitte später erneut versuchen.',en:'Error sending. Please try again later.',sk:'Chyba pri odosielaní. Skúste to prosím neskôr.',hr:'Pogreška pri slanju. Pokušajte kasnije.',pl:'Błąd wysyłania. Spróbuj ponownie później.',es:'Error al enviar. Inténtelo de nuevo más tarde.',it:'Errore di invio. Riprova più tardi.',fr:'Erreur d\'envoi. Veuillez réessayer plus tard.',sv:'Fel vid sändning. Försök igen senare.'};
