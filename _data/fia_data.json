@@ -1267,7 +1267,15 @@
    "stav": {},
    "podtitul": {},
    "meta": {
-    "sk": "Okresný súd Trenčín"
+    "de": "⚖️ Stelle: Bezirksgericht Trenčín · Az.: 14C/15/2025 · Unser Az.: PR-2026-EXS",
+    "en": "⚖️ Body: District Court Trenčín · Ref.: 14C/15/2025 · Our ref.: PR-2026-EXS",
+    "sk": "⚖️ Orgán: Okresný súd Trenčín · Sp. zn.: 14C/15/2025 · Naša spis. zn.: PR-2026-EXS",
+    "hr": "⚖️ Tijelo: Općinski sud Trenčín · Ozn.: 14C/15/2025 · Naša ozn.: PR-2026-EXS",
+    "pl": "⚖️ Organ: Sąd Rejonowy w Trenčíně · Sygn.: 14C/15/2025 · Nasz znak: PR-2026-EXS",
+    "es": "⚖️ Órgano: Juzgado de Distrito de Trenčín · Ref.: 14C/15/2025 · Nuestra ref.: PR-2026-EXS",
+    "it": "⚖️ Organo: Tribunale distrettuale di Trenčín · Rif.: 14C/15/2025 · Ns. rif.: PR-2026-EXS",
+    "fr": "⚖️ Instance : Tribunal de district de Trenčín · Réf. : 14C/15/2025 · Notre réf. : PR-2026-EXS",
+    "sv": "⚖️ Organ: Distriktsdomstolen i Trenčín · Mål nr: 14C/15/2025 · Vårt nr: PR-2026-EXS"
    },
    "sprievodny": {
     "de": "<h3>Über dieses Verfahren</h3><p>Am 18. Juli 2025 reichte Peter Ferenc beim Bezirksgericht Trenčín eine Schadensersatzklage nach § 420 des slowakischen Bürgerlichen Gesetzbuchs in Höhe von 10.000 € gegen die Gerichtsvollzieherin JUDr. Adriana Soldán Steinerová wegen der rechtswidrigen Zwangsvollstreckung Nr. 156EX 171/25 ein. Am 30. Januar 2026 erweiterte er die Klage auf 15.000 € um einen weiteren Vorfall — die Mitteilung über die Beendigung der Vollstreckung vom 19.11.2025, die er als Fortsetzung des rechtswidrigen Verhaltens der Beklagten nach Erlöschen der vollstreckten Forderung wertet. Das Verfahren läuft unter dem Az. 14C/15/2025. Das Bezirksgericht Trenčín verwies die Sache anschließend rechtswidrig an das Bezirksgericht Banská Bystrica (Beschluss 14C/15/2025-32 vom 13.10.2025); Peter Ferenc legte dagegen gemäß § 12 Abs. 1 CSP Einspruch ein, da die Beklagte ihren Sitz in Trenčín hat.</p>",
@@ -1279,7 +1287,8 @@
     "it": "<h3>Informazioni su questo procedimento</h3><p>Il 18 luglio 2025 Peter Ferenc ha presentato al Tribunale distrettuale di Trenčín una domanda di risarcimento ai sensi dell'art. 420 del Codice civile slovacco per 10.000 € contro l'ufficiale giudiziaria JUDr. Adriana Soldán Steinerová per l'esecuzione illegale n. 156EX 171/25. Il 30 gennaio 2026 ha esteso la domanda a 15.000 € a seguito di un ulteriore fatto — la comunicazione di chiusura dell'esecuzione del 19.11.2025, che considera una prosecuzione della condotta illecita della convenuta dopo l'estinzione del credito. La causa è iscritta al n. 14C/15/2025. Il Tribunale di Trenčín ha successivamente trasferito la causa, a suo avviso illegittimamente, al Tribunale di Banská Bystrica (ordinanza 14C/15/2025-32 del 13.10.2025); Peter Ferenc si è opposto ai sensi dell'art. 12, comma 1, CSP, poiché la convenuta ha sede a Trenčín.</p>",
     "fr": "<h3>À propos de cette procédure</h3><p>Le 18 juillet 2025, Peter Ferenc a déposé auprès du tribunal de district de Trenčín une action en dommages-intérêts fondée sur l'art. 420 du Code civil slovaque, d'un montant de 10 000 €, contre l'huissière de justice JUDr. Adriana Soldán Steinerová pour l'exécution illégale n° 156EX 171/25. Le 30 janvier 2026, il a porté la demande à 15 000 € en raison d'un nouveau fait — l'avis de clôture de l'exécution du 19.11.2025, qu'il considère comme la poursuite du comportement illicite de la défenderesse après l'extinction de la créance. L'affaire est enregistrée sous le n° 14C/15/2025. Le tribunal de Trenčín a ensuite transféré l'affaire, selon lui illégalement, au tribunal de Banská Bystrica (décision 14C/15/2025-32 du 13.10.2025) ; Peter Ferenc a formé une objection sur le fondement de l'art. 12, al. 1, du CSP, la défenderesse ayant son siège à Trenčín.</p>",
     "sv": "<h3>Om detta förfarande</h3><p>Den 18 juli 2025 lämnade Peter Ferenc in en skadeståndstalan enligt § 420 i den slovakiska civillagen på 10 000 € till distriktsdomstolen i Trenčín mot kronofogden JUDr. Adriana Soldán Steinerová för den olagliga utmätningen nr 156EX 171/25. Den 30 januari 2026 utökade han talan till 15 000 € med anledning av en ytterligare händelse — meddelandet om avslutad utmätning daterat 19.11.2025, vilket han anser vara en fortsättning av svarandens olagliga agerande efter att fordran upphört. Målet handläggs under nr 14C/15/2025. Distriktsdomstolen i Trenčín överlämnade därefter målet, enligt honom olagligt, till distriktsdomstolen i Banská Bystrica (beslut 14C/15/2025-32 av den 13.10.2025); Peter Ferenc invände enligt § 12.1 CSP, eftersom svaranden har sitt säte i Trenčín.</p>"
-   }
+   },
+   "organ_txt": "Okresný súd Trenčín"
   }
  ],
  "polozky": [
