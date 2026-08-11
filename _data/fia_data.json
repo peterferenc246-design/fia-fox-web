@@ -1264,8 +1264,12 @@
     "fr": "Tribunal de district de Trenčín",
     "sv": "Distriktsdomstolen i Trenčín"
    },
-   "stav": {},
-   "podtitul": {},
+   "stav": {
+    "sk": "prebieha"
+   },
+   "podtitul": {
+    "sk": "Exekútorka exekuuje na podklade podvodného exekučného titulu od VšZP cez podvodne vydaným výkazom nedoplatkov"
+   },
    "meta": {
     "de": "⚖️ Stelle: Bezirksgericht Trenčín · Az.: 14C/15/2025 · Unser Az.: PR-2026-EXS",
     "en": "⚖️ Body: District Court Trenčín · Ref.: 14C/15/2025 · Our ref.: PR-2026-EXS",
