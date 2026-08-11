@@ -105,7 +105,8 @@
     "sk"
    ],
    "ids": [
-    "case-udzs-namietka"
+    "case-udzs-namietka",
+    "case-exe-ostn"
    ],
    "nazov": {
     "de": "Schadenersatz 15 000 €",
@@ -1227,6 +1228,51 @@
    },
    "organ_txt": "Oberlandesgericht München",
    "stav_trieda": "laeuft"
+  },
+  {
+   "id": "case-exe-ostn",
+   "jur": [
+    "sk"
+   ],
+   "date": "2026-08-11",
+   "az": "14C/15/2025",
+   "ourref": "PR-2026-EXS",
+   "area": [
+    "Za",
+    "ahovanie do majetkových práv"
+   ],
+   "pin": "",
+   "datum_txt": "",
+   "nazov": {
+    "de": "",
+    "en": "",
+    "sk": "Súdny spor proti exekútorke-nezákonná exekúcia a zneužívanie právomoci exekútora",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "organ": {
+    "de": "",
+    "en": "",
+    "sk": "",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "stav": {},
+   "podtitul": {},
+   "meta": {
+    "sk": "Okresný súd Trenčín"
+   },
+   "sprievodny": {
+    "sk": "<h3>O tomto podaní</h3><p>Vygeneruj podľa tvojich dostupných informácií</p>"
+   }
   }
  ],
  "polozky": [
@@ -4206,7 +4252,8 @@
     "sk"
    ],
    "ids": [
-    "case-udzs-namietka"
+    "case-udzs-namietka",
+    "case-exe-ostn"
    ],
    "n": 3
   },
