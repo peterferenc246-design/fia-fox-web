@@ -705,7 +705,7 @@ function editor(){
   +'<label>Stav</label>'+jaz(k.stav=k.stav||{},P+'.stav')
   +'<label>📝 Sprievodný text ku konaniu <span class="hint">(modal kauzy · odkaz píš ako [text](adresa))</span></label>'
   +richPole(k.sprievodny=k.sprievodny||{}, P+'.sprievodny', 'NADPIS2')
-  +'<div class="acts"><button onclick="zmazKa()">🗑 Zmazať konanie</button></div>';
+  +'<div class="acts"><button onclick="novaPolozka(\'sent\')">➕ Pridať odoslané</button> <button onclick="novaPolozka(\'recv\')">➕ Pridať došlé</button> <button onclick="zmazKa()">🗑 Zmazať konanie</button></div>';
  } else if(selKz && kauzaPodla(selKz)){
   const z=kauzaPodla(selKz), zi=D.kauzy_reg.indexOf(z);
   const nk=(z.ids||[]).filter(id=>kartaById(id)).length;
