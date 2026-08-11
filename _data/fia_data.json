@@ -1238,21 +1238,20 @@
    "az": "14C/15/2025",
    "ourref": "PR-2026-EXS",
    "area": [
-    "Za",
-    "ahovanie do majetkových práv"
+    "majetok"
    ],
    "pin": "",
    "datum_txt": "",
    "nazov": {
-    "de": "",
-    "en": "",
-    "sk": "Súdny spor proti exekútorke-nezákonná exekúcia a zneužívanie právomoci exekútora",
-    "hr": "",
-    "pl": "",
-    "es": "",
-    "it": "",
-    "fr": "",
-    "sv": ""
+    "sk": "Súdny spor proti exekútorke – nezákonná exekúcia a zneužívanie právomoci exekútora",
+    "de": "Rechtsstreit gegen die Gerichtsvollzieherin – rechtswidrige Zwangsvollstreckung und Amtsmissbrauch",
+    "en": "Legal action against the court bailiff – unlawful enforcement and abuse of office",
+    "hr": "Sudski spor protiv sudske ovršiteljice – nezakonita ovrha i zloporaba ovlasti",
+    "pl": "Spór sądowy przeciwko komornik sądowej – bezprawna egzekucja i nadużycie uprawnień",
+    "es": "Litigio judicial contra la agente judicial ejecutora – ejecución ilegal y abuso de autoridad",
+    "it": "Controversia legale contro l'ufficiale giudiziario – esecuzione illegale e abuso di potere",
+    "fr": "Litige judiciaire contre l'huissier de justice – exécution illégale et abus de pouvoir",
+    "sv": "Rättstvist mot kronofogden – olaglig utmätning och maktmissbruk"
    },
    "organ": {
     "de": "",
@@ -1266,13 +1265,32 @@
     "sv": ""
    },
    "stav": {},
-   "podtitul": {},
+   "podtitul": {
+    "sk": "Žaloba o náhradu škody a nemajetkovej ujmy, 15 000 €",
+    "de": "Schadenersatzklage, 15.000 €",
+    "en": "Damages claim, €15,000",
+    "hr": "Tužba za naknadu štete, 15.000 €",
+    "pl": "Pozew o odszkodowanie, 15 000 €",
+    "es": "Demanda de indemnización, 15.000 €",
+    "it": "Azione di risarcimento danni, 15.000 €",
+    "fr": "Action en dommages-intérêts, 15 000 €",
+    "sv": "Skadeståndstalan, 15 000 €"
+   },
    "meta": {
     "sk": "Okresný súd Trenčín"
    },
    "sprievodny": {
-    "sk": "<h3>O tomto podaní</h3><p>Vygeneruj podľa tvojich dostupných informácií</p>"
-   }
+    "sk": "<h3>O tomto podaní</h3><p>Dňa 18. júla 2025 som na Okresnom súde Trenčín podal žalobu o náhradu škody a nemajetkovej ujmy proti súdnej exekútorke JUDr. Adriane Soldán Steinerovej (pôvodné exekučné konanie sp. zn. 156EX 357/23, žaloba vedená pod sp. zn. 14C/15/2025). Predmetom je pokračovanie exekúcie a blokovanie môjho bankového účtu vo Slovenskej sporiteľni aj po tom, čo vymáhaná pohľadávka zanikla — Všeobecná zdravotná poisťovňa potvrdila zníženie pohľadávky na 0,00 € už 6. júna 2025. Pôvodne požadovaných 10 000 € som 30. januára 2026 doplnením žaloby rozšíril na 15 000 €, keďže exekútorka 19. novembra 2025 vydala ďalšie Upovedomenie o ukončení exekúcie, ktorým pokračovala vo vymáhaní tzv. „príslušenstva\" — čím sa nezákonný zásah do mojich majetkových práv prehĺbil. Súd následne 13. októbra 2025 vec nezákonne postúpil na Okresný súd Banská Bystrica (uznesenie 14C/15/2025-32), hoci podľa § 12 ods. 1 CSP je miestne príslušný Okresný súd Trenčín, v ktorého obvode má exekútorka sídlo. Proti tomuto postúpeniu som podal námietku podľa § 41 CSP so žiadosťou o vrátenie veci Okresnému súdu Trenčín.</p>",
+    "de": "<h3>Über diese Eingabe</h3><p>Am 18. Juli 2025 habe ich beim Bezirksgericht Trenčín (Okresný súd Trenčín) eine Schadenersatzklage gegen die Gerichtsvollzieherin JUDr. Adriana Soldán Steinerová eingereicht (ursprüngliches Vollstreckungsverfahren Az. 156EX 357/23, Klageverfahren Az. 14C/15/2025). Gegenstand ist die Fortsetzung der Zwangsvollstreckung und die Sperrung meines Bankkontos bei der Slovenská sporiteľňa, obwohl die vollstreckte Forderung bereits erloschen war — die Krankenkasse VšZP bestätigte die Reduzierung der Forderung auf 0,00 € bereits am 6. Juni 2025. Die ursprünglich geforderten 10.000 € habe ich am 30. Januar 2026 durch eine Klageergänzung auf 15.000 € erhöht, nachdem die Gerichtsvollzieherin am 19. November 2025 eine weitere Mitteilung über die Beendigung der Vollstreckung erlassen hatte, mit der die Beitreibung von sogenanntem „Zubehör\" fortgesetzt wurde. Das Gericht verwies die Sache am 13. Oktober 2025 rechtswidrig an das Bezirksgericht Banská Bystrica (Beschluss 14C/15/2025-32), obwohl gemäß § 12 Abs. 1 CSP das Bezirksgericht Trenčín örtlich zuständig ist. Gegen diese Verweisung habe ich gemäß § 41 CSP Einspruch eingelegt.</p>",
+    "en": "<h3>About this submission</h3><p>On 18 July 2025 I filed a damages claim with the Trenčín District Court against court bailiff JUDr. Adriana Soldán Steinerová (original enforcement proceedings ref. 156EX 357/23, claim proceedings ref. 14C/15/2025). The subject is the continuation of enforcement and the blocking of my bank account at Slovenská sporiteľňa even after the underlying debt had ceased to exist — the health insurer VšZP confirmed the debt had been reduced to €0.00 on 6 June 2025. I increased the originally claimed €10,000 to €15,000 on 30 January 2026 by supplementing the claim, after the bailiff issued a further notice of termination of enforcement on 19 November 2025 continuing to pursue so-called \"ancillary costs\". The court unlawfully transferred the case to the Banská Bystrica District Court on 13 October 2025 (resolution 14C/15/2025-32), even though under § 12(1) CSP the Trenčín District Court has local jurisdiction. I have objected to this transfer under § 41 CSP.</p>",
+    "hr": "<h3>O ovom podnesku</h3><p>Dana 18. srpnja 2025. podnio sam Općinskom sudu u Trenčínu tužbu za naknadu štete protiv sudske ovršiteljice JUDr. Adriane Soldán Steinerove (izvorni ovršni postupak br. 156EX 357/23, parnični postupak br. 14C/15/2025). Predmet je nastavak ovrhe i blokada mog bankovnog računa unatoč tome što je tražena tražbina prestala postojati — zdravstveno osiguranje VšZP potvrdilo je smanjenje tražbine na 0,00 € već 6. lipnja 2025. Izvorno traženih 10.000 € povećao sam 30. siječnja 2026. na 15.000 €, nakon što je ovršiteljica 19. studenoga 2025. izdala novu obavijest o dovršetku ovrhe kojom je nastavila naplatu takozvanih „sporednih troškova\". Sud je 13. listopada 2025. nezakonito ustupio predmet Okružnom sudu u Banskoj Bystrici (rješenje 14C/15/2025-32), iako je prema § 12 st. 1 CSP mjesno nadležan sud u Trenčínu. Protiv tog ustupanja uložio sam prigovor prema § 41 CSP.</p>",
+    "pl": "<h3>O tym piśmie</h3><p>W dniu 18 lipca 2025 r. złożyłem w Sądzie Rejonowym w Trenczynie pozew o odszkodowanie przeciwko komornik sądowej JUDr. Adrianie Soldán Steinerovej (pierwotne postępowanie egzekucyjne sygn. 156EX 357/23, postępowanie sądowe sygn. 14C/15/2025). Przedmiotem jest kontynuacja egzekucji i blokada mojego rachunku bankowego w Slovenská sporiteľňa, mimo że egzekwowana wierzytelność wygasła — kasa chorych VšZP potwierdziła obniżenie wierzytelności do 0,00 € już 6 czerwca 2025 r. Pierwotnie żądaną kwotę 10 000 € podwyższyłem 30 stycznia 2026 r. do 15 000 €, po tym jak komornik 19 listopada 2025 r. wydała kolejne zawiadomienie o zakończeniu egzekucji, kontynuując ściąganie tzw. „kosztów ubocznych\". Sąd bezprawnie przekazał sprawę 13 października 2025 r. do Sądu Rejonowego w Bańskiej Bystrzycy (postanowienie 14C/15/2025-32), mimo że zgodnie z § 12 ust. 1 CSP właściwy miejscowo jest Sąd Rejonowy w Trenczynie. Przeciwko temu przekazaniu wniosłem sprzeciw na podstawie § 41 CSP.</p>",
+    "es": "<h3>Acerca de este escrito</h3><p>El 18 de julio de 2025 presenté ante el Juzgado de Distrito de Trenčín una demanda de indemnización contra la agente judicial ejecutora JUDr. Adriana Soldán Steinerová (procedimiento de ejecución original ref. 156EX 357/23, procedimiento judicial ref. 14C/15/2025). El objeto es la continuación de la ejecución y el bloqueo de mi cuenta bancaria en Slovenská sporiteľňa, a pesar de que la deuda reclamada ya se había extinguido — la aseguradora de salud VšZP confirmó la reducción de la deuda a 0,00 € el 6 de junio de 2025. Aumenté los 10.000 € reclamados originalmente a 15.000 € el 30 de enero de 2026, tras que la agente ejecutora emitiera el 19 de noviembre de 2025 otra notificación de finalización de la ejecución, continuando el cobro de los llamados «costes accesorios». El tribunal remitió indebidamente el caso al Juzgado de Distrito de Banská Bystrica el 13 de octubre de 2025 (resolución 14C/15/2025-32), aunque conforme al art. 12.1 CSP el Juzgado de Trenčín es el competente territorialmente. Contra esta remisión presenté una objeción conforme al art. 41 CSP.</p>",
+    "it": "<h3>Informazioni su questa memoria</h3><p>Il 18 luglio 2025 ho presentato al Tribunale distrettuale di Trenčín una causa di risarcimento danni contro l'ufficiale giudiziario JUDr. Adriana Soldán Steinerová (procedimento esecutivo originario n. 156EX 357/23, procedimento giudiziario n. 14C/15/2025). Oggetto è la prosecuzione dell'esecuzione e il blocco del mio conto bancario presso Slovenská sporiteľňa, nonostante il credito vantato si fosse già estinto — l'assicurazione sanitaria VšZP ha confermato la riduzione del credito a 0,00 € già il 6 giugno 2025. Ho aumentato l'importo originariamente richiesto di 10.000 € a 15.000 € il 30 gennaio 2026, dopo che l'ufficiale giudiziario ha emesso, il 19 novembre 2025, un'ulteriore comunicazione di chiusura dell'esecuzione proseguendo la riscossione delle cosiddette «spese accessorie». Il tribunale ha illegittimamente trasferito il caso al Tribunale distrettuale di Banská Bystrica il 13 ottobre 2025 (ordinanza 14C/15/2025-32), sebbene ai sensi dell'art. 12(1) CSP sia territorialmente competente il Tribunale di Trenčín. Contro tale trasferimento ho presentato opposizione ai sensi dell'art. 41 CSP.</p>",
+    "fr": "<h3>À propos de ce mémoire</h3><p>Le 18 juillet 2025, j'ai déposé auprès du tribunal de district de Trenčín une action en dommages-intérêts contre l'huissière de justice JUDr. Adriana Soldán Steinerová (procédure d'exécution initiale réf. 156EX 357/23, procédure judiciaire réf. 14C/15/2025). Il s'agit de la poursuite de l'exécution forcée et du blocage de mon compte bancaire à la Slovenská sporiteľňa, alors même que la créance poursuivie avait déjà été éteinte — la caisse d'assurance maladie VšZP a confirmé la réduction de la créance à 0,00 € dès le 6 juin 2025. J'ai porté le montant initialement réclamé de 10 000 € à 15 000 € le 30 janvier 2026, après que l'huissière a émis, le 19 novembre 2025, un nouvel avis de clôture de l'exécution poursuivant le recouvrement de prétendus « frais accessoires ». Le tribunal a irrégulièrement transféré l'affaire au tribunal de district de Banská Bystrica le 13 octobre 2025 (ordonnance 14C/15/2025-32), alors qu'en vertu de l'art. 12(1) CSP le tribunal de Trenčín est territorialement compétent. J'ai formé opposition à ce transfert en vertu de l'art. 41 CSP.</p>",
+    "sv": "<h3>Om denna inlaga</h3><p>Den 18 juli 2025 lämnade jag in en skadeståndstalan till distriktsdomstolen i Trenčín mot kronofogden JUDr. Adriana Soldán Steinerová (ursprungligt utmätningsförfarande ref. 156EX 357/23, rättegångsförfarande ref. 14C/15/2025). Föremålet är den fortsatta utmätningen och spärrningen av mitt bankkonto hos Slovenská sporiteľňa, trots att den indrivna fordran redan hade upphört — sjukförsäkringsbolaget VšZP bekräftade att fordran sänkts till 0,00 € redan den 6 juni 2025. Jag höjde det ursprungligen yrkade beloppet på 10 000 € till 15 000 € den 30 januari 2026, efter att kronofogden den 19 november 2025 utfärdat ytterligare ett meddelande om avslutad utmätning där indrivning av så kallade „tilläggskostnader\" fortsatte. Domstolen överlämnade den 13 oktober 2025 olagligen målet till distriktsdomstolen i Banská Bystrica (beslut 14C/15/2025-32), trots att distriktsdomstolen i Trenčín enligt § 12.1 CSP är territoriellt behörig. Jag har invänt mot denna överlämning enligt § 41 CSP.</p>"
+   },
+   "organ_txt": "Okresný súd Trenčín"
   }
  ],
  "polozky": [
