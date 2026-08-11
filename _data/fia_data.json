@@ -1265,10 +1265,26 @@
     "sv": "Distriktsdomstolen i Trenčín"
    },
    "stav": {
-    "sk": "prebieha"
+    "de": "laufend",
+    "en": "ongoing",
+    "sk": "prebieha",
+    "hr": "u tijeku",
+    "pl": "w toku",
+    "es": "en curso",
+    "it": "in corso",
+    "fr": "en cours",
+    "sv": "pågår"
    },
    "podtitul": {
-    "sk": "Exekútorka exekuuje na podklade podvodného exekučného titulu od VšZP cez podvodne vydaným výkazom nedoplatkov"
+    "de": "Die Gerichtsvollzieherin vollstreckt auf Grundlage eines betrügerischen Vollstreckungstitels der VšZP über einen betrügerisch ausgestellten Rückstandsausweis",
+    "en": "The bailiff is enforcing on the basis of a fraudulent VšZP enforcement title issued via a fraudulently produced statement of arrears",
+    "sk": "Exekútorka exekuuje na podklade podvodného exekučného titulu od VšZP cez podvodne vydaným výkazom nedoplatkov",
+    "hr": "Ovršiteljica ovršava na temelju prijevarnog ovršnog naslova VšZP-a putem prijevarno izdanog izvještaja o dugovanju",
+    "pl": "Komornik prowadzi egzekucję na podstawie oszukańczego tytułu wykonawczego VšZP wydanego w drodze fałszywie sporządzonego wykazu zaległości",
+    "es": "La agente judicial ejecuta sobre la base de un título ejecutivo fraudulento de VšZP, emitido mediante un estado de morosidad expedido de forma fraudulenta",
+    "it": "L'ufficiale giudiziaria procede all'esecuzione sulla base di un titolo esecutivo fraudolento della VšZP, emesso tramite un prospetto degli arretrati rilasciato in modo fraudolento",
+    "fr": "L'huissière poursuit l'exécution sur la base d'un titre exécutoire frauduleux de la VšZP, émis au moyen d'un relevé d'arriérés délivré frauduleusement",
+    "sv": "Kronofogden verkställer på grundval av en bedräglig exekutionstitel från VšZP, utfärdad via ett bedrägligt upprättat skuldbesked"
    },
    "meta": {
     "de": "⚖️ Stelle: Bezirksgericht Trenčín · Az.: 14C/15/2025 · Unser Az.: PR-2026-EXS",
