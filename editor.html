@@ -529,6 +529,15 @@ function chk(l,v,on){return '<div class="chk"><input type="checkbox" '+(v?'check
 const OBLASTI=[['kartell','Kartelové právo'],['gdpr','GDPR'],['strafrecht','Trestné oznámenie'],['majetok','Zasahovanie do majetkových práv']];
 function oblastToggle(o,code,on){o.area=o.area||[];var i=o.area.indexOf(code);if(on){if(i<0)o.area.push(code);}else{if(i>=0)o.area.splice(i,1);}}
 function oblastChk(arr,P){arr=arr||[];return '<label>Oblasť</label><div class="ramik">'+OBLASTI.map(function(o){var on=arr.indexOf(o[0])>=0;return '<div class="chk"><input type="checkbox" '+(on?'checked':'')+' onchange="oblastToggle('+P+',\''+o[0]+'\',this.checked);render()"><span>'+o[1]+'</span></div>';}).join('')+'</div>';}
+function zostavOrgan(o){
+ if(!o.organ_txt){alert('Najprv vyplň pole „Orgán (text)".');return;}
+ var riad='⚖️ Orgán: '+o.organ_txt;
+ if(o.az) riad+=' · Sp. zn.: '+o.az;
+ if(o.ourref) riad+=' · Naša spis. zn.: '+o.ourref;
+ o.meta=o.meta||{}; o.meta.sk=riad;
+ alert('Riadok zostavený do SK. Ostatných 8 jazykov doplní Claude pri najbližšom uložení/prekonzultovaní.');
+ render();
+}
 function sel(l,v,opts,on){return '<label>'+l+'</label><select onchange="'+on+'">'
  +opts.map(o=>'<option value="'+esc(o[0])+'"'+(o[0]===v?' selected':'')+'>'+esc(o[1])+'</option>').join('')+'</select>';}
 
@@ -699,6 +708,7 @@ function editor(){
   +oblastChk(k.area,P)
   +'<div class="row">'+pole('Orgán (text)',k.organ_txt||'',P+'.organ_txt=this.value')
   +pole('📌 Pripnúť navrch — pozícia (1,2,3…)',k.pin||'',P+'.pin=this.value;render()')+'</div>'
+  +'<div class="acts" style="margin:4px 0 10px"><button type="button" onclick="zostavOrgan('+P+')">⚖ Zostaviť riadok Orgán (SK) z Orgánu + Sp.zn. + Našej značky</button></div>'
   +chk('📌 Odopnúť — dať dole medzi nepripnuté',!k.pin,P+'.pin=this.checked?"":(this.checked?"":"1");render()')
   +sel('Farba stavu',k.stav_trieda||'p-blue',[['p-blue','modrá — prebieha'],['p-amber','žltá — podané'],
       ['p-green','zelená — vybavené'],['p-red','červená — zamietnuté']],P+'.stav_trieda=this.value')
