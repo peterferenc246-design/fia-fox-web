@@ -588,6 +588,12 @@ function prepniOblast(v){
  var k=kartaById(p.karta); if(k) k.area=p.oblast.slice();   // prenesie sa na celú kartu
  render();
 }
+function prepniOblastKa(v){
+ var k=kartaById(selKa); if(!k) return; k.area=k.area||[];
+ if(v==='all'){ k.area=[]; }
+ else { var i=k.area.indexOf(v); if(i>=0) k.area.splice(i,1); else k.area.push(v); }
+ render();
+}
 function richPole(obj, cesta, nadpisy){
  var v=html2txt(obj[LANG]||'');
  var ine=L9.filter(function(L){return L!==LANG && (obj[L]||'').trim();}).length;
@@ -692,8 +698,12 @@ function editor(){
   +pole('Naša značka',k.ourref||'',P+'.ourref=this.value')+'</div>'
   +'<div class="row">'+pole('Dátum RRRR-MM-DD',k.date||'',P+'.date=this.value;cards()')
   +pole('Dátum ako text',k.datum_txt||'',P+'.datum_txt=this.value')+'</div>'
-  +'<div class="row">'+pole('Jurisdikcia (de sk eu)',(k.jur||[]).join(' '),P+'.jur=this.value.split(/\s+/).filter(Boolean)')
-  +pole('Oblasť (kartell gdpr majetok…)',(k.area||[]).join(' '),P+'.area=this.value.split(/\s+/).filter(Boolean)')+'</div>'
+  +'<div class="row">'+pole('Jurisdikcia (de sk eu)',(k.jur||[]).join(' '),P+'.jur=this.value.split(/\s+/).filter(Boolean)')+'</div>'
+  +'<div class="katbox"><div class="katl">OBLASŤ PRÁVA (data-area)</div>'
+  +tgl([['all','🌐 Všetky'],['kartell','Kartelové právo'],['gdpr','GDPR'],
+        ['strafrecht','Trestné oznámenie'],['majetok','Zasahovanie do majetkových práv']],
+       (k.area&&k.area.length)?k.area:['all'],'prepniOblastKa(%V%)',1)
+  +'</div>'
   +'<div class="row">'+pole('Orgán (text)',k.organ_txt||'',P+'.organ_txt=this.value')
   +pole('📌 Pripnúť navrch — pozícia (1,2,3…)',k.pin||'',P+'.pin=this.value;render()')+'</div>'
   +chk('📌 Odopnúť — dať dole medzi nepripnuté',!k.pin,P+'.pin=this.checked?"":(this.checked?"":"1");render()')
