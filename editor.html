@@ -526,6 +526,9 @@ function pickPo(i){AKCIA='edit';selPo=(selPo===i?null:i); if(selPo!==null){const
 function pole(l,v,on){return '<label>'+l+'</label><input value="'+esc(v)+'" oninput="'+on+'">';}
 function ta(l,v,on){return '<label>'+l+'</label><textarea oninput="'+on+'">'+esc(v)+'</textarea>';}
 function chk(l,v,on){return '<div class="chk"><input type="checkbox" '+(v?'checked':'')+' onchange="'+on+'"><span>'+l+'</span></div>';}
+const OBLASTI=[['kartell','Kartelové právo'],['gdpr','GDPR'],['strafrecht','Trestné oznámenie'],['majetok','Zasahovanie do majetkových práv']];
+function oblastToggle(o,code,on){o.area=o.area||[];var i=o.area.indexOf(code);if(on){if(i<0)o.area.push(code);}else{if(i>=0)o.area.splice(i,1);}}
+function oblastChk(arr,P){arr=arr||[];return '<label>Oblasť</label><div class="ramik">'+OBLASTI.map(function(o){var on=arr.indexOf(o[0])>=0;return '<div class="chk"><input type="checkbox" '+(on?'checked':'')+' onchange="oblastToggle('+P+',\''+o[0]+'\',this.checked);render()"><span>'+o[1]+'</span></div>';}).join('')+'</div>';}
 function sel(l,v,opts,on){return '<label>'+l+'</label><select onchange="'+on+'">'
  +opts.map(o=>'<option value="'+esc(o[0])+'"'+(o[0]===v?' selected':'')+'>'+esc(o[1])+'</option>').join('')+'</select>';}
 
@@ -586,12 +589,6 @@ function prepniOblast(v){
  if(v==='all'){ p.oblast=[]; }
  else { var i=p.oblast.indexOf(v); if(i>=0) p.oblast.splice(i,1); else p.oblast.push(v); }
  var k=kartaById(p.karta); if(k) k.area=p.oblast.slice();   // prenesie sa na celú kartu
- render();
-}
-function prepniOblastKa(v){
- var k=kartaById(selKa); if(!k) return; k.area=k.area||[];
- if(v==='all'){ k.area=[]; }
- else { var i=k.area.indexOf(v); if(i>=0) k.area.splice(i,1); else k.area.push(v); }
  render();
 }
 function richPole(obj, cesta, nadpisy){
@@ -699,11 +696,7 @@ function editor(){
   +'<div class="row">'+pole('Dátum RRRR-MM-DD',k.date||'',P+'.date=this.value;cards()')
   +pole('Dátum ako text',k.datum_txt||'',P+'.datum_txt=this.value')+'</div>'
   +'<div class="row">'+pole('Jurisdikcia (de sk eu)',(k.jur||[]).join(' '),P+'.jur=this.value.split(/\s+/).filter(Boolean)')+'</div>'
-  +'<div class="katbox"><div class="katl">OBLASŤ PRÁVA (data-area)</div>'
-  +tgl([['all','🌐 Všetky'],['kartell','Kartelové právo'],['gdpr','GDPR'],
-        ['strafrecht','Trestné oznámenie'],['majetok','Zasahovanie do majetkových práv']],
-       (k.area&&k.area.length)?k.area:['all'],'prepniOblastKa(%V%)',1)
-  +'</div>'
+  +oblastChk(k.area,P)
   +'<div class="row">'+pole('Orgán (text)',k.organ_txt||'',P+'.organ_txt=this.value')
   +pole('📌 Pripnúť navrch — pozícia (1,2,3…)',k.pin||'',P+'.pin=this.value;render()')+'</div>'
   +chk('📌 Odopnúť — dať dole medzi nepripnuté',!k.pin,P+'.pin=this.checked?"":(this.checked?"":"1");render()')
