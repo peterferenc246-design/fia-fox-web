@@ -705,7 +705,7 @@ function editor(){
   +'<label>Stav</label>'+jaz(k.stav=k.stav||{},P+'.stav')
   +'<label>📝 Sprievodný text ku konaniu <span class="hint">(modal kauzy · odkaz píš ako [text](adresa))</span></label>'
   +richPole(k.sprievodny=k.sprievodny||{}, P+'.sprievodny', 'NADPIS2')
-  +'<div class="acts"><button onclick="novaPolozka(\'sent\')">➕ Pridať odoslané</button> <button onclick="novaPolozka(\'recv\')">➕ Pridať došlé</button> <button onclick="zmazKa()">🗑 Zmazať konanie</button></div>';
+  +'<div class="acts"><button onclick="zmazKa()">🗑 Zmazať konanie</button></div>';
  } else if(selKz && kauzaPodla(selKz)){
   const z=kauzaPodla(selKz), zi=D.kauzy_reg.indexOf(z);
   const nk=(z.ids||[]).filter(id=>kartaById(id)).length;
@@ -718,7 +718,7 @@ function editor(){
   +'<label>Konania v kauze</label>'
   +'<div style="font-size:12.5px;color:#4a5b6d">'+(z.ids||[]).map(id=>{const k=kartaById(id);
      return '• '+esc(k?nazovKarty(k):id)+(k?'':' <span class="pill warn">karta neexistuje</span>');}).join('<br>')+'</div>'
-  +'<div class="acts"><button onclick="tiles();stat(\'Dlaždice prekreslené\')">↻ Prekresliť</button></div>';
+  +'<div class="acts"><button onclick="novaKartaVKauze()">➕ Pridať konanie</button> <button onclick="tiles();stat(\'Dlaždice prekreslené\')">↻ Prekresliť</button></div>';
  } else e.innerHTML='<h2>Editor</h2><p class="hint">Vyber kauzu, konanie alebo dokument.</p>';
 }
 
@@ -730,6 +730,15 @@ function novaKarta(){ if(!D){alert('Najprv načítaj dáta.');return;}
  if(kartaById(id)){alert('Také ID už existuje.');return;}
  D.karty.push({id:id,jur:['de'],date:new Date().toISOString().slice(0,10),az:'',ourref:'',area:[],pin:'',
   datum_txt:'',nazov:p9(),organ:p9(),stav:{}});
+ selKa=id; selPo=null; render();}
+function novaKartaVKauze(){ if(!D){alert('Najprv načítaj dáta.');return;}
+ if(!selKz){alert('Najprv vyber kauzu.');return;}
+ const z=kauzaPodla(selKz); if(!z){alert('Kauza nenájdená.');return;}
+ const id=prompt('ID nového konania:','case-'); if(!id) return;
+ if(kartaById(id)){alert('Také ID už existuje.');return;}
+ D.karty.push({id:id,jur:(z.jur||['de']).slice(),date:new Date().toISOString().slice(0,10),az:'',ourref:'',area:[],pin:'',
+  datum_txt:'',nazov:p9(),organ:p9(),stav:{}});
+ z.ids=z.ids||[]; z.ids.push(id);
  selKa=id; selPo=null; render();}
 function novaPolozka(dir){ if(!D){alert('Najprv načítaj dáta.');return;}
  if(!(D.karty||[]).length){alert('Najprv vytvor konanie.');return;}
