@@ -8,6 +8,8 @@ L9 = ["de","en","sk","hr","pl","es","it","fr","sv"]
 FLAG = {"de":"de","en":"gb","sk":"sk","hr":"hr","pl":"pl","es":"es","it":"it","fr":"fr","sv":"se"}
 VIEWER = "https://peterferenc246-design.github.io/fia/viewer.html"
 WP_KOMENT = "https://foxprof.club/kauzy-koncept/"
+REGISTER_URL = "https://register.foxprof.club/register.html"
+
 
 D = json.load(open('fia_data.json', encoding='utf-8'))
 KARTY, POLOZKY, SUHRNY = D["karty"], D["polozky"], D.get("suhrny", {})
@@ -62,6 +64,33 @@ UI = {
  "in_old":S("Älteste","Oldest","Najstaršie","Najstarije","Najstarsze","Antiguos","Vecchi","Anciens","Äldsta"),
  "pw":   S("Passwort","Password","Heslo","Lozinka","Hasło","Contraseña","Password","Mot de passe","Lösenord"),
 }
+
+COPY_LABEL = S("Link kopieren","Copy link","Kopírovať odkaz","Kopiraj poveznicu",
+  "Kopiuj link","Copiar enlace","Copia link","Copier le lien","Kopiera länk")
+
+def share_dropdown(cid, url, title):
+    import urllib.parse as _u
+    eu, et = _u.quote(url, safe=""), _u.quote(title, safe="")
+    fb  = f"https://www.facebook.com/sharer/sharer.php?u={eu}"
+    wa  = f"https://wa.me/?text={et}%20{eu}"
+    li  = f"https://www.linkedin.com/sharing/share-offsite/?url={eu}"
+    tw  = f"https://twitter.com/intent/tweet?url={eu}&text={et}"
+    ml  = f"mailto:?subject={et}&body={eu}"
+    copy_lbl = g(COPY_LABEL)
+    return (
+      f'<div class="sharewrap">'
+      f'<button class="cb" onclick="document.getElementById(\'sh-{cid}\').classList.toggle(\'on\')">'
+      f'↗ {g(UI["share"])}</button>'
+      f'<div class="sharebox" id="sh-{cid}">'
+      f'<a href="{fb}" target="_blank" rel="noopener">📘 Facebook</a>'
+      f'<a href="{wa}" target="_blank" rel="noopener">💬 WhatsApp</a>'
+      f'<a href="{li}" target="_blank" rel="noopener">💼 LinkedIn</a>'
+      f'<a href="{tw}" target="_blank" rel="noopener">✖ X</a>'
+      f'<a href="{ml}">✉ E-mail</a>'
+      f'<a href="#" class="copylink" data-url="{html.escape(url)}" onclick="event.preventDefault();navigator.clipboard.writeText(this.dataset.url);var o=this.innerHTML;this.textContent=\'\u2713\';var t=this;setTimeout(function(){{t.innerHTML=o;}},1500);">\U0001F4CB {copy_lbl}</a>'
+      f'</div></div>'
+    )
+
 STAV = {"laeuft":S("Läuft","Pending","Prebieha","U tijeku","W toku","En curso","In corso","En cours","Pågår"),
  "eingereicht":S("Eingereicht","Filed","Podané","Podneseno","Złożone","Presentado","Depositata","Déposée","Inlämnad"),
  "erledigt":S("Erledigt","Closed","Vybavené","Riješeno","Załatwione","Resuelto","Evaso","Traité","Avslutat"),
@@ -146,6 +175,9 @@ def karta(cid, ps, otvorena=False):
            f'📝 {g(UI["beg"])}</button>' if any((k.get("sprievodny") or {}).values()) else "")
     begbox = (f'<div class="begbox" id="b-{cid}">{gb(k.get("sprievodny") or {})}</div>'
               if any((k.get("sprievodny") or {}).values()) else "")
+    share_url = f"{REGISTER_URL}#{cid}"
+    share_title = (k.get("nazov") or {}).get("sk") or (k.get("nazov") or {}).get("de") or ""
+    share_menu = share_dropdown(cid, share_url, share_title)
     return (f'<details class="case" id="{cid}"{" open" if otvorena else ""} data-kz="{z["spis"] if z else ""}" '
             f'data-jur="{" ".join(k.get("jur") or [])}" data-d="{dkey(k.get("date",""))}" data-az="{html.escape(k.get("az","") or "zzz")}" data-our="{html.escape(k.get("ourref","") or "zzz")}" data-obl="{" ".join(k.get("area") or [])}" data-pin="{k.get("pin") or ""}">'
             f'<summary class="chead"><div class="cl">'
@@ -164,7 +196,7 @@ def karta(cid, ps, otvorena=False):
             f'<span class="lb-old">↑ {g(UI["in_old"])}</span></button></div>'
             f'<div class="cols"><div class="col"><h4>↗ {g(UI["sent"])} <span class="cnt">{len(sent)}</span></h4>{hs}</div>'
             f'<div class="col"><h4>↙ {g(UI["recv"])} <span class="cnt">{len(recv)}</span></h4>{hr}</div></div>'
-            f'<div class="cbtns">{beg}<a class="cb" href="{WP_KOMENT}" target="_blank" rel="noopener">↗ {g(UI["share"])}</a></div>'
+            f'<div class="cbtns">{beg}{share_menu}</div>'
             f'{begbox}</div></details>')
 
 CSS = """
@@ -272,6 +304,15 @@ details.case[data-iasc="1"] .isb .lb-old{display:inline}
 .sumbox p,.begbox p{margin:0 0 9px;text-align:justify}
 .prazdne{font-size:13px;color:var(--muted);font-style:italic;margin:4px 0}
 .cbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.sharewrap{position:relative;display:inline-block}
+.sharebox{display:none;position:absolute;bottom:calc(100% + 6px);left:0;background:#fff;
+  border:1px solid #ddd;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.15);
+  padding:6px;flex-direction:column;min-width:170px;z-index:50}
+.sharebox.on{display:flex}
+.sharebox a{padding:8px 10px;border-radius:6px;color:#222;text-decoration:none;font-size:14px;
+  display:flex;align-items:center;gap:8px;white-space:nowrap}
+.sharebox a:hover{background:#f2f4f8}
+
 .cb{font-size:13px;border:1px solid var(--bd);background:#fff;border-radius:6px;padding:6px 14px;
  cursor:pointer;text-decoration:none;color:#3d4d5e;font-family:inherit}
 .cb:hover{border-color:var(--navy);color:var(--navy)}
