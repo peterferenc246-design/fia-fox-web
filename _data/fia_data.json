@@ -3942,6 +3942,72 @@
     "majetok"
    ],
    "jur": []
+  },
+  {
+   "kauza": "PR-2026-EXS",
+   "kauza_nazov": "",
+   "dir": "recv",
+   "date": "24.06.2026",
+   "stav": "laeuft",
+   "access": "",
+   "az": "14C/15/2025-228-",
+   "ourref": "Spis. z.: PR-2026-EXS -",
+   "court": "Okresný súd Trenčín",
+   "cmtid": "",
+   "summodId": "summod-exe-ostn-01",
+   "fname": "Dokument (termín pojednávania na OSTN).pdf",
+   "fpath": "cd d:\\OneDrive - Peter Ferenc Foxpro\\Dokumenty\\Slovensko\\Okresný súd Trenčín žaloba Stejnerová Soldánová\\Pošta\\prijatá\\01.07.26 termín pojednávania OSTN\\Dokument (termín pojednávania na OSTN).pdf",
+   "cats": {},
+   "mode": "item",
+   "v": 1,
+   "karta": "case-exe-ostn",
+   "subj9": {
+    "de": "",
+    "en": "",
+    "sk": "Výzva súdu na ústne pojednávanie v Trenčíne na súde",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "urls": {
+    "de": "",
+    "en": "",
+    "sk": "https://peterferencfoxpro-my.sharepoint.com/:b:/g/personal/info_foxprof_club/IQDNU5wrLordRoO76chU9p8YAUAAY3AHbu2Gj7PRsQ8loGI?e=sOEf98",
+    "hr": "",
+    "pl": "",
+    "es": "",
+    "it": "",
+    "fr": "",
+    "sv": ""
+   },
+   "subj": "",
+   "begleit": "VšZP mala 7 až 9 rokov na to, aby si overila fakty. Radšej vymáhala.\n30. augusta 2016 som sa stal poistencom v Nemecku. Od tohto dňa som podľa práva EÚ (nariadenie č. 883/2004) prestal podliehať slovenskému systému verejného zdravotného poistenia a môj poistný status slovenského rezidenta zdravotného poistenia zanikol.\nRoky 2023 až 2025 — teda 7 až 9 rokov neskôr — mi Všeobecná zdravotná poisťovňa napriek tomu vydala výkazy nedoplatkov a pristúpila k ich vymáhaniu, akoby som bol jej poistencom.\nPrečo je to dôležité\nVšZP nemusela čakať, kým jej niekto niečo oznámi. Od roku 2017 má k dispozícii systém EESSI — elektronickú výmenu údajov o sociálnom zabezpečení medzi štátmi EÚ, financovanú aj z prostriedkov Európskej únie, teda z mojich daní, ktorý umožňuje okamžité overenie poistného statusu ktoréhokoľvek občana EÚ v inom členskom štáte.\nNamiesto toho, aby si počas siedmich až deviatich rokov aspoň raz overila môj skutočný poistný status v systéme, ktorý mala priamo k dispozícii, VšZP vydala výkazy nedoplatkov na neexistujúci dlh a spustila ich vymáhanie.\nKto je za to zodpovedný?\nNie ja. Ak by som aj v roku 2016 neoznámil zánik poistenia (čo je samostatná otázka, o ktorej sa vedie spor), VšZP mala počas nasledujúcich rokov nepretržite k dispozícii nástroj, ktorým si mohla pravdu zistiť sama — bez toho, aby čokoľvek odo mňa potrebovala. Nepoužila ho. Namiesto toho si vybrala jednoduchšiu cestu: vymáhať 2500€ cez fiktívny výkaz nedoplatkov s jasným úmyslom získať neoprávnený finančný prospech!\nTo nie je administratívna chyba. To je rozhodnutie nepoužiť dostupný nástroj, ktoré po siedmich až deviatich rokoch vyústilo do exekúcie voči občanovi, ktorý na Slovensku roky nežil, nepracoval a nebol tam poistený.\nPrávny základ\n•\tČl. 2 ods. 2 nariadenia (ES) č. 987/2009 — inštitúcie sociálneho zabezpečenia sú povinné si údaje vymieňať bezodkladne.\n•\t§ 32 ods. 1 zákona č. 71/1967 Zb. — orgán verejnej správy je povinný zistiť presný a úplný skutkový stav.\n•\tČl. 41 Charty základných práv EÚ — právo na riadnu správu vecí verejných.\n•\t§ 23 ods. 14 zákona č. 580/2004 Z.z. — zodpovednosť zdravotnej poisťovne za škodu spôsobenú nesprávnym postupom.\nSedem až deväť rokov je dosť dlhá doba na to, aby si niekto stlačil pár tlačidiel v systéme, ktorý mu na to platí Európska únia a je to jeho zákonná povinnosť a nie dobrá vôľa. VšZP si túto povinnosť zanedbala a jej snahou je preniesť zodpovednosť na poistenca vygenerovaním nezákonného výkazu nedoplatkov.\n\nvygeneruj iný obdobný sprievodný text ako sprievodný text spoločný pre všety dokumenty tak aby pokrýval univerzálne celú problematiku sporu na tomto súde v Trenčíne",
+   "cardsubj": "",
+   "prikazy": "vykonaj",
+   "pwhint": "",
+   "extra": {},
+   "fallback": "",
+   "orig": "https://peterferencfoxpro-my.sharepoint.com/:b:/g/personal/info_foxprof_club/IQDNU5wrLordRoO76chU9p8YAUAAY3AHbu2Gj7PRsQ8loGI?e=sOEf98",
+   "law": "",
+   "qes": "áno",
+   "thread": "",
+   "replyTo": "",
+   "thrNo": "1",
+   "bezDatumu": false,
+   "btnQes": true,
+   "btnSum": true,
+   "btnLaw": true,
+   "dolezite": false,
+   "komentare": true,
+   "important": false,
+   "comments": true,
+   "oblast": [
+    "majetok"
+   ],
+   "jur": []
   }
  ],
  "suhrny": {
@@ -4234,6 +4300,9 @@
   "summod-zmena-sudu-olg-03": {},
   "summod-telekom-04": {
    "sk": "<h3>Súhrn dokumentu</h3><p>Pridaj súhrn a vygeneruj z kontextu dokumentu!</p>"
+  },
+  "summod-exe-ostn-01": {
+   "sk": "<h3>Súhrn dokumentu</h3><p>Súhrn pre verejnosť — návrh na ústne pojednávanie (14C/15/2025, OS Trenčín)<br>Konanie sp. zn. 14C/15/2025 na Okresnom súde Trenčín trvá už viac ako rok a je od začiatku sprevádzané obštrukciami zo strany súdu — vrátane nezákonného postúpenia spisu na Exekučný súd Banská Bystrica uznesením 14C/15/2025-32 z 13.10.2025, proti ktorému som podal námietku podľa § 12 ods. 1 Civilného sporového poriadku, keďže žalovaná exekútorka Adriana Soldán Steinerová má sídlo v Trenčíne a súd je preto miestne príslušný. Namiesto priameho vydania rozhodnutia v môj prospech súd hľadá spôsoby, ako naťahovať čas a obchádzať jasný právny stav — v rozpore s mojím právom na prejednanie veci bez zbytočných prieťahov podľa čl. 48 ods. 2 Ústavy Slovenskej republiky a čl. 6 ods. 1 Dohovoru o ochrane ľudských práv a základných slobôd. Z doterajšieho dokazovania je pritom úplne jasné, že Všeobecná zdravotná poisťovňa (VšZP) pácha podvod prostredníctvom nezákonne vygenerovaných výkazov nedoplatkov, za tri časové obdobia — 12.5.2023, 30.1.2024 a 25.4.2025 — a to napriek tomu, že som od 30.8.2016 nahlásený ako poistenec v Nemecku. Podľa čl. 11 ods. 1 nariadenia Európskeho parlamentu a Rady (ES) č. 883/2004 o koordinácii systémov sociálneho zabezpečenia podliehajú občania EÚ právnym predpisom len jedného členského štátu — tým je od uvedeného dátumu Nemecko. Moja účasť na verejnom zdravotnom poistení na Slovensku dňom prihlásenia sa v Nemecku zo zákona zanikla. Nehovoriac o tom, že v dvoch z troch výkazov VšZP sama uznala, že môj dlh je 0 € a tretí zrušila úplne, keď som sa odvolal! Ponechala si napriek tomu poplatky za vydanie týchto fiktívnych výkazov vo výške 2 × 10 € — údajne preto, že som si nesplnil oznamovaciu povinnosť ohľadom zmeny poistného statusu na rezidenta v Nemecku. Táto argumentácia je právne neudržateľná: podľa § 23 ods. 1 písm. c) zákona č. 580/2004 Z.z. je oznamovacia povinnosť viazaná výlučne na poistenca — a kto nie je poistencom, nemôže túto povinnosť porušiť. Poistenca, ktorý neexistuje, nemožno trestať za mlčanie, ktoré mu zákon ani neukladá. Navyše, § 17a ods. 11 zákona č. 580/2004 Z.z. (citujem: „Právo zdravotnej poisťovne uplatniť poplatok za vydanie výkazu nedoplatkov zaniká, ak ide o výkaz nedoplatkov, proti ktorému boli podané námietky a zdravotná poisťovňa im v plnom rozsahu vyhovela alebo na základe ktorých úrad rozhodol o jeho zmene alebo zrušení a pri ktorom nedošlo k porušeniu oznamovacích povinností poistenca alebo platiteľa poistného, voči ktorému si zdravotná poisťovňa pohľadávku výkazom nedoplatkov uplatnila.) výslovne stanovuje, že právo zdravotnej poisťovne na poplatok za vydanie výkazu nedoplatkov zaniká, ak boli podané námietky, poisťovňa im v plnom rozsahu vyhovela a nedošlo pritom k porušeniu oznamovacej povinnosti. <br>„Podľa § 17a ods. 11 zákona č. 580/2004 Z. z. právo žalovanej na poplatok zaniká, ak sú splnené tri podmienky: (1) boli podané námietky, (2) poisťovňa im v plnom rozsahu vyhovela (alebo úrad rozhodol o zmene/zrušení), a (3) nedošlo k porušeniu oznamovacích povinností. V tomto prípade poisťovňa vyhovela námietkam v plnom rozsahu tým, že uznala neexistenciu pohľadávky (istina = 0 €). Tým je splnená podmienka (2). Slovo ‚alebo' v ustanovení sa vzťahuje na alternatívu medzi rozhodnutím poisťovne a rozhodnutím úradu – nie na možnosť ponechať poplatok. Keďže poisťovňa vyhovela v plnom rozsahu, nemohla si zákonne ponechať žiadny poplatok.\"<br>Všetky tieto podmienky sú v mojom prípade nesporne splnené. Poplatok tak nemá už žiaden zákonný podklad — a platí tu aj všeobecná zásada, podľa ktorej príslušenstvo pohľadávky (poplatok, trovy) delí právny osud istiny: ak je istina 0 €, musí byť 0 € aj poplatok. VšZP túto zásadu vedome ignoruje. <br>„Aj keby súd zotrval na svojom výklade, podľa ktorého notifikačná povinnosť podľa § 23 ods. 1 písm. c) zákona č. 580/2004 Z.z. trvá ešte osem dní po zániku poistenia, táto lehota uplynula najneskôr 7.9.2016. Žiadny zo sporných výkazov nedoplatkov (vydaných v rokoch 2023–2025, teda 7 až 9 rokov po uplynutí tejto lehoty) sa preto nemôže opierať o porušenie povinnosti, ktorá v čase ich vydania už dávno neexistovala. Súčasne mala žalovaná (VšZP) po celé toto obdobie samostatnú a nezávislú zákonnú povinnosť overiť si poistný status žalobcu prostredníctvom systému EESSI podľa čl. 2 ods. 2 nariadenia (ES) č. 987/2009 a § 3 ods. 5 a § 32 ods. 1 a 2 zákona č. 71/1967 Zb. — povinnosť, ktorá nezávisí od (a nie je nahradená ani vylúčená) prípadnou notifikačnou povinnosťou žalobcu, a ktorú si žalovaná ani raz počas deviatich rokov nesplnila napriek jej priebežnej dostupnosti od roku 2017.\"<br>V čase vydania týchto výkazov nedoplatkov pritom VšZP už sedem rokov disponovala plne funkčným celoeurópskym systémom elektronickej výmeny informácií o sociálnom zabezpečení EESSI, ktorý umožňuje okamžité overenie poistného statusu občana EÚ v ktoromkoľvek členskom štáte — a napriek tomu ho nepoužila. Neoverenie môjho poistného statusu pred vydaním výkazu predstavuje priame porušenie čl. 2 ods. 2 nariadenia (ES) č. 987/2009 (povinnosť elektronickej výmeny údajov medzi inštitúciami), § 3 ods. 5 a § 32 ods. 1 a 2 zákona č. 71/1967 Zb. o správnom konaní (zásada zistenia skutočného stavu veci) a čl. 41 Charty základných práv EÚ (právo na dobrú správu vecí verejných).&lt;/p&gt; &lt;p&gt;Pri výkazoch č. 2327062313 a č. 2427017713 VšZP vymáhanú istinu znížila na 0,00 €, no výslovne a vedome ponechala v platnosti poplatok vo výške 10 € za vydanie výkazu („trovy... zostávajú nezmenené\"), čím si umelo zachovala formálnu vykonateľnosť exekučného titulu v tejto časti. Dôvod svojho postupu VšZP neuviedla — motív si však vieme domyslieť. Pri výkaze č. 2527057513, vydanom na základe úplne rovnakého typu pochybenia a na základe rovnakých dokladov predložených v ten istý deň (31.5.2025), zvolila VšZP kvalitatívne odlišný postup: výkaz zrušila v celom rozsahu, bez akejkoľvek zmienky o zachovaní poplatku či trov. Táto nekonzistentnosť medzi tromi skutkovo identickými prípadmi z toho istého dňa sama osebe dokazuje svojvôľu a účelovosť postupu VšZP. Koľko by ma tento podvod stál, keby som im na ich špekuláciu skočil: len samotné umelo ponechané poplatky za vydanie fiktívneho exekučného titulu predstavujú trovy exekútorky Adriany Soldán Steinerovej vo výške 135 € za každý jeden exekučný titul, vrátane 2x10€ poplatokVšZP za vyhotovenie výkazov — pri dvoch takýchto tituloch teda ďalších 250 €. Spolu by som tak prišiel minimálne o 250 € za dlh, ktorý podľa vlastných písomných vyjadrení VšZP nikdy neexistoval. Dôvod tohto postupu je jasný: keďže VšZP nemohla odo mňa vymôcť istinu, voči ktorej som sa úspešne odvolal, snažila sa si aspoň takýmto úskokom zabezpečiť príjem trov pre exekútorku. Celý proces vzniku výkazov nedoplatkov bol od prvopočiatku postavený na nezákonnom a podvodnom základe. Jadrom veci je, že VšZP si úmyselne a vedome neplní svoju zákonnú povinnosť overiť poistný status poistenca cez systém EESSI — práve preto, aby mohla zasielať výzvy na moju slovenskú adresu, na ktorej sa nezdržujem už 10 rokov, a využiť pri tom fikciu doručenia. Na tejto adrese som si poštu nemohol prevziať, keďže tam fyzicky nežijem — čo je postup v rozpore so zákonom aj s pravidlami Európskej únie, najmä ak VšZP mala (a mala aj povinnosť mať) k dispozícii informáciu o mojom skutočnom pobyte prostredníctvom systému EESSI ešte pred vydaním výkazov. <br>________________________________________</p>"
   }
  },
  "kauzy": [
@@ -4291,7 +4360,7 @@
     "case-udzs-namietka",
     "case-exe-ostn"
    ],
-   "n": 3
+   "n": 4
   },
   {
    "spis": "PR-2026-VsZ-006",
