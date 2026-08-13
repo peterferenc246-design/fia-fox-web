@@ -566,10 +566,20 @@ function txt2html(t,L,NAD){
  NAD=NAD||NADPIS;
  if(!t||!t.trim()) return '';
  var esc1=function(x){return x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
- var out=t.trim().split(/\n\s*\n/).map(function(od){
-   var b=esc1(od.trim()).replace(/\n/g,'<br>');
+ var inline=function(b){
    b=b.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');              // **text** -> tučné
    b=b.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+   return b;
+ };
+ var out=t.trim().split(/\n\s*\n/).map(function(od){
+   var lines=od.trim().split(/\n/);
+   var jeZoznam = lines.length>0 && lines.every(function(l){return /^[•\-]\s+/.test(l.trim());});
+   if(jeZoznam){
+     return '<ul>'+lines.map(function(l){
+       return '<li>'+inline(esc1(l.trim().replace(/^[•\-]\s+/,'')))+'</li>';
+     }).join('')+'</ul>';
+   }
+   var b=inline(esc1(od.trim()).replace(/\n/g,'<br>'));
    return '<p>'+b+'</p>';
  }).join('');
  return '<h3>'+(NAD[L]||NAD.sk)+'</h3>'+out;
