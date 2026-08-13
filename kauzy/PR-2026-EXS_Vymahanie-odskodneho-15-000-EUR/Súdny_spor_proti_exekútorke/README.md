@@ -5,7 +5,7 @@
 
 ## Štruktúra
 
-- `došlé/` — dokumenty prijaté od súdu, protistrany alebo iných orgánov
-- `odoslané/` — podania a vyjadrenia odoslané žalobcom
+- `prijate/` — dokumenty prijaté od súdu, protistrany alebo iných orgánov
+- `odoslane/` — podania a vyjadrenia odoslané žalobcom
 
 Dokumenty budú doplnené priebežne.
