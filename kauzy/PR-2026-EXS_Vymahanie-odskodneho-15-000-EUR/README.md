@@ -19,3 +19,5 @@
 
 - **Adriana Soldan Steinerova — nezákonná exekúcia za nulový dlh (ÚDZS) a zásah do majetkových práv**  
   `Adriana-Soldan-Steinerova-nezakonna-exekucia-za-nulovy__case-udzs-namietka/` · spis: 12479/2026/911 · 43831/2026 · PO 1328/2026 · dokumentov: 3
+- **Súdny spor proti exekútorke** — žaloba o náhradu škody, konanie 14C/15/2025 (OS Trenčín)  
+  `Súdny_spor_proti_exekútorke/` · dokumentov: 0 (priečinok pripravený, dokumenty budú doplnené)
